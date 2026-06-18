@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reporte del Ecosistema · Hoteles de Petén · Junio 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1d31;--navy-2:#0f2740;--navy-3:#15324f;--ink:#071425;
+    --gold:#c89b4c;--gold-soft:#d9b465;--gold-dim:#8a6f3c;
+    --cream:#f6f1e6;--paper:#fbf8f1;--teal:#3f8e93;
+    --txt:#1d2a38;--txt-soft:#5b6b7a;--white:#fff;
+    --red:#c0473f;--amber:#cf8b1f;--green:#3f8e62;
+    --line:rgba(200,155,76,.28);--shadow:0 18px 45px -22px rgba(7,20,37,.5);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--cream);
+    background:radial-gradient(1100px 480px at 82% -8%,rgba(63,142,147,.12),transparent 60%),linear-gradient(180deg,#0a1d31,#0c2238) fixed;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 22px 70px;}
+
+  header.top{padding:42px 0 6px;}
+  .brand{display:flex;align-items:center;gap:13px;font-family:'Oswald',sans-serif;
+    letter-spacing:.32em;font-size:12.5px;font-weight:500;text-transform:uppercase;color:var(--gold-soft);}
+  .brand .mark{width:28px;height:28px;border:2px solid var(--gold);border-radius:5px;
+    display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:4px;}
+  .brand .mark i{background:var(--gold);border-radius:1px;}
+  .eyebrow{margin-top:20px;font-family:'Oswald',sans-serif;letter-spacing:.2em;text-transform:uppercase;
+    font-size:13px;color:rgba(246,241,230,.55);}
+  h1{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;
+    font-size:clamp(30px,5.2vw,52px);line-height:.98;margin:6px 0 0;}
+  h1 .accent{color:var(--gold);}
+  .period{margin-top:11px;color:rgba(246,241,230,.7);font-size:15px;}
+  .period b{color:var(--cream);}
+
+  /* ----- ROAD HERO ----- */
+  .road-card{margin-top:24px;background:linear-gradient(180deg,#0d2138,#0a1a2c);
+    border:1px solid var(--line);border-radius:18px;padding:10px 6px 4px;overflow:hidden;position:relative;}
+  .road-card .cap{position:absolute;top:14px;left:20px;font-family:'Oswald',sans-serif;
+    letter-spacing:.18em;text-transform:uppercase;font-size:11px;color:rgba(246,241,230,.5);}
+  .road-svg{width:100%;height:auto;display:block;}
+  .stop-node{cursor:pointer;}
+  .stop-node:hover circle{filter:brightness(1.25);}
+  .stop-label{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.04em;
+    fill:var(--cream);font-size:14px;text-transform:uppercase;}
+  .stop-num{font-family:'Oswald',sans-serif;font-weight:700;fill:var(--gold);font-size:21px;}
+
+  .hero{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px;margin:18px 0 6px;}
+  .kpi{background:var(--navy-2);border:1px solid var(--line);border-radius:14px;padding:16px 17px;}
+  .kpi .lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-soft);font-weight:600;}
+  .kpi .val{font-family:'Oswald',sans-serif;font-weight:600;font-size:30px;line-height:1.05;margin-top:5px;}
+  .kpi .sub{font-size:12px;color:var(--txt-soft);margin-top:3px;}
+  .kpi .val.red{color:#e89a93;} .kpi .val.green{color:#8ed3a8;}
+
+  section.block{margin-top:38px;scroll-margin-top:14px;}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:5px;}
+  .sec-num{font-family:'Oswald',sans-serif;font-weight:700;font-size:15px;color:var(--ink);
+    background:var(--gold);border-radius:6px;padding:3px 9px;}
+  .sec-head h2{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.04em;
+    font-size:22px;font-weight:600;margin:0;color:var(--cream);}
+  .sec-sub{color:rgba(246,241,230,.6);font-size:13.5px;margin:2px 0 16px;}
+
+  .card{background:var(--paper);color:var(--txt);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);}
+  .card + .card{margin-top:14px;}
+  .card h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.05em;
+    font-size:15px;color:var(--navy);margin:0 0 14px;}
+
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+    font-size:10.5px;color:var(--txt-soft);text-align:right;padding:8px 9px;border-bottom:1.5px solid #e2d8c2;}
+  th.l,td.l{text-align:left;}
+  td{padding:9px 9px;border-bottom:1px solid #efe7d6;text-align:right;}
+  tbody tr:hover{background:rgba(200,155,76,.05);}
+  tr.eco{background:rgba(10,29,49,.05);font-weight:600;}
+  tr.eco td{border-top:2px solid var(--gold);color:var(--navy);}
+  .pill{display:inline-block;font-weight:600;font-size:11.5px;padding:3px 9px;border-radius:999px;min-width:46px;}
+  .pill.r{color:var(--red);background:rgba(192,71,63,.12);}
+  .pill.a{color:var(--amber);background:rgba(207,139,31,.14);}
+  .pill.g{color:var(--green);background:rgba(63,142,98,.14);}
+  .neg{color:var(--red);} .pos{color:var(--green);font-weight:600;}
+
+  .bars{margin-top:4px;}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 52px;align-items:center;gap:12px;margin:9px 0;}
+  .bar-row .name{font-size:13px;color:var(--navy);font-weight:500;}
+  .track{height:18px;background:#ece3d0;border-radius:5px;overflow:hidden;}
+  .fill{height:100%;border-radius:5px;}
+  .fill.gold{background:linear-gradient(90deg,var(--gold),var(--gold-soft));}
+  .fill.teal{background:var(--teal);}
+  .fill.green{background:var(--green);} .fill.amber{background:var(--amber);} .fill.red{background:var(--red);}
+  .bar-row .pct{font-size:12.5px;font-weight:600;color:var(--txt-soft);text-align:right;}
+
+  .insight{margin-top:14px;font-size:13px;line-height:1.55;color:#5a4a28;
+    background:rgba(200,155,76,.1);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 7px 7px 0;}
+  .flag{margin-top:12px;font-size:12.5px;line-height:1.5;color:#8a5a1e;
+    background:rgba(207,139,31,.1);border-left:3px solid var(--amber);padding:10px 14px;border-radius:0 7px 7px 0;}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:680px){.twocol{grid-template-columns:1fr;}}
+
+  .feebox{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .feebox .f{background:var(--white);border:1px solid #e9e0cd;border-radius:9px;padding:8px 13px;font-size:12.5px;}
+  .feebox .f b{display:block;font-family:'Oswald',sans-serif;font-size:16px;color:var(--navy);}
+  .feebox .f.big{background:var(--navy);color:var(--cream);border-color:var(--navy);}
+  .feebox .f.big b{color:var(--gold-soft);}
+
+  /* resumen */
+  .resumen{background:linear-gradient(180deg,var(--navy-2),var(--navy-3));border:1px solid var(--line);
+    border-radius:18px;padding:26px 26px 22px;}
+  .resumen h2{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.06em;
+    font-size:21px;margin:0 0 6px;color:var(--cream);}
+  .resumen p.r{font-size:14px;line-height:1.6;color:rgba(246,241,230,.78);margin:6px 0 18px;}
+  .resumen p.r b{color:var(--gold-soft);}
+  .focus{display:grid;grid-template-columns:1fr 1fr;gap:11px;}
+  @media(max-width:680px){.focus{grid-template-columns:1fr;}}
+  .focus .item{display:flex;gap:11px;background:rgba(255,255,255,.03);border:1px solid rgba(200,155,76,.18);
+    border-radius:11px;padding:13px 15px;}
+  .focus .item .n{font-family:'Oswald',sans-serif;font-weight:700;color:var(--ink);background:var(--gold);
+    border-radius:6px;height:24px;min-width:24px;display:grid;place-items:center;font-size:13px;}
+  .focus .item .t{font-size:13px;line-height:1.45;color:rgba(246,241,230,.85);}
+  .focus .item .t b{color:var(--cream);}
+
+  footer.foot{margin-top:36px;text-align:center;color:rgba(246,241,230,.4);font-size:12px;line-height:1.6;}
+
+  @media print{
+    body{background:#fff;color:#000;}
+    .road-card{background:#0d2138 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .eyebrow,.period,.kpi .sub,.sec-sub{color:#333;}
+    h1,h1 .accent,.sec-head h2{color:#000;}
+    .kpi{background:#f4f0e7;border:1px solid #ccc;} .kpi .val{color:#000;} .kpi .lab,.brand,.eyebrow{color:#7a5e20;}
+    .card,.resumen{box-shadow:none;border:1px solid #ccc;}
+    .resumen{background:#0f2740 !important;-webkit-print-color-adjust:exact;}
+    #bus animateMotion{display:none;}
+    section.block,.card{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="brand"><span class="mark"><i></i><i></i><i></i><i></i></span> Hoteles de Petén</div>
+    <div class="eyebrow">El Viaje del Huésped · Reporte del Ecosistema</div>
+    <h1>El Recorrido de <span class="accent">Junio</span></h1>
+    <p class="period">Periodo: <b>1 al 18 de junio, 2026</b> · 7 hoteles · 4 restaurantes · Lectura como un solo ecosistema, luego el detalle.</p>
+  </header>
+
+  <!-- ROAD HERO -->
+  <div class="road-card">
+    <span class="cap">La ruta del huésped</span>
+    <svg class="road-svg" viewBox="0 0 1000 230" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Ruta del huésped con los cinco puntos del reporte">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#123" stop-opacity="0"/>
+          <stop offset="1" stop-color="#0a1a2c" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="sun" cx="0.85" cy="0.1" r="0.5">
+          <stop offset="0" stop-color="#d9b465" stop-opacity="0.18"/>
+          <stop offset="1" stop-color="#d9b465" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="1000" height="230" fill="url(#sun)"/>
+      <!-- road -->
+      <path id="road" d="M 70,150 C 178,150 178,82 287,82 C 396,82 396,150 504,150 C 613,150 613,82 721,82 C 830,82 830,150 938,150"
+            fill="none" stroke="#33414f" stroke-width="16" stroke-linecap="round"/>
+      <path d="M 70,150 C 178,150 178,82 287,82 C 396,82 396,150 504,150 C 613,150 613,82 721,82 C 830,82 830,150 938,150"
+            fill="none" stroke="#c89b4c" stroke-width="2.4" stroke-dasharray="9 12" stroke-linecap="round" opacity=".85"/>
+
+      <!-- stops -->
+      <a xlink:href="#p1" class="stop-node"><g><circle cx="70" cy="150" r="20" fill="#071425" stroke="#c89b4c" stroke-width="2.5"/><text x="70" y="158" text-anchor="middle" class="stop-num">1</text><text x="70" y="196" text-anchor="middle" class="stop-label">Reserva</text></g></a>
+      <a xlink:href="#p2" class="stop-node"><g><circle cx="287" cy="82" r="20" fill="#071425" stroke="#c89b4c" stroke-width="2.5"/><text x="287" y="90" text-anchor="middle" class="stop-num">2</text><text x="287" y="46" text-anchor="middle" class="stop-label">Estadía + Agenda cultural</text></g></a>
+      <a xlink:href="#p3" class="stop-node"><g><circle cx="504" cy="150" r="20" fill="#071425" stroke="#c89b4c" stroke-width="2.5"/><text x="504" y="158" text-anchor="middle" class="stop-num">3</text><text x="504" y="196" text-anchor="middle" class="stop-label">Restaurantes</text></g></a>
+      <a xlink:href="#p4" class="stop-node"><g><circle cx="721" cy="82" r="20" fill="#071425" stroke="#c89b4c" stroke-width="2.5"/><text x="721" y="90" text-anchor="middle" class="stop-num">4</text><text x="721" y="46" text-anchor="middle" class="stop-label">Tours</text></g></a>
+      <a xlink:href="#p5" class="stop-node"><g><circle cx="938" cy="150" r="20" fill="#071425" stroke="#c89b4c" stroke-width="2.5"/><text x="938" y="158" text-anchor="middle" class="stop-num">5</text><text x="938" y="196" text-anchor="middle" class="stop-label">Eventos</text></g></a>
+
+      <!-- bus -->
+      <g id="bus">
+        <ellipse cx="0" cy="-1" rx="20" ry="3" fill="#000" opacity=".22"/>
+        <circle cx="-9" cy="-4" r="3.6" fill="#15151b"/>
+        <circle cx="9" cy="-4" r="3.6" fill="#15151b"/>
+        <rect x="-20" y="-23" width="40" height="17" rx="4.5" fill="#fbf8f1" stroke="#c89b4c" stroke-width="1"/>
+        <rect x="-20" y="-23" width="40" height="5" rx="2.5" fill="#c89b4c"/>
+        <rect x="-15" y="-15.5" width="7" height="6" rx="1.2" fill="#15324f"/>
+        <rect x="-5" y="-15.5" width="7" height="6" rx="1.2" fill="#15324f"/>
+        <rect x="5" y="-15.5" width="7" height="6" rx="1.2" fill="#15324f"/>
+        <circle cx="18.5" cy="-9" r="1.6" fill="#ffe6a6"/>
+        <animateMotion dur="17s" repeatCount="indefinite" rotate="0">
+          <mpath xlink:href="#road"/>
+        </animateMotion>
+      </g>
+    </svg>
+  </div>
+
+  <!-- HERO KPIs -->
+  <div class="hero">
+    <div class="kpi"><div class="lab">Ocupación vs meta</div><div class="val red">81%</div><div class="sub">1,528 de 1,896 noches</div></div>
+    <div class="kpi"><div class="lab">ADR / RevPAR</div><div class="val">Q513</div><div class="sub">RevPAR Q259</div></div>
+    <div class="kpi"><div class="lab">Service Fee</div><div class="val">Q1,326</div><div class="sub">agenda cultural</div></div>
+    <div class="kpi"><div class="lab">Restaurantes</div><div class="val">Q542K</div><div class="sub">≈90% de meta</div></div>
+    <div class="kpi"><div class="lab">Tours</div><div class="val">Q17.7K</div><div class="sub">23 reservas</div></div>
+    <div class="kpi"><div class="lab">Eventos</div><div class="val">46<span style="font-size:16px">/70</span></div><div class="sub">66% de meta mensual</div></div>
+  </div>
+
+  <!-- PUNTO 1 -->
+  <section class="block" id="p1">
+    <div class="sec-head"><span class="sec-num">1</span><h2>Explotación de segmentos</h2></div>
+    <p class="sec-sub">Mix de canales del ecosistema — con clientes directos ya separados de agencias.</p>
+    <div class="card">
+      <h3>Mix por canal · Ecosistema</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="name">OTAs</span><div class="track"><div class="fill gold" style="width:29.9%"></div></div><span class="pct">29.9%</span></div>
+        <div class="bar-row"><span class="name">Agencias</span><div class="track"><div class="fill gold" style="width:26.6%"></div></div><span class="pct">26.6%</span></div>
+        <div class="bar-row"><span class="name">Corporativo</span><div class="track"><div class="fill gold" style="width:24.0%"></div></div><span class="pct">24.0%</span></div>
+        <div class="bar-row"><span class="name">Directos (Rack/WI)</span><div class="track"><div class="fill teal" style="width:19.5%"></div></div><span class="pct">19.5%</span></div>
+      </div>
+      <table style="margin-top:16px">
+        <thead><tr><th class="l">Canal</th><th>Noches (RN)</th><th>% RN</th><th>Ing. hospedaje</th><th>% Ing.</th><th>ADR</th></tr></thead>
+        <tbody>
+          <tr><td class="l">OTAs</td><td>448</td><td>29.9%</td><td>Q234,528</td><td>30.4%</td><td>Q523.50</td></tr>
+          <tr><td class="l">Agencias</td><td>398</td><td>26.6%</td><td>Q168,635</td><td>21.9%</td><td>Q423.71</td></tr>
+          <tr><td class="l">Corporativo</td><td>360</td><td>24.0%</td><td>Q178,679</td><td>23.2%</td><td>Q496.33</td></tr>
+          <tr><td class="l">Directos (Rack / WI / web / redes)</td><td>292</td><td>19.5%</td><td>Q189,544</td><td>24.6%</td><td>Q649.12</td></tr>
+          <tr class="eco"><td class="l">Ecosistema</td><td>1,498</td><td>100%</td><td>Q771,386</td><td>100%</td><td>Q514.94</td></tr>
+        </tbody>
+      </table>
+      <div class="insight"><b>Lo clave al separar los directos:</b> el canal <b>Directo (Rack/WI)</b> aporta el <b>19.5% de las noches pero el 24.6% del ingreso</b>, con la <b>tarifa más alta del ecosistema (Q649)</b> — y sin comisión. Es el canal más rentable: crecerlo es la mayor palanca de margen. Las OTAs siguen siendo el mayor volumen.</div>
+      <div class="flag">Reclasificación aplicada: saqué de "Agencias" y pasé a "Directos" los segmentos Clientes Directos, Rack Directos, Ventas Directas, Web y Redes Sociales. "Corporativo Directo" se queda en Corporativo (no es venta directa de retail). ¿Lo dejo así?</div>
+    </div>
+  </section>
+
+  <!-- PUNTO 2 -->
+  <section class="block" id="p2">
+    <div class="sec-head"><span class="sec-num">2</span><h2>Estadía + Destination Fee</h2></div>
+    <p class="sec-sub">Brecha contra meta diaria de habitaciones, rentabilidad y Service Fee recaudado.</p>
+    <div class="card">
+      <h3>Brecha vs meta diaria · por hotel</h3>
+      <table>
+        <thead><tr><th class="l">Hotel</th><th>RN ocup.</th><th>/día</th><th>Meta/día</th><th>Brecha/día</th><th>Cumpl.</th><th>Ocup.%</th><th>ADR</th><th>RevPAR</th><th>RevPOR</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Casona del Lago</td><td>513</td><td>30.2</td><td>33.0</td><td class="neg">−2.8</td><td><span class="pill a">91%</span></td><td>64.0%</td><td>Q636</td><td>Q407</td><td>Q1,194</td></tr>
+          <tr><td class="l">Casona de la Isla</td><td>285</td><td>16.8</td><td>23.5</td><td class="neg">−6.7</td><td><span class="pill r">71%</span></td><td>50.0%</td><td>Q563</td><td>Q281</td><td>Q712</td></tr>
+          <tr><td class="l">Hotel Petén</td><td>199</td><td>11.7</td><td>15.5</td><td class="neg">−3.8</td><td><span class="pill r">76%</span></td><td>53.2%</td><td>Q467</td><td>Q248</td><td>Q690</td></tr>
+          <tr><td class="l">Villa del Lago</td><td>218</td><td>12.8</td><td>15.0</td><td class="neg">−2.2</td><td><span class="pill a">85%</span></td><td>49.3%</td><td>Q488</td><td>Q241</td><td>Q490</td></tr>
+          <tr><td class="l">Casa Turquesa</td><td>88</td><td>5.2</td><td>9.0</td><td class="neg">−3.8</td><td><span class="pill r">58%</span></td><td>32.4%</td><td>Q509</td><td>Q165</td><td>Q1,440</td></tr>
+          <tr><td class="l">Casazul</td><td>71</td><td>4.2</td><td>6.5</td><td class="neg">−2.3</td><td><span class="pill r">64%</span></td><td>41.8%</td><td>Q480</td><td>Q201</td><td>Q483</td></tr>
+          <tr><td class="l">Petén Express <span style="font-size:10px;color:#999">(camas)</span></td><td>154</td><td>9.1</td><td>9.0</td><td class="pos">+0.1</td><td><span class="pill g">101%</span></td><td>41.2%</td><td>Q118</td><td>Q49</td><td>Q118</td></tr>
+          <tr class="eco"><td class="l">Ecosistema</td><td>1,528</td><td>89.9</td><td>111.5</td><td class="neg">−21.6</td><td><span class="pill r">81%</span></td><td>50.5%</td><td>Q513</td><td>Q259</td><td>—</td></tr>
+        </tbody>
+      </table>
+      <div class="insight"><b>Lectura:</b> el ecosistema va al <b>81% de la meta (−368 noches)</b>. Solo <b>Petén Express</b> cumple. La mayor brecha absoluta está en <b>Casona de la Isla (−6.7/día)</b> y la peor proporción en <b>Casa Turquesa (58%)</b>.</div>
+    </div>
+    <div class="card">
+      <h3>Service Fee → presupuesto de agenda cultural</h3>
+      <div class="feebox">
+        <div class="f">Casona del Lago<b>Q902.84</b></div>
+        <div class="f">Casona de la Isla<b>Q112.84</b></div>
+        <div class="f">Hotel Petén<b>Q84.64</b></div>
+        <div class="f">Casa Turquesa<b>Q84.63</b></div>
+        <div class="f">Casazul<b>Q84.63</b></div>
+        <div class="f">Villa del Lago<b>Q56.43</b></div>
+        <div class="f">Petén Express<b>Q0.00</b></div>
+        <div class="f big">Total recaudado<b>Q1,326.01</b></div>
+      </div>
+      <div class="flag">El Service Fee se incorporó esta semana; por eso el monto aún es bajo. Es la bolsa disponible para la agenda cultural — conviene seguirla semana a semana.</div>
+    </div>
+  </section>
+
+  <!-- PUNTO 3 -->
+  <section class="block" id="p3">
+    <div class="sec-head"><span class="sec-num">3</span><h2>Restaurantes</h2></div>
+    <p class="sec-sub">Venta (sin propina) contra meta diaria, por establecimiento y como ecosistema.</p>
+    <div class="card">
+      <h3>Cumplimiento de meta diaria</h3>
+      <table>
+        <thead><tr><th class="l">Restaurante</th><th>Meta/día</th><th>Venta periodo</th><th>Prom./día</th><th>Brecha/día</th><th>Cumpl.</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Lindo Amanecer (Villa del Lago)</td><td>Q1,900</td><td>Q37,870</td><td>Q2,104</td><td class="pos">+Q204</td><td><span class="pill g">111%</span></td></tr>
+          <tr><td class="l">Las Ninfas (Casona del Lago)</td><td>Q21,000</td><td>Q344,248</td><td>Q20,250</td><td class="neg">−Q750</td><td><span class="pill a">96%</span></td></tr>
+          <tr><td class="l">La Chaya</td><td>Q5,600</td><td>Q78,312</td><td>Q4,351</td><td class="neg">−Q1,249</td><td><span class="pill r">78%</span></td></tr>
+          <tr><td class="l">Isla Bonita</td><td>Q6,200</td><td>Q81,795</td><td>Q4,544</td><td class="neg">−Q1,656</td><td><span class="pill r">73%</span></td></tr>
+          <tr class="eco"><td class="l">Ecosistema</td><td>Q34,700</td><td>Q542,224</td><td>—</td><td>—</td><td><span class="pill a">≈90%</span></td></tr>
+        </tbody>
+      </table>
+      <div class="insight"><b>Lectura:</b> <b>Lindo Amanecer</b> es el único sobre meta; <b>Las Ninfas</b> roza el objetivo y carga casi dos tercios de la venta total. <b>Isla Bonita y La Chaya</b> son los que más arrastran la brecha.</div>
+      <div class="flag">Venta sin propina; se excluyen cortesías y consumos de personal.</div>
+    </div>
+  </section>
+
+  <!-- PUNTO 4 -->
+  <section class="block" id="p4">
+    <div class="sec-head"><span class="sec-num">4</span><h2>Tours</h2></div>
+    <p class="sec-sub">23 reservas · Q17,683 brutos · 55 personas · ticket promedio Q769.</p>
+    <div class="twocol">
+      <div class="card">
+        <h3>Tours más vendidos</h3>
+        <table>
+          <thead><tr><th class="l">Tour</th><th>#</th><th>Q bruto</th><th>%</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Transporte + Guía (Tikal Amanecer)</td><td>7</td><td>Q4,200</td><td>23.8%</td></tr>
+            <tr><td class="l">Tour Privado a Tikal</td><td>1</td><td>Q3,574</td><td>20.2%</td></tr>
+            <tr><td class="l">Tikal · Transporte + Guía</td><td>4</td><td>Q2,300</td><td>13.0%</td></tr>
+            <tr><td class="l">Transporte + Guía + Almuerzo (Tikal)</td><td>2</td><td>Q1,400</td><td>7.9%</td></tr>
+            <tr><td class="l">Transporte a Lanquín</td><td>1</td><td>Q1,200</td><td>6.8%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Por establecimiento</h3>
+        <table>
+          <thead><tr><th class="l">Hotel</th><th>#</th><th>Q bruto</th><th>%</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Villa del Lago</td><td>5</td><td>Q5,574</td><td>31.5%</td></tr>
+            <tr><td class="l">Hotel Petén</td><td>7</td><td>Q5,399</td><td>30.5%</td></tr>
+            <tr><td class="l">Casona de la Isla</td><td>8</td><td>Q4,560</td><td>25.8%</td></tr>
+            <tr><td class="l">Casona del Lago</td><td>1</td><td>Q1,000</td><td>5.7%</td></tr>
+            <tr><td class="l">Casa Turquesa</td><td>1</td><td>Q700</td><td>4.0%</td></tr>
+            <tr><td class="l">Casazul</td><td>1</td><td>Q450</td><td>2.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Operadores con más venta</h3>
+      <table>
+        <thead><tr><th class="l">Operador</th><th>Reservas</th><th>Pax</th><th>Q bruto</th><th>%</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Retpsa</td><td>12</td><td>27</td><td>Q7,040</td><td>39.8%</td></tr>
+          <tr><td class="l">Total Petén</td><td>3</td><td>10</td><td>Q4,574</td><td>25.9%</td></tr>
+          <tr><td class="l">MayaLand's</td><td>3</td><td>7</td><td>Q2,150</td><td>12.2%</td></tr>
+          <tr><td class="l">Garrido Expedition</td><td>2</td><td>4</td><td>Q1,400</td><td>7.9%</td></tr>
+        </tbody>
+      </table>
+      <div class="flag"><b>Para "ganancia real":</b> el export sigue trayendo solo monto bruto. Cuando me pases el costo o comisión por operador, agrego margen y ganancia real por tour.</div>
+    </div>
+  </section>
+
+  <!-- PUNTO 5 -->
+  <section class="block" id="p5">
+    <div class="sec-head"><span class="sec-num">5</span><h2>Eventos</h2></div>
+    <p class="sec-sub">Junio al corte: 46 eventos · 1,466 personas · Q121,642 netos. Meta mensual: 70 eventos (+10%).</p>
+    <div class="card">
+      <h3>Cumplimiento vs meta por tipo</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="name">Corporativo</span><div class="track"><div class="fill green" style="width:100%"></div></div><span class="pct">103%</span></div>
+        <div class="bar-row"><span class="name">ONG</span><div class="track"><div class="fill red" style="width:38%"></div></div><span class="pct">38%</span></div>
+        <div class="bar-row"><span class="name">Social</span><div class="track"><div class="fill red" style="width:29%"></div></div><span class="pct">29%</span></div>
+        <div class="bar-row"><span class="name">Total</span><div class="track"><div class="fill amber" style="width:66%"></div></div><span class="pct">66%</span></div>
+      </div>
+      <table style="margin-top:16px">
+        <thead><tr><th class="l">Tipo</th><th>Eventos</th><th>Meta</th><th>Cumpl.</th><th>Pax</th><th>Ingreso neto</th></tr></thead>
+        <tbody>
+          <tr><td class="l">Corporativo</td><td>32</td><td>31</td><td><span class="pill g">103%</span></td><td>1,246</td><td>Q96,393</td></tr>
+          <tr><td class="l">ONG</td><td>12</td><td>32</td><td><span class="pill r">38%</span></td><td>148</td><td>Q24,613</td></tr>
+          <tr><td class="l">Social</td><td>2</td><td>7</td><td><span class="pill r">29%</span></td><td>72</td><td>Q636</td></tr>
+          <tr class="eco"><td class="l">Total junio</td><td>46</td><td>70</td><td><span class="pill a">66%</span></td><td>1,466</td><td>Q121,642</td></tr>
+        </tbody>
+      </table>
+      <div class="insight"><b>Lectura:</b> a mitad de mes el total va al 66% (en ritmo razonable), pero el <b>mix está desbalanceado</b>: <b>Corporativo ya superó su meta del mes (32 vs 31)</b>, mientras <b>ONG (38%) y Social (29%) van muy rezagados</b>. El esfuerzo comercial de lo que resta de junio debería volcarse a ONG y Social.</div>
+    </div>
+  </section>
+
+  <!-- RESUMEN -->
+  <section class="block">
+    <div class="resumen">
+      <h2>Resumen ejecutivo</h2>
+      <p class="r">En junio el ecosistema opera al <b>81% de su meta de ocupación</b> (−368 noches), con un <b>ADR de Q513</b> y <b>RevPAR de Q259</b>. Solo Petén Express cumple meta de habitaciones. El canal <b>directo es el más rentable</b> (Q649 de tarifa, 24.6% del ingreso) y es la mayor palanca de margen. Restaurantes a ≈90%, tours arrancando (Q17.7K) y eventos con el corporativo ya cumplido pero ONG y Social muy abajo. El <b>Service Fee (Q1,326)</b> empieza a alimentar la agenda cultural.</p>
+      <div class="focus">
+        <div class="item"><span class="n">1</span><span class="t"><b>Ocupación:</b> plan de impulso para Casa Turquesa (58%) y Casona de la Isla (mayor brecha en volumen).</span></div>
+        <div class="item"><span class="n">2</span><span class="t"><b>Canal directo:</b> empujar Rack/WI/web — mejor tarifa y sin comisión; ya pesa 1 de cada 4 quetzales de hospedaje.</span></div>
+        <div class="item"><span class="n">3</span><span class="t"><b>Restaurantes:</b> foco en Isla Bonita y La Chaya, los que más arrastran la brecha.</span></div>
+        <div class="item"><span class="n">4</span><span class="t"><b>Eventos:</b> el corporativo ya está cumplido; volcar el esfuerzo de junio a ONG y Social.</span></div>
+        <div class="item"><span class="n">5</span><span class="t"><b>Tours:</b> conseguir costos/comisiones por operador para medir margen y ganancia real, no solo venta.</span></div>
+        <div class="item"><span class="n">6</span><span class="t"><b>Service Fee:</b> dar seguimiento semanal a la acumulación para presupuestar la agenda cultural.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    Hoteles de Petén · El Viaje del Huésped · Reporte del ecosistema · 1–18 junio 2026<br>
+    Un ecosistema. Una visión. Un destino extraordinario. · Imprime esta página para guardarla como PDF (acta).
+  </footer>
+</div>
+</body>
+</html>

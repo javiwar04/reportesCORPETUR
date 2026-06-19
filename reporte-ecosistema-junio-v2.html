@@ -485,6 +485,7 @@
   var ESTADOS=["Pendiente","En proceso","Listo"];
   var state={meta:{reporte:"",fecha:"",proxima:"",resp:""},rows:[]};
   var URL="",connected=false,rowTimers={},metaTimer=null;
+  var DEFAULT_URL="https://script.google.com/macros/s/AKfycbw1jTZOC7H115i8Tppt7j9p0qrmwCSe4f4WNf5ZqjUdhcOnt7klwfRPaXf0cNIiuxiMnA/exec";
 
   function loadLocal(){try{var r=localStorage.getItem(LS_DATA);if(r){var p=JSON.parse(r);if(p&&p.rows)state=p;}}catch(e){}}
   function saveLocal(){try{localStorage.setItem(LS_DATA,JSON.stringify(state));}catch(e){}}
@@ -626,7 +627,7 @@
 
   /* init */
   loadLocal();bindMeta();render();moveBus();
-  try{var u=localStorage.getItem(LS_URL);if(u){document.getElementById("urlInput").value=u;connect();}else setStatus("off","Sin conexión — guardado solo en este dispositivo");}catch(e){}
+  try{var u=localStorage.getItem(LS_URL)||DEFAULT_URL;if(u){document.getElementById("urlInput").value=u;connect();}else setStatus("off","Sin conexión — guardado solo en este dispositivo");}catch(e){}
 })();
 </script>
 </body>

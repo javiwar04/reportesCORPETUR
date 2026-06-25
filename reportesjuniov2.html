@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Viaje del Huésped — Reporte del Ecosistema · Junio 2026 (V2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1d31; --navy-2:#0f2740; --navy-3:#15324f; --ink:#071425;
+    --gold:#c89b4c; --gold-soft:#d9b465; --gold-dim:#8a6f3c;
+    --cream:#f6f1e6; --paper:#fbf8f1; --teal:#3f8e93;
+    --line:rgba(200,155,76,.28); --txt:#1d2a38; --txt-soft:#5b6b7a; --white:#fff;
+    --red:#b23a3a; --amber:#d39022; --green:#3f8e62;
+    --shadow:0 18px 45px -22px rgba(7,20,37,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--txt);
+    background:radial-gradient(1200px 500px at 80% -10%, rgba(63,142,147,.12), transparent 60%),
+      linear-gradient(180deg,#0a1d31 0%,#0c2238 100%) fixed;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px 90px;}
+
+  header.top{position:relative;padding:46px 0 26px;color:var(--cream);}
+  .brand{display:flex;align-items:center;gap:13px;font-family:'Oswald',sans-serif;
+    letter-spacing:.34em;font-size:13px;font-weight:500;text-transform:uppercase;color:var(--gold-soft);}
+  .brand .mark{width:30px;height:30px;border:2px solid var(--gold);border-radius:50%;
+    display:grid;place-items:center;font-size:14px;color:var(--gold);}
+  h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(30px,5vw,52px);
+    line-height:1.04;margin:18px 0 6px;color:#fff;letter-spacing:.01em;}
+  h1 .accent{color:var(--gold-soft);}
+  .sub-lead{color:#c3d2e2;max-width:680px;font-size:15.5px;line-height:1.6;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .chip{font-family:'Oswald',sans-serif;font-weight:400;letter-spacing:.08em;font-size:12.5px;
+    text-transform:uppercase;color:var(--cream);border:1px solid var(--line);border-radius:999px;
+    padding:7px 14px;background:rgba(255,255,255,.03);}
+  .chip b{color:var(--gold-soft);font-weight:600;}
+
+  /* TABS */
+  .tabs{display:flex;gap:6px;margin:26px 0 4px;}
+  .tab{font-family:'Oswald',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:13px;
+    color:#bcd; background:rgba(255,255,255,.04);border:1px solid var(--line);border-bottom:none;
+    padding:12px 20px;border-radius:12px 12px 0 0;cursor:pointer;transition:.2s;}
+  .tab.active{background:var(--paper);color:var(--navy);font-weight:600;}
+  .tabpanel{display:none;}
+  .tabpanel.active{display:block;}
+
+  /* ROAD */
+  .road-wrap{background:linear-gradient(180deg,#0c2339,#0e2a44);border:1px solid var(--line);
+    border-radius:18px;padding:14px 10px 6px;box-shadow:var(--shadow);overflow:hidden;}
+  .road-wrap svg{width:100%;height:auto;display:block;}
+  .stop-node{cursor:pointer;}
+  .stop-node:hover circle.dot{fill:var(--gold-soft);}
+
+  /* PAPER SHEET */
+  .sheet{background:var(--paper);border-radius:0 18px 18px 18px;box-shadow:var(--shadow);
+    padding:34px clamp(20px,4vw,46px);margin-top:0;}
+  .block{padding:30px 0;border-top:1px solid rgba(10,29,49,.1);}
+  .block:first-of-type{border-top:none;}
+  .sec-head{display:flex;align-items:center;gap:14px;}
+  .sec-num{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--gold-soft);
+    font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;display:grid;place-items:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;color:var(--navy);margin:0;letter-spacing:.01em;}
+  .sec-sub{color:var(--txt-soft);font-size:14.5px;margin:8px 0 18px;max-width:760px;}
+
+  .card{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:14px;padding:20px 22px;margin:14px 0;
+    box-shadow:0 8px 22px -18px rgba(7,20,37,.35);}
+  .card h3{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.02em;font-size:15px;
+    text-transform:uppercase;color:var(--gold-dim);margin:0 0 14px;}
+
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{padding:9px 8px;text-align:right;border-bottom:1px solid rgba(10,29,49,.08);}
+  th{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+    font-size:11.5px;color:var(--txt-soft);}
+  th.l,td.l{text-align:left;}
+  tr.eco td{font-weight:700;color:var(--navy);border-top:2px solid var(--gold);background:rgba(200,155,76,.06);}
+  td.pos{color:var(--green);font-weight:600;}
+  td.neg{color:var(--red);font-weight:600;}
+  .pill{display:inline-block;font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;
+    padding:3px 10px;border-radius:999px;color:#fff;}
+  .pill.g{background:var(--green);} .pill.a{background:var(--amber);} .pill.r{background:var(--red);}
+  .pill.pend{background:#9aa6b2;}
+
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0;}
+  .kpi{background:linear-gradient(180deg,#0c2339,#11304e);border-radius:12px;padding:16px 16px;color:var(--cream);}
+  .kpi .n{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:#fff;line-height:1;}
+  .kpi .n small{font-size:15px;color:var(--gold-soft);}
+  .kpi .lab{font-size:12px;color:#a9bccd;margin-top:7px;letter-spacing:.02em;}
+  .kpi .delta{font-size:12px;margin-top:4px;font-weight:600;}
+  .kpi .delta.up{color:#7fcf9c;} .kpi .delta.down{color:#e89a9a;}
+
+  .insight{background:rgba(63,142,147,.08);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;
+    padding:12px 16px;font-size:14px;color:#22404a;margin-top:14px;line-height:1.55;}
+  .flag{background:rgba(200,155,76,.1);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;
+    padding:11px 16px;font-size:13px;color:#5c4a23;margin-top:12px;line-height:1.5;}
+
+  .feebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;}
+  .feebox .f{display:flex;justify-content:space-between;align-items:center;background:#f3eee2;
+    border-radius:8px;padding:9px 13px;font-size:13.5px;color:var(--navy);}
+  .feebox .f b{font-family:'Oswald',sans-serif;}
+  .feebox .f.big{grid-column:1/-1;background:var(--navy);color:#fff;}
+  .feebox .f.big b{color:var(--gold-soft);}
+
+  /* future occupancy chart */
+  .fut-chart{display:flex;align-items:flex-end;gap:10px;height:200px;padding:10px 4px 0;border-bottom:2px solid rgba(10,29,49,.15);}
+  .fut-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;}
+  .fut-bar{width:100%;max-width:54px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim));
+    position:relative;transition:height .8s cubic-bezier(.2,.8,.2,1);}
+  .fut-bar.peak{background:linear-gradient(180deg,#4fae6e,var(--green));}
+  .fut-bar.valley{background:linear-gradient(180deg,#cf6b6b,var(--red));}
+  .fut-bar .v{position:absolute;top:-20px;left:0;right:0;text-align:center;font-family:'Oswald',sans-serif;
+    font-size:13px;font-weight:600;color:var(--navy);}
+  .fut-lab{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-soft);}
+  .heat td{text-align:center;font-family:'Oswald',sans-serif;font-weight:500;color:#fff;border:2px solid #fff;border-radius:4px;font-size:13px;}
+  .heat td.l{text-align:left;color:var(--navy);background:#fff!important;font-family:'Inter';font-weight:600;}
+  .heat th{text-align:center;}
+
+  details{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;}
+  summary{cursor:pointer;list-style:none;padding:13px 18px;font-family:'Oswald',sans-serif;
+    letter-spacing:.05em;text-transform:uppercase;font-size:13px;color:var(--navy);
+    background:rgba(200,155,76,.07);display:flex;align-items:center;gap:10px;}
+  summary::-webkit-details-marker{display:none;}
+  summary::before{content:"▸";color:var(--gold-dim);transition:.2s;}
+  details[open] summary::before{transform:rotate(90deg);}
+  .deep{padding:16px 20px;font-size:14px;line-height:1.65;color:#2a3946;}
+  .deep p{margin:0 0 11px;} .deep b{color:var(--navy);}
+
+  /* SEGUIMIENTOS */
+  .sgt-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+  .conn{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;}
+  .dot-st{width:11px;height:11px;border-radius:50%;background:#9aa6b2;flex:0 0 auto;}
+  .dot-st.ok{background:var(--green);box-shadow:0 0 0 4px rgba(63,142,98,.18);}
+  .dot-st.off{background:#9aa6b2;} .dot-st.err{background:var(--red);}
+  .conn input{font-size:12.5px;padding:7px 10px;border:1px solid rgba(10,29,49,.2);border-radius:8px;min-width:230px;}
+  .btn{font-family:'Oswald',sans-serif;letter-spacing:.05em;text-transform:uppercase;font-size:12.5px;
+    border:none;border-radius:9px;padding:9px 15px;cursor:pointer;transition:.15s;background:#e7e0d0;color:var(--navy);}
+  .btn:hover{transform:translateY(-1px);}
+  .btn.p{background:var(--navy);color:#fff;} .btn.g{background:var(--gold);color:#3a2c0c;}
+  .btn.d{background:#f0d9d9;color:var(--red);}
+  .counters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+  .cnt{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:10px;padding:11px 16px;min-width:108px;}
+  .cnt .n{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy);}
+  .cnt .l{font-size:11.5px;color:var(--txt-soft);text-transform:uppercase;letter-spacing:.04em;}
+  .cnt.pend .n{color:var(--amber);} .cnt.proc .n{color:var(--teal);} .cnt.done .n{color:var(--green);}
+  #segTable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;}
+  #segTable th{background:var(--navy);color:var(--cream);position:sticky;top:0;}
+  #segTable td{border-bottom:1px solid rgba(10,29,49,.08);padding:6px;vertical-align:top;}
+  #segTable input,#segTable select,#segTable textarea{width:100%;border:1px solid transparent;background:transparent;
+    font-family:inherit;font-size:13px;padding:5px 6px;border-radius:6px;resize:vertical;}
+  #segTable input:focus,#segTable select:focus,#segTable textarea:focus{border-color:var(--gold);background:#fff;outline:none;}
+  .st-sel{font-family:'Oswald',sans-serif;}
+  .row-del{color:var(--red);cursor:pointer;border:none;background:none;font-size:16px;}
+  .save-note{font-size:12px;color:var(--txt-soft);margin-top:10px;}
+
+  footer{color:#8fa6bb;text-align:center;font-size:12.5px;padding:30px 0 0;letter-spacing:.03em;}
+
+  @media print{
+    body{background:#fff;} .road-wrap,.tabs,.scroll-bus,.conn .btn,.sgt-toolbar{display:none!important;}
+    .sheet{box-shadow:none;border-radius:0;} details{border:none;} details summary{display:none;}
+    .deep{display:block!important;} .tabpanel{display:block!important;}
+  }
+  .scroll-bus{position:fixed;right:14px;top:120px;z-index:40;transition:top .25s ease-out;pointer-events:none;}
+  @media (max-width:760px){.scroll-bus{display:none;} .conn input{min-width:150px;}}
+</style>
+</head>
+<body>
+<div class="scroll-bus" id="scroll-bus" aria-hidden="true">
+  <svg width="34" height="26" viewBox="0 0 34 26"><g>
+    <rect x="1" y="4" width="30" height="15" rx="3" fill="#c89b4c"/>
+    <rect x="4" y="7" width="6" height="5" rx="1" fill="#0a1d31"/>
+    <rect x="12" y="7" width="6" height="5" rx="1" fill="#0a1d31"/>
+    <rect x="20" y="7" width="6" height="5" rx="1" fill="#0a1d31"/>
+    <circle cx="8" cy="20" r="3.4" fill="#15324f"/><circle cx="24" cy="20" r="3.4" fill="#15324f"/>
+  </g></svg>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="mark">✦</span> Hoteles de Petén · La nueva manera de reportar</div>
+    <h1>El Viaje del <span class="accent">Huésped</span></h1>
+    <p class="sub-lead">Reporte del ecosistema como un solo sistema — siete hoteles y los restaurantes vistos en conjunto, no como establecimientos sueltos. Segunda emisión, mismo formato, ahora con la <b style="color:var(--gold-soft)">proyección de ocupación a 6 meses</b>.</p>
+    <div class="meta-row">
+      <span class="chip">Período <b>1–24 Junio 2026</b></span>
+      <span class="chip">24 días</span>
+      <span class="chip">7 hoteles · 4 restaurantes</span>
+      <span class="chip">Emisión <b>V2</b></span>
+    </div>
+
+    <div class="tabs">
+      <div class="tab active" data-tab="reporte">Reporte</div>
+      <div class="tab" data-tab="seguimientos">Seguimientos</div>
+    </div>
+  </header>
+
+  <!-- ROAD -->
+  <div class="road-wrap">
+    <svg viewBox="0 0 1100 150" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="rd" x1="0" x2="1"><stop offset="0" stop-color="#15324f"/><stop offset="1" stop-color="#1c4060"/></linearGradient>
+      </defs>
+      <path d="M40,110 C 200,110 250,60 420,60 C 600,60 640,110 820,110 C 960,110 1010,75 1060,75"
+            fill="none" stroke="url(#rd)" stroke-width="16" stroke-linecap="round"/>
+      <path d="M40,110 C 200,110 250,60 420,60 C 600,60 640,110 820,110 C 960,110 1010,75 1060,75"
+            fill="none" stroke="#c89b4c" stroke-width="2" stroke-dasharray="2 14" stroke-linecap="round" opacity=".7"/>
+      <!-- stops -->
+      <g class="stop-node" data-target="p1"><circle class="dot" cx="40" cy="110" r="13" fill="#c89b4c"/><text x="40" y="115" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">1</text><text x="40" y="138" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">SEGMENTOS</text></g>
+      <g class="stop-node" data-target="p2"><circle class="dot" cx="300" cy="78" r="13" fill="#c89b4c"/><text x="300" y="83" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">2</text><text x="300" y="50" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">OCUPACIÓN</text></g>
+      <g class="stop-node" data-target="p3"><circle class="dot" cx="560" cy="78" r="13" fill="#c89b4c"/><text x="560" y="83" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">3</text><text x="560" y="50" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">RESTAURANTES</text></g>
+      <g class="stop-node" data-target="p4"><circle class="dot" cx="820" cy="110" r="13" fill="#c89b4c"/><text x="820" y="115" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">4</text><text x="820" y="138" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">TOURS</text></g>
+      <g class="stop-node" data-target="p5"><circle class="dot" cx="1060" cy="75" r="13" fill="#c89b4c"/><text x="1060" y="80" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">5</text><text x="1060" y="48" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">EVENTOS</text></g>
+      <!-- bus -->
+      <g id="bus">
+        <rect x="-22" y="-13" width="44" height="22" rx="4" fill="#f6f1e6"/>
+        <rect x="-17" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/>
+        <rect x="-5" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/>
+        <rect x="7" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/>
+        <circle cx="-12" cy="10" r="4.5" fill="#0a1d31"/><circle cx="12" cy="10" r="4.5" fill="#0a1d31"/>
+        <animateMotion dur="14s" repeatCount="indefinite" rotate="auto"
+          path="M40,110 C 200,110 250,60 420,60 C 600,60 640,110 820,110 C 960,110 1010,75 1060,75"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- ===================== REPORTE ===================== -->
+  <div class="tabpanel active" id="reporte">
+  <div class="sheet">
+
+    <!-- RESUMEN -->
+    <section class="block" id="resumen">
+      <div class="sec-head"><span class="sec-num">✦</span><h2>Resumen ejecutivo</h2></div>
+      <p class="sec-sub">Lectura del ecosistema en una sola foto. Comparado con la emisión anterior (1–18 junio), varios indicadores mejoraron.</p>
+      <div class="kpis">
+        <div class="kpi"><div class="n">85.5<small>%</small></div><div class="lab">Cumplimiento de ocupación</div><div class="delta up">▲ vs 81% emisión 1</div></div>
+        <div class="kpi"><div class="n">−389</div><div class="lab">Noches-hab bajo meta (−16.2/día)</div><div class="delta up">▲ mejora la brecha</div></div>
+        <div class="kpi"><div class="n">Q669</div><div class="lab">ADR canal Directos (sin comisión)</div><div class="delta">solo 20% de las noches</div></div>
+        <div class="kpi"><div class="n">50</div><div class="lab">Tours vendidos · attach 2.2%</div><div class="delta up">▲ desde 1.5%</div></div>
+        <div class="kpi"><div class="n">66<small>/70</small></div><div class="lab">Eventos del mes (94%)</div><div class="delta up">▲ desde 66%</div></div>
+        <div class="kpi"><div class="n">Q9.4k</div><div class="lab">Service Fee acumulado</div><div class="delta">bolsa agenda cultural</div></div>
+      </div>
+      <div class="insight"><b>Lo que manda la lectura:</b> el ecosistema sube a <b>85.5%</b> de la meta de ocupación, con <b>Casona de la Isla</b> cargando sola el <b>40% del déficit</b>. El canal <b>Directos</b> sigue siendo el de mayor ADR y sin comisión, pero apenas mueve 1 de cada 5 noches. Tours y eventos repuntaron con fuerza. <b>La Chaya queda pendiente</b> esta vez.</div>
+    </section>
+
+    <!-- PUNTO 1 -->
+    <section class="block" id="p1">
+      <div class="sec-head"><span class="sec-num">1</span><h2>Explotación de segmentos</h2></div>
+      <p class="sec-sub">Los canales del ecosistema completo, por noches-habitación y ADR. La pregunta de fondo: ¿de dónde viene cada quetzal y cuánto cuesta traerlo?</p>
+      <div class="card">
+        <h3>Canales del ecosistema (7 hoteles)</h3>
+        <table>
+          <thead><tr><th class="l">Canal</th><th>Noches-hab</th><th>% noches</th><th>ADR</th><th>Ing. hosp.</th><th>% ingreso</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Directos <span class="pill g">sin comisión</span></td><td>462</td><td>20.2%</td><td><b>Q669</b></td><td>Q175,167</td><td>23.1%</td></tr>
+            <tr><td class="l">OTAs (Booking/Expedia)</td><td>602</td><td>26.3%</td><td>Q569</td><td>Q228,334</td><td>30.1%</td></tr>
+            <tr><td class="l">Corporativo</td><td>486</td><td>21.3%</td><td>Q516</td><td>Q178,908</td><td>23.5%</td></tr>
+            <tr><td class="l">Agencias</td><td>737</td><td>32.2%</td><td>Q409</td><td>Q177,427</td><td>23.4%</td></tr>
+            <tr class="eco"><td class="l">Ecosistema</td><td>2,287</td><td>100%</td><td>Q527</td><td>Q759,836</td><td>100%</td></tr>
+          </tbody>
+        </table>
+        <div class="insight"><b>Lectura:</b> <b>Directos</b> es el canal más rentable — mejor tarifa (Q669) y cero comisión — pero solo aporta el 20% de las noches. <b>Agencias</b> es el de mayor volumen (32%) con el ADR más bajo (Q409). Las <b>OTAs</b> llenan más cuartos pero a costa de comisión.</div>
+        <div class="flag">Recordá: "Clientes Directos / Rack / WI / Redes" se cuentan en <b>Directos</b>, no en Agencias. Corporativo Directo se mantiene dentro de Corporativo.</div>
+      </div>
+      <details><summary>Ver análisis a fondo</summary><div class="deep">
+        <p>El ecosistema vende a un ADR promedio de <b>Q527</b>, pero ese promedio esconde una brecha de casi <b>Q260</b> entre el mejor canal (Directos, Q669) y el más barato (Agencias, Q409). Cada noche que se mueve de Agencias a Directos no solo sube la tarifa: además se ahorra la comisión, así que el efecto sobre el margen es doble.</p>
+        <p>El problema es de <b>mezcla</b>: el canal más caro de operar en volumen (Agencias, 32% de las noches) es el que menos deja por noche, mientras que el más rentable (Directos) está subutilizado al 20%. Las <b>OTAs</b> son la mayor fuente de ingreso (30%) porque combinan volumen y tarifa alta, pero cargan comisión, así que su rentabilidad neta queda por debajo de Directos.</p>
+        <p>La palanca clara: <b>empujar reserva directa</b> (web, redes, recepción, recompra) para mover noches de Agencias/OTAs hacia Directos. Aunque sea recuperar 5 noches/día hacia el canal directo, el efecto compuesto en margen es grande por el ahorro de comisión + la prima de tarifa.</p>
+      </div></details>
+    </section>
+
+    <!-- PUNTO 2 -->
+    <section class="block" id="p2">
+      <div class="sec-head"><span class="sec-num">2</span><h2>Ocupación, estadía y service fee</h2></div>
+      <p class="sec-sub">Brecha contra la meta diaria de habitaciones, como ecosistema primero y por hotel después. Más ADR / RevPAR / RevPOR y el Service Fee recaudado.</p>
+      <div class="card">
+        <h3>Cumplimiento de meta de ocupación (24 días)</h3>
+        <table>
+          <thead><tr><th class="l">Hotel</th><th>Meta</th><th>Real</th><th>Brecha</th><th>/día</th><th>ADR</th><th>RevPAR</th><th>Cumpl.</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Casona del Lago</td><td>792</td><td>774</td><td class="neg">−18</td><td>−0.8</td><td>Q660</td><td>Q450</td><td><span class="pill a">98%</span></td></tr>
+            <tr><td class="l">Hotel Petén Express</td><td>216</td><td>209</td><td class="neg">−7</td><td>−0.3</td><td>Q120</td><td>Q48</td><td><span class="pill a">97%</span></td></tr>
+            <tr><td class="l">Villa del Lago</td><td>360</td><td>331</td><td class="neg">−29</td><td>−1.2</td><td>Q495</td><td>Q262</td><td><span class="pill a">92%</span></td></tr>
+            <tr><td class="l">Hotel Petén</td><td>372</td><td>308</td><td class="neg">−64</td><td>−2.7</td><td>Q483</td><td>Q282</td><td><span class="pill a">83%</span></td></tr>
+            <tr><td class="l">Casona de la Isla</td><td>564</td><td>410</td><td class="neg">−154</td><td>−6.4</td><td>Q557</td><td>Q285</td><td><span class="pill r">73%</span></td></tr>
+            <tr><td class="l">Casa Turquesa</td><td>216</td><td>151</td><td class="neg">−65</td><td>−2.7</td><td>Q502</td><td>Q197</td><td><span class="pill r">70%</span></td></tr>
+            <tr><td class="l">Casazul</td><td>156</td><td>104</td><td class="neg">−52</td><td>−2.2</td><td>Q478</td><td>Q207</td><td><span class="pill r">67%</span></td></tr>
+            <tr class="eco"><td class="l">Ecosistema</td><td>2,676</td><td>2,287</td><td class="neg">−389</td><td>−16.2</td><td>Q527</td><td>—</td><td><span class="pill a">85%</span></td></tr>
+          </tbody>
+        </table>
+        <div class="insight"><b>Lectura:</b> ningún hotel llega al 100%, pero <b>Casona del Lago</b> y <b>Petén Express</b> rozan la meta. El hueco está concentrado: <b>Casona de la Isla</b> sola explica el <b>40% del déficit</b> (−6.4/día) y, en proporción, <b>Casazul (67%)</b> y <b>Casa Turquesa (70%)</b> son los más rezagados. RevPOR alto en Casa Turquesa (Q1,333) y Casona del Lago muestra buen gasto por habitación ocupada pese a la baja ocupación.</div>
+      </div>
+
+      <div class="card">
+        <h3>Service Fee → presupuesto de agenda cultural</h3>
+        <div class="feebox">
+          <div class="f">Casona del Lago<b>Q5,360.67</b></div>
+          <div class="f">Hotel Petén<b>Q1,595.63</b></div>
+          <div class="f">Villa del Lago<b>Q987.48</b></div>
+          <div class="f">Casona de la Isla<b>Q536.03</b></div>
+          <div class="f">Casa Turquesa<b>Q507.79</b></div>
+          <div class="f">Casazul<b>Q394.99</b></div>
+          <div class="f">Petén Express<b>Q0.00</b></div>
+          <div class="f big">Total recaudado<b>Q9,382.59</b></div>
+        </div>
+        <div class="flag">El Service Fee ya lleva un mes corrido (se incorporó la semana de la emisión anterior, cuando iba en Q1,326). Esta es la bolsa disponible para financiar la agenda cultural; conviene seguirla semana a semana para ver el ritmo de acumulación.</div>
+      </div>
+
+      <!-- NUEVO: OCUPACIÓN FUTURA 6 MESES -->
+      <div class="card" id="futuro">
+        <h3>★ Nuevo · Ocupación futura — próximos 6 meses (reservas en libros)</h3>
+        <p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 16px">Ritmo de reserva ya confirmado (OTB) del ecosistema completo, julio a diciembre. No es pronóstico: son las noches ya vendidas hoy contra el inventario disponible.</p>
+        <div class="fut-chart" id="futChart">
+          <div class="fut-col"><div class="fut-bar" style="height:67%"><span class="v">46%</span></div><span class="fut-lab">Jul</span></div>
+          <div class="fut-col"><div class="fut-bar" style="height:50%"><span class="v">34%</span></div><span class="fut-lab">Ago</span></div>
+          <div class="fut-col"><div class="fut-bar valley" style="height:21%"><span class="v">14%</span></div><span class="fut-lab">Sep</span></div>
+          <div class="fut-col"><div class="fut-bar" style="height:63%"><span class="v">43%</span></div><span class="fut-lab">Oct</span></div>
+          <div class="fut-col"><div class="fut-bar peak" style="height:100%"><span class="v">68%</span></div><span class="fut-lab">Nov</span></div>
+          <div class="fut-col"><div class="fut-bar" style="height:62%"><span class="v">42%</span></div><span class="fut-lab">Dic</span></div>
+        </div>
+        <div style="margin-top:18px;overflow-x:auto">
+          <table class="heat">
+            <thead><tr><th class="l">Hotel</th><th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th></tr></thead>
+            <tbody id="heatBody"></tbody>
+          </table>
+        </div>
+        <div class="insight"><b>Lectura:</b> el pulso ya en libros marca un <b>pico en noviembre (68%)</b> y un <b>valle profundo en septiembre (14%)</b>. Casona del Lago llega a <b>90% en noviembre</b> mientras que septiembre se cae para todos. En total hay <b>13,560 noches reservadas</b> de aquí a diciembre (41% del inventario). El valle de septiembre es la ventana más clara para meter promociones, grupos y eventos con anticipación.</div>
+        <div class="flag">Es ocupación ya confirmada al corte de hoy; los meses cercanos (jul–ago) seguirán subiendo con las reservas de último momento, así que el % real de cierre será mayor. El valor está en ver <b>dónde está el hueco con tiempo</b> para llenarlo.</div>
+      </div>
+
+      <details><summary>Ver análisis a fondo</summary><div class="deep">
+        <p>El déficit de ocupación del período (<b>−389 noches</b>) está mal repartido: <b>Casona de la Isla</b> aporta 154 de esas noches, el 40% del total. No es un problema del ecosistema entero, es un problema concentrado — y eso es bueno, porque enfocar un hotel rinde más que repartir esfuerzo.</p>
+        <p>En tarifa la historia es la opuesta: Casona de la Isla y Casa Turquesa sostienen ADR y RevPOR altos, así que <b>el negocio no es de precio sino de volumen</b>. La palanca es llenar cuartos, no subir tarifas, sobre todo en los hoteles con RevPOR fuerte donde cada cuarto extra deja mucho.</p>
+        <p>La nueva foto a 6 meses cambia la conversación: con el <b>valle de septiembre</b> visible desde ahora, hay margen para actuar — bloques corporativos, paquetes, y mover eventos a esa ventana. Noviembre ya viene lleno; el trabajo comercial debería apuntar a <b>septiembre y la primera quincena de octubre</b>.</p>
+      </div></details>
+    </section>
+
+    <!-- PUNTO 3 -->
+    <section class="block" id="p3">
+      <div class="sec-head"><span class="sec-num">3</span><h2>Restaurantes</h2></div>
+      <p class="sec-sub">Venta (sin propina) contra meta diaria, por establecimiento y como ecosistema.</p>
+      <div class="card">
+        <h3>Cumplimiento de meta diaria</h3>
+        <table>
+          <thead><tr><th class="l">Restaurante</th><th>Meta/día</th><th>Venta período</th><th>Prom./día</th><th>Brecha/día</th><th>Cumpl.</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Lindo Amanecer (Villa del Lago)</td><td>Q1,900</td><td>Q48,373</td><td>Q2,016</td><td class="pos">+Q116</td><td><span class="pill g">106%</span></td></tr>
+            <tr><td class="l">Las Ninfas (Casona del Lago)</td><td>Q21,000</td><td>Q491,792</td><td>Q20,491</td><td class="neg">−Q509</td><td><span class="pill a">98%</span></td></tr>
+            <tr><td class="l">Isla Bonita (Casona de la Isla)</td><td>Q6,200</td><td>Q107,719</td><td>Q4,488</td><td class="neg">−Q1,712</td><td><span class="pill r">72%</span></td></tr>
+            <tr><td class="l">La Chaya (Hotel Petén)</td><td>Q5,600</td><td>—</td><td>—</td><td>—</td><td><span class="pill pend">pendiente</span></td></tr>
+            <tr class="eco"><td class="l">Ecosistema (sin La Chaya)</td><td>Q29,100</td><td>Q647,884</td><td>—</td><td>—</td><td><span class="pill a">≈93%</span></td></tr>
+          </tbody>
+        </table>
+        <div class="insight"><b>Lectura:</b> <b>Lindo Amanecer</b> es el único sobre meta; <b>Las Ninfas</b> roza el objetivo y carga <b>casi el 76%</b> de la venta total registrada. <b>Isla Bonita</b> es la que más arrastra la brecha (72%). La venta combinada (sin La Chaya) llega a ≈93% de su meta.</div>
+        <div class="flag">Cifras de venta sin propina; se excluyen cortesías y consumos de personal. <b>La Chaya queda pendiente</b> esta emisión — su meta (Q5,600/día) entra en cuanto llegue la data.</div>
+      </div>
+      <details><summary>Ver análisis a fondo</summary><div class="deep">
+        <p><b>Las Ninfas</b> es el motor: tres cuartas partes de la venta de restaurantes del ecosistema pasan por ahí. Que ronde el 98% de su meta es sano, pero también significa que <b>el ecosistema depende demasiado de un solo restaurante</b> — cualquier bache en Las Ninfas se siente en el total.</p>
+        <p><b>Isla Bonita</b> es el foco de mejora: a 72% de meta deja Q1,712 diarios sobre la mesa. Vale revisar mix de menú, horario y ticket promedio antes que culpar al volumen de huéspedes, porque Casona de la Isla tiene ocupación baja pero ADR alto (huésped que sí gasta).</p>
+        <p>Con <b>La Chaya pendiente</b>, el número de ecosistema está incompleto; el ≈93% subirá o bajará según cómo cierre La Chaya su mes. Conviene no leer el total como definitivo hasta tener los cuatro restaurantes.</p>
+      </div></details>
+    </section>
+
+    <!-- PUNTO 4 -->
+    <section class="block" id="p4">
+      <div class="sec-head"><span class="sec-num">4</span><h2>Tours</h2></div>
+      <p class="sec-sub">Venta de tours por hotel y attachment contra las noches-habitación ocupadas del ecosistema.</p>
+      <div class="card">
+        <h3>Ventas de tours por hotel</h3>
+        <table>
+          <thead><tr><th class="l">Hotel</th><th>Tours</th><th>Monto bruto</th><th>Part.</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Villa del Lago</td><td>15</td><td>Q10,534</td><td>28%</td></tr>
+            <tr><td class="l">Casona del Lago</td><td>8</td><td>Q9,805</td><td>26%</td></tr>
+            <tr><td class="l">Hotel Petén</td><td>9</td><td>Q6,999</td><td>18%</td></tr>
+            <tr><td class="l">Casona de la Isla</td><td>10</td><td>Q6,060</td><td>16%</td></tr>
+            <tr><td class="l">Casa Turquesa</td><td>4</td><td>Q3,100</td><td>8%</td></tr>
+            <tr><td class="l">Casazul</td><td>3</td><td>Q1,450</td><td>4%</td></tr>
+            <tr class="eco"><td class="l">Ecosistema</td><td>50</td><td>Q37,948</td><td>100%</td></tr>
+          </tbody>
+        </table>
+        <div class="kpis" style="margin-top:16px">
+          <div class="kpi"><div class="n">50</div><div class="lab">Tours vendidos</div><div class="delta up">▲ desde ~12</div></div>
+          <div class="kpi"><div class="n">2.2<small>%</small></div><div class="lab">Attachment (tours / noches ocup.)</div><div class="delta up">▲ desde 1.5%</div></div>
+          <div class="kpi"><div class="n">124</div><div class="lab">Pasajeros movidos</div></div>
+          <div class="kpi"><div class="n">8</div><div class="lab">Tours en Casona del Lago</div><div class="delta up">▲ desde 1</div></div>
+        </div>
+        <div class="insight"><b>Lectura:</b> gran salto frente a la emisión anterior — el attachment sube a <b>2.2%</b> y <b>Casona del Lago</b>, que antes vendía un solo tour, ya lleva 8. <b>Villa del Lago</b> lidera en cantidad. Aun así, vender tour a 2 de cada 100 huéspedes deja mucho margen: este es el punto con más techo para crecer.</div>
+      </div>
+      <details><summary>Ver análisis a fondo</summary><div class="deep">
+        <p>El tour es ingreso de altísimo margen que ya teníamos enfrente y no capturábamos. Pasar de ~1.5% a <b>2.2% de attachment</b> en una emisión muestra que el cuello no era la demanda, era el <b>ofrecimiento en recepción</b>. Donde se empujó (Casona del Lago, Villa del Lago), la venta apareció.</p>
+        <p>El reparto sigue desigual: Casazul y Casa Turquesa apenas mueven tours pese a tener huésped extranjero. Si cada hotel igualara la tasa de los mejores, el ecosistema fácilmente duplicaría la venta de tours sin un solo huésped nuevo.</p>
+        <p>Próximo paso natural: amarrar el tour al <b>check-in</b> como parte del guion de recepción, y medir attachment por hotel mes a mes en la bitácora para que no se enfríe.</p>
+      </div></details>
+    </section>
+
+    <!-- PUNTO 5 -->
+    <section class="block" id="p5">
+      <div class="sec-head"><span class="sec-num">5</span><h2>Eventos</h2></div>
+      <p class="sec-sub">Eventos del mes contra la meta segmentada (70/mes: Corporativo 31, ONG 32, Social 7).</p>
+      <div class="card">
+        <h3>Cumplimiento por tipo de evento</h3>
+        <table>
+          <thead><tr><th class="l">Tipo</th><th>Real</th><th>Meta</th><th>Cumpl.</th><th>Lectura</th></tr></thead>
+          <tbody>
+            <tr><td class="l">Corporativo</td><td>41</td><td>31</td><td><span class="pill g">132%</span></td><td class="l" style="color:var(--green)">supera meta</td></tr>
+            <tr><td class="l">Social</td><td>5</td><td>7</td><td><span class="pill a">71%</span></td><td class="l">cerca</td></tr>
+            <tr><td class="l">ONG</td><td>20</td><td>32</td><td><span class="pill r">62%</span></td><td class="l" style="color:var(--red)">el rezago</td></tr>
+            <tr class="eco"><td class="l">Total</td><td>66</td><td>70</td><td><span class="pill a">94%</span></td><td class="l">faltan 4</td></tr>
+          </tbody>
+        </table>
+        <div class="kpis" style="margin-top:16px">
+          <div class="kpi"><div class="n">66<small>/70</small></div><div class="lab">Eventos del mes</div><div class="delta up">▲ desde 66%</div></div>
+          <div class="kpi"><div class="n">Q192k</div><div class="lab">Ingreso neto de eventos</div></div>
+          <div class="kpi"><div class="n">1,980</div><div class="lab">Pax atendidos</div></div>
+        </div>
+        <div class="insight"><b>Lectura:</b> mes fuerte — el ecosistema llega al <b>94% de la meta</b> con días aún por correr. <b>Corporativo ya la rebasó</b> (41 vs 31) y es a la vez volumen y dinero. El rezago está en <b>ONG (62%)</b>; Social va cerca. El esfuerzo restante del mes debería ir a cerrar ONG.</div>
+      </div>
+      <details><summary>Ver análisis a fondo</summary><div class="deep">
+        <p>El salto del 66% al <b>94%</b> de cumplimiento es la mejora más visible de la emisión. Y la calidad del mix ayuda: el <b>corporativo</b>, que es el de mayor valor por evento y por pax, es justo el que sobrepasó su meta. Eso significa que el crecimiento vino por el lado que más ingreso deja, no solo por llenar de eventos chicos.</p>
+        <p>El faltante para los 70 es de <b>4 eventos</b>, casi todo del lado <b>ONG</b> (20 de 32). Hay una decisión de fondo de siempre: ¿perseguir la meta de cantidad llenando de eventos pequeños, o priorizar valor dejando que el corporativo jale? El número de ONG está comprometido como meta, pero el termómetro real de salud del negocio es el ingreso, y ése lo manda el corporativo — que ya cumplió.</p>
+        <p>Con <b>Q192k netos</b> y casi 2,000 personas atendidas, eventos es uno de los motores de gasto no-habitación más sólidos del ecosistema. Vale seguirlo de cerca en la bitácora.</p>
+      </div></details>
+    </section>
+
+    <footer>Hoteles de Petén · El Viaje del Huésped · Reporte del ecosistema — Emisión V2 · 1–24 junio 2026</footer>
+  </div>
+  </div>
+
+  <!-- ===================== SEGUIMIENTOS ===================== -->
+  <div class="tabpanel" id="seguimientos">
+  <div class="sheet">
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">✓</span><h2>Bitácora de seguimientos</h2></div>
+      <p class="sec-sub">Cada acción amarrada a su punto del reporte. Se guarda en este dispositivo y, si conectás la hoja de Google, se sincroniza en vivo para todo el equipo.</p>
+
+      <div class="sgt-head sgt-toolbar">
+        <div class="conn">
+          <span class="dot-st off" id="stDot"></span>
+          <span id="stText">Conectando…</span>
+          <input id="urlInput" placeholder="URL del Web App de Google (/exec)">
+          <button class="btn" id="connectBtn">Conectar</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn g" id="seedBtn">Cargar focos de junio</button>
+          <button class="btn p" id="addBtn">+ Agregar</button>
+          <button class="btn" id="expBtn">Exportar .json</button>
+          <button class="btn" id="impBtn">Importar</button>
+          <button class="btn" id="printBtn">Imprimir / PDF</button>
+          <button class="btn d" id="clearBtn">Limpiar</button>
+          <input type="file" id="impFile" accept="application/json" style="display:none">
+        </div>
+      </div>
+
+      <div class="counters">
+        <div class="cnt pend"><div class="n" id="cPend">0</div><div class="l">Pendientes</div></div>
+        <div class="cnt proc"><div class="n" id="cProc">0</div><div class="l">En proceso</div></div>
+        <div class="cnt done"><div class="n" id="cDone">0</div><div class="l">Listos</div></div>
+        <div class="cnt"><div class="n" id="cTot">0</div><div class="l">Total</div></div>
+      </div>
+
+      <div style="overflow-x:auto">
+        <table id="segTable">
+          <thead><tr>
+            <th style="width:34px">#</th><th style="width:150px">Fase</th><th>Acción</th>
+            <th style="width:130px">Responsable</th><th style="width:120px">Fecha</th>
+            <th style="width:120px">Estado</th><th>Notas</th><th style="width:34px"></th>
+          </tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="save-note" id="saveNote">Guardado local activo. Al conectar la hoja de Google, el indicador pasa a verde y la bitácora queda colaborativa.</p>
+    </section>
+  </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var DEFAULT_URL="https://script.google.com/macros/s/AKfycbw1jTZOC7H115i8Tppt7j9p0qrmwCSe4f4WNf5ZqjUdhcOnt7klwfRPaXf0cNIiuxiMnA/exec";
+  var LS_KEY="vh_seg_v2", LS_URL="vh_url_v2";
+  var FASES=["Punto 1 · Segmentos","Punto 2 · Ocupación","Punto 2 · Futuro 6m","Punto 3 · Restaurantes","Punto 4 · Tours","Punto 5 · Eventos"];
+  var ESTADOS=["Pendiente","En proceso","Listo"];
+  var state={rows:[]}, URL="", connected=false, rowTimers={};
+
+  /* ---------- HEAT TABLE (future occupancy) ---------- */
+  var HEAT={
+    "Casona del Lago":[47,35,16,59,90,47],
+    "Casona de la Isla":[53,42,18,40,68,41],
+    "Hotel Petén":[47,36,15,50,71,50],
+    "Villa del Lago":[62,34,14,46,78,50],
+    "Casa Turquesa":[48,19,11,31,54,37],
+    "Hotel Petén Express":[20,29,13,23,25,30],
+    "Casazul":[34,32,4,18,53,22]
+  };
+  function heatColor(p){
+    // 0 -> red, ~50 -> gold, 90+ -> green
+    if(p>=70) return "#3f8e62";
+    if(p>=50) return "#6fa362";
+    if(p>=35) return "#c89b4c";
+    if(p>=20) return "#cf8a4c";
+    return "#b23a3a";
+  }
+  (function buildHeat(){
+    var b=document.getElementById("heatBody"); if(!b) return;
+    Object.keys(HEAT).forEach(function(h){
+      var tr=document.createElement("tr");
+      var td=document.createElement("td"); td.className="l"; td.textContent=h; tr.appendChild(td);
+      HEAT[h].forEach(function(p){
+        var c=document.createElement("td"); c.textContent=p+"%"; c.style.background=heatColor(p); tr.appendChild(c);
+      });
+      b.appendChild(tr);
+    });
+  })();
+
+  /* ---------- helpers ---------- */
+  function hora(){var d=new Date();return d.getHours()+":"+("0"+d.getMinutes()).slice(-2);}
+  function uid(){return "r"+Date.now()+Math.floor(Math.random()*1000);}
+  function norm(r){r=r||{};return{id:r.id||uid(),fase:r.fase||FASES[0],accion:r.accion||"",responsable:r.responsable||"",fecha:r.fecha||"",estado:r.estado||ESTADOS[0],notas:r.notas||""};}
+  function setStatus(kind,msg){var d=document.getElementById("stDot"),t=document.getElementById("stText");d.className="dot-st "+kind;t.textContent=msg;}
+
+  function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(state.rows));}catch(e){}}
+  function loadLocal(){try{var v=localStorage.getItem(LS_KEY);state.rows=v?JSON.parse(v).map(norm):[];}catch(e){state.rows=[];}}
+
+  /* ---------- cloud ---------- */
+  function cloudGet(){return fetch(URL+"?action=list",{method:"GET"}).then(function(r){return r.json();});}
+  function cloudPost(payload){return fetch(URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)}).then(function(r){return r.json();});}
+  function upsertCloud(row){if(!connected)return;cloudPost({action:"upsert",row:row}).catch(function(){});}
+  function deleteCloud(id){if(!connected)return;cloudPost({action:"delete",id:id}).catch(function(){});}
+
+  function connect(){
+    var u=document.getElementById("urlInput").value.trim();
+    if(!u){setStatus("off","Sin conexión — guardado solo en este dispositivo");connected=false;return;}
+    URL=u;setStatus("off","Conectando…");
+    cloudGet().then(function(d){
+      if(d&&d.ok){
+        connected=true;try{localStorage.setItem(LS_URL,u);}catch(e){}
+        setStatus("ok","Sincronizado con la hoja de Google · "+hora());
+        var fresh=(d.rows||[]).map(norm);
+        if(fresh.length){state.rows=fresh;saveLocal();render();}
+        else if(state.rows.length){state.rows.forEach(upsertCloud);}
+      }else{connected=false;setStatus("err","La hoja respondió pero sin datos válidos");}
+    }).catch(function(){connected=false;setStatus("err","No se pudo conectar — revisá la URL /exec");});
+  }
+
+  /* ---------- render ---------- */
+  function counters(){
+    var p=0,pr=0,d=0;
+    state.rows.forEach(function(r){if(r.estado==="Pendiente")p++;else if(r.estado==="En proceso")pr++;else if(r.estado==="Listo")d++;});
+    document.getElementById("cPend").textContent=p;
+    document.getElementById("cProc").textContent=pr;
+    document.getElementById("cDone").textContent=d;
+    document.getElementById("cTot").textContent=state.rows.length;
+  }
+  function opt(list,val){return list.map(function(o){return '<option'+(o===val?' selected':'')+'>'+o+'</option>';}).join("");}
+  function render(){
+    var tb=document.getElementById("rows");tb.innerHTML="";
+    state.rows.forEach(function(r,i){
+      var tr=document.createElement("tr");tr.dataset.id=r.id;
+      tr.innerHTML=
+        '<td style="text-align:center;color:#90a">'+(i+1)+'</td>'+
+        '<td><select class="st-sel" data-k="fase">'+opt(FASES,r.fase)+'</select></td>'+
+        '<td><textarea data-k="accion" rows="1" placeholder="¿Qué hay que hacer?">'+(r.accion||"")+'</textarea></td>'+
+        '<td><input data-k="responsable" value="'+(r.responsable||"").replace(/"/g,"&quot;")+'" placeholder="¿Quién?"></td>'+
+        '<td><input data-k="fecha" type="date" value="'+(r.fecha||"")+'"></td>'+
+        '<td><select class="st-sel" data-k="estado">'+opt(ESTADOS,r.estado)+'</select></td>'+
+        '<td><textarea data-k="notas" rows="1" placeholder="Notas">'+(r.notas||"")+'</textarea></td>'+
+        '<td><button class="row-del" title="Eliminar">×</button></td>';
+      tb.appendChild(tr);
+    });
+    counters();
+  }
+
+  function findRow(id){for(var i=0;i<state.rows.length;i++)if(state.rows[i].id===id)return state.rows[i];return null;}
+
+  document.getElementById("rows").addEventListener("input",function(e){
+    var k=e.target.dataset.k;if(!k)return;
+    var tr=e.target.closest("tr");var row=findRow(tr.dataset.id);if(!row)return;
+    row[k]=e.target.value;saveLocal();counters();
+    if(connected){clearTimeout(rowTimers[row.id]);rowTimers[row.id]=setTimeout(function(){upsertCloud(row);},700);}
+  });
+  document.getElementById("rows").addEventListener("click",function(e){
+    if(!e.target.classList.contains("row-del"))return;
+    var tr=e.target.closest("tr");var id=tr.dataset.id;
+    state.rows=state.rows.filter(function(r){return r.id!==id;});saveLocal();render();if(connected)deleteCloud(id);
+  });
+
+  function addRow(data){var r=norm(data);state.rows.push(r);saveLocal();render();if(connected)upsertCloud(r);}
+  document.getElementById("addBtn").addEventListener("click",function(){addRow({});});
+
+  document.getElementById("seedBtn").addEventListener("click",function(){
+    var seeds=[
+      {fase:"Punto 1 · Segmentos",accion:"Plan de empuje a reserva DIRECTA (web/redes/recepción) para mover noches de Agencias/OTAs a Directos",estado:"Pendiente"},
+      {fase:"Punto 2 · Ocupación",accion:"Plan de recuperación de ocupación en Casona de la Isla (40% del déficit del ecosistema)",estado:"Pendiente"},
+      {fase:"Punto 2 · Futuro 6m",accion:"Llenar el valle de septiembre con grupos/eventos/promos anticipadas",estado:"Pendiente"},
+      {fase:"Punto 3 · Restaurantes",accion:"Subir ticket/mix en Isla Bonita (72% de meta) y conseguir la data de La Chaya",estado:"Pendiente"},
+      {fase:"Punto 4 · Tours",accion:"Amarrar oferta de tour al check-in en todos los hoteles; igualar attachment de los mejores",estado:"En proceso"},
+      {fase:"Punto 5 · Eventos",accion:"Cerrar los 4 eventos faltantes priorizando ONG (62% de meta)",estado:"Pendiente"}
+    ];
+    if(state.rows.length && !confirm("¿Agregar los 6 focos de junio a la bitácora actual?"))return;
+    seeds.forEach(function(s){addRow(s);});
+  });
+
+  document.getElementById("expBtn").addEventListener("click",function(){
+    var blob=new Blob([JSON.stringify(state.rows,null,2)],{type:"application/json"});
+    var a=document.createElement("a");a.href=URL.createObjectURL?URL.createObjectURL(blob):window.URL.createObjectURL(blob);
+    a.download="seguimientos-ecosistema.json";a.click();
+  });
+  document.getElementById("impBtn").addEventListener("click",function(){document.getElementById("impFile").click();});
+  document.getElementById("impFile").addEventListener("change",function(e){
+    var f=e.target.files[0];if(!f)return;var fr=new FileReader();
+    fr.onload=function(){try{var arr=JSON.parse(fr.result);if(Array.isArray(arr)){state.rows=arr.map(norm);saveLocal();render();if(connected)state.rows.forEach(upsertCloud);}}catch(err){alert("Archivo no válido");}};
+    fr.readAsText(f);
+  });
+  document.getElementById("printBtn").addEventListener("click",function(){window.print();});
+  document.getElementById("clearBtn").addEventListener("click",function(){
+    if(confirm("¿Limpiar toda la bitácora? Esto borra todas las filas. ¿Seguro?")){
+      var ids=state.rows.map(function(r){return r.id;});state.rows=[];saveLocal();render();if(connected)ids.forEach(deleteCloud);
+    }
+  });
+  document.getElementById("connectBtn").addEventListener("click",function(){connect();});
+
+  /* polling */
+  setInterval(function(){
+    if(!connected)return;
+    var ae=document.activeElement;if(ae&&ae.closest&&ae.closest("#rows"))return;
+    cloudGet().then(function(d){
+      if(d&&d.ok){
+        var cur=JSON.stringify(state.rows.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+        var fresh=(d.rows||[]).map(norm);
+        var nx=JSON.stringify(fresh.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+        if(cur!==nx){state.rows=fresh;saveLocal();render();setStatus("ok","Actualizado desde la nube · "+hora());}
+      }
+    }).catch(function(){});
+  },18000);
+
+  /* tabs */
+  function showTab(name){
+    document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("active",t.dataset.tab===name);});
+    document.querySelectorAll(".tabpanel").forEach(function(p){p.classList.toggle("active",p.id===name);});
+    moveBus();
+  }
+  document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){showTab(t.dataset.tab);});});
+  document.querySelectorAll(".stop-node").forEach(function(g){
+    g.addEventListener("click",function(){showTab("reporte");var el=document.getElementById(g.getAttribute("data-target"));if(el)el.scrollIntoView({behavior:"smooth"});});
+  });
+
+  /* scroll bus */
+  var sbus=document.getElementById("scroll-bus");
+  function moveBus(){
+    var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+    var frac=max>0?Math.min(1,Math.max(0,(window.scrollY||h.scrollTop)/max)):0;
+    var topMin=110,topMax=window.innerHeight-40;
+    sbus.style.top=(topMin+frac*(topMax-topMin))+"px";
+  }
+  window.addEventListener("scroll",function(){requestAnimationFrame(moveBus);},{passive:true});
+  window.addEventListener("resize",moveBus);
+
+  /* init */
+  loadLocal();render();moveBus();
+  try{var u=localStorage.getItem(LS_URL)||DEFAULT_URL;if(u){document.getElementById("urlInput").value=u;connect();}else setStatus("off","Sin conexión — guardado solo en este dispositivo");}catch(e){setStatus("off","Sin conexión — guardado local");}
+})();
+</script>
+</body>
+</html>

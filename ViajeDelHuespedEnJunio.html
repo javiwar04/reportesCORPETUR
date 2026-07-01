@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Viaje del Huésped · Junio 2026 · Hoteles de Petén</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1b2a; --navy2:#13263c; --navy3:#1b263b; --card:#16273d; --card2:#1d3350;
+  --gold:#c9a227; --gold2:#e0b84c; --ink:#e8eef6; --mut:#9fb1c7; --line:#2b3f5c;
+  --g:#3fb27f; --a:#e0b84c; --r:#e26d6d; --blue:#4f86c6;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#0a1622,#0d1b2a 40%,#0b1a2b);color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.sec-num,.kn,.brand-t{font-family:'Oswald',sans-serif;font-weight:600;letter-spacing:.3px}
+a{color:var(--gold2)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px 80px}
+header{padding:34px 0 8px;text-align:center;position:relative}
+.brand-t{font-size:13px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+header h1{font-size:clamp(30px,5vw,46px);margin:0;font-weight:700;background:linear-gradient(90deg,#f2e2ad,#c9a227);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--mut);font-size:14px;margin-top:6px;letter-spacing:1px}
+.eco-badge{display:inline-block;margin-top:14px;padding:6px 16px;border:1px solid var(--gold);border-radius:30px;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold2);background:rgba(201,162,39,.07)}
+.road-wrap{margin:22px 0 6px;position:relative}
+.road svg{width:100%;height:auto;display:block;overflow:visible}
+.stop{cursor:pointer}
+.stop-dot{transition:.25s}
+.stop:hover .stop-dot{r:15;fill:var(--gold2)}
+.stop-lbl{font-family:'Oswald';font-size:12px;fill:var(--mut);text-transform:uppercase;letter-spacing:.5px}
+.stop:hover .stop-lbl{fill:var(--gold2)}
+.stop-num{font-family:'Oswald';font-size:15px;font-weight:700;fill:var(--navy)}
+.tabs{display:flex;gap:8px;justify-content:center;margin:20px 0 8px}
+.tab{padding:9px 22px;border:1px solid var(--line);background:var(--navy2);color:var(--mut);
+  border-radius:30px;cursor:pointer;font-family:'Oswald';font-size:14px;letter-spacing:1px;text-transform:uppercase;transition:.2s}
+.tab.active{background:linear-gradient(90deg,#c9a227,#e0b84c);color:var(--navy);border-color:var(--gold);font-weight:600}
+.view{display:none}
+.view.active{display:block;animation:fade .4s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.block{margin:30px 0}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:6px}
+.sec-num{width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:50%;
+  background:linear-gradient(135deg,#e0b84c,#c9a227);color:var(--navy);font-size:20px}
+.sec-head h2{margin:0;font-size:26px}
+.sec-sub{color:var(--mut);font-size:14px;margin:0 0 14px 54px}
+.card{background:linear-gradient(180deg,var(--card),var(--navy3));border:1px solid var(--line);
+  border-radius:16px;padding:22px 24px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.card h3{font-size:18px;margin:18px 0 12px;color:var(--gold2)}
+.card h3:first-child{margin-top:0}
+.card h4{font-size:15px;margin:18px 0 8px;color:var(--ink);font-weight:500}
+.exec h3{color:var(--gold2);font-size:22px}
+.exec .lead{font-size:15.5px}
+.focos{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-top:16px}
+.foco{background:var(--navy2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:10px 13px;font-size:13.5px;color:var(--mut)}
+.foco .ft{display:block;font-family:'Oswald';color:var(--gold2);text-transform:uppercase;font-size:11px;letter-spacing:1px;margin-bottom:3px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+.kpi{background:var(--navy2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;text-align:center}
+.kn{font-size:30px;line-height:1;color:var(--gold2)}
+.kn .ks{font-size:16px;color:var(--mut)}
+.kn.neg{color:var(--r)} .kn.gold{color:var(--gold2)}
+.kl{font-size:11.5px;color:var(--mut);margin-top:6px;letter-spacing:.3px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin:6px 0}
+thead th{font-family:'Oswald';font-weight:500;text-transform:uppercase;font-size:11px;letter-spacing:.5px;
+  color:var(--mut);text-align:right;padding:8px 9px;border-bottom:1px solid var(--line)}
+thead th.l,tbody td.l{text-align:left}
+tbody td{text-align:right;padding:8px 9px;border-bottom:1px solid rgba(43,63,92,.5)}
+tbody td.l{font-weight:500;color:var(--ink)}
+tbody tr.eco td{border-top:2px solid var(--gold);font-weight:600;background:rgba(201,162,39,.06)}
+.pos{color:var(--g)} .neg{color:var(--r)}
+.pill{display:inline-block;min-width:42px;text-align:center;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:600}
+.pill.g{background:rgba(63,178,127,.16);color:var(--g)}
+.pill.a{background:rgba(224,184,76,.16);color:var(--a)}
+.pill.r{background:rgba(226,109,109,.16);color:var(--r)}
+.pill.pend{background:rgba(159,177,199,.16);color:var(--mut)}
+.bars{display:flex;flex-direction:column;gap:9px;margin:6px 0}
+.bar{display:grid;grid-template-columns:170px 1fr auto;align-items:center;gap:12px}
+.bl{font-size:13px;color:var(--ink)}
+.bl .bsub{display:block;color:var(--mut);font-size:11px}
+.btrack{height:16px;background:var(--navy2);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.bfill{height:100%;border-radius:10px;background:linear-gradient(90deg,#4f86c6,#6ea3da);transition:width .8s ease}
+.bfill.gold{background:linear-gradient(90deg,#c9a227,#e0b84c)}
+.bfill.g{background:linear-gradient(90deg,#2f8f64,#3fb27f)}
+.bfill.a{background:linear-gradient(90deg,#caa23f,#e0b84c)}
+.bfill.r{background:linear-gradient(90deg,#c25656,#e26d6d)}
+.bfill.pend{background:repeating-linear-gradient(45deg,#2b3f5c,#2b3f5c 6px,#22344e 6px,#22344e 12px)}
+.bfill.meta{background:linear-gradient(90deg,#6b7a90,#9fb1c7)}
+.bfill.y25{background:linear-gradient(90deg,#3a5475,#4f86c6)}
+.bv{font-size:13px;font-weight:600;color:var(--gold2);white-space:nowrap;min-width:54px;text-align:right}
+.gbars{display:flex;flex-direction:column;gap:14px}
+.gbar .gbl{font-family:'Oswald';color:var(--gold2);font-size:14px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.gset{display:flex;flex-direction:column;gap:5px}
+.grow{display:grid;grid-template-columns:48px 1fr 44px;align-items:center;gap:10px}
+.gtag{font-size:11px;color:var(--mut);text-transform:uppercase}
+.gvv{font-size:12px;text-align:right;color:var(--ink)}
+.insight{margin:14px 0 4px;padding:13px 16px;background:rgba(79,134,198,.08);border-left:3px solid var(--blue);border-radius:8px;font-size:13.5px}
+.note{font-size:13px;color:var(--mut);margin:10px 0 0}
+details{margin-top:14px;border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-family:'Oswald';color:var(--gold2);font-size:14px;letter-spacing:.5px;list-style:none;display:flex;align-items:center;gap:8px}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"▸";transition:.2s;color:var(--gold)}
+details[open] summary::before{transform:rotate(90deg)}
+.deep{padding:12px 2px 2px;animation:fade .3s}
+table.heat td{text-align:center;font-size:12px;color:#0d1b2a;font-weight:600;border:2px solid var(--navy3)}
+table.heat td.l{background:none;color:var(--ink);font-weight:500;border:none;text-align:left}
+.h1{background:#5a3a3a;color:#e8c0c0!important}.h2{background:#7d5a3a;color:#f0d4b0!important}
+.h3{background:#9c8a3a;color:#1d2a12!important}.h4{background:#6f9c5a;color:#0e1a08!important}
+.h5{background:#3fb27f;color:#06180f!important}
+/* split layout */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start;margin:6px 0}
+@media(max-width:680px){.split{grid-template-columns:1fr}}
+/* compliance bars with meta reference line */
+.cbars{display:flex;flex-direction:column;gap:11px;margin:8px 0}
+.cb{display:grid;grid-template-columns:200px 1fr 56px;align-items:center;gap:12px}
+.cbl{font-size:13px;color:var(--ink)}
+.cbl .cbsub{display:block;color:var(--mut);font-size:11px}
+.cbtrack{position:relative;height:18px;background:var(--navy2);border-radius:10px;overflow:hidden;border:1px solid var(--line)}
+.cbref{position:absolute;left:83.33%;top:-3px;bottom:-3px;width:0;border-left:2px dashed var(--gold);opacity:.85;z-index:2}
+.cbfill{height:100%;border-radius:10px;transition:width .9s ease;background:linear-gradient(90deg,#4f86c6,#6ea3da)}
+.cbfill.g{background:linear-gradient(90deg,#2f8f64,#3fb27f)}
+.cbfill.a{background:linear-gradient(90deg,#caa23f,#e0b84c)}
+.cbfill.r{background:linear-gradient(90deg,#c25656,#e26d6d)}
+.cbfill.pend{background:repeating-linear-gradient(45deg,#2b3f5c,#2b3f5c 6px,#22344e 6px,#22344e 12px)}
+.cbv{font-size:13px;font-weight:600;text-align:right;color:var(--gold2)}
+.cbv.g{color:var(--g)}.cbv.a{color:var(--a)}.cbv.r{color:var(--r)}
+@media(max-width:680px){.cb{grid-template-columns:130px 1fr 44px}}
+/* svg charts */
+.vchart{width:100%;height:auto;display:block;margin:4px 0}
+.vb-val{font-family:'Inter';font-size:9.5px;font-weight:600;fill:#cfd8e6}
+.vb-cat{font-family:'Oswald';font-size:12px;fill:var(--mut)}
+.vb-ref{font-family:'Oswald';font-size:10px;fill:var(--gold2)}
+.ax{font-family:'Inter';font-size:9px;fill:var(--mut)}
+/* donut */
+.donutwrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.donut{width:170px;height:170px;flex:none}
+.d-big{font-family:'Oswald';font-size:21px;font-weight:600;fill:var(--gold2)}
+.d-sm{font-family:'Inter';font-size:11px;fill:var(--mut)}
+.legend{display:flex;flex-direction:column;gap:6px}
+.legend.wrap{flex-direction:row;flex-wrap:wrap;gap:6px 16px;margin-top:8px;justify-content:center}
+.lg{font-size:12.5px;color:var(--mut);display:flex;align-items:center;gap:7px}
+.lg b{color:var(--ink)}
+.sw{width:11px;height:11px;border-radius:3px;display:inline-block;flex:none}
+#scrollBus{position:fixed;right:14px;top:120px;z-index:40;width:46px;transition:top .15s ease;pointer-events:none;filter:drop-shadow(0 4px 8px rgba(0,0,0,.4))}
+@media(max-width:760px){#scrollBus{display:none}.bar{grid-template-columns:120px 1fr auto}.sec-sub{margin-left:0}
+  .grow{grid-template-columns:44px 1fr 40px}}
+.seg-top{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cloud{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cloud input{background:var(--navy2);border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:8px 11px;font-size:13px;min-width:260px}
+.btn{font-family:'Oswald';letter-spacing:.5px;text-transform:uppercase;font-size:13px;padding:8px 16px;border-radius:8px;border:1px solid var(--gold);cursor:pointer;background:transparent;color:var(--gold2);transition:.2s}
+.btn:hover{background:var(--gold);color:var(--navy)}
+.btn.solid{background:linear-gradient(90deg,#c9a227,#e0b84c);color:var(--navy);border:none}
+.btn.sm{padding:5px 10px;font-size:12px}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px;background:var(--mut)}
+.dot.ok{background:var(--g);box-shadow:0 0 8px var(--g)} .dot.err{background:var(--r)} .dot.wait{background:var(--a)}
+.status{font-size:12.5px;color:var(--mut);display:flex;align-items:center}
+.counts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.count{background:var(--navy2);border:1px solid var(--line);border-radius:20px;padding:4px 13px;font-size:12.5px;color:var(--mut)}
+.count b{color:var(--ink);font-family:'Oswald';font-size:15px}
+.seg-table{width:100%;border-collapse:collapse;font-size:13px}
+.seg-table th{font-family:'Oswald';font-size:11px;text-transform:uppercase;color:var(--mut);text-align:left;padding:8px;border-bottom:1px solid var(--line)}
+.seg-table td{padding:6px 8px;border-bottom:1px solid rgba(43,63,92,.5);vertical-align:top}
+.seg-table input,.seg-table select,.seg-table textarea{width:100%;background:var(--navy2);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:6px;font-size:12.5px;font-family:inherit}
+.seg-table textarea{resize:vertical;min-height:34px}
+.st-pend{color:var(--a)}.st-proc{color:var(--blue)}.st-done{color:var(--g)}
+.del{color:var(--r);cursor:pointer;background:none;border:none;font-size:16px}
+.howto{margin-top:18px}
+footer{text-align:center;color:var(--mut);font-size:12px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand-t">Hoteles de Petén · La nueva manera de reportar</div>
+  <h1>El Viaje del Huésped</h1>
+  <div class="sub">Reporte del ecosistema · Junio 2026 (mes completo)</div>
+  <div class="eco-badge">7 hoteles · 4 restaurantes · un solo ecosistema</div>
+</header>
+
+<div class="road-wrap">
+  <div class="road"><svg viewBox="0 0 1000 158" xmlns="http://www.w3.org/2000/svg">
+      <path id="roadPath" d="M30.0,86.0 L42.0,82.4 L54.0,78.9 L66.0,75.4 L78.0,72.1 L90.0,69.0 L102.0,66.2 L114.0,63.6 L126.0,61.4 L138.0,59.5 L150.0,58.0 L162.0,56.9 L174.0,56.2 L186.0,56.0 L198.0,56.2 L210.0,56.8 L222.0,57.9 L234.0,59.3 L246.0,61.2 L258.0,63.4 L270.0,65.9 L282.0,68.7 L294.0,71.8 L306.0,75.0 L318.0,78.5 L330.0,82.0 L342.0,85.6 L354.0,89.2 L366.0,92.8 L378.0,96.2 L390.0,99.5 L402.0,102.6 L414.0,105.5 L426.0,108.1 L438.0,110.4 L450.0,112.3 L462.0,113.8 L474.0,115.0 L486.0,115.7 L498.0,116.0 L510.0,115.8 L522.0,115.3 L534.0,114.3 L546.0,112.9 L558.0,111.1 L570.0,108.9 L582.0,106.4 L594.0,103.6 L606.0,100.6 L618.0,97.3 L630.0,93.9 L642.0,90.4 L654.0,86.8 L666.0,83.2 L678.0,79.6 L690.0,76.2 L702.0,72.8 L714.0,69.7 L726.0,66.8 L738.0,64.2 L750.0,61.8 L762.0,59.9 L774.0,58.3 L786.0,57.1 L798.0,56.4 L810.0,56.0 L822.0,56.1 L834.0,56.6 L846.0,57.6 L858.0,59.0 L870.0,60.7 L882.0,62.8 L894.0,65.3 L906.0,68.0 L918.0,71.1 L930.0,74.3 L942.0,77.7 L954.0,81.2 L966.0,84.8" stroke="#22344e" stroke-width="22" fill="none" stroke-linecap="round"/>
+      <path d="M30.0,86.0 L42.0,82.4 L54.0,78.9 L66.0,75.4 L78.0,72.1 L90.0,69.0 L102.0,66.2 L114.0,63.6 L126.0,61.4 L138.0,59.5 L150.0,58.0 L162.0,56.9 L174.0,56.2 L186.0,56.0 L198.0,56.2 L210.0,56.8 L222.0,57.9 L234.0,59.3 L246.0,61.2 L258.0,63.4 L270.0,65.9 L282.0,68.7 L294.0,71.8 L306.0,75.0 L318.0,78.5 L330.0,82.0 L342.0,85.6 L354.0,89.2 L366.0,92.8 L378.0,96.2 L390.0,99.5 L402.0,102.6 L414.0,105.5 L426.0,108.1 L438.0,110.4 L450.0,112.3 L462.0,113.8 L474.0,115.0 L486.0,115.7 L498.0,116.0 L510.0,115.8 L522.0,115.3 L534.0,114.3 L546.0,112.9 L558.0,111.1 L570.0,108.9 L582.0,106.4 L594.0,103.6 L606.0,100.6 L618.0,97.3 L630.0,93.9 L642.0,90.4 L654.0,86.8 L666.0,83.2 L678.0,79.6 L690.0,76.2 L702.0,72.8 L714.0,69.7 L726.0,66.8 L738.0,64.2 L750.0,61.8 L762.0,59.9 L774.0,58.3 L786.0,57.1 L798.0,56.4 L810.0,56.0 L822.0,56.1 L834.0,56.6 L846.0,57.6 L858.0,59.0 L870.0,60.7 L882.0,62.8 L894.0,65.3 L906.0,68.0 L918.0,71.1 L930.0,74.3 L942.0,77.7 L954.0,81.2 L966.0,84.8" stroke="#c9a227" stroke-width="2" fill="none" stroke-dasharray="13 13" opacity=".5"/>
+      <g class="stop" onclick="goTo('p1')">
+          <circle class="stop-dot" cx="105.2" cy="65.5" r="14" fill="#c9a227"/>
+          <text class="stop-num" x="105.2" y="70.5" text-anchor="middle">1</text>
+          <text class="stop-lbl" x="105.2" y="102.5" text-anchor="middle">Segmentos</text></g><g class="stop" onclick="goTo('p2')">
+          <circle class="stop-dot" cx="312.0" cy="76.7" r="14" fill="#c9a227"/>
+          <text class="stop-num" x="312.0" y="81.7" text-anchor="middle">2</text>
+          <text class="stop-lbl" x="312.0" y="113.7" text-anchor="middle">Ocupación</text></g><g class="stop" onclick="goTo('p3')">
+          <circle class="stop-dot" cx="518.8" cy="115.5" r="14" fill="#c9a227"/>
+          <text class="stop-num" x="518.8" y="120.5" text-anchor="middle">3</text>
+          <text class="stop-lbl" x="518.8" y="90.5" text-anchor="middle">Restaurantes</text></g><g class="stop" onclick="goTo('p4')">
+          <circle class="stop-dot" cx="716.2" cy="69.1" r="14" fill="#c9a227"/>
+          <text class="stop-num" x="716.2" y="74.1" text-anchor="middle">4</text>
+          <text class="stop-lbl" x="716.2" y="106.1" text-anchor="middle">Tours</text></g><g class="stop" onclick="goTo('p5')">
+          <circle class="stop-dot" cx="904.2" cy="67.6" r="14" fill="#c9a227"/>
+          <text class="stop-num" x="904.2" y="72.6" text-anchor="middle">5</text>
+          <text class="stop-lbl" x="904.2" y="104.6" text-anchor="middle">Eventos</text></g>
+      <g id="busTop">
+        <rect x="-23" y="-11" width="46" height="22" rx="5" fill="#e0b84c"/>
+        <rect x="-19" y="-7" width="11" height="9" rx="2" fill="#0d1b2a"/>
+        <rect x="-5" y="-7" width="11" height="9" rx="2" fill="#0d1b2a"/>
+        <rect x="9" y="-7" width="10" height="9" rx="2" fill="#0d1b2a"/>
+        <circle cx="-11" cy="13" r="4" fill="#13263c" stroke="#9fb1c7" stroke-width="1.5"/>
+        <circle cx="13" cy="13" r="4" fill="#13263c" stroke="#9fb1c7" stroke-width="1.5"/>
+        <animateMotion dur="17s" repeatCount="indefinite" rotate="auto"><mpath href="#roadPath"/></animateMotion>
+      </g>
+    </svg></div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="showView('reporte',this)">Reporte</div>
+  <div class="tab" onclick="showView('seguimientos',this)">Seguimientos</div>
+</div>
+
+<div id="reporte" class="view active">
+  <section class="block" id="resumen"><div class="card exec">
+      <h3>Resumen ejecutivo — Junio 2026</h3>
+      <p class="lead">El ecosistema cerró junio en <b>91% de la meta de ocupación</b> (3,047 de 3,345 noches, CPL incluido) y <b>-3.9% vs 2025</b>. <b>Casona del Lago y Villa del Lago rebasaron meta</b>; el hueco se concentra en <b>Casona de la Isla</b>. Restaurantes con data en buen nivel, tours con attachment bajo (2.2%) y eventos liderados por Corporativo con ONG rezagado.</p>
+      <div class="focos">
+        <div class="foco"><span class="ft">Ocupación</span> Casona de la Isla carga ~48% del déficit (77%, −22% YoY).</div>
+        <div class="foco"><span class="ft">Canales</span> Directos: mejor ADR (Q668, sin comisión) pero solo 19.8% de las noches.</div>
+        <div class="foco"><span class="ft">Restaurantes</span> Lindo Amanecer +46% YoY; falta cargar Las Ninfas e Isla Bonita.</div>
+        <div class="foco"><span class="ft">Tours</span> Attachment 2.2%; Petén Express 0 y Casona del Lago solo 8 siendo el más grande.</div>
+        <div class="foco"><span class="ft">Eventos</span> Corporativo rebasó meta; ONG el rezago (20 vs 32). Falta cierre de mes.</div>
+        <div class="foco"><span class="ft">Futuro</span> Valle en septiembre (15% OTB); pico en noviembre (68%).</div>
+      </div></div></section>
+  <section class="block" id="p1">
+      <div class="sec-head"><span class="sec-num">1</span><h2>Explotación de segmentos</h2></div>
+      <p class="sec-sub">Cómo se reparte el negocio por canal en el ecosistema: volumen de noches frente a tarifa (ADR) e ingreso. El canal Directos es el de mayor valor — mejor tarifa y sin comisión.</p>
+      <div class="card">
+        <h3>ADR por canal — ecosistema</h3>
+        <div class="cbars"><div class="cb"><div class="cbl">Directos <span class="cbsub">599 noches · 19.8%</span></div>
+      <div class="cbtrack"><div class="cbfill" style="width:95.4%;background:#e0b84c"></div></div>
+      <div class="cbv" style="color:#e0b84c">Q668</div></div><div class="cb"><div class="cbl">OTAs <span class="cbsub">983 noches · 32.5%</span></div>
+      <div class="cbtrack"><div class="cbfill" style="width:72.4%;background:#4f86c6"></div></div>
+      <div class="cbv" style="color:#4f86c6">Q507</div></div><div class="cb"><div class="cbl">Agencias <span class="cbsub">861 noches · 28.5%</span></div>
+      <div class="cbtrack"><div class="cbfill" style="width:64.3%;background:#46b3a8"></div></div>
+      <div class="cbv" style="color:#46b3a8">Q450</div></div><div class="cb"><div class="cbl">Corporativo <span class="cbsub">583 noches · 19.3%</span></div>
+      <div class="cbtrack"><div class="cbfill" style="width:75.3%;background:#9b7fc6"></div></div>
+      <div class="cbv" style="color:#9b7fc6">Q527</div></div></div>
+        <div class="split">
+          <div><h3>Mezcla de ingreso por canal</h3><div class="donutwrap">
+      <svg viewBox="0 0 184 184" class="donut"><circle cx="92" cy="92" r="64" fill="none" stroke="#e0b84c" stroke-width="26" stroke-linecap="butt" stroke-dasharray="101.03 301.10" stroke-dashoffset="0.00" transform="rotate(-90 92 92)"><title>Directos: 400380</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#4f86c6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="125.87 276.25" stroke-dashoffset="-101.03" transform="rotate(-90 92 92)"><title>OTAs: 498839</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#46b3a8" stroke-width="26" stroke-linecap="butt" stroke-dasharray="97.67 304.46" stroke-dashoffset="-226.90" transform="rotate(-90 92 92)"><title>Agencias: 387050</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#9b7fc6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="77.56 324.57" stroke-dashoffset="-324.57" transform="rotate(-90 92 92)"><title>Corporativo: 307361</title></circle>
+        <text x="92" y="86" text-anchor="middle" class="d-big">Q1,593,630</text>
+        <text x="92" y="106" text-anchor="middle" class="d-sm">ingreso</text>
+      </svg>
+      <div class="legend"><div class="lg"><span class="sw" style="background:#e0b84c"></span>Directos <b>25%</b></div><div class="lg"><span class="sw" style="background:#4f86c6"></span>OTAs <b>31%</b></div><div class="lg"><span class="sw" style="background:#46b3a8"></span>Agencias <b>24%</b></div><div class="lg"><span class="sw" style="background:#9b7fc6"></span>Corporativo <b>19%</b></div></div></div></div>
+          <div><h3>Volumen vs valor</h3><svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="39.7" y="103.3" width="38.0" height="100.7" rx="3" fill="#e0b84c"><title>Directos · % noches: 20</title></rect><text x="58.7" y="98.3" text-anchor="middle" class="vb-val">20%</text><rect x="107.3" y="76.3" width="38.0" height="127.7" rx="3" fill="#5a6f8c"><title>Directos · % ingreso: 25</title></rect><text x="126.3" y="71.3" text-anchor="middle" class="vb-val">25%</text><rect x="204.7" y="38.7" width="38.0" height="165.3" rx="3" fill="#4f86c6"><title>OTAs · % noches: 32</title></rect><text x="223.7" y="33.7" text-anchor="middle" class="vb-val">32%</text><rect x="272.3" y="44.8" width="38.0" height="159.2" rx="3" fill="#5a6f8c"><title>OTAs · % ingreso: 31</title></rect><text x="291.3" y="39.8" text-anchor="middle" class="vb-val">31%</text><rect x="369.7" y="59.1" width="38.0" height="144.9" rx="3" fill="#46b3a8"><title>Agencias · % noches: 28</title></rect><text x="388.7" y="54.1" text-anchor="middle" class="vb-val">28%</text><rect x="437.3" y="80.4" width="38.0" height="123.6" rx="3" fill="#5a6f8c"><title>Agencias · % ingreso: 24</title></rect><text x="456.3" y="75.4" text-anchor="middle" class="vb-val">24%</text><rect x="534.7" y="105.8" width="38.0" height="98.2" rx="3" fill="#9b7fc6"><title>Corporativo · % noches: 19</title></rect><text x="553.7" y="100.8" text-anchor="middle" class="vb-val">19%</text><rect x="602.3" y="105.8" width="38.0" height="98.2" rx="3" fill="#5a6f8c"><title>Corporativo · % ingreso: 19</title></rect><text x="621.3" y="100.8" text-anchor="middle" class="vb-val">19%</text><text x="92.5" y="232.0" text-anchor="middle" class="vb-cat">Directos</text><text x="257.5" y="232.0" text-anchor="middle" class="vb-cat">OTAs</text><text x="422.5" y="232.0" text-anchor="middle" class="vb-cat">Agencias</text><text x="587.5" y="232.0" text-anchor="middle" class="vb-cat">Corporativo</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#cfd8e6"></span>% de noches</div><div class="lg"><span class="sw" style="background:#5a6f8c"></span>% de ingreso</div></div><p class="note">Las barras claras son el <b>% de noches</b> y las oscuras el <b>% de ingreso</b>. Donde la oscura supera a la clara, el canal "rinde" más de lo que pesa en volumen: es el caso de <b>Directos</b>.</p></div>
+        </div>
+        <div class="insight"><b>Lectura:</b> <b>Directos</b> manda en tarifa (<b>Q668</b>, sin comisión) pero solo mueve <b>19.8%</b> de las noches y aún así genera <b>25%</b> del ingreso. Las <b>OTAs</b> son el mayor generador (31%) por volumen + tarifa, pero cargan comisión. La palanca: <b>empujar reserva directa</b> para mover noches de Agencias/OTAs hacia Directos.</div>
+        <details><summary>Ver análisis a fondo</summary><div class="deep">
+          <table><thead><tr><th class="l">Canal</th><th>Noches</th><th>% noches</th><th>Ingreso</th><th>% ingreso</th><th>ADR</th></tr></thead><tbody><tr><td class="l">Directos</td><td>599</td><td>19.8%</td><td>Q400,380</td><td>25.1%</td><td><b>Q668</b></td></tr><tr><td class="l">OTAs</td><td>983</td><td>32.5%</td><td>Q498,839</td><td>31.3%</td><td><b>Q507</b></td></tr><tr><td class="l">Agencias</td><td>861</td><td>28.5%</td><td>Q387,050</td><td>24.3%</td><td><b>Q450</b></td></tr><tr><td class="l">Corporativo</td><td>583</td><td>19.3%</td><td>Q307,361</td><td>19.3%</td><td><b>Q527</b></td></tr>
+          <tr class="eco"><td class="l">Total</td><td>3,026</td><td>100%</td><td>Q1,593,630</td><td>100%</td><td>Q527</td></tr></tbody></table>
+          <h4>Penetración de Directos por hotel</h4>
+          <table><thead><tr><th class="l">Hotel</th><th>Dir. noches</th><th>% Dir.</th><th>ADR Dir.</th><th>Agencias</th><th>OTAs</th><th>Corp.</th></tr></thead><tbody><tr><td class="l">Casona del Lago</td><td>277</td><td>27%</td><td>Q781</td><td>186</td><td>215</td><td>332</td></tr><tr><td class="l">Casona de la Isla</td><td>101</td><td>19%</td><td>Q583</td><td>138</td><td>233</td><td>63</td></tr><tr><td class="l">Villa del Lago</td><td>29</td><td>6%</td><td>Q676</td><td>217</td><td>200</td><td>9</td></tr><tr><td class="l">Hotel Petén</td><td>93</td><td>23%</td><td>Q609</td><td>115</td><td>97</td><td>97</td></tr><tr><td class="l">Casa Turquesa</td><td>75</td><td>34%</td><td>Q579</td><td>61</td><td>43</td><td>39</td></tr><tr><td class="l">Casazul</td><td>6</td><td>4%</td><td>Q508</td><td>32</td><td>63</td><td>43</td></tr><tr><td class="l">Hotel Petén Express</td><td>18</td><td>7%</td><td>Q129</td><td>112</td><td>132</td><td>0</td></tr></tbody></table>
+          <p class="note">Casona del Lago es el mejor en Directos (277 noches, ADR Q781). Villa del Lago y Casazul casi no explotan el canal directo — ahí está el upside de margen.</p>
+        </div></details>
+      </div></section>
+  <section class="block" id="p2">
+      <div class="sec-head"><span class="sec-num">2</span><h2>Ocupación, estadía y service fee</h2></div>
+      <p class="sec-sub">Mes completo: cumplimiento de la meta de habitaciones (con CPL/cortesías incluidas), comparativo vs junio 2025, ADR / RevPAR y el Service Fee recaudado. Ecosistema primero, luego por hotel.</p>
+      <div class="card">
+        <div class="kpis">
+          <div class="kpi"><div class="kn">91%</div><div class="kl">de la meta de ocupación</div></div>
+          <div class="kpi"><div class="kn neg">-298</div><div class="kl">noches vs meta (-9.9/día)</div></div>
+          <div class="kpi"><div class="kn">-3.9%</div><div class="kl">vs junio 2025</div></div>
+          <div class="kpi"><div class="kn gold">Q17,991.32</div><div class="kl">Service Fee del mes</div></div>
+        </div>
+        <h3>Cumplimiento de meta por hotel</h3>
+        <div class="cbars"><div class="cb"><div class="cbl">Casona del Lago <span class="cbsub">1024/990</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill g" style="width:86.2%"></div></div>
+    <div class="cbv g">103%</div></div><div class="cb"><div class="cbl">Villa del Lago <span class="cbsub">455/450</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill g" style="width:84.3%"></div></div>
+    <div class="cbv g">101%</div></div><div class="cb"><div class="cbl">Hotel Petén Express <span class="cbsub">262/270</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill a" style="width:80.9%"></div></div>
+    <div class="cbv a">97%</div></div><div class="cb"><div class="cbl">Hotel Petén <span class="cbsub">402/465</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill a" style="width:72.0%"></div></div>
+    <div class="cbv a">86%</div></div><div class="cb"><div class="cbl">Casa Turquesa <span class="cbsub">218/270</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill r" style="width:67.3%"></div></div>
+    <div class="cbv r">81%</div></div><div class="cb"><div class="cbl">Casona de la Isla <span class="cbsub">542/705</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill r" style="width:64.1%"></div></div>
+    <div class="cbv r">77%</div></div><div class="cb"><div class="cbl">Casazul <span class="cbsub">144/195</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill r" style="width:61.5%"></div></div>
+    <div class="cbv r">74%</div></div></div>
+        <p class="note">La línea punteada dorada marca el <b>100% de la meta</b>. Verde = la cumplió o superó; ámbar = cerca; rojo = rezagado.</p>
+        <h3>Real vs pronóstico de inicio de mes vs meta</h3>
+        <div class="kpis" style="margin:6px 0 10px">
+          <div class="kpi"><div class="kn pos">+790</div><div class="kl">noches sobre lo pronosticado</div></div>
+          <div class="kpi"><div class="kn pos">+35%</div><div class="kl">arriba del pronóstico</div></div>
+          <div class="kpi"><div class="kn">2,257</div><div class="kl">pronóstico inicio de junio</div></div>
+        </div>
+        <svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="27.0" y="81.2" width="14.5" height="122.8" rx="3" fill="#4f86c6"><title>C. del Lago · Pron.: 759</title></rect><text x="34.2" y="76.2" text-anchor="middle" class="vb-val">759</text><rect x="49.9" y="38.3" width="14.5" height="165.7" rx="3" fill="#3fb27f"><title>C. del Lago · Real: 1024</title></rect><text x="57.1" y="33.3" text-anchor="middle" class="vb-val">1024</text><rect x="72.8" y="43.8" width="14.5" height="160.2" rx="3" fill="#7d8ca6"><title>C. del Lago · Meta: 990</title></rect><text x="80.1" y="38.8" text-anchor="middle" class="vb-val">990</text><rect x="121.3" y="144.0" width="14.5" height="60.0" rx="3" fill="#4f86c6"><title>C. de la Isla · Pron.: 371</title></rect><text x="128.5" y="139.0" text-anchor="middle" class="vb-val">371</text><rect x="144.2" y="116.3" width="14.5" height="87.7" rx="3" fill="#e26d6d"><title>C. de la Isla · Real: 542</title></rect><text x="151.4" y="111.3" text-anchor="middle" class="vb-val">542</text><rect x="167.1" y="89.9" width="14.5" height="114.1" rx="3" fill="#7d8ca6"><title>C. de la Isla · Meta: 705</title></rect><text x="174.4" y="84.9" text-anchor="middle" class="vb-val">705</text><rect x="215.5" y="154.0" width="14.5" height="50.0" rx="3" fill="#4f86c6"><title>Petén · Pron.: 309</title></rect><text x="222.8" y="149.0" text-anchor="middle" class="vb-val">309</text><rect x="238.5" y="138.9" width="14.5" height="65.1" rx="3" fill="#e0b84c"><title>Petén · Real: 402</title></rect><text x="245.7" y="133.9" text-anchor="middle" class="vb-val">402</text><rect x="261.4" y="128.8" width="14.5" height="75.2" rx="3" fill="#7d8ca6"><title>Petén · Meta: 465</title></rect><text x="268.6" y="123.8" text-anchor="middle" class="vb-val">465</text><rect x="309.8" y="138.1" width="14.5" height="65.9" rx="3" fill="#4f86c6"><title>Villa del Lago · Pron.: 407</title></rect><text x="317.1" y="133.1" text-anchor="middle" class="vb-val">407</text><rect x="332.8" y="130.4" width="14.5" height="73.6" rx="3" fill="#3fb27f"><title>Villa del Lago · Real: 455</title></rect><text x="340.0" y="125.4" text-anchor="middle" class="vb-val">455</text><rect x="355.7" y="131.2" width="14.5" height="72.8" rx="3" fill="#7d8ca6"><title>Villa del Lago · Meta: 450</title></rect><text x="362.9" y="126.2" text-anchor="middle" class="vb-val">450</text><rect x="404.1" y="174.9" width="14.5" height="29.1" rx="3" fill="#4f86c6"><title>P.Exp · Pron.: 180</title></rect><text x="411.4" y="169.9" text-anchor="middle" class="vb-val">180</text><rect x="427.0" y="161.6" width="14.5" height="42.4" rx="3" fill="#e0b84c"><title>P.Exp · Real: 262</title></rect><text x="434.3" y="156.6" text-anchor="middle" class="vb-val">262</text><rect x="450.0" y="160.3" width="14.5" height="43.7" rx="3" fill="#7d8ca6"><title>P.Exp · Meta: 270</title></rect><text x="457.2" y="155.3" text-anchor="middle" class="vb-val">270</text><rect x="498.4" y="179.2" width="14.5" height="24.8" rx="3" fill="#4f86c6"><title>Casa Turquesa · Pron.: 153</title></rect><text x="505.6" y="174.2" text-anchor="middle" class="vb-val">153</text><rect x="521.3" y="168.7" width="14.5" height="35.3" rx="3" fill="#e26d6d"><title>Casa Turquesa · Real: 218</title></rect><text x="528.6" y="163.7" text-anchor="middle" class="vb-val">218</text><rect x="544.3" y="160.3" width="14.5" height="43.7" rx="3" fill="#7d8ca6"><title>Casa Turquesa · Meta: 270</title></rect><text x="551.5" y="155.3" text-anchor="middle" class="vb-val">270</text><rect x="592.7" y="191.4" width="14.5" height="12.6" rx="3" fill="#4f86c6"><title>Casazul · Pron.: 78</title></rect><text x="599.9" y="186.4" text-anchor="middle" class="vb-val">78</text><rect x="615.6" y="180.7" width="14.5" height="23.3" rx="3" fill="#e26d6d"><title>Casazul · Real: 144</title></rect><text x="622.9" y="175.7" text-anchor="middle" class="vb-val">144</text><rect x="638.5" y="172.4" width="14.5" height="31.6" rx="3" fill="#7d8ca6"><title>Casazul · Meta: 195</title></rect><text x="645.8" y="167.4" text-anchor="middle" class="vb-val">195</text><text x="57.1" y="232.0" text-anchor="middle" class="vb-cat">C. del Lago</text><text x="151.4" y="232.0" text-anchor="middle" class="vb-cat">C. de la Isla</text><text x="245.7" y="232.0" text-anchor="middle" class="vb-cat">Petén</text><text x="340.0" y="232.0" text-anchor="middle" class="vb-cat">Villa del Lago</text><text x="434.3" y="232.0" text-anchor="middle" class="vb-cat">P.Exp</text><text x="528.6" y="232.0" text-anchor="middle" class="vb-cat">Casa Turquesa</text><text x="622.9" y="232.0" text-anchor="middle" class="vb-cat">Casazul</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#4f86c6"></span>Pronóstico inicio de mes</div><div class="lg"><span class="sw" style="background:#e0b84c"></span>Real</div><div class="lg"><span class="sw" style="background:#7d8ca6"></span>Meta</div></div>
+        <div class="insight" style="border-left-color:#3fb27f;background:rgba(63,178,127,.08)"><b>Buenísimo:</b> <b>todos los hoteles superaron su propio pronóstico</b> de inicio de mes, y el ecosistema vendió <b>+790 noches (+35%)</b> sobre lo proyectado. La meta se puso más alta que el pronóstico, por eso quedamos en 91% de meta aun habiéndole ganado al pronóstico por mucho. Casazul fue el que más rompió su proyección (+85%).</div>
+        <div class="insight"><b>Lectura:</b> el ecosistema cerró en <b>91% de la meta</b> y <b>-3.9% vs 2025</b>. <b>Casona del Lago (103%)</b> y <b>Villa del Lago (101%)</b> rebasaron meta; <b>Petén Express</b> rozó (97%). El hueco se concentra en <b>Casona de la Isla (77%, −22% YoY)</b> — sola explica ~48% del déficit. La ocupación ya incluye <b>21 noches CPL</b> del ecosistema.</div>
+        <h3>2026 vs meta vs 2025 — noches por hotel</h3>
+        <svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="27.0" y="43.8" width="14.5" height="160.2" rx="3" fill="#7d8ca6"><title>C. del Lago · Meta: 990</title></rect><text x="34.2" y="38.8" text-anchor="middle" class="vb-val">990</text><rect x="49.9" y="38.3" width="14.5" height="165.7" rx="3" fill="#3fb27f"><title>C. del Lago · 2026: 1024</title></rect><text x="57.1" y="33.3" text-anchor="middle" class="vb-val">1024</text><rect x="72.8" y="55.6" width="14.5" height="148.4" rx="3" fill="#4f86c6"><title>C. del Lago · 2025: 917</title></rect><text x="80.1" y="50.6" text-anchor="middle" class="vb-val">917</text><rect x="121.3" y="89.9" width="14.5" height="114.1" rx="3" fill="#7d8ca6"><title>C. de la Isla · Meta: 705</title></rect><text x="128.5" y="84.9" text-anchor="middle" class="vb-val">705</text><rect x="144.2" y="116.3" width="14.5" height="87.7" rx="3" fill="#e26d6d"><title>C. de la Isla · 2026: 542</title></rect><text x="151.4" y="111.3" text-anchor="middle" class="vb-val">542</text><rect x="167.1" y="91.2" width="14.5" height="112.8" rx="3" fill="#4f86c6"><title>C. de la Isla · 2025: 697</title></rect><text x="174.4" y="86.2" text-anchor="middle" class="vb-val">697</text><rect x="215.5" y="128.8" width="14.5" height="75.2" rx="3" fill="#7d8ca6"><title>Petén · Meta: 465</title></rect><text x="222.8" y="123.8" text-anchor="middle" class="vb-val">465</text><rect x="238.5" y="138.9" width="14.5" height="65.1" rx="3" fill="#e0b84c"><title>Petén · 2026: 402</title></rect><text x="245.7" y="133.9" text-anchor="middle" class="vb-val">402</text><rect x="261.4" y="130.0" width="14.5" height="74.0" rx="3" fill="#4f86c6"><title>Petén · 2025: 457</title></rect><text x="268.6" y="125.0" text-anchor="middle" class="vb-val">457</text><rect x="309.8" y="131.2" width="14.5" height="72.8" rx="3" fill="#7d8ca6"><title>Villa del Lago · Meta: 450</title></rect><text x="317.1" y="126.2" text-anchor="middle" class="vb-val">450</text><rect x="332.8" y="130.4" width="14.5" height="73.6" rx="3" fill="#3fb27f"><title>Villa del Lago · 2026: 455</title></rect><text x="340.0" y="125.4" text-anchor="middle" class="vb-val">455</text><rect x="355.7" y="135.6" width="14.5" height="68.4" rx="3" fill="#4f86c6"><title>Villa del Lago · 2025: 423</title></rect><text x="362.9" y="130.6" text-anchor="middle" class="vb-val">423</text><rect x="404.1" y="160.3" width="14.5" height="43.7" rx="3" fill="#7d8ca6"><title>Casa Turquesa · Meta: 270</title></rect><text x="411.4" y="155.3" text-anchor="middle" class="vb-val">270</text><rect x="427.0" y="168.7" width="14.5" height="35.3" rx="3" fill="#e26d6d"><title>Casa Turquesa · 2026: 218</title></rect><text x="434.3" y="163.7" text-anchor="middle" class="vb-val">218</text><rect x="450.0" y="162.7" width="14.5" height="41.3" rx="3" fill="#4f86c6"><title>Casa Turquesa · 2025: 255</title></rect><text x="457.2" y="157.7" text-anchor="middle" class="vb-val">255</text><rect x="498.4" y="160.3" width="14.5" height="43.7" rx="3" fill="#7d8ca6"><title>P.Exp · Meta: 270</title></rect><text x="505.6" y="155.3" text-anchor="middle" class="vb-val">270</text><rect x="521.3" y="161.6" width="14.5" height="42.4" rx="3" fill="#e0b84c"><title>P.Exp · 2026: 262</title></rect><text x="528.6" y="156.6" text-anchor="middle" class="vb-val">262</text><rect x="544.3" y="166.1" width="14.5" height="37.9" rx="3" fill="#4f86c6"><title>P.Exp · 2025: 234</title></rect><text x="551.5" y="161.1" text-anchor="middle" class="vb-val">234</text><rect x="592.7" y="172.4" width="14.5" height="31.6" rx="3" fill="#7d8ca6"><title>Casazul · Meta: 195</title></rect><text x="599.9" y="167.4" text-anchor="middle" class="vb-val">195</text><rect x="615.6" y="180.7" width="14.5" height="23.3" rx="3" fill="#e26d6d"><title>Casazul · 2026: 144</title></rect><text x="622.9" y="175.7" text-anchor="middle" class="vb-val">144</text><rect x="638.5" y="173.6" width="14.5" height="30.4" rx="3" fill="#4f86c6"><title>Casazul · 2025: 188</title></rect><text x="645.8" y="168.6" text-anchor="middle" class="vb-val">188</text><text x="57.1" y="232.0" text-anchor="middle" class="vb-cat">C. del Lago</text><text x="151.4" y="232.0" text-anchor="middle" class="vb-cat">C. de la Isla</text><text x="245.7" y="232.0" text-anchor="middle" class="vb-cat">Petén</text><text x="340.0" y="232.0" text-anchor="middle" class="vb-cat">Villa del Lago</text><text x="434.3" y="232.0" text-anchor="middle" class="vb-cat">Casa Turquesa</text><text x="528.6" y="232.0" text-anchor="middle" class="vb-cat">P.Exp</text><text x="622.9" y="232.0" text-anchor="middle" class="vb-cat">Casazul</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#7d8ca6"></span>Meta</div><div class="lg"><span class="sw" style="background:#e0b84c"></span>2026</div><div class="lg"><span class="sw" style="background:#4f86c6"></span>2025</div></div>
+        <h3>Reparto del Service Fee</h3>
+        <div class="split"><div><div class="donutwrap">
+      <svg viewBox="0 0 184 184" class="donut"><circle cx="92" cy="92" r="64" fill="none" stroke="#e0b84c" stroke-width="26" stroke-linecap="butt" stroke-dasharray="200.54 201.59" stroke-dashoffset="0.00" transform="rotate(-90 92 92)"><title>Casona del Lago: 8972</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#4f86c6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="104.48 297.65" stroke-dashoffset="-200.54" transform="rotate(-90 92 92)"><title>Hotel Petén: 4674</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#46b3a8" stroke-width="26" stroke-linecap="butt" stroke-dasharray="37.21 364.92" stroke-dashoffset="-305.01" transform="rotate(-90 92 92)"><title>Villa del Lago: 1665</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#9b7fc6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="35.31 366.81" stroke-dashoffset="-342.22" transform="rotate(-90 92 92)"><title>Casa Turquesa: 1580</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#3fb27f" stroke-width="26" stroke-linecap="butt" stroke-dasharray="13.24 388.88" stroke-dashoffset="-377.53" transform="rotate(-90 92 92)"><title>Casona de la Isla: 592</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#e26d6d" stroke-width="26" stroke-linecap="butt" stroke-dasharray="11.35 390.77" stroke-dashoffset="-390.77" transform="rotate(-90 92 92)"><title>Casazul: 508</title></circle>
+        <text x="92" y="86" text-anchor="middle" class="d-big">Q17,991</text>
+        <text x="92" y="106" text-anchor="middle" class="d-sm">Service Fee</text>
+      </svg>
+      <div class="legend"><div class="lg"><span class="sw" style="background:#e0b84c"></span>Casona del Lago <b>50%</b></div><div class="lg"><span class="sw" style="background:#4f86c6"></span>Hotel Petén <b>26%</b></div><div class="lg"><span class="sw" style="background:#46b3a8"></span>Villa del Lago <b>9%</b></div><div class="lg"><span class="sw" style="background:#9b7fc6"></span>Casa Turquesa <b>9%</b></div><div class="lg"><span class="sw" style="background:#3fb27f"></span>Casona de la Isla <b>3%</b></div><div class="lg"><span class="sw" style="background:#e26d6d"></span>Casazul <b>3%</b></div></div></div></div><div><p class="note" style="margin-top:30px">Casona del Lago concentra el grueso del Service Fee (Q8,972 de Q17,991 = <b>50%</b>). Casona de la Isla y Casazul, los más rezagados en ocupación, también recaudan poco fee — el fee sigue la ocupación.</p></div></div>
+        <details><summary>Ver análisis a fondo — tabla completa y ocupación futura</summary><div class="deep">
+          <table><thead><tr><th class="l">Hotel</th><th>Meta</th><th>Real</th><th>Brecha</th><th>2025</th><th>YoY</th><th>ADR</th><th>RevPAR</th><th>Cumpl.</th></tr></thead><tbody><tr><td class="l">Casona del Lago</td><td>990</td><td>1024</td><td class="pos">+34</td><td>917</td><td><span class="pos">+11.7%</span></td><td>Q668</td><td>Q475</td><td><span class="pill g">103%</span></td></tr><tr><td class="l">Villa del Lago</td><td>450</td><td>455</td><td class="pos">+5</td><td>423</td><td><span class="pos">+7.6%</span></td><td>Q498</td><td>Q291</td><td><span class="pill g">101%</span></td></tr><tr><td class="l">Hotel Petén Express</td><td>270</td><td>262</td><td class="neg">-8</td><td>234</td><td><span class="pos">+12.0%</span></td><td>Q120</td><td>Q48</td><td><span class="pill a">97%</span></td></tr><tr><td class="l">Hotel Petén</td><td>465</td><td>402</td><td class="neg">-63</td><td>457</td><td><span class="neg">-12.0%</span></td><td>Q491</td><td>Q299</td><td><span class="pill a">86%</span></td></tr><tr><td class="l">Casa Turquesa</td><td>270</td><td>218</td><td class="neg">-52</td><td>255</td><td><span class="neg">-14.5%</span></td><td>Q512</td><td>Q233</td><td><span class="pill r">81%</span></td></tr><tr><td class="l">Casona de la Isla</td><td>705</td><td>542</td><td class="neg">-163</td><td>697</td><td><span class="neg">-22.2%</span></td><td>Q560</td><td>Q298</td><td><span class="pill r">77%</span></td></tr><tr><td class="l">Casazul</td><td>195</td><td>144</td><td class="neg">-51</td><td>188</td><td><span class="neg">-23.4%</span></td><td>Q497</td><td>Q239</td><td><span class="pill r">74%</span></td></tr><tr class="eco"><td class="l">Ecosistema</td><td>3,345</td><td>3,047</td><td class="neg">-298</td><td>3,171</td><td><span class="neg">-3.9%</span></td><td>Q527</td><td>—</td><td><span class="pill a">91%</span></td></tr></tbody></table>
+          <h4>Ocupación futura del ecosistema (% OTB a 6 meses)</h4>
+          <svg viewBox="0 0 640 230" class="vchart">
+      <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#c9a227" stop-opacity=".42"/><stop offset="1" stop-color="#c9a227" stop-opacity="0"/></linearGradient></defs>
+      <line x1="34" y1="196.0" x2="626" y2="196.0" stroke="#22344e" stroke-width="1"/><text x="28" y="199.0" text-anchor="end" class="ax">0</text><line x1="34" y1="151.5" x2="626" y2="151.5" stroke="#22344e" stroke-width="1"/><text x="28" y="154.5" text-anchor="end" class="ax">25</text><line x1="34" y1="107.0" x2="626" y2="107.0" stroke="#22344e" stroke-width="1"/><text x="28" y="110.0" text-anchor="end" class="ax">50</text><line x1="34" y1="62.5" x2="626" y2="62.5" stroke="#22344e" stroke-width="1"/><text x="28" y="65.5" text-anchor="end" class="ax">75</text><line x1="34" y1="18.0" x2="626" y2="18.0" stroke="#22344e" stroke-width="1"/><text x="28" y="21.0" text-anchor="end" class="ax">100</text><path d="M34.0,110.6 C53.7,115.0 112.9,127.5 152.4,137.3 C191.9,147.0 231.3,172.6 270.8,169.3 C310.3,166.0 349.7,133.4 389.2,117.7 C428.7,102.0 468.1,74.4 507.6,75.0 C547.1,75.6 606.3,113.5 626.0,121.2 L626.0,196 L34.0,196 Z" fill="url(#ag)"/><path d="M34.0,110.6 C53.7,115.0 112.9,127.5 152.4,137.3 C191.9,147.0 231.3,172.6 270.8,169.3 C310.3,166.0 349.7,133.4 389.2,117.7 C428.7,102.0 468.1,74.4 507.6,75.0 C547.1,75.6 606.3,113.5 626.0,121.2" fill="none" stroke="#e0b84c" stroke-width="2.5"/><circle cx="34.0" cy="110.6" r="3.5" fill="#e0b84c" stroke="#0d1b2a" stroke-width="1.5"/><text x="34.0" y="99.6" text-anchor="middle" class="vb-val">48%</text><circle cx="152.4" cy="137.3" r="3.5" fill="#e0b84c" stroke="#0d1b2a" stroke-width="1.5"/><text x="152.4" y="126.3" text-anchor="middle" class="vb-val">33%</text><circle cx="270.8" cy="169.3" r="5" fill="#e26d6d" stroke="#0d1b2a" stroke-width="1.5"/><text x="270.8" y="158.3" text-anchor="middle" class="vb-val">15%</text><circle cx="389.2" cy="117.7" r="3.5" fill="#e0b84c" stroke="#0d1b2a" stroke-width="1.5"/><text x="389.2" y="106.7" text-anchor="middle" class="vb-val">44%</text><circle cx="507.6" cy="75.0" r="5" fill="#3fb27f" stroke="#0d1b2a" stroke-width="1.5"/><text x="507.6" y="64.0" text-anchor="middle" class="vb-val">68%</text><circle cx="626.0" cy="121.2" r="3.5" fill="#e0b84c" stroke="#0d1b2a" stroke-width="1.5"/><text x="626.0" y="110.2" text-anchor="middle" class="vb-val">42%</text><text x="34.0" y="218.0" text-anchor="middle" class="vb-cat">Jul</text><text x="152.4" y="218.0" text-anchor="middle" class="vb-cat">Ago</text><text x="270.8" y="218.0" text-anchor="middle" class="vb-cat">Sep</text><text x="389.2" y="218.0" text-anchor="middle" class="vb-cat">Oct</text><text x="507.6" y="218.0" text-anchor="middle" class="vb-cat">Nov</text><text x="626.0" y="218.0" text-anchor="middle" class="vb-cat">Dic</text></svg>
+          <p class="note">Pico en <b>noviembre (68%)</b> y valle profundo en <b>septiembre (15%)</b>. Septiembre es la ventana para meter grupos, ferias y promos con tiempo.</p>
+          <h4>Mapa de calor por hotel (% OTB)</h4>
+          <table class="heat"><thead><tr><th class="l">Hotel</th><th>Jul</th><th>Ago</th><th>Sep</th><th>Oct</th><th>Nov</th><th>Dic</th></tr></thead><tbody><tr><td class="l">Casona del Lago</td><td class="h4">50%</td><td class="h3">35%</td><td class="h1">17%</td><td class="h4">62%</td><td class="h5">90%</td><td class="h4">47%</td></tr><tr><td class="l">Casona de la Isla</td><td class="h4">53%</td><td class="h3">38%</td><td class="h2">18%</td><td class="h3">40%</td><td class="h5">68%</td><td class="h3">41%</td></tr><tr><td class="l">Hotel Petén</td><td class="h4">49%</td><td class="h3">38%</td><td class="h1">15%</td><td class="h4">50%</td><td class="h5">70%</td><td class="h4">50%</td></tr><tr><td class="l">Villa del Lago</td><td class="h4">62%</td><td class="h3">30%</td><td class="h1">14%</td><td class="h4">47%</td><td class="h5">79%</td><td class="h4">50%</td></tr><tr><td class="l">Casa Turquesa</td><td class="h4">50%</td><td class="h2">20%</td><td class="h1">11%</td><td class="h3">31%</td><td class="h4">54%</td><td class="h3">37%</td></tr><tr><td class="l">Hotel Petén Express</td><td class="h2">21%</td><td class="h3">33%</td><td class="h1">13%</td><td class="h2">23%</td><td class="h2">25%</td><td class="h3">30%</td></tr><tr><td class="l">Casazul</td><td class="h3">35%</td><td class="h3">32%</td><td class="h1">4%</td><td class="h2">19%</td><td class="h4">53%</td><td class="h2">20%</td></tr>
+          <tr class="eco"><td class="l">Ecosistema</td><td class="h4"><b>48%</b></td><td class="h3"><b>33%</b></td><td class="h1"><b>15%</b></td><td class="h3"><b>44%</b></td><td class="h5"><b>68%</b></td><td class="h3"><b>42%</b></td></tr></tbody></table>
+        </div></details>
+      </div></section>
+  <section class="block" id="p3">
+      <div class="sec-head"><span class="sec-num">3</span><h2>Restaurantes</h2></div>
+      <p class="sec-sub">Venta neta del mes de los 4 restaurantes contra meta y contra junio 2025. Ya con la data completa: Las Ninfas (Casona del Lago), Isla Bonita (Casona de la Isla), La Chaya (Hotel Petén) y Lindo Amanecer (Villa del Lago).</p>
+      <div class="card">
+        <div class="kpis">
+          <div class="kpi"><div class="kn">99%</div><div class="kl">de la meta conjunta</div></div>
+          <div class="kpi"><div class="kn gold">Q1,030,912</div><div class="kl">venta total del mes</div></div>
+          <div class="kpi"><div class="kn pos">+5.1%</div><div class="kl">vs junio 2025</div></div>
+          <div class="kpi"><div class="kn">Q1,041,000</div><div class="kl">meta conjunta del mes</div></div>
+        </div>
+        <h3>Cumplimiento de meta por restaurante</h3>
+        <div class="cbars"><div class="cb"><div class="cbl">Lindo Amanecer <span class="cbsub">Q64,781</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill g" style="width:94.7%"></div></div>
+    <div class="cbv g">114%</div></div><div class="cb"><div class="cbl">Las Ninfas <span class="cbsub">Q663,975</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill g" style="width:87.8%"></div></div>
+    <div class="cbv g">105%</div></div><div class="cb"><div class="cbl">La Chaya <span class="cbsub">Q159,303</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill a" style="width:79.0%"></div></div>
+    <div class="cbv a">95%</div></div><div class="cb"><div class="cbl">Isla Bonita <span class="cbsub">Q142,853</span></div>
+    <div class="cbtrack"><div class="cbref"></div><div class="cbfill r" style="width:64.0%"></div></div>
+    <div class="cbv r">77%</div></div></div>
+        <p class="note">La línea punteada dorada marca el <b>100% de la meta</b>.</p>
+        <div class="split">
+          <div><h3>Mezcla de venta 2026</h3><div class="donutwrap">
+      <svg viewBox="0 0 184 184" class="donut"><circle cx="92" cy="92" r="64" fill="none" stroke="#e0b84c" stroke-width="26" stroke-linecap="butt" stroke-dasharray="25.27 376.85" stroke-dashoffset="0.00" transform="rotate(-90 92 92)"><title>Lindo Amanecer: 64781</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#4f86c6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="258.99 143.13" stroke-dashoffset="-25.27" transform="rotate(-90 92 92)"><title>Las Ninfas: 663975</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#46b3a8" stroke-width="26" stroke-linecap="butt" stroke-dasharray="62.14 339.99" stroke-dashoffset="-284.26" transform="rotate(-90 92 92)"><title>La Chaya: 159303</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#9b7fc6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="55.72 346.40" stroke-dashoffset="-346.40" transform="rotate(-90 92 92)"><title>Isla Bonita: 142853</title></circle>
+        <text x="92" y="86" text-anchor="middle" class="d-big">Q1,030,912</text>
+        <text x="92" y="106" text-anchor="middle" class="d-sm">venta 2026</text>
+      </svg>
+      <div class="legend"><div class="lg"><span class="sw" style="background:#e0b84c"></span>Lindo Amanecer <b>6%</b></div><div class="lg"><span class="sw" style="background:#4f86c6"></span>Las Ninfas <b>64%</b></div><div class="lg"><span class="sw" style="background:#46b3a8"></span>La Chaya <b>15%</b></div><div class="lg"><span class="sw" style="background:#9b7fc6"></span>Isla Bonita <b>14%</b></div></div></div></div>
+          <div><h3>2026 vs meta vs 2025</h3><svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="39.7" y="189.5" width="25.3" height="14.5" rx="3" fill="#7d8ca6"><title>Lindo Am. · Meta: 57000</title></rect><text x="52.4" y="184.5" text-anchor="middle" class="vb-val">57k</text><rect x="79.8" y="187.5" width="25.3" height="16.5" rx="3" fill="#3fb27f"><title>Lindo Am. · 2026: 64781</title></rect><text x="92.5" y="182.5" text-anchor="middle" class="vb-val">65k</text><rect x="120.0" y="192.7" width="25.3" height="11.3" rx="3" fill="#4f86c6"><title>Lindo Am. · 2025: 44322</title></rect><text x="132.6" y="187.7" text-anchor="middle" class="vb-val">44k</text><rect x="204.7" y="43.8" width="25.3" height="160.2" rx="3" fill="#7d8ca6"><title>Las Ninfas · Meta: 630000</title></rect><text x="217.4" y="38.8" text-anchor="middle" class="vb-val">630k</text><rect x="244.8" y="35.2" width="25.3" height="168.8" rx="3" fill="#3fb27f"><title>Las Ninfas · 2026: 663975</title></rect><text x="257.5" y="30.2" text-anchor="middle" class="vb-val">664k</text><rect x="285.0" y="49.6" width="25.3" height="154.4" rx="3" fill="#4f86c6"><title>Las Ninfas · 2025: 607209</title></rect><text x="297.6" y="44.6" text-anchor="middle" class="vb-val">607k</text><rect x="369.7" y="161.3" width="25.3" height="42.7" rx="3" fill="#7d8ca6"><title>La Chaya · Meta: 168000</title></rect><text x="382.4" y="156.3" text-anchor="middle" class="vb-val">168k</text><rect x="409.8" y="163.5" width="25.3" height="40.5" rx="3" fill="#e0b84c"><title>La Chaya · 2026: 159303</title></rect><text x="422.5" y="158.5" text-anchor="middle" class="vb-val">159k</text><rect x="450.0" y="165.0" width="25.3" height="39.0" rx="3" fill="#4f86c6"><title>La Chaya · 2025: 153536</title></rect><text x="462.6" y="160.0" text-anchor="middle" class="vb-val">154k</text><rect x="534.7" y="156.7" width="25.3" height="47.3" rx="3" fill="#7d8ca6"><title>Isla Bonita · Meta: 186000</title></rect><text x="547.4" y="151.7" text-anchor="middle" class="vb-val">186k</text><rect x="574.8" y="167.7" width="25.3" height="36.3" rx="3" fill="#e26d6d"><title>Isla Bonita · 2026: 142853</title></rect><text x="587.5" y="162.7" text-anchor="middle" class="vb-val">143k</text><rect x="615.0" y="159.4" width="25.3" height="44.6" rx="3" fill="#4f86c6"><title>Isla Bonita · 2025: 175546</title></rect><text x="627.6" y="154.4" text-anchor="middle" class="vb-val">176k</text><text x="92.5" y="232.0" text-anchor="middle" class="vb-cat">Lindo Am.</text><text x="257.5" y="232.0" text-anchor="middle" class="vb-cat">Las Ninfas</text><text x="422.5" y="232.0" text-anchor="middle" class="vb-cat">La Chaya</text><text x="587.5" y="232.0" text-anchor="middle" class="vb-cat">Isla Bonita</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#7d8ca6"></span>Meta</div><div class="lg"><span class="sw" style="background:#e0b84c"></span>2026</div><div class="lg"><span class="sw" style="background:#4f86c6"></span>2025</div></div></div>
+        </div>
+        <div class="insight"><b>Lectura:</b> el ecosistema restaurantero cerró en <b>99% de la meta</b> (Q1,030,912) y <b>+5.1% vs 2025</b>. <b>Las Ninfas</b> (la que más pesa) rebasó meta (105%) y <b>Lindo Amanecer</b> voló (+46% YoY). El único rezago claro es <b>Isla Bonita (77%, −18.6% YoY)</b> — mismo hotel (Casona de la Isla) que arrastra la ocupación, así que es un foco doble.</div>
+        <details><summary>Ver análisis a fondo — tabla y tendencia mensual</summary><div class="deep">
+          <table><thead><tr><th class="l">Restaurante</th><th class="l">Hotel</th><th>2026</th><th>Meta</th><th>2025</th><th>YoY</th><th>Cumpl.</th></tr></thead><tbody><tr><td class="l">Las Ninfas</td><td class="l" style="color:var(--mut);font-weight:400">Casona del Lago</td><td>Q663,975</td><td>Q630,000</td><td>Q607,209</td><td><span class="pos">+9.3%</span></td><td><span class="pill g">105%</span></td></tr><tr><td class="l">Isla Bonita</td><td class="l" style="color:var(--mut);font-weight:400">Casona de la Isla</td><td>Q142,853</td><td>Q186,000</td><td>Q175,546</td><td><span class="neg">-18.6%</span></td><td><span class="pill r">77%</span></td></tr><tr><td class="l">La Chaya</td><td class="l" style="color:var(--mut);font-weight:400">Hotel Petén</td><td>Q159,303</td><td>Q168,000</td><td>Q153,536</td><td><span class="pos">+3.8%</span></td><td><span class="pill a">95%</span></td></tr><tr><td class="l">Lindo Amanecer</td><td class="l" style="color:var(--mut);font-weight:400">Villa del Lago</td><td>Q64,781</td><td>Q57,000</td><td>Q44,322</td><td><span class="pos">+46.2%</span></td><td><span class="pill g">114%</span></td></tr><tr class="eco"><td class="l">Ecosistema</td><td class="l"></td><td>Q1,030,912</td><td>Q1,041,000</td><td>Q980,613</td><td><span class="pos">+5.1%</span></td><td><span class="pill a">99%</span></td></tr></tbody></table>
+          <h4>Tendencia mensual 2025 vs 2026 (Las Ninfas + Isla Bonita + La Chaya)</h4>
+          <svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="29.8" y="53.9" width="25.3" height="150.1" rx="3" fill="#4f86c6"><title>Ene · 2025: 1011839</title></rect><text x="42.5" y="48.9" text-anchor="middle" class="vb-val">1012k</text><rect x="74.9" y="55.1" width="25.3" height="148.9" rx="3" fill="#e0b84c"><title>Ene · 2026: 1003904</title></rect><text x="87.5" y="50.1" text-anchor="middle" class="vb-val">1004k</text><rect x="139.8" y="73.2" width="25.3" height="130.8" rx="3" fill="#4f86c6"><title>Feb · 2025: 881944</title></rect><text x="152.5" y="68.2" text-anchor="middle" class="vb-val">882k</text><rect x="184.9" y="75.0" width="25.3" height="129.0" rx="3" fill="#e0b84c"><title>Feb · 2026: 869992</title></rect><text x="197.5" y="70.0" text-anchor="middle" class="vb-val">870k</text><rect x="249.8" y="58.9" width="25.3" height="145.1" rx="3" fill="#4f86c6"><title>Mar · 2025: 978191</title></rect><text x="262.5" y="53.9" text-anchor="middle" class="vb-val">978k</text><rect x="294.9" y="42.3" width="25.3" height="161.7" rx="3" fill="#e0b84c"><title>Mar · 2026: 1090352</title></rect><text x="307.5" y="37.3" text-anchor="middle" class="vb-val">1090k</text><rect x="359.8" y="74.0" width="25.3" height="130.0" rx="3" fill="#4f86c6"><title>Abr · 2025: 876203</title></rect><text x="372.5" y="69.0" text-anchor="middle" class="vb-val">876k</text><rect x="404.9" y="33.4" width="25.3" height="170.6" rx="3" fill="#e0b84c"><title>Abr · 2026: 1150208</title></rect><text x="417.5" y="28.4" text-anchor="middle" class="vb-val">1150k</text><rect x="469.8" y="66.2" width="25.3" height="137.8" rx="3" fill="#4f86c6"><title>May · 2025: 928987</title></rect><text x="482.5" y="61.2" text-anchor="middle" class="vb-val">929k</text><rect x="514.9" y="67.2" width="25.3" height="136.8" rx="3" fill="#e0b84c"><title>May · 2026: 922234</title></rect><text x="527.5" y="62.2" text-anchor="middle" class="vb-val">922k</text><rect x="579.8" y="65.1" width="25.3" height="138.9" rx="3" fill="#4f86c6"><title>Jun · 2025: 936291</title></rect><text x="592.5" y="60.1" text-anchor="middle" class="vb-val">936k</text><rect x="624.9" y="60.7" width="25.3" height="143.3" rx="3" fill="#e0b84c"><title>Jun · 2026: 966131</title></rect><text x="637.5" y="55.7" text-anchor="middle" class="vb-val">966k</text><text x="65.0" y="232.0" text-anchor="middle" class="vb-cat">Ene</text><text x="175.0" y="232.0" text-anchor="middle" class="vb-cat">Feb</text><text x="285.0" y="232.0" text-anchor="middle" class="vb-cat">Mar</text><text x="395.0" y="232.0" text-anchor="middle" class="vb-cat">Abr</text><text x="505.0" y="232.0" text-anchor="middle" class="vb-cat">May</text><text x="615.0" y="232.0" text-anchor="middle" class="vb-cat">Jun</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#4f86c6"></span>2025</div><div class="lg"><span class="sw" style="background:#e0b84c"></span>2026</div></div>
+          <p class="note">El acumulado enero–junio de las tres plazas con detalle va <b>arriba de 2025</b>, empujado por un marzo y abril muy fuertes (+11% y +31% en el mes). Junio quedó parejo. Lindo Amanecer no tiene desglose mensual en esta hoja.</p>
+        </div></details>
+      </div></section>
+  <section class="block" id="p4">
+      <div class="sec-head"><span class="sec-num">4</span><h2>Tours</h2></div>
+      <p class="sec-sub">Ventas de tours, ingreso bruto, ganancia real (utilidad neta de comisiones) y margen por hotel. El attachment mide cuántas noches ocupadas terminan comprando un tour.</p>
+      <div class="card">
+        <div class="kpis">
+          <div class="kpi"><div class="kn">66</div><div class="kl">tours vendidos</div></div>
+          <div class="kpi"><div class="kn gold">Q45,053</div><div class="kl">ingreso bruto</div></div>
+          <div class="kpi"><div class="kn">Q24,380</div><div class="kl">ganancia real (54% margen)</div></div>
+          <div class="kpi"><div class="kn">2.2%</div><div class="kl">attachment (tours/noche)</div></div>
+        </div>
+        <h3>Ingreso bruto por hotel</h3>
+        <div class="cbars"><div class="cb"><div class="cbl">Villa del Lago <span class="cbsub">18 tours · util. Q7,705 (62%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:100.0%;background:#e0b84c"></div></div><div class="cbv" style="color:#e0b84c">Q12,449</div></div><div class="cb"><div class="cbl">Casona de la Isla <span class="cbsub">16 tours · util. Q3,702 (43%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:69.2%;background:#46b3a8"></div></div><div class="cbv" style="color:#46b3a8">Q8,620</div></div><div class="cb"><div class="cbl">Hotel Petén <span class="cbsub">13 tours · util. Q3,790 (44%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:68.8%;background:#9b7fc6"></div></div><div class="cbv" style="color:#9b7fc6">Q8,569</div></div><div class="cb"><div class="cbl">Casona del Lago <span class="cbsub">8 tours · util. Q6,994 (74%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:75.5%;background:#4f86c6"></div></div><div class="cbv" style="color:#4f86c6">Q9,405</div></div><div class="cb"><div class="cbl">Casa Turquesa <span class="cbsub">5 tours · util. Q1,268 (31%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:33.3%;background:#3fb27f"></div></div><div class="cbv" style="color:#3fb27f">Q4,150</div></div><div class="cb"><div class="cbl">Casazul <span class="cbsub">5 tours · util. Q919 (49%)</span></div>
+            <div class="cbtrack"><div class="cbfill" style="width:14.9%;background:#e26d6d"></div></div><div class="cbv" style="color:#e26d6d">Q1,860</div></div><div class="cb"><div class="cbl">Hotel Petén Express <span class="cbsub">sin tours</span></div><div class="cbtrack"><div class="cbfill pend" style="width:0"></div></div><div class="cbv">0</div></div></div>
+        <div class="split"><div><h3>Reparto de la ganancia real</h3><div class="donutwrap">
+      <svg viewBox="0 0 184 184" class="donut"><circle cx="92" cy="92" r="64" fill="none" stroke="#e0b84c" stroke-width="26" stroke-linecap="butt" stroke-dasharray="127.09 275.04" stroke-dashoffset="0.00" transform="rotate(-90 92 92)"><title>Villa del Lago: 7705</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#46b3a8" stroke-width="26" stroke-linecap="butt" stroke-dasharray="61.07 341.06" stroke-dashoffset="-127.09" transform="rotate(-90 92 92)"><title>Casona de la Isla: 3702</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#9b7fc6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="62.52 339.60" stroke-dashoffset="-188.15" transform="rotate(-90 92 92)"><title>Hotel Petén: 3790</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#4f86c6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="115.37 286.76" stroke-dashoffset="-250.67" transform="rotate(-90 92 92)"><title>Casona del Lago: 6994</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#3fb27f" stroke-width="26" stroke-linecap="butt" stroke-dasharray="20.92 381.20" stroke-dashoffset="-366.04" transform="rotate(-90 92 92)"><title>Casa Turquesa: 1268</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#e26d6d" stroke-width="26" stroke-linecap="butt" stroke-dasharray="15.16 386.96" stroke-dashoffset="-386.96" transform="rotate(-90 92 92)"><title>Casazul: 919</title></circle>
+        <text x="92" y="86" text-anchor="middle" class="d-big">Q24,380</text>
+        <text x="92" y="106" text-anchor="middle" class="d-sm">ganancia</text>
+      </svg>
+      <div class="legend"><div class="lg"><span class="sw" style="background:#e0b84c"></span>Villa del Lago <b>32%</b></div><div class="lg"><span class="sw" style="background:#46b3a8"></span>Casona de la Isla <b>15%</b></div><div class="lg"><span class="sw" style="background:#9b7fc6"></span>Hotel Petén <b>16%</b></div><div class="lg"><span class="sw" style="background:#4f86c6"></span>Casona del Lago <b>29%</b></div><div class="lg"><span class="sw" style="background:#3fb27f"></span>Casa Turquesa <b>5%</b></div><div class="lg"><span class="sw" style="background:#e26d6d"></span>Casazul <b>4%</b></div></div></div></div>
+        <div><div class="insight" style="margin-top:34px"><b>Lectura:</b> el attachment sigue muy bajo (<b>2.2%</b>): de cada 100 noches ocupadas solo ~2 compran tour. <b>Villa del Lago</b> es el motor (18 tours), pero <b>Casona del Lago</b> — el más grande — solo movió 8, y <b>Petén Express</b> cerró en <b>0</b>. Ahí está el upside: convertir ocupación en venta de tours desde recepción.</div></div></div>
+        <details><summary>Ver análisis a fondo</summary><div class="deep">
+          <table><thead><tr><th class="l">Hotel</th><th>Tours</th><th>Bruto</th><th>Ganancia real</th><th>Margen</th></tr></thead><tbody><tr><td class="l">Villa del Lago</td><td>18</td><td>Q12,449</td><td>Q7,705</td><td>61.9%</td></tr><tr><td class="l">Casona de la Isla</td><td>16</td><td>Q8,620</td><td>Q3,702</td><td>43.0%</td></tr><tr><td class="l">Hotel Petén</td><td>13</td><td>Q8,569</td><td>Q3,790</td><td>44.2%</td></tr><tr><td class="l">Casona del Lago</td><td>8</td><td>Q9,405</td><td>Q6,994</td><td>74.4%</td></tr><tr><td class="l">Casa Turquesa</td><td>5</td><td>Q4,150</td><td>Q1,268</td><td>30.6%</td></tr><tr><td class="l">Casazul</td><td>5</td><td>Q1,860</td><td>Q919</td><td>49.4%</td></tr><tr><td class="l">Hotel Petén Express</td><td>0</td><td>Q0</td><td>Q0</td><td>0.0%</td></tr><tr class="eco"><td class="l">Ecosistema</td><td>66</td><td>Q45,053</td><td>Q24,380</td><td>54%</td></tr></tbody></table>
+          <h4>Tours más vendidos del mes</h4>
+          <table><thead><tr><th class="l">Tour</th><th>Ventas</th><th>Ingreso</th></tr></thead><tbody><tr><td class="l">Transporte + Guía (Tikal Amanecer)</td><td>15</td><td>Q9,300</td></tr><tr><td class="l">Tikal — Transporte + Guía</td><td>9</td><td>Q4,600</td></tr><tr><td class="l">Transporte + Guía + Almuerzo (Tikal)</td><td>5</td><td>Q3,850</td></tr><tr><td class="l">Tour al Lago</td><td>5</td><td>Q3,800</td></tr><tr><td class="l">Cráter Azul — Transporte + Almuerzo</td><td>5</td><td>Q3,600</td></tr><tr><td class="l">Solo Transporte Tikal</td><td>9</td><td>Q2,880</td></tr></tbody></table>
+          <p class="note">El margen varía mucho: Casona del Lago 74% y Villa del Lago 62%, mientras Casa Turquesa baja a 31%. La mezcla de tipo de tour (solo transporte vs. tour completo con guía/almuerzo) explica la diferencia.</p>
+        </div></details>
+      </div></section>
+  <section class="block" id="p5">
+      <div class="sec-head"><span class="sec-num">5</span><h2>Eventos</h2></div>
+      <p class="sec-sub">Eventos por tipo, contra la meta (70/mes: Corp 31, ONG 32, Social 7) y contra junio 2025. <b>Ojo:</b> la data va hasta el día 26 — falta el cierre del fin de mes, así que estos números todavía suben.</p>
+      <div class="card">
+        <div class="kpis">
+          <div class="kpi"><div class="kn">65<span class="ks">/70</span></div><div class="kl">eventos (93% de meta, parcial)</div></div>
+          <div class="kpi"><div class="kn gold">Q197,636</div><div class="kl">neto a la fecha</div></div>
+          <div class="kpi"><div class="kn">64</div><div class="kl">eventos junio 2025 (Q293,010)</div></div>
+        </div>
+        <h3>2026 vs meta vs 2025 por tipo</h3>
+        <svg viewBox="0 0 680 248" class="vchart"><line x1="10" y1="204" x2="670" y2="204" stroke="#2b3f5c" stroke-width="1.5"/><rect x="49.6" y="72.6" width="33.8" height="131.4" rx="3" fill="#7d8ca6"><title>Corporativo · Meta: 31</title></rect><text x="66.5" y="67.6" text-anchor="middle" class="vb-val">31</text><rect x="103.1" y="34.5" width="33.8" height="169.5" rx="3" fill="#3fb27f"><title>Corporativo · 2026: 40</title></rect><text x="120.0" y="29.5" text-anchor="middle" class="vb-val">40</text><rect x="156.6" y="85.3" width="33.8" height="118.7" rx="3" fill="#4f86c6"><title>Corporativo · 2025: 28</title></rect><text x="173.5" y="80.3" text-anchor="middle" class="vb-val">28</text><rect x="269.6" y="68.4" width="33.8" height="135.6" rx="3" fill="#7d8ca6"><title>ONG · Meta: 32</title></rect><text x="286.5" y="63.4" text-anchor="middle" class="vb-val">32</text><rect x="323.1" y="119.2" width="33.8" height="84.8" rx="3" fill="#e26d6d"><title>ONG · 2026: 20</title></rect><text x="340.0" y="114.2" text-anchor="middle" class="vb-val">20</text><rect x="376.6" y="81.1" width="33.8" height="122.9" rx="3" fill="#4f86c6"><title>ONG · 2025: 29</title></rect><text x="393.5" y="76.1" text-anchor="middle" class="vb-val">29</text><rect x="489.6" y="174.3" width="33.8" height="29.7" rx="3" fill="#7d8ca6"><title>Social · Meta: 7</title></rect><text x="506.5" y="169.3" text-anchor="middle" class="vb-val">7</text><rect x="543.1" y="182.8" width="33.8" height="21.2" rx="3" fill="#e26d6d"><title>Social · 2026: 5</title></rect><text x="560.0" y="177.8" text-anchor="middle" class="vb-val">5</text><rect x="596.6" y="174.3" width="33.8" height="29.7" rx="3" fill="#4f86c6"><title>Social · 2025: 7</title></rect><text x="613.5" y="169.3" text-anchor="middle" class="vb-val">7</text><text x="120.0" y="232.0" text-anchor="middle" class="vb-cat">Corporativo</text><text x="340.0" y="232.0" text-anchor="middle" class="vb-cat">ONG</text><text x="560.0" y="232.0" text-anchor="middle" class="vb-cat">Social</text></svg><div class="legend wrap"><div class="lg"><span class="sw" style="background:#7d8ca6"></span>Meta</div><div class="lg"><span class="sw" style="background:#e0b84c"></span>2026</div><div class="lg"><span class="sw" style="background:#4f86c6"></span>2025</div></div>
+        <div class="split"><div><h3>Mezcla de eventos 2026</h3><div class="donutwrap">
+      <svg viewBox="0 0 184 184" class="donut"><circle cx="92" cy="92" r="64" fill="none" stroke="#e0b84c" stroke-width="26" stroke-linecap="butt" stroke-dasharray="247.46 154.66" stroke-dashoffset="0.00" transform="rotate(-90 92 92)"><title>Corporativo: 40</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#4f86c6" stroke-width="26" stroke-linecap="butt" stroke-dasharray="123.73 278.39" stroke-dashoffset="-247.46" transform="rotate(-90 92 92)"><title>ONG: 20</title></circle><circle cx="92" cy="92" r="64" fill="none" stroke="#46b3a8" stroke-width="26" stroke-linecap="butt" stroke-dasharray="30.93 371.19" stroke-dashoffset="-371.19" transform="rotate(-90 92 92)"><title>Social: 5</title></circle>
+        <text x="92" y="86" text-anchor="middle" class="d-big">65</text>
+        <text x="92" y="106" text-anchor="middle" class="d-sm">eventos</text>
+      </svg>
+      <div class="legend"><div class="lg"><span class="sw" style="background:#e0b84c"></span>Corporativo <b>62%</b></div><div class="lg"><span class="sw" style="background:#4f86c6"></span>ONG <b>31%</b></div><div class="lg"><span class="sw" style="background:#46b3a8"></span>Social <b>8%</b></div></div></div></div>
+        <div><div class="insight" style="margin-top:34px"><b>Lectura:</b> <b>Corporativo</b> ya rebasó meta (<b>40 vs 31</b>) y supera a 2025 (28) — el motor del mes. El rezago es <b>ONG</b> (<b>20 vs 32</b>, y 29 en 2025): ahí está casi todo el hueco, y como ONG trae catering grande, explica que el neto (Q197,636) vaya bajo el cierre 2025 (Q293,010). <b>Social</b> casi en meta (5 de 7).</div></div></div>
+        <details><summary>Ver análisis a fondo</summary><div class="deep">
+          <table><thead><tr><th class="l">Tipo</th><th>Meta</th><th>2026</th><th>2025</th><th>Cumpl.</th></tr></thead><tbody><tr><td class="l">Corporativo</td><td>31</td><td>40</td><td>28</td><td><span class="pill g">129%</span></td></tr><tr><td class="l">ONG</td><td>32</td><td>20</td><td>29</td><td><span class="pill r">62%</span></td></tr><tr><td class="l">Social</td><td>7</td><td>5</td><td>7</td><td><span class="pill r">71%</span></td></tr><tr class="eco"><td class="l">Total</td><td>70</td><td>65</td><td>64</td><td><span class="pill a">93%</span></td></tr></tbody></table>
+          <p class="note">Con el cierre de fin de mes los totales deberían acercarse o pasar la meta de 70. Para empatar/superar 2025 en valor, la prioridad es reactivar las cuentas ONG (ACOFOP, WCS, Rainforest Alliance), que cargan los eventos de mayor neto. En la hoja Comparativo, marzo 2026 ya superó a 2025 (67 vs 65 eventos, Q276k vs Q174k).</p>
+        </div></details>
+      </div></section>
+</div>
+
+<div id="seguimientos" class="view">
+  <div class="block">
+    <div class="sec-head"><span class="sec-num">✓</span><h2>Bitácora de seguimientos</h2></div>
+    <p class="sec-sub">Acuerdos y acciones del ecosistema, sincronizados en la nube para todo el equipo. Se guarda solo; si no hay conexión, queda local y sube al reconectar.</p>
+    <div class="card">
+      <div class="seg-top">
+        <div class="cloud">
+          <input id="gsUrl" placeholder="URL del Web App de Google (/exec)" />
+          <button class="btn sm" onclick="connectCloud()">Conectar</button>
+        </div>
+        <div class="status"><span class="dot" id="syncDot"></span><span id="syncTxt">Sin conectar</span></div>
+      </div>
+      <div class="counts">
+        <div class="count">Pendientes <b id="cPend">0</b></div>
+        <div class="count">En proceso <b id="cProc">0</b></div>
+        <div class="count">Listos <b id="cDone">0</b></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+        <button class="btn solid sm" onclick="addRow()">+ Agregar acción</button>
+        <button class="btn sm" onclick="seedFocos()">Cargar focos de junio</button>
+      </div>
+      <div style="overflow-x:auto">
+      <table class="seg-table">
+        <thead><tr><th>#</th><th>Punto</th><th>Acción</th><th>Responsable</th><th>Fecha</th><th>Estado</th><th>Notas</th><th></th></tr></thead>
+        <tbody id="segBody"></tbody>
+      </table>
+      </div>
+      <details class="howto"><summary>¿Cómo conectarlo a Google?</summary>
+        <div class="deep">
+          <ol style="font-size:13.5px;color:var(--mut);line-height:1.7">
+            <li>Crea una hoja nueva en Google Sheets.</li>
+            <li>Menú <b>Extensiones → Apps Script</b>. Pega el código del puente (el que ya tenés) y guarda.</li>
+            <li><b>Implementar → Nueva implementación → Aplicación web</b>. Ejecutar como: <b>Yo</b>. Acceso: <b>Cualquier persona</b>.</li>
+            <li>Copia la URL que termina en <b>/exec</b>, pégala arriba y dale <b>Conectar</b>. El indicador pasa a verde.</li>
+            <li>Comparte la hoja con tu equipo (Editor) y pásales este archivo. Todos escriben sobre lo mismo.</li>
+          </ol>
+          <p class="note">La URL ya viene cableada en este archivo, así que debería conectarse solo al abrirlo en tu navegador.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<footer>El Viaje del Huésped · Hoteles de Petén · Junio 2026 · La nueva manera de reportar</footer>
+</div>
+
+<svg id="scrollBus" viewBox="0 0 46 30" xmlns="http://www.w3.org/2000/svg">
+  <rect x="0" y="2" width="46" height="22" rx="5" fill="#e0b84c"/>
+  <rect x="4" y="6" width="11" height="9" rx="2" fill="#0d1b2a"/>
+  <rect x="18" y="6" width="11" height="9" rx="2" fill="#0d1b2a"/>
+  <rect x="32" y="6" width="10" height="9" rx="2" fill="#0d1b2a"/>
+  <circle cx="12" cy="26" r="4" fill="#13263c" stroke="#9fb1c7" stroke-width="1.5"/>
+  <circle cx="34" cy="26" r="4" fill="#13263c" stroke="#9fb1c7" stroke-width="1.5"/>
+</svg>
+
+<script>
+const GS_DEFAULT="https://script.google.com/macros/s/AKfycbw1jTZOC7H115i8Tppt7j9p0qrmwCSe4f4WNf5ZqjUdhcOnt7klwfRPaXf0cNIiuxiMnA/exec";
+const FOCOS=[{"fase": "P2", "accion": "Casona de la Isla — plan de recuperación", "notas": "Casona de la Isla explica ~48% del déficit de ocupación (77% de meta, −22% vs 2025). Acciones de tarifa/canales/grupos para julio."}, {"fase": "P1", "accion": "Empujar canal Directos", "notas": "Directos rinde el mejor ADR (Q668, sin comisión) pero solo mueve 19.8% de las noches. Mover noches de Agencias/OTAs a reserva directa."}, {"fase": "P3", "accion": "Cerrar data Las Ninfas e Isla Bonita", "notas": "Faltan los Excel de Las Ninfas e Isla Bonita para cerrar el total ecosistema. Lindo Amanecer (114%) y La Chaya (94%) ya van bien."}, {"fase": "P4", "accion": "Subir attachment de tours", "notas": "Attachment en 2.2%. Petén Express con 0 tours y Casona del Lago (el más grande) solo 8. Activar venta en recepción."}, {"fase": "P5", "accion": "ONG rezagado en eventos", "notas": "ONG va 20 vs meta 32 (y 29 en 2025). Cerrar data de fin de mes y reactivar cuentas ONG (ACOFOP, WCS, Rainforest)."}, {"fase": "P2", "accion": "Valle de ocupación: Septiembre", "notas": "Septiembre cae a 15% OTB (valle del semestre). Meter grupos/promos con anticipación; pico en noviembre (68%)."}];
+const KEY_SEG="vh_seg_v3", KEY_URL="vh_url_v3";
+
+function showView(id,el){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function goTo(id){
+  document.getElementById('reporte').classList.add('active');
+  document.getElementById('seguimientos').classList.remove('active');
+  document.querySelectorAll('.tab')[0].classList.add('active');
+  document.querySelectorAll('.tab')[1].classList.remove('active');
+  setTimeout(()=>document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement.scrollHeight-window.innerHeight;
+  const p=h>0?window.scrollY/h:0;
+  const top=110+p*(window.innerHeight-240);
+  document.getElementById('scrollBus').style.top=top+'px';
+});
+
+let rows=[], cloudUrl="", dirty=false, poll=null;
+function uid(){return 'r'+Date.now()+Math.floor(Math.random()*999)}
+function setSync(state,txt){
+  const d=document.getElementById('syncDot'); d.className='dot '+(state||'');
+  document.getElementById('syncTxt').textContent=txt;
+}
+function loadLocal(){
+  try{rows=JSON.parse(localStorage.getItem(KEY_SEG)||'[]')}catch(e){rows=[]}
+  cloudUrl=localStorage.getItem(KEY_URL)||GS_DEFAULT||"";
+  document.getElementById('gsUrl').value=cloudUrl;
+}
+function saveLocal(){localStorage.setItem(KEY_SEG,JSON.stringify(rows))}
+function render(){
+  const tb=document.getElementById('segBody'); tb.innerHTML='';
+  rows.forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i+1}</td>
+      <td><input value="${esc(r.fase)}" oninput="upd('${r.id}','fase',this.value)" style="width:62px"></td>
+      <td><input value="${esc(r.accion)}" oninput="upd('${r.id}','accion',this.value)"></td>
+      <td><input value="${esc(r.responsable)}" oninput="upd('${r.id}','responsable',this.value)" style="width:110px"></td>
+      <td><input type="date" value="${esc(r.fecha)}" oninput="upd('${r.id}','fecha',this.value)" style="width:130px"></td>
+      <td><select onchange="upd('${r.id}','estado',this.value)" class="${stCls(r.estado)}">
+        <option ${r.estado=='Pendiente'?'selected':''}>Pendiente</option>
+        <option ${r.estado=='En proceso'?'selected':''}>En proceso</option>
+        <option ${r.estado=='Listo'?'selected':''}>Listo</option></select></td>
+      <td><textarea oninput="upd('${r.id}','notas',this.value)">${esc(r.notas)}</textarea></td>
+      <td><button class="del" onclick="delRow('${r.id}')" title="Eliminar">×</button></td>`;
+    tb.appendChild(tr);
+  });
+  counts();
+}
+function esc(s){return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
+function stCls(s){return s=='Listo'?'st-done':(s=='En proceso'?'st-proc':'st-pend')}
+function counts(){
+  const c={Pendiente:0,'En proceso':0,Listo:0};
+  rows.forEach(r=>c[r.estado]=(c[r.estado]||0)+1);
+  document.getElementById('cPend').textContent=c['Pendiente']||0;
+  document.getElementById('cProc').textContent=c['En proceso']||0;
+  document.getElementById('cDone').textContent=c['Listo']||0;
+}
+function addRow(seed){
+  rows.push(seed||{id:uid(),fase:'',accion:'',responsable:'',fecha:'',estado:'Pendiente',notas:''});
+  saveLocal();render();queueSave();
+}
+function delRow(id){rows=rows.filter(r=>r.id!=id);saveLocal();render();queueSave()}
+function upd(id,k,v){const r=rows.find(x=>x.id==id);if(r){r[k]=v;saveLocal();counts();queueSave()}}
+function seedFocos(){
+  if(rows.length && !confirm('Esto agrega los focos de junio a la bitácora. ¿Continuar?'))return;
+  FOCOS.forEach(f=>rows.push({id:uid(),fase:f.fase,accion:f.accion,responsable:'',fecha:'',estado:'Pendiente',notas:f.notas}));
+  saveLocal();render();queueSave();
+}
+function connectCloud(){
+  cloudUrl=document.getElementById('gsUrl').value.trim();
+  localStorage.setItem(KEY_URL,cloudUrl);
+  if(!cloudUrl){setSync('','Sin conectar');return}
+  setSync('wait','Conectando…'); pullCloud(true);
+  if(poll)clearInterval(poll); poll=setInterval(()=>pullCloud(false),18000);
+}
+function pullCloud(first){
+  if(!cloudUrl)return;
+  fetch(cloudUrl,{method:'GET'}).then(r=>r.json()).then(d=>{
+    if(Array.isArray(d.rows)){
+      if(!dirty){ rows=d.rows.map(normalize); saveLocal(); render(); }
+      setSync('ok','Sincronizado con la hoja de Google');
+    }else{setSync('ok','Conectado')}
+  }).catch(e=>setSync('err','Sin conexión (guardando local)'));
+}
+function normalize(r){return {id:r.id||uid(),fase:r.fase||'',accion:r.accion||'',responsable:r.responsable||'',fecha:r.fecha||'',estado:r.estado||'Pendiente',notas:r.notas||''}}
+let saveTimer=null;
+function queueSave(){dirty=true; if(saveTimer)clearTimeout(saveTimer); saveTimer=setTimeout(pushCloud,1200)}
+function pushCloud(){
+  if(!cloudUrl){dirty=false;return}
+  setSync('wait','Guardando…');
+  fetch(cloudUrl,{method:'POST',body:JSON.stringify({rows:rows})}).then(()=>{
+    dirty=false; setSync('ok','Sincronizado con la hoja de Google');
+  }).catch(e=>{dirty=false; setSync('err','Sin conexión (guardando local)')});
+}
+loadLocal(); render();
+if(cloudUrl){ setTimeout(connectCloud,400); }
+</script>
+</body>
+</html>

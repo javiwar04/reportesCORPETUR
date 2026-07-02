@@ -159,11 +159,17 @@ table.heat td.l{background:none;color:var(--ink);font-weight:500;border:none;tex
 .counts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .count{background:var(--navy2);border:1px solid var(--line);border-radius:20px;padding:4px 13px;font-size:12.5px;color:var(--mut)}
 .count b{color:var(--ink);font-family:'Oswald';font-size:15px}
-.seg-table{width:100%;border-collapse:collapse;font-size:13px}
+.seg-table{width:100%;min-width:1040px;table-layout:fixed;border-collapse:collapse;font-size:13px}
+.seg-table col.c-num{width:34px}.seg-table col.c-pto{width:104px}.seg-table col.c-acc{width:340px}
+.seg-table col.c-resp{width:118px}.seg-table col.c-fec{width:140px}.seg-table col.c-est{width:120px}
+.seg-table col.c-not{width:210px}.seg-table col.c-del{width:30px}
 .seg-table th{font-family:'Oswald';font-size:11px;text-transform:uppercase;color:var(--mut);text-align:left;padding:8px;border-bottom:1px solid var(--line)}
 .seg-table td{padding:6px 8px;border-bottom:1px solid rgba(43,63,92,.5);vertical-align:top}
-.seg-table input,.seg-table select,.seg-table textarea{width:100%;background:var(--navy2);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:6px;font-size:12.5px;font-family:inherit}
-.seg-table textarea{resize:vertical;min-height:34px}
+.seg-table td.num{color:var(--mut);text-align:center;padding-top:12px}
+.seg-table input,.seg-table select,.seg-table textarea{width:100%;background:var(--navy2);border:1px solid var(--line);color:var(--ink);border-radius:6px;padding:7px 8px;font-size:12.5px;font-family:inherit;line-height:1.4}
+.seg-table textarea{resize:vertical;min-height:38px;overflow:hidden;white-space:pre-wrap;word-break:break-word}
+.seg-table textarea.acc{font-weight:500}
+.seg-table input:focus,.seg-table select:focus,.seg-table textarea:focus{outline:none;border-color:var(--gold);background:#182a42}
 .st-pend{color:var(--a)}.st-proc{color:var(--blue)}.st-done{color:var(--g)}
 .del{color:var(--r);cursor:pointer;background:none;border:none;font-size:16px}
 .howto{margin-top:18px}
@@ -436,6 +442,7 @@ footer{text-align:center;color:var(--mut);font-size:12px;margin-top:40px;padding
       </div>
       <div style="overflow-x:auto">
       <table class="seg-table">
+        <colgroup><col class="c-num"><col class="c-pto"><col class="c-acc"><col class="c-resp"><col class="c-fec"><col class="c-est"><col class="c-not"><col class="c-del"></colgroup>
         <thead><tr><th>#</th><th>Punto</th><th>Acción</th><th>Responsable</th><th>Fecha</th><th>Estado</th><th>Notas</th><th></th></tr></thead>
         <tbody id="segBody"></tbody>
       </table>
@@ -510,21 +517,23 @@ function render(){
   const tb=document.getElementById('segBody'); tb.innerHTML='';
   rows.forEach((r,i)=>{
     const tr=document.createElement('tr');
-    tr.innerHTML=`<td>${i+1}</td>
-      <td><input value="${esc(r.fase)}" oninput="upd('${r.id}','fase',this.value)" style="width:62px"></td>
-      <td><input value="${esc(r.accion)}" oninput="upd('${r.id}','accion',this.value)"></td>
-      <td><input value="${esc(r.responsable)}" oninput="upd('${r.id}','responsable',this.value)" style="width:110px"></td>
-      <td><input type="date" value="${esc(r.fecha)}" oninput="upd('${r.id}','fecha',this.value)" style="width:130px"></td>
+    tr.innerHTML=`<td class="num">${i+1}</td>
+      <td><textarea class="pto" oninput="upd('${r.id}','fase',this.value);grow(this)">${esc(r.fase)}</textarea></td>
+      <td><textarea class="acc" oninput="upd('${r.id}','accion',this.value);grow(this)">${esc(r.accion)}</textarea></td>
+      <td><input value="${esc(r.responsable)}" oninput="upd('${r.id}','responsable',this.value)"></td>
+      <td><input type="date" value="${esc(r.fecha)}" oninput="upd('${r.id}','fecha',this.value)"></td>
       <td><select onchange="upd('${r.id}','estado',this.value)" class="${stCls(r.estado)}">
         <option ${r.estado=='Pendiente'?'selected':''}>Pendiente</option>
         <option ${r.estado=='En proceso'?'selected':''}>En proceso</option>
         <option ${r.estado=='Listo'?'selected':''}>Listo</option></select></td>
-      <td><textarea oninput="upd('${r.id}','notas',this.value)">${esc(r.notas)}</textarea></td>
+      <td><textarea class="notes" oninput="upd('${r.id}','notas',this.value);grow(this)">${esc(r.notas)}</textarea></td>
       <td><button class="del" onclick="delRow('${r.id}')" title="Eliminar">×</button></td>`;
     tb.appendChild(tr);
   });
+  document.querySelectorAll('.seg-table textarea').forEach(grow);
   counts();
 }
+function grow(el){el.style.height='auto';el.style.height=(el.scrollHeight+2)+'px'}
 function esc(s){return (s||'').replace(/"/g,'&quot;').replace(/</g,'&lt;')}
 function stCls(s){return s=='Listo'?'st-done':(s=='En proceso'?'st-proc':'st-pend')}
 function counts(){

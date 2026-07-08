@@ -411,7 +411,7 @@
     </table>
   </div>
 
-  <div class="callout info"><b>Nota sobre tallas y colores:</b> como las ventas no traen talla ni color, el envío de T-Shirt debe prepararse en bodega <b>priorizando las tallas/colores con menor existencia</b> en cada hotel destino. En general, tallas <b>M y L</b> son las de mayor stock óptimo definido en el archivo; conviene mantener surtido completo por talla al despachar.</div>
+  <div class="callout info"><b>Nota sobre tallas y colores:</b> como las ventas no traen talla ni color, el desglose se basa en el <b>conteo físico</b>: se rellenan las casillas donde cada hotel está en 0 o 1, priorizando los colores con más profundidad en COC (los dos blancos y el negro) y las tallas núcleo (M, L, XL). El detalle exacto por color y talla está en la <b>Lista final de despacho</b>.</div>
 </section>
 
 <!-- ============ TRASLADOS ============ -->
@@ -485,25 +485,78 @@
   <h2 class="sec"><span class="ico">✅</span>Lista final de despacho para bodega COC</h2>
   <p class="sec-desc">Práctica y directa. Solo lo que realmente se recomienda enviar.</p>
 
+  <p class="tx" style="margin-bottom:6px">Desglose exacto por <b>color y talla</b>, elegido para llenar las casillas donde cada hotel está en <b>0 o 1</b>, usando solo existencia real de COC. Las tallas mostradas ya vienen listas para separar.</p>
+
   <div class="despacho">
-    <div class="head">🌿 Orden de despacho — Bodega Central COC</div>
+    <div class="head">🌿 Casona del Lago &nbsp;·&nbsp; T-Shirt &nbsp;·&nbsp; <span class="badge b-alta">ALTA</span> &nbsp; Total: 20</div>
     <div class="tbl-scroll" style="margin:0;box-shadow:none">
       <table>
-        <thead><tr>
-          <th>Hotel destino</th><th>Producto</th><th>Talla</th>
-          <th class="num">Cantidad a enviar</th><th>Prioridad</th><th>Observación</th>
-        </tr></thead>
+        <thead><tr><th>Color / tipo de camisa</th><th>Tallas a enviar (cantidad)</th><th class="num">Subtotal</th><th>Observación</th></tr></thead>
         <tbody>
-          <tr><td>Casona del Lago</td><td>T-Shirt</td><td>Surtido (priorizar M/L y colores con menos stock)</td><td class="num">20</td><td><span class="badge b-alta">ALTA</span></td><td>Mejor vendedor; cobertura crítica.</td></tr>
-          <tr><td>Casona de la Isla</td><td>T-Shirt</td><td>Surtido (priorizar M/L)</td><td class="num">16</td><td><span class="badge b-alta">ALTA</span></td><td>Venta creciendo en julio.</td></tr>
-          <tr><td>El Mesón</td><td>T-Shirt</td><td>Surtido</td><td class="num">6</td><td><span class="badge b-media">MEDIA</span></td><td>Top-up preventivo.</td></tr>
+          <tr><td>Blanco con rojo</td><td>S ×1, M ×2, L ×2, XL ×1</td><td class="num">6</td><td>Color con más stock en COC.</td></tr>
+          <tr><td>Blanco con verde</td><td>M ×2, L ×2, XL ×1</td><td class="num">5</td><td>Color con más stock en COC.</td></tr>
+          <tr><td>Negro colores</td><td>M ×2, L ×2, XL ×1</td><td class="num">5</td><td>Buena profundidad en COC.</td></tr>
+          <tr><td>Verde</td><td>M ×1, L ×1</td><td class="num">2</td><td>Refuerzo ligero.</td></tr>
+          <tr><td>Azul</td><td>M ×1, L ×1</td><td class="num">2</td><td>Refuerzo ligero.</td></tr>
         </tbody>
-        <tfoot><tr><td colspan="3">TOTAL A DESPACHAR DESDE COC</td><td class="num">42</td><td colspan="2">Quedan <b>104 T-Shirt</b> de reserva en COC.</td></tr></tfoot>
+        <tfoot><tr><td colspan="2">Total Casona del Lago</td><td class="num">20</td><td>Mejor vendedor; cobertura crítica.</td></tr></tfoot>
       </table>
     </div>
   </div>
 
-  <div class="callout info"><b>Traslados aparte (no salen de COC):</b> mover <b>6 Calzonetas</b> y <b>3 Crop Tops</b> desde Hotel Petén hacia Casona del Lago. Se coordinan entre hoteles, no requieren bodega central.</div>
+  <div class="despacho" style="margin-top:16px">
+    <div class="head">🌿 Casona de la Isla &nbsp;·&nbsp; T-Shirt &nbsp;·&nbsp; <span class="badge b-alta">ALTA</span> &nbsp; Total: 16</div>
+    <div class="tbl-scroll" style="margin:0;box-shadow:none">
+      <table>
+        <thead><tr><th>Color / tipo de camisa</th><th>Tallas a enviar (cantidad)</th><th class="num">Subtotal</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr><td>Blanco con rojo</td><td>S ×1, M ×2, L ×1, XL ×1</td><td class="num">5</td><td>Rellena tallas en cero.</td></tr>
+          <tr><td>Negro colores</td><td>M ×1, L ×2, XL ×1</td><td class="num">4</td><td>Estaba muy delgado.</td></tr>
+          <tr><td>Verde</td><td>M ×1, L ×1, XL ×1</td><td class="num">3</td><td>Solo tenía 1 en talla S.</td></tr>
+          <tr><td>Blanco con verde</td><td>L ×1, XL ×1</td><td class="num">2</td><td>Completa tallas altas.</td></tr>
+          <tr><td>Gris Dos Jaguares</td><td>M ×1, L ×1</td><td class="num">2</td><td>No tenía este color.</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total Casona de la Isla</td><td class="num">16</td><td>Venta creciendo en julio.</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="despacho" style="margin-top:16px">
+    <div class="head">🌿 El Mesón &nbsp;·&nbsp; T-Shirt &nbsp;·&nbsp; <span class="badge b-media">MEDIA</span> &nbsp; Total: 6</div>
+    <div class="tbl-scroll" style="margin:0;box-shadow:none">
+      <table>
+        <thead><tr><th>Color / tipo de camisa</th><th>Tallas a enviar (cantidad)</th><th class="num">Subtotal</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr><td>Blanco con rojo</td><td>M ×1, L ×1</td><td class="num">2</td><td>Top-up de tallas centrales.</td></tr>
+          <tr><td>Blanco con verde</td><td>S ×1, L ×1</td><td class="num">2</td><td>Cubre huecos.</td></tr>
+          <tr><td>Negro colores</td><td>XL ×1</td><td class="num">1</td><td>Talla alta faltante.</td></tr>
+          <tr><td>Verde</td><td>M ×1</td><td class="num">1</td><td>Refuerzo mínimo.</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total El Mesón</td><td class="num">6</td><td>Top-up preventivo.</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout info" style="margin-top:16px"><b>Total a despachar desde COC: 42 T-Shirt</b> (20 + 16 + 6). Se prioriza <b>Blanco con rojo, Blanco con verde y Negro colores</b> por ser los colores con más profundidad en bodega, y las tallas <b>M, L y XL</b> por ser el núcleo del surtido. Se evita casi por completo tocar <b>Gris Flor</b> y <b>Gris Dos Jaguares</b> (los más escasos en COC).</div>
+
+  <h3 class="sub">Reserva que queda en COC por color (tras el despacho)</h3>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Color / tipo</th><th class="num">Stock COC antes</th><th class="num">Enviado</th><th class="num">Reserva final en COC</th></tr></thead>
+      <tbody>
+        <tr><td>Blanco con rojo</td><td class="num">35</td><td class="num">13</td><td class="num">22</td></tr>
+        <tr><td>Blanco con verde</td><td class="num">32</td><td class="num">9</td><td class="num">23</td></tr>
+        <tr><td>Negro colores</td><td class="num">30</td><td class="num">10</td><td class="num">20</td></tr>
+        <tr><td>Verde</td><td class="num">16</td><td class="num">6</td><td class="num">10</td></tr>
+        <tr><td>Azul</td><td class="num">13</td><td class="num">2</td><td class="num">11</td></tr>
+        <tr><td>Gris Flor</td><td class="num">11</td><td class="num">0</td><td class="num">11</td></tr>
+        <tr><td>Gris Dos Jaguares</td><td class="num">9</td><td class="num">2</td><td class="num">7</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">146</td><td class="num">42</td><td class="num">104</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="callout info" style="margin-top:16px"><b>Traslados aparte (no salen de COC):</b> mover <b>6 Calzonetas</b> y <b>3 Crop Tops</b> desde Hotel Petén hacia Casona del Lago. Se coordinan entre hoteles, no requieren bodega central.</div>
 </section>
 
 <!-- ============ CONCLUSIONES ============ -->

@@ -248,10 +248,10 @@
     "dc": "up"
    },
    {
-    "n": "Q140",
+    "n": "Q152",
     "u": "K",
-    "lab": "Ingreso de eventos (1–11 jul)",
-    "delta": "70% de la meta Q200K",
+    "lab": "Ingreso de eventos (1–14 jul)",
+    "delta": "76.2% de la meta Q200K",
     "dc": "up"
    },
    {
@@ -685,10 +685,10 @@
   ]
  },
  "p5": {
-  "win": "1–11 jul · ingreso Q (neto+otros)",
-  "totalMTD": 140455,
+  "win": "1–14 jul · ingreso Q (neto+otros)",
+  "totalMTD": 152437,
   "metaTotal": 200000,
-  "pace": 70.2,
+  "pace": 76.2,
   "yoy2025": 177533.42,
   "yoyGrowth": 12.65,
   "vol2025": 46,
@@ -697,26 +697,26 @@
   "seg": [
    {
     "name": "Corporativo",
-    "ev": 17,
-    "pax": 484,
-    "mtd": 91116,
+    "ev": 21,
+    "pax": 541,
+    "mtd": 98422,
     "meta": 115000,
-    "pace": 79.2,
-    "share": 64.9,
+    "pace": 85.6,
+    "share": 64.6,
     "color": "#8e6bb0",
-    "real_h": 79,
+    "real_h": 86,
     "meta_h": 100
    },
    {
     "name": "ONG",
-    "ev": 7,
-    "pax": 122,
-    "mtd": 23392,
+    "ev": 8,
+    "pax": 137,
+    "mtd": 28069,
     "meta": 70000,
-    "pace": 33.4,
-    "share": 16.7,
+    "pace": 40.1,
+    "share": 18.4,
     "color": "#3f8e62",
-    "real_h": 20,
+    "real_h": 24,
     "meta_h": 61
    },
    {
@@ -726,14 +726,16 @@
     "mtd": 25946,
     "meta": 15000,
     "pace": 173.0,
-    "share": 18.5,
+    "share": 17.0,
     "color": "#c89b4c",
     "real_h": 23,
     "meta_h": 13
    }
   ],
-  "totEv": 26,
-  "totPax": 766
+  "totEv": 31,
+  "totPax": 838,
+  "futureEv": 9,
+  "futurePax": 274
  },
  "p6": {
   "win": "últimos 7 días · al 14 jul",
@@ -809,7 +811,7 @@ function resumen(){var r=D.resumen;
   return '<section class="block" id="resumen"><div class="sec-head"><span class="sec-num">✦</span><h2>Resumen ejecutivo</h2><span class="win">corte 7 jul</span></div>'+
     '<p class="sec-sub">Foto del ecosistema a mitad de julio. Es un reporte de <b>ritmo</b>: las cifras van a crecer al cerrar el mes. Cada punto trae su ventana de corte porque las fuentes no cierran todas el mismo día.</p>'+
     '<div class="kpis">'+k+'</div>'+
-    '<div class="insight"><b>Lo que manda la lectura:</b> el ecosistema ya tiene <b>83.3% de la meta mensual de ocupación en firme</b> (3,111 noches) con ~17 días por vender, y <b>Villa del Lago ya se pasó de su meta</b> (102%). <b>Nuevo este corte:</b> los segmentos se leen <b>sin Petén Express</b> — el hostal aplanaba el promedio, y sin él la tarifa real del ecosistema es <b>Q590</b> (no Q562), con Directos de rey a Q703 sin comisión. Eventos pegaron un salto a <b>70% de la meta</b> y los tours se duplicaron a 62. Restaurantes casi en meta (96.6%). Los focos: <b>ONG en eventos</b> (33% de su meta), <b>La Chaya</b> (73%), <b>El Mesón</b> (62.6% de sus 60 pax/día, pero acelerando) y <b>Petén Express</b> (55% de ocupación).</div></section>';
+    '<div class="insight"><b>Lo que manda la lectura:</b> el ecosistema ya tiene <b>83.3% de la meta mensual de ocupación en firme</b> (3,111 noches) con ~17 días por vender, y <b>Villa del Lago ya se pasó de su meta</b> (102%). <b>Nuevo este corte:</b> los segmentos se leen <b>sin Petén Express</b> — el hostal aplanaba el promedio, y sin él la tarifa real del ecosistema es <b>Q590</b> (no Q562), con Directos de rey a Q703 sin comisión. Eventos ya van en <b>76% de la meta</b> (Q152K) y los tours se duplicaron a 62. Restaurantes casi en meta (96.6%). Los focos: <b>ONG en eventos</b> (40% de su meta), <b>La Chaya</b> (73%), <b>El Mesón</b> (62.6% de sus 60 pax/día, pero acelerando) y <b>Petén Express</b> (55% de ocupación).</div></section>';
 }
 
 /* ---------- PUNTO 1 ---------- */
@@ -988,7 +990,8 @@ function p5(){var d=D.p5;
    '<div class="card"><h3>Ingreso por segmento vs meta</h3><table><thead><tr><th class="l">Segmento</th><th>Ingreso MTD</th><th>Meta mes</th><th>Eventos</th><th>Pax</th><th>% meta</th></tr></thead><tbody>'+rows+
    '<tr class="eco"><td class="l">Total</td><td>'+Q(d.totalMTD)+'</td><td>'+Q(d.metaTotal)+'</td><td>'+d.totEv+'</td><td>'+d.totPax+'</td><td><span class="pill a">'+d.pace+'%</span></td></tr></tbody></table>'+
    '<div style="margin-top:8px"><div class="stack-lab" style="margin-bottom:4px">Ingreso real vs meta mensual · barra sólida = MTD, barra punteada = meta</div><div class="gchart">'+g+'</div></div>'+
-   '<div class="insight"><b>Lectura:</b> salto grande — con el mes a ~35% transcurrido (corte al 11 jul), el ingreso de eventos ya va en <b>'+d.pace+'% de la meta</b>. <b>Social</b> se pasó de largo (173% con solo 2 eventos, Q25,946) y <b>Corporativo</b> va sólido (79.2%). El rezago es <b>ONG</b> (33.4%): ahí está el hueco. La base de ingreso es <b>NETO + OTROS</b> por evento (verificado exacto contra el "Total General").</div></div>'+
+   '<div class="insight"><b>Lectura:</b> con el mes a ~45% transcurrido, el ingreso de eventos ya va en <b>'+d.pace+'% de la meta</b> — bien por delante del ritmo. <b>Social</b> se pasó de largo (173% con solo 2 eventos, Q25,946) y <b>Corporativo</b> va fuerte (85.6%, Q98.4K). <b>ONG</b> mejoró de 33% a <b>40.1%</b> pero sigue siendo el hueco: le faltan ~Q41.9K. La base de ingreso es <b>NETO + OTROS</b> por evento (verificado exacto contra el "Total General").</div>'+
+   '<div class="flag">Hay <b>'+d.futureEv+' eventos más ya en agenda para el 15–18 jul</b> ('+d.futurePax+' pax: AMWAY, Davinci, Dental, dos sociales) que aún no facturan, así que no suman ingreso todavía. Cuando se facturen, entran al siguiente corte.</div></div>'+
    '<div class="card"><h3>Composición del ingreso <span style="float:right;font-family:Inter;text-transform:none;color:var(--txt-soft);font-size:12px">'+d.totEv+' eventos · '+d.totPax+' pax</span></h3><div class="donut-wrap"><svg width="150" height="150" viewBox="0 0 128 128" id="evdonut"></svg><div class="donut-legend" id="evleg"></div></div></div>'+
    '<div class="card"><h3>Meta 2026 vs. 2025</h3><div class="feebox">'+
    '<div class="f">Ingreso 2025<b>'+Q(d.yoy2025,2)+'</b></div>'+
@@ -998,9 +1001,10 @@ function p5(){var d=D.p5;
    '<div class="f big">Crecimiento meta<b>▲ '+d.yoyGrowth+'% ingreso · ▲ '+d.volGrowth+'% volumen</b></div></div></div>'+
    '<details><summary>Ver análisis a fondo</summary><div class="deep">'+
    '<p>Medir por <b>ingreso</b> en vez de cantidad cambia la prioridad: no es lo mismo cerrar 3 eventos sociales chicos que un corporativo grande. La meta segmentada (Q115K/Q70K/Q15K) pone el peso donde está el dinero — el corporativo vale más de la mitad del objetivo.</p>'+
-   '<p>El corte va muy sano: <b>Q140,455 = 70.2%</b> de la meta con el mes a ~35%, o sea <b>muy por delante del ritmo</b>. Corporativo (79.2%) es el motor con 17 eventos y 484 pax. Social ya rompió su meta (173%) — vale revisar si Q15K era una meta demasiado conservadora para ese segmento.</p>'+
-   '<p>El foco de empuje es <b>ONG</b> (33.4%): 7 eventos y Q23,392 contra una meta de Q70K. Faltan ~Q46.6K en la segunda mitad del mes — hay que reactivar ACOFOP/WCS/PROPETEN y las cuentas recurrentes para no dejar ese segmento corto al cierre.</p>'+
-   '<p>La meta de Q200K representa <b>+12.65%</b> sobre los Q177,533 de julio 2025 y un salto de 46 a 50 eventos (+8.7%). Es una meta de crecimiento real, no de mantenimiento — y a este ritmo se cumple, siempre que ONG despierte.</p></div></details></section>';
+   '<p>El corte va muy sano: <b>Q152,437 = 76.2%</b> de la meta con el mes a ~45% transcurrido, o sea <b>muy por delante del ritmo</b>. Corporativo es el motor con <b>21 eventos y 541 pax</b> (Q98,422 = 85.6%), empujado por PDH (100 pax) y el Congreso Interamericano de Derecho, que repitió tres días seguidos. Social ya rompió su meta (173%) con solo 2 eventos — vale revisar si Q15K era demasiado conservadora para ese segmento.</p>'+
+   '<p>El foco de empuje sigue siendo <b>ONG</b> (40.1%): 8 eventos y Q28,069 contra una meta de Q70K. Mejoró desde el 33% del corte anterior, pero faltan <b>~Q41.9K</b> en la segunda mitad del mes. Hay que reactivar ACOFOP/WCS/PROPETEN/Swiss Contact y las cuentas recurrentes para no dejar ese segmento corto al cierre.</p>'+
+   '<p>La meta de Q200K representa <b>+12.65%</b> sobre los Q177,533 de julio 2025 y un salto de 46 a 50 eventos (+8.7%). Es una meta de crecimiento real, no de mantenimiento — y a este ritmo se cumple con holgura, siempre que ONG despierte. Van 31 eventos facturados y 9 más ya agendados: el volumen de 50 está prácticamente asegurado.</p>'+
+   '<p><b>Nota de data:</b> dos filas venían con la columna NETO en blanco (ACOFOP 9/07 y Banco de Antigua 10/07). Las derivé con la regla del propio archivo — <b>NETO = ALIMENTOS ÷ 1.1</b> — que cuadra exacta en las 22 filas que sí traen ambos valores. Suman Q5,897 de los Q152,437; si en el sistema tienen otro valor, decime y lo corrijo.</p></div></details></section>';
 }
 
 /* ---------- PUNTO 6 (NUEVO) ---------- */
@@ -1113,7 +1117,7 @@ function addRow(data){var r=norm(data);state.rows.push(r);saveLocal();render();i
 document.getElementById("addBtn").addEventListener("click",function(){addRow({});});
 document.getElementById("seedBtn").addEventListener("click",function(){
   var seeds=[
-    {fase:"Punto 5 · Eventos",accion:"Empujar ONG: va en 33% de su meta (Q23.4K de Q70K) — faltan ~Q46.6K en la 2a quincena. Reactivar ACOFOP/WCS/PROPETEN",estado:"Pendiente"},
+    {fase:"Punto 5 · Eventos",accion:"Empujar ONG: va en 40% de su meta (Q28.1K de Q70K) — faltan ~Q41.9K en la 2a quincena. Reactivar ACOFOP/WCS/PROPETEN/Swiss Contact",estado:"En proceso"},
     {fase:"Punto 3 · Restaurantes",accion:"La Chaya es el rezago real (73%): deja ~Q1,645/día. Plan de covers, horario y ticket promedio en Hotel Petén",estado:"En proceso"},
     {fase:"Punto 3 · Restaurantes",accion:"El Mesón va en 62.6% de su meta (60 pax/día): faltan ~22 pax/día. Viene acelerando (semana 2 en 72%) — sostener el empuje",estado:"En proceso"},
     {fase:"Punto 3 · Restaurantes",accion:"Isla Bonita a 87% (Q4,864/día vs meta Q5,600): faltan Q736/día para cerrar meta",estado:"En proceso"},

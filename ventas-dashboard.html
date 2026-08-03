@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control de Ventas — Meta Q200k</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1220; --card:#181c2e; --card2:#1f2438; --line:#2a3050;
+    --txt:#e8ebf5; --muted:#9aa3c0; --accent:#5b8cff; --accent2:#7c5bff;
+    --web:#3fb6ff; --rec:#ffb13f; --paq:#5be5a0; --ok:#5be5a0; --danger:#ff5b7a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);}
+  header{padding:22px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  h1{font-size:20px;margin:0;font-weight:700}
+  .sub{color:var(--muted);font-size:13px;margin-top:3px}
+  .status{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--card2);border:1px solid var(--line);color:var(--muted)}
+  .status.live{color:var(--ok);border-color:var(--ok)}
+  .status.busy{color:var(--rec);border-color:var(--rec)}
+  .wrap{max-width:1180px;margin:0 auto;padding:24px 28px 60px}
+  .goal{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:22px}
+  .goal .top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+  .goal .big{font-size:34px;font-weight:800}
+  .goal .of{color:var(--muted);font-size:15px;font-weight:500}
+  .bar{height:16px;background:#0c0f1c;border-radius:10px;margin-top:16px;overflow:hidden;position:relative}
+  .bar > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:10px;transition:width .5s ease;width:0}
+  .bar .pct{position:absolute;right:10px;top:-1px;font-size:11px;font-weight:700;line-height:18px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
+  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+  .c .lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  .c .val{font-size:24px;font-weight:800;margin-top:6px}
+  .c .val small{font-size:13px;color:var(--muted);font-weight:500}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .panel h3{margin:0 0 14px;font-size:15px}
+  form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:22px}
+  form h3{margin:0 0 16px;font-size:15px}
+  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+  input,select{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:#0c0f1c;color:var(--txt);font-size:14px;font-family:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .btn{margin-top:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer}
+  .btn:hover{opacity:.92}
+  .btn:disabled{opacity:.5;cursor:default}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;user-select:none}
+  td.amt{font-weight:700;text-align:right}
+  .tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600}
+  .tag.web{background:rgba(63,182,255,.15);color:var(--web)}
+  .tag.rec{background:rgba(255,177,63,.15);color:var(--rec)}
+  .tag.paq{background:rgba(91,229,160,.15);color:var(--paq)}
+  .del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px}
+  .del:hover{color:var(--danger)}
+  .empty{text-align:center;color:var(--muted);padding:30px}
+  .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 18px 18px;overflow-x:auto}
+  .tblhead{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;flex-wrap:wrap;gap:10px}
+  .filter{display:flex;gap:8px;flex-wrap:wrap}
+  .filter select{width:auto;padding:7px 10px;font-size:13px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Control de Ventas Digitales</h1>
+    <div class="sub">Equipo Javier &amp; Antonio · Meta mensual Q200,000</div>
+  </div>
+  <div id="status" class="status">Conectando…</div>
+</header>
+
+<div class="wrap">
+  <div class="goal">
+    <div class="top">
+      <div>
+        <div class="big"><span id="gTotal">Q0</span> <span class="of">de Q200,000</span></div>
+        <div class="sub" id="gMonth"></div>
+      </div>
+      <div style="text-align:right">
+        <div class="c" style="border:none;padding:0;background:none">
+          <div class="lbl">Falta</div>
+          <div class="val" id="gRemain" style="color:var(--accent)">Q200,000</div>
+        </div>
+      </div>
+    </div>
+    <div class="bar"><div id="gBar"></div><span class="pct" id="gPct">0%</span></div>
+  </div>
+
+  <div class="cards">
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--web)"></span>Página Web</div><div class="val" id="cWeb">Q0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--rec)"></span>Recurrente</div><div class="val" id="cRec">Q0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--paq)"></span>Paquetes</div><div class="val" id="cPaq">Q0</div></div>
+    <div class="c"><div class="lbl"># Ventas</div><div class="val" id="cNum">0</div></div>
+    <div class="c"><div class="lbl">Ticket promedio</div><div class="val" id="cAvg">Q0</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="panel"><h3>Ventas por categoría</h3><canvas id="chCat" height="220"></canvas></div>
+    <div class="panel"><h3>Avance acumulado del mes</h3><canvas id="chAcc" height="220"></canvas></div>
+  </div>
+
+  <form id="frm">
+    <h3>➕ Registrar nueva venta</h3>
+    <div class="row">
+      <div><label>Fecha</label><input type="date" id="fFecha" required></div>
+      <div><label>Tipo de venta</label><select id="fTipo"><option value="web">Página Web</option><option value="rec">Recurrente</option><option value="paq">Paquetes</option></select></div>
+      <div><label>Cliente / Descripción</label><input type="text" id="fDesc" placeholder="Ej. Lara Morganti — Tour a Tikal"></div>
+      <div><label># Recibo (opcional)</label><input type="text" id="fRecibo" placeholder="1736-4273"></div>
+      <div><label>Monto (Q)</label><input type="number" id="fMonto" min="0" step="0.01" placeholder="0.00" required></div>
+      <div><label>Comprobante (foto)</label><input type="file" id="fComp" accept="image/*"></div>
+    </div>
+    <button class="btn" id="btnSave" type="submit">Guardar venta</button>
+  </form>
+
+  <div class="tblwrap">
+    <div class="tblhead">
+      <h3 style="margin:0">Registro de ventas</h3>
+      <div class="filter">
+        <select id="filTipo"><option value="">Todos los tipos</option><option value="web">Página Web</option><option value="rec">Recurrente</option><option value="paq">Paquetes</option></select>
+      </div>
+    </div>
+    <table>
+      <thead><tr>
+        <th data-s="fecha">Fecha</th><th data-s="tipo">Tipo</th>
+        <th data-s="descripcion">Cliente / Descripción</th>
+        <th data-s="recibo">Recibo</th>
+        <th>Comprobante</th>
+        <th data-s="monto" style="text-align:right">Monto</th><th></th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <div id="empty" class="empty">Aún no hay ventas registradas. 🚀</div>
+  </div>
+</div>
+
+<script>
+/* ====================================================================
+   TABLERO CONECTADO A GOOGLE SHEETS  (datos compartidos del equipo)
+   Todo lo que se registra aquí queda en la misma hoja, así que Javier,
+   Antonio y Claude ven lo mismo. Refresca solo cada 15 s.
+   ==================================================================== */
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyI79Ei-mEonZ5CaEJkJVWNsZO4bvpWKVTIT0KK3Ivt94yGKaWG696cVBXA618QQlQANQ/exec";
+
+/* Ventas iniciales: si la hoja está vacía la primera vez, se cargan solas. */
+const SEED = [
+  { id:"r-20260803-1", fecha:"2026-08-03", tipo:"rec", descripcion:"Lara Morganti — Tour a Tikal (Transporte + Guía)",           recibo:"1736-4273", monto:230 },
+  { id:"r-20260802-1", fecha:"2026-08-02", tipo:"rec", descripcion:"Sebastian Haag — Tour a Tikal Amanecer (Transporte + Guía)",  recibo:"1010-6751", monto:300 },
+  { id:"r-20260802-2", fecha:"2026-08-02", tipo:"rec", descripcion:"Sebastian Haag — Tour a Tikal Amanecer (Transporte + Guía)",  recibo:"7433-6951", monto:300 },
+  { id:"r-20260801-1", fecha:"2026-08-01", tipo:"rec", descripcion:"Eva María Osuna Martin — Tour a Tikal x2 (Transporte + Guía)", recibo:"3870-3660", monto:460 }
+];
+
+const META = 200000;
+const POLL_MS = 15000;
+const TIPOS = {web:{n:"Página Web",c:"web"}, rec:{n:"Recurrente",c:"rec"}, paq:{n:"Paquetes",c:"paq"}};
+const Q = n => "Q" + Number(n||0).toLocaleString("es-GT",{maximumFractionDigits:2});
+
+let ventas = [];
+let live = false, seeded = false;
+let sortKey="fecha", sortDir=-1;
+let chCat, chAcc;
+
+function setStatus(txt,cls){ const s=document.getElementById("status"); s.textContent=txt; s.className="status"+(cls?" "+cls:""); }
+
+async function initData(){
+  if(WEBAPP_URL){
+    live = true;
+    await pull(true);
+    setInterval(()=>pull(false), POLL_MS);
+  } else {
+    live = false;
+    setStatus("Modo local (demo)");
+    try{ ventas = JSON.parse(localStorage.getItem("ventas")||"[]"); }catch(e){ ventas=[]; }
+    render();
+  }
+}
+async function pull(first){
+  try{
+    if(first) setStatus("Cargando…","busy");
+    const r = await fetch(WEBAPP_URL);
+    const data = await r.json();
+    ventas = (data||[]).map(v=>({...v, monto:Number(v.monto)}));
+    setStatus("🟢 En vivo — Google Sheets","live");
+    if(first && ventas.length===0 && !seeded){ seeded=true; await seedInicial(); return; }
+    render();
+  }catch(e){
+    console.error(e);
+    setStatus("Sin conexión a la hoja","busy");
+  }
+}
+async function seedInicial(){
+  setStatus("Cargando ventas iniciales…","busy");
+  for(const v of SEED){ await post("add", v); }
+  await pull(false);
+}
+async function post(action, payload){
+  const r = await fetch(WEBAPP_URL, {
+    method:"POST",
+    headers:{"Content-Type":"text/plain;charset=utf-8"},
+    body: JSON.stringify({action, ...payload})
+  });
+  return r.json();
+}
+async function addVenta(v){
+  if(live){
+    setStatus("Guardando…","busy");
+    try{ await post("add", v); await pull(false); }
+    catch(e){ alert("No se pudo guardar. Revisa tu conexión."); }
+  } else {
+    v.id="loc-"+Date.now(); ventas.unshift(v);
+    localStorage.setItem("ventas",JSON.stringify(ventas)); render();
+  }
+}
+async function delVenta(id){
+  if(!confirm("¿Eliminar esta venta?")) return;
+  if(live){
+    setStatus("Eliminando…","busy");
+    try{ await post("delete",{id}); await pull(false); }
+    catch(e){ alert("No se pudo eliminar."); }
+  } else {
+    ventas = ventas.filter(x=>String(x.id)!==String(id));
+    localStorage.setItem("ventas",JSON.stringify(ventas)); render();
+  }
+}
+
+function render(){
+  const total = ventas.reduce((s,v)=>s+Number(v.monto),0);
+  const by = k => ventas.filter(v=>v.tipo===k).reduce((s,v)=>s+Number(v.monto),0);
+  const web=by("web"), rec=by("rec"), paq=by("paq");
+
+  document.getElementById("gTotal").textContent = Q(total);
+  document.getElementById("gRemain").textContent = Q(Math.max(0,META-total));
+  const pct = Math.min(100, META? total/META*100 : 0);
+  document.getElementById("gBar").style.width = pct+"%";
+  document.getElementById("gPct").textContent = pct.toFixed(1)+"%";
+  document.getElementById("cWeb").textContent = Q(web);
+  document.getElementById("cRec").textContent = Q(rec);
+  document.getElementById("cPaq").textContent = Q(paq);
+  document.getElementById("cNum").textContent = ventas.length;
+  document.getElementById("cAvg").textContent = Q(ventas.length? total/ventas.length : 0);
+
+  const now=new Date(), meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  document.getElementById("gMonth").textContent = "Actualizado: "+now.toLocaleDateString("es-GT")+" · "+meses[now.getMonth()]+" "+now.getFullYear();
+
+  const fT=document.getElementById("filTipo").value;
+  let rows = ventas.filter(v=>(!fT||v.tipo===fT));
+  rows.sort((a,b)=>{ let x=a[sortKey]??"",y=b[sortKey]??"";
+    if(sortKey==="monto"){x=+x;y=+y;} return (x>y?1:x<y?-1:0)*sortDir; });
+  const tb=document.getElementById("tbody"); tb.innerHTML="";
+  rows.forEach(v=>{
+    const t=TIPOS[v.tipo]||{n:v.tipo,c:"web"};
+    const tr=document.createElement("tr");
+    const comp = v.comprobante ? `<a href="${v.comprobante}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">📎 Ver</a>` : `<span style="color:var(--muted)">—</span>`;
+    tr.innerHTML=`<td>${v.fecha}</td>
+      <td><span class="tag ${t.c}">${t.n}</span></td>
+      <td>${v.descripcion||"—"}</td>
+      <td style="color:var(--muted)">${v.recibo||"—"}</td>
+      <td>${comp}</td>
+      <td class="amt">${Q(v.monto)}</td>
+      <td><button class="del" title="Eliminar">✕</button></td>`;
+    tr.querySelector(".del").onclick=()=>delVenta(v.id);
+    tb.appendChild(tr);
+  });
+  document.getElementById("empty").style.display = rows.length?"none":"block";
+
+  drawCharts(web,rec,paq,ventas);
+}
+
+function drawCharts(web,rec,paq,ventas){
+  const opt={plugins:{legend:{labels:{color:"#9aa3c0",font:{size:12}}}}};
+  if(chCat) chCat.destroy();
+  chCat=new Chart(document.getElementById("chCat"),{type:"doughnut",
+    data:{labels:["Página Web","Recurrente","Paquetes"],
+      datasets:[{data:[web,rec,paq],backgroundColor:["#3fb6ff","#ffb13f","#5be5a0"],borderColor:"#181c2e",borderWidth:3}]},
+    options:{...opt,cutout:"60%"}});
+
+  const byDate={};
+  ventas.forEach(v=>{ byDate[v.fecha]=(byDate[v.fecha]||0)+Number(v.monto); });
+  const fechas=Object.keys(byDate).sort();
+  let acc=0; const serie=fechas.map(f=>{ acc+=byDate[f]; return acc; });
+  if(chAcc) chAcc.destroy();
+  chAcc=new Chart(document.getElementById("chAcc"),{type:"line",
+    data:{labels:fechas,datasets:[{label:"Acumulado",data:serie,
+      borderColor:"#5b8cff",backgroundColor:"rgba(91,140,255,.15)",fill:true,tension:.3,pointRadius:4,pointBackgroundColor:"#7c5bff"}]},
+    options:{...opt,plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:"#9aa3c0"},grid:{display:false}},
+              y:{ticks:{color:"#9aa3c0",callback:v=>"Q"+v.toLocaleString("es-GT")},grid:{color:"#2a3050"}}}}});
+}
+
+function fileToB64(file){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=()=>res(String(r.result).split(",")[1]); // solo el base64
+    r.onerror=rej; r.readAsDataURL(file);
+  });
+}
+document.getElementById("frm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const btn=document.getElementById("btnSave"); btn.disabled=true;
+  const v={
+    id: "v-"+Date.now(),
+    fecha: document.getElementById("fFecha").value,
+    tipo: document.getElementById("fTipo").value,
+    descripcion: document.getElementById("fDesc").value.trim(),
+    recibo: document.getElementById("fRecibo").value.trim(),
+    monto: parseFloat(document.getElementById("fMonto").value)||0
+  };
+  if(!v.fecha||v.monto<=0){ alert("Completa fecha y un monto válido."); btn.disabled=false; return; }
+  const fileEl=document.getElementById("fComp");
+  if(fileEl.files && fileEl.files[0]){
+    try{
+      setStatus("Subiendo comprobante…","busy");
+      v.comprobante_b64  = await fileToB64(fileEl.files[0]);
+      v.comprobante_name = fileEl.files[0].name;
+      v.comprobante_mime = fileEl.files[0].type || "image/jpeg";
+    }catch(err){ console.error(err); }
+  }
+  await addVenta(v);
+  e.target.reset();
+  document.getElementById("fFecha").value = new Date().toISOString().slice(0,10);
+  btn.disabled=false;
+});
+document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{
+  const k=th.dataset.s; if(sortKey===k) sortDir*=-1; else{sortKey=k;sortDir=1;} render();
+});
+document.getElementById("filTipo").onchange=render;
+document.getElementById("fFecha").value = new Date().toISOString().slice(0,10);
+
+initData();
+</script>
+</body>
+</html>

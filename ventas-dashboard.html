@@ -141,8 +141,10 @@
    TABLERO CONECTADO A GOOGLE SHEETS  (datos compartidos del equipo)
    Todo lo que se registra aquí queda en la misma hoja, así que Javier,
    Antonio y Claude ven lo mismo. Refresca solo cada 15 s.
+   Los comprobantes (fotos) se guardan en tu Drive y en la tabla queda
+   el enlace 📎 Ver.
    ==================================================================== */
-const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyI79Ei-mEonZ5CaEJkJVWNsZO4bvpWKVTIT0KK3Ivt94yGKaWG696cVBXA618QQlQANQ/exec";
+const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzbAiupv7nhSvbpq5u8PjGgQDT6VK6zBbVx1zU6FpuZLvVfEIGiFdX70Ch5qRdJm2Xl1Q/exec";
 
 /* Ventas iniciales: si la hoja está vacía la primera vez, se cargan solas. */
 const SEED = [
@@ -251,8 +253,8 @@ function render(){
   const tb=document.getElementById("tbody"); tb.innerHTML="";
   rows.forEach(v=>{
     const t=TIPOS[v.tipo]||{n:v.tipo,c:"web"};
-    const tr=document.createElement("tr");
     const comp = v.comprobante ? `<a href="${v.comprobante}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">📎 Ver</a>` : `<span style="color:var(--muted)">—</span>`;
+    const tr=document.createElement("tr");
     tr.innerHTML=`<td>${v.fecha}</td>
       <td><span class="tag ${t.c}">${t.n}</span></td>
       <td>${v.descripcion||"—"}</td>
@@ -292,7 +294,7 @@ function drawCharts(web,rec,paq,ventas){
 function fileToB64(file){
   return new Promise((res,rej)=>{
     const r=new FileReader();
-    r.onload=()=>res(String(r.result).split(",")[1]); // solo el base64
+    r.onload=()=>res(String(r.result).split(",")[1]);
     r.onerror=rej; r.readAsDataURL(file);
   });
 }

@@ -1350,7 +1350,7 @@ function p1(){var d=D.p1;
   var topseg=d.segs.slice().sort(function(a,b){return b.ingEst-a.ingEst;})[0];
   return '<section class="block" id="p1"><div class="sec-head"><span class="sec-num">1</span><h2>Explotación de segmentos · Ecosistema</h2><span class="win">'+d.win+'</span></div>'+
    '<p class="sec-sub">Los <b>'+d.nseg+' segmentos</b> del ecosistema (6 hoteles consolidados en un solo cuadro), agrupados por canal. <b>Petén Express va aparte</b> — su ADR de ~Q'+d.express.adr+' distorsionaría el promedio. Se clasifica por nombre de contrato, no por el "mercado" del sistema.</p>'+
-   '<div class="card"><h3>Los '+d.nseg+' segmentos del ecosistema (6 hoteles · 1–28 jul)</h3><table><thead><tr><th class="l">Segmento / canal</th><th>Noches</th><th>% noches</th><th>ADR</th><th>Ing. est.</th><th>% ing.</th></tr></thead><tbody>'+body+
+   '<div class="card"><h3>Los '+d.nseg+' segmentos del ecosistema (6 hoteles · 1–31 jul)</h3><table><thead><tr><th class="l">Segmento / canal</th><th>Noches</th><th>% noches</th><th>ADR</th><th>Ing. est.</th><th>% ing.</th></tr></thead><tbody>'+body+
    '<tr class="eco"><td class="l">Ecosistema (6 hoteles)</td><td>'+d.totalRN.toLocaleString("es-GT")+'</td><td>100%</td><td>'+Q(d.adr)+'</td><td>'+Q(d.ing)+'</td><td>100%</td></tr></tbody></table>'+
    '<div class="insight"><b>Lectura:</b> el segmento más grande del ecosistema es <b>'+topseg.name+'</b> ('+topseg.noches+' noches, ADR '+Q(topseg.adr)+'). Por canal: <b>OTAs</b> mueve el mayor volumen ('+ota.mix+'% de noches, '+ota.ingpct+'% del ingreso) — dependencia alta de Booking y Expedia, que cobran comisión. <b>Agencias</b> es el segundo bloque ('+age.mix+'%) con el ADR más bajo ('+Q(age.adr)+'). <b>Directos</b> pega el mejor ADR ('+Q(dir.adr)+', sin comisión) pero solo el '+dir.mix+'% de las noches — ahí está la palanca: crecer directo sube margen y baja dependencia de OTAs.</div>'+
    '<div class="flag" style="border-left:4px solid var(--gold);background:#fbf4e2"><b>⚠ Cómo leer el ingreso:</b> las <b>noches y el ADR son reales</b> (Tarifa Prom. del sistema). El <b>Ing. est.</b> es <b>reconstruido</b> (noches × ADR) porque 6 de 7 exports no traen columna de ingreso. Contra el ingreso real de Casona del Lago, este método <b>subestima ~15%</b>, así que tomá el Ing. est. como <b>piso e indicador relativo</b>, no como cifra exacta. Para ingreso exacto de todos, hay que exportar cada hotel con las columnas de Ing. Hosp./Rég./Otros como Casona del Lago.</div>'+
@@ -1409,7 +1409,7 @@ function p2(){var d=D.p2;
   var cumplidos=d.hotels.filter(function(h){return h.faltan<=0;}).length;
   return '<section class="block" id="p2"><div class="sec-head"><span class="sec-num">3</span><h2>Ocupación vs. meta mensual y Destination Fee</h2><span class="win">'+d.win+'</span></div>'+
    '<p class="sec-sub">Habitaciones en firme contra la <b>meta mensual de cada hotel</b> (meta diaria × 31 días de julio). La pregunta clave: <b>¿cuántas habitaciones faltan para la meta del mes?</b> Más ocupación real, ADR, RevPAR y el Destination Fee acumulado.</p>'+
-   '<div class="card"><h3>Meta mensual de habitaciones · en firme al 28 jul</h3><table><thead><tr><th class="l">Hotel</th><th>Meta mes</th><th>En firme</th><th>Faltan</th><th>% Meta</th><th>Ocup. real</th><th>ADR</th><th>RevPAR</th></tr></thead><tbody>'+rows+
+   '<div class="card"><h3>Meta mensual de habitaciones · cierre julio 2026</h3><table><thead><tr><th class="l">Hotel</th><th>Meta mes</th><th>En firme</th><th>Faltan</th><th>% Meta</th><th>Ocup. real</th><th>ADR</th><th>RevPAR</th></tr></thead><tbody>'+rows+
    '<tr class="eco"><td class="l">Ecosistema</td><td>'+d.metaRN.toLocaleString("es-GT")+'</td><td>'+d.otbRN.toLocaleString("es-GT")+'</td><td>'+(d.faltanRN>0?'<span class="neg">faltan '+d.faltanRN+'</span>':'<span class="pos">✓ +'+Math.abs(d.faltanRN)+'</span>')+'</td><td><span class="pill '+(d.pctMeta>=100?'g':'a')+'">'+d.pctMeta+'%</span></td><td>'+d.occEco+'%</td><td>'+Q(d.adrEco)+'</td><td>—</td></tr></tbody></table>'+
    '<div class="insight"><b>Lectura:</b> al cierre de julio, el ecosistema terminó con <b>'+d.otbRN.toLocaleString("es-GT")+' habitaciones</b> (incl. CPL) de una meta de '+d.metaRN.toLocaleString("es-GT")+' — <b>'+d.pctMeta+'%</b> de cumplimiento mensual. <b>'+best.h+'</b> es el ganador del mes ('+best.pctMeta+'%'+(best.faltan<=0?', superó la meta':'')+') y <b>'+worst.h+'</b> el más rezagado ('+worst.pctMeta+'%). '+(cumplidos>0?cumplidos+' hotel(es) cerraron sobre su meta mensual.':'')+' Ocupación real sobre inventario: <b>'+d.occEco+'%</b>.</div>'+
    '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:12px">% de meta mensual por hotel · la línea marca el 100%</div><div class="hbars">'+metabars+'</div></div></div>'+
@@ -1491,7 +1491,7 @@ function p3(){var d=D.p3;
    '<text x="64" y="60" text-anchor="middle" font-family="Oswald" font-size="22" font-weight="600" fill="#15324f">'+top.share+'%</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="9" fill="#5b6b7a">'+top.name+'</text></svg>'+
    '<div class="donut-legend">'+leg+'</div></div></div>'+
    '<div class="card" style="border-left:4px solid var(--gold)"><h3>🆕 El Mesón · se mide por PAX <span style="float:right;font-family:Inter;text-transform:none;color:var(--txt-soft);font-size:12px">meta 60 pax/día</span></h3>'+
-   (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 jul",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 jul",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–21 jul",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 22–28 jul",pax:mz.w4,d:7,pace:mz.w4pace}];
+   (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 jul",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 jul",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–21 jul",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 22–31 jul",pax:mz.w4,d:7,pace:mz.w4pace}];
      var mxw=Math.max(mz.w1,mz.w2,mz.w3,mz.w4);
      var bars=wk.map(function(x){var avg=Math.round(x.pax/x.d*10)/10;
        return '<div class="fut-col"><div class="fut-bar'+(x.pax===mxw?' peak':'')+'" style="height:'+Math.max(14,x.pax/mxw*100)+'%"><span class="v">'+x.pax+'</span></div><span class="fut-lab">'+x.l+'<br><b>'+avg+'/día</b> · '+x.pace+'%</span></div>';}).join("");
@@ -1502,7 +1502,7 @@ function p3(){var d=D.p3;
        '<div class="kpi"><div class="n">'+mz.pace+'<small>%</small></div><div class="lab">Cumplimiento de meta (31 días)</div><div class="delta up">▲ semana 4 en '+mz.w4pace+'%</div></div>'+
        '<div class="kpi"><div class="n">'+mz.totalPax+'</div><div class="lab">Pax reales · meta '+mz.metaTotal+'</div><div class="delta '+(mz.totalPax>=mz.metaTotal?'up':'down')+'">'+(mz.totalPax>=mz.metaTotal?'+':'▼ ')+Math.abs(mz.metaTotal-mz.totalPax)+' pax</div></div>'+
        '<div class="kpi"><div class="n">'+mz.avgPax+'</div><div class="lab">Prom./día · meta '+mz.metaPax+'</div><div class="delta '+(mz.gap>=0?'up':'down')+'">'+(mz.gap>=0?'+':'▼ ')+Math.abs(mz.gap)+' pax/día</div></div>'+
-       '<div class="kpi"><div class="n">'+mz.w4+'</div><div class="lab">Pax semana 4 (22–28 jul)</div><div class="delta up">su mejor semana</div></div></div>'+
+       '<div class="kpi"><div class="n">'+mz.w4+'</div><div class="lab">Pax semana 4 (22–31 jul)</div><div class="delta up">su mejor semana</div></div></div>'+
        '<div class="stack-lab" style="margin-bottom:4px">Pax por semana · el ritmo va subiendo</div><div class="fut-chart" style="height:170px">'+bars+'</div>'+
        '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:12px">Cumplimiento vs meta de '+mz.metaPax+' pax/día · la línea marca el 100%</div><div class="hbars">'+pacebars+'</div></div>'+
        '<div class="insight" style="margin-top:16px"><b>Lectura:</b> con la meta en <b>'+mz.metaPax+' pax/día</b>, El Mesón va en <b>'+mz.pace+'%</b> y <b>subiendo cada semana</b>: '+mz.w1pace+'% → '+mz.w2pace+'% → '+mz.w3pace+'% → <b>'+mz.w4pace+'%</b>. La cuarta semana ('+mz.w4+' pax) es la mejor. Es la línea más nueva del ecosistema y la que más rápido mejora.</div>'+
@@ -1555,7 +1555,7 @@ function p5(){var d=D.p5;
   return '<section class="block" id="p5"><div class="sec-head"><span class="sec-num">7</span><h2>Eventos · por ingreso</h2><span class="win">'+d.win+'</span></div>'+
    '<p class="sec-sub">Se mide el <b>ingreso en Q por segmento</b> (no la cantidad de eventos), contra una meta mensual de <b>Q'+d.metaTotal.toLocaleString("es-GT")+'</b> repartida entre Corporativo, ONG y Social.</p>'+
    '<div class="kpis">'+
-   '<div class="kpi"><div class="n">'+Q(d.totalMTD)+'</div><div class="lab">Ingreso total (1–28 jul)</div><div class="delta up">'+d.pace+'% de la meta de Q'+(d.metaTotal/1000)+'K</div></div>'+
+   '<div class="kpi"><div class="n">'+Q(d.totalMTD)+'</div><div class="lab">Ingreso total (1–31 jul)</div><div class="delta up">'+d.pace+'% de la meta de Q'+(d.metaTotal/1000)+'K</div></div>'+
    '<div class="kpi"><div class="n">'+d.pace+'<small>%</small></div><div class="lab">Cumplimiento sobre meta total</div><div class="delta up">segmentos con meta: '+d.metaedPace+'%</div></div>'+
    '<div class="kpi"><div class="n">'+d.totEv+'</div><div class="lab">Eventos con ingreso</div><div class="delta flat">+'+d.agendados+' agendados en Q0</div></div>'+
    '<div class="kpi"><div class="n">+'+d.yoyGrowth+'<small>%</small></div><div class="lab">vs. julio 2025</div><div class="delta up">Q'+Math.round(d.yoy2025).toLocaleString("es-GT")+' el año pasado</div></div></div>'+
@@ -1581,7 +1581,7 @@ function p6(){var d=D.p6;
   return '<section class="block" id="p6"><div class="sec-head"><span class="sec-num">8</span><h2>Página Web</h2><span class="win">'+d.win+'</span></div>'+
    '<p class="sec-sub">Las métricas del sitio del ecosistema. De dónde llega la gente y qué mira — el termómetro del canal directo digital, que es justo el que el Punto 1 quiere hacer crecer.</p>'+
    '<div class="kpis">'+
-   '<div class="kpi"><div class="n">'+d.visitors+'</div><div class="lab">Visitantes</div><div class="delta flat">últimos días al 28 jul</div></div>'+
+   '<div class="kpi"><div class="n">'+d.visitors+'</div><div class="lab">Visitantes</div><div class="delta flat">julio 2026</div></div>'+
    '<div class="kpi"><div class="n">'+d.views.toLocaleString("es-GT")+'</div><div class="lab">Páginas vistas</div><div class="delta flat">'+d.perVisit+' por visita</div></div>'+
    '<div class="kpi"><div class="n">'+d.bounce+'<small>%</small></div><div class="lab">Bounce rate</div></div>'+
    '<div class="kpi"><div class="n">'+social+'</div><div class="lab">Visitas desde redes sociales</div><div class="delta flat">vs '+goog+' de Google</div></div></div>'+
@@ -1592,7 +1592,7 @@ function p6(){var d=D.p6;
    '<div class="card"><h3>Oportunidad: cerrar el círculo web → reserva directa</h3>'+
    '<div class="insight"><b>Conectá los puntos:</b> el Punto 1 muestra que <b>Directos</b> paga el mejor ADR ('+Q(dir.adr)+') sin comisión, pero mueve solo el '+dir.mix+'% de las noches. Este punto muestra que <b>'+d.visitors+' personas</b> ya están mirando el sitio y '+social+' llegan de redes. El puente es el <b>CTA de reserva directa</b> en las fichas de hotel más vistas.</div>'+
    '<div class="flag">'+d.note+'</div></div>'+
-   '<footer>Hoteles de Petén · El Viaje del Huésped · Emisión V7 · Corte al 28 julio 2026 · Ventanas por punto indicadas en cada sección · Segmentos consolidados como ecosistema (ingreso estimado por falta de columna de ingreso en 6 exports). Petén Express reportado aparte.</footer></section>';
+   '<footer>Hoteles de Petén · El Viaje del Huésped · Emisión V8 · Cierre julio 2026 · Ventanas por punto indicadas en cada sección · Segmentos consolidados como ecosistema (ingreso estimado por falta de columna de ingreso en 6 exports). Petén Express reportado aparte.</footer></section>';
 }
 
 /* build report */

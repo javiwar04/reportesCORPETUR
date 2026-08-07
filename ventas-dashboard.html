@@ -146,21 +146,13 @@
    ==================================================================== */
 const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzbAiupv7nhSvbpq5u8PjGgQDT6VK6zBbVx1zU6FpuZLvVfEIGiFdX70Ch5qRdJm2Xl1Q/exec";
 
-/* Ventas iniciales: si la hoja está vacía la primera vez, se cargan solas. */
-const SEED = [
-  { id:"r-20260803-1", fecha:"2026-08-03", tipo:"rec", descripcion:"Lara Morganti — Tour a Tikal (Transporte + Guía)",           recibo:"1736-4273", monto:230 },
-  { id:"r-20260802-1", fecha:"2026-08-02", tipo:"rec", descripcion:"Sebastian Haag — Tour a Tikal Amanecer (Transporte + Guía)",  recibo:"1010-6751", monto:300 },
-  { id:"r-20260802-2", fecha:"2026-08-02", tipo:"rec", descripcion:"Sebastian Haag — Tour a Tikal Amanecer (Transporte + Guía)",  recibo:"7433-6951", monto:300 },
-  { id:"r-20260801-1", fecha:"2026-08-01", tipo:"rec", descripcion:"Eva María Osuna Martin — Tour a Tikal x2 (Transporte + Guía)", recibo:"3870-3660", monto:460 }
-];
-
 const META = 200000;
 const POLL_MS = 15000;
 const TIPOS = {web:{n:"Página Web",c:"web"}, rec:{n:"Recurrente",c:"rec"}, paq:{n:"Paquetes",c:"paq"}};
 const Q = n => "Q" + Number(n||0).toLocaleString("es-GT",{maximumFractionDigits:2});
 
 let ventas = [];
-let live = false, seeded = false;
+let live = false;
 let sortKey="fecha", sortDir=-1;
 let chCat, chAcc;
 
@@ -185,20 +177,11 @@ async function pull(first){
     const data = await r.json();
     ventas = (data||[]).map(v=>({...v, monto:Number(v.monto)}));
     setStatus("🟢 En vivo — Google Sheets","live");
-    // Cargar las ventas iniciales SOLO la primera vez (candado para no rellenar tras borrar)
-    if(first && ventas.length===0 && !seeded && !localStorage.getItem("seed_hecho")){
-      seeded=true; localStorage.setItem("seed_hecho","1"); await seedInicial(); return;
-    }
     render();
   }catch(e){
     console.error(e);
     setStatus("Sin conexión a la hoja","busy");
   }
-}
-async function seedInicial(){
-  setStatus("Cargando ventas iniciales…","busy");
-  for(const v of SEED){ await post("add", v); }
-  await pull(false);
 }
 async function post(action, payload){
   const r = await fetch(WEBAPP_URL, {

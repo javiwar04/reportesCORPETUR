@@ -41,11 +41,18 @@
   .logo-sm{width:60px; height:auto; display:block; margin:0 auto 6px;}
   .brand{color:var(--green); font-weight:800; letter-spacing:.5px; font-size:15px; margin-bottom:2px;}
   .score-ok{color:var(--green); font-weight:700;} .score-mid{color:var(--gold); font-weight:700;} .score-low{color:var(--red); font-weight:700;}
+  .estado{display:inline-block; font-weight:700; padding:6px 16px; border-radius:20px; margin:6px 0 4px; font-size:14px;}
+  .estado.ok{background:#E3F2E8; color:var(--green);}
+  .estado.no{background:#F7E6E5; color:var(--red);}
   .quote{border-left:4px solid var(--gold); padding:10px 14px; font-style:italic; color:var(--gray); background:var(--tint); border-radius:0 10px 10px 0; margin:12px 0; font-size:14px;}
   .rev{font-size:14px; border-bottom:1px solid #e3ebe6; padding:8px 0;}
   .rev b{color:var(--green);}
   .breakdown{text-align:left; font-size:14px; margin-top:6px;}
-  .breakdown .brow{display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #e3ebe6;}
+  .brow{padding:8px 0; border-bottom:1px dashed #e3ebe6;}
+  .brow .btop{display:flex; justify-content:space-between; align-items:center;}
+  .bbar{height:7px; background:#e9f0ec; border-radius:4px; overflow:hidden; margin-top:5px;}
+  .bbar>div{height:100%; border-radius:4px;}
+  .stamp{font-size:12px; color:var(--gray); margin-top:12px;}
   footer{text-align:center; font-size:12px; color:var(--gray); padding:18px 0 30px;}
 </style>
 </head>
@@ -64,7 +71,7 @@ const whoami=document.getElementById("whoami");
 const WHATSAPP_TO="50242182300"; /* Numero del coordinador con codigo de pais. Vacio = el usuario elige el contacto. */
 const SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbzvdaLNSBK05LkTLfg1ggBptKA3FY2juZkbFdMe4hpuzzqxZ9QiXMxJGu07hIApXUmJ/exec"; /* URL /exec del Web App de Google Apps Script. */
 
-/* ==== BANCO DE PREGUNTAS ====  q=pregunta, sec=seccion, opts=opciones, ok=indice correcto, exp=explicacion --*/
+/* ==== BANCO DE PREGUNTAS ====  q=pregunta, sec=competencia, opts=opciones, ok=indice correcto, exp=explicacion */
 const QUESTIONS=[
  { sec:"Contable y Administrativo",
    q:"¿Cuál es el porcentaje del Impuesto de Hospedaje en Guatemala?",
@@ -223,7 +230,7 @@ function intro(){
      <div class="brand">HOTELES DE PETÉN</div>
      <div class="tag">&#127769; Turno Nocturno</div>
      <h2>Examen: Recepcionista Nocturno</h2>
-     <p>Evalúa tus conocimientos y criterio para el <b>turno de noche en Hoteles de Petén</b>: contabilidad básica, herramientas, atención al huésped, seguridad, mantenimiento básico y el cierre nocturno. Son ${total} preguntas de escenario; al final verás tu resultado y las respuestas correctas.</p>
+     <p>Evalúa tus conocimientos y criterio para el <b>turno de noche en Hoteles de Petén</b>: contabilidad básica, herramientas, atención al huésped, seguridad, mantenimiento básico y el cierre nocturno. Son ${total} preguntas de escenario; al final verás tu resultado y el desglose por competencia.</p>
      <input type="text" id="nm" placeholder="Escribe tu nombre (opcional)">
      <button class="btn" onclick="start()">Comenzar &#127769;</button>
    </div>`;
@@ -265,12 +272,20 @@ function next(){ idx++; if(idx<total) renderQ(); else result(); }
 function result(){
   setProgress(100);
   const passed = score>=Math.ceil(total*0.7);
-  const bySec={};
+  const estado = passed ? "Aprobado ✅" : "No aprobado aún";
+
+  /* Desglose por competencia */
+  const bySec={}; const orden=[];
   QUESTIONS.forEach((it,i)=>{
-    if(!bySec[it.sec]) bySec[it.sec]={ok:0,tot:0};
+    if(!bySec[it.sec]){ bySec[it.sec]={ok:0,tot:0}; orden.push(it.sec); }
     bySec[it.sec].tot++;
     if(answersLog[i]===String.fromCharCode(65+it.ok)) bySec[it.sec].ok++;
   });
+
+  const completado = new Date().toLocaleString('es-GT',{day:'numeric',month:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true});
+
+  /* Enviar a Google Sheets (incluye desglose por competencia) */
+  const compsSheet = orden.map(s=>({nombre:s, valor:bySec[s].ok+"/"+bySec[s].tot}));
   logToSheets({
     hoja:"Recepcionista Nocturno",
     examen:"Examen - Recepcionista Nocturno",
@@ -278,22 +293,35 @@ function result(){
     punteo:score,
     total:total,
     nivel:passed?"Recepcionista Nocturno Certificado":"Recepcionista Nocturno en formacion",
+    completado:completado,
+    competencias:compsSheet,
     respuestas:answersLog
   });
+
   const filled = Math.round(score/total*5);
   const stars = "⭐".repeat(filled)+"☆".repeat(5-filled);
   const cls = passed?"score-ok":(score>=Math.ceil(total*0.5)?"score-mid":"score-low");
-  const _msg = `Examen: Recepcionista Nocturno - Hoteles de Petén
+
+  /* Construir desglose para pantalla y para WhatsApp */
+  let breakdown="", waLineas="";
+  orden.forEach(s=>{
+    const b=bySec[s];
+    const pct=Math.round(b.ok/b.tot*100);
+    const color = pct>=70 ? "var(--green)" : (pct>=50 ? "var(--gold)" : "var(--red)");
+    breakdown+=`<div class="brow"><div class="btop"><span>${esc(s)}</span><b style="color:${color}">${b.ok}/${b.tot} (${pct}%)</b></div><div class="bbar"><div style="width:${pct}%;background:${color}"></div></div></div>`;
+    waLineas+=`\n• ${s}: ${b.ok}/${b.tot} (${pct}%)`;
+  });
+
+  const _msg = `🌙 Recepcionista Nocturno — Resultado de capacitación
+Hoteles de Petén
 Participante: ${name||"(sin nombre)"}
-Resultado: ${score}/${total} ${stars}
-Nivel: ${passed?"Recepcionista Nocturno Certificado":"Recepcionista Nocturno en formación"}`;
+Examen final: ${score}/${total} — ${estado}
+
+Desglose por competencia:${waLineas}
+
+Completado: ${completado}`;
   const _wa = "https://wa.me/"+WHATSAPP_TO+"?text="+encodeURIComponent(_msg);
 
-  let breakdown="";
-  Object.keys(bySec).forEach(s=>{
-    const b=bySec[s];
-    breakdown+=`<div class="brow"><span>${esc(s)}</span><b>${b.ok}/${b.tot}</b></div>`;
-  });
   let review="";
   QUESTIONS.forEach((it,i)=>{
     const okChar=String.fromCharCode(65+it.ok);
@@ -301,25 +329,7 @@ Nivel: ${passed?"Recepcionista Nocturno Certificado":"Recepcionista Nocturno en 
     const mark = got===okChar ? "&#9989;" : "&#10060;";
     review+=`<div class="rev">${mark} <b>${i+1}.</b> ${esc(it.q)}<br><span style="color:var(--green)">&#10003; ${esc(it.opts[it.ok])}</span></div>`;
   });
+
   app.innerHTML=`
    <div class="card center">
-     <img class="logo-sm" src="${LOGO_SRC}" alt="Hoteles de Petén">
-     <div class="cap">${name?esc(name)+" &middot; ":""}Resultado</div>
-     <div class="big ${cls}">${score} / ${total}</div>
-     <div style="font-size:32px;letter-spacing:5px;margin:2px 0 4px">${stars}</div>
-     <h2>${passed?"&#127769; Recepcionista Nocturno Certificado":"&#127793; Recepcionista Nocturno en formación"}</h2>
-     <p>${passed?"¡Excelente! Tienes el criterio y los conocimientos para cuidar el hotel mientras todos descansan.":"Vas por buen camino. Repasa las respuestas y vuelve a intentarlo: la noche exige responsabilidad y detalle."}</p>
-     <div class="quote">Mientras el hotel duerme, el recepcionista nocturno es sus ojos, su voz y su seguridad.</div>
-     <h3 style="text-align:left">Desglose por área</h3>
-     <div class="breakdown">${breakdown}</div>
-     <a class="btn" style="text-decoration:none;display:inline-block;margin-top:14px" href="${_wa}" target="_blank" rel="noopener">&#128242; Enviar mi resultado por WhatsApp</a>
-     <div style="margin-top:10px"><button class="btn sec" onclick="intro()">Reiniciar para otro participante</button></div>
-     <h3 style="margin-top:18px;text-align:left">Respuestas correctas</h3>
-     <div style="text-align:left">${review}</div>
-   </div>`;
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-intro();
-</script>
-</body>
-</html>
+     <img class="logo-sm" sr

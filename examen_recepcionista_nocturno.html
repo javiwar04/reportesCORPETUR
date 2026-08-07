@@ -21,6 +21,7 @@
   .card p{font-size:15px; line-height:1.55; margin-bottom:10px;}
   .tag{display:inline-block; background:var(--tint); color:var(--green); font-size:12px; font-weight:700; padding:4px 12px; border-radius:20px; margin-bottom:10px;}
   .tag.sec{background:#EAF2FF; color:#274B8F;}
+  .tag.prac{background:#FBF1DA; color:#8a6414;}
   .btn{display:inline-block; background:var(--green); color:#fff; border:none; font-size:16px; font-weight:600; padding:13px 26px; border-radius:10px; cursor:pointer; margin-top:8px;}
   .btn:active{transform:scale(.98);}
   .btn.sec{background:#fff; color:var(--green); border:2px solid var(--green);}
@@ -37,6 +38,18 @@
   .big{font-size:44px; font-weight:800; color:var(--green);}
   .cap{font-size:12px; color:var(--gray); text-transform:uppercase; letter-spacing:1px;}
   input[type=text]{width:100%; padding:12px 14px; font-size:15px; border:2px solid #DCE8E1; border-radius:10px; margin:6px 0 4px;}
+  /* Ejercicios prácticos (mini-Excel, tablas, calculadoras) */
+  .xl{width:100%; border-collapse:collapse; margin:10px 0 4px; font-size:14px;}
+  .xl th{background:var(--dark); color:#fff; padding:8px 6px; font-weight:600; text-align:center;}
+  .xl td{border:1px solid #d5e2db; padding:6px; text-align:center;}
+  .xl td:first-child{text-align:left;}
+  .xlin{width:100%; padding:9px 10px; font-size:14px; border:2px solid #DCE8E1; border-radius:8px; margin:0; background:#fff;}
+  .xlin:focus{outline:none; border-color:var(--moss);}
+  .prg{margin:10px 0 4px;}
+  .prow{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:9px 0; border-bottom:1px dashed #e3ebe6;}
+  .prow span{color:var(--gray); font-size:14px;}
+  .prow input{max-width:170px;}
+  .hint{font-size:12px; color:var(--gray); margin-top:6px;}
   .logo{width:110px; height:auto; display:block; margin:0 auto 8px;}
   .logo-sm{width:60px; height:auto; display:block; margin:0 auto 6px;}
   .brand{color:var(--green); font-weight:800; letter-spacing:.5px; font-size:15px; margin-bottom:2px;}
@@ -68,10 +81,15 @@ const LOGO_SRC="data:image/svg+xml;utf8,"+encodeURIComponent("<svg xmlns='http:/
 const app=document.getElementById("app");
 const bar=document.getElementById("pbar");
 const whoami=document.getElementById("whoami");
-const WHATSAPP_TO="50242182300"; /* Numero del coordinador con codigo de pais. Vacio = el usuario elige el contacto. */
-const SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbzvdaLNSBK05LkTLfg1ggBptKA3FY2juZkbFdMe4hpuzzqxZ9QiXMxJGu07hIApXUmJ/exec"; /* URL /exec del Web App de Google Apps Script. */
+const WHATSAPP_TO="50242182300";
+const SHEETS_ENDPOINT="https://script.google.com/macros/s/AKfycbzvdaLNSBK05LkTLfg1ggBptKA3FY2juZkbFdMe4hpuzzqxZ9QiXMxJGu07hIApXUmJ/exec";
 
-/* ==== BANCO DE PREGUNTAS ====  q=pregunta, sec=competencia, opts=opciones, ok=indice correcto, exp=explicacion */
+/* Helper: lee un input y devuelve numero (ignora Q, comas y espacios) */
+function numVal(id){ var s=(document.getElementById(id).value||"").replace(/[Qq,\s]/g,""); return parseFloat(s); }
+
+/* ==== BANCO DE PREGUNTAS ====
+   MC (opcion multiple): usa opts + ok.
+   PRACTICO: type:"practico", con render() (HTML del ejercicio), check() (valida) y sol (solucion para el repaso). */
 const QUESTIONS=[
  { sec:"Contable y Administrativo",
    q:"¿Cuál es el porcentaje del Impuesto de Hospedaje en Guatemala?",
@@ -143,6 +161,88 @@ const QUESTIONS=[
    opts:["Confiar en que la computadora nunca se apaga","Guardarlo seguido (Ctrl+G / Guardar) y respaldarlo, por si se va la luz o falla el equipo","Dejarlo sin guardar hasta el otro turno","Borrarlo para no ocupar espacio"], ok:1,
    exp:"Guardar con frecuencia y tener un respaldo evita perder el trabajo si se corta la energía de madrugada o el equipo falla. En la noche los cortes de luz son un riesgo real." },
 
+ /* ===== EJERCICIOS PRÁCTICOS ===== */
+ { sec:"Práctica de Computación", type:"practico",
+   q:"Mini-Excel: en la celda TOTAL escribe la suma de los montos. Puedes poner el número o la fórmula (ej. =SUMA(B3:B5)).",
+   sol:"El total es 1125 (350 + 500 + 275). En Excel: =SUMA(B3:B5).",
+   render:function(){ return `
+     <table class="xl">
+       <tr><th style="width:22px"></th><th>A</th><th>B</th></tr>
+       <tr><td>1</td><td>Cliente</td><td>Monto (Q)</td></tr>
+       <tr><td>2</td><td>Walter</td><td>350</td></tr>
+       <tr><td>3</td><td>Bertín</td><td>500</td></tr>
+       <tr><td>4</td><td>Marina</td><td>275</td></tr>
+       <tr><td>5</td><td><b>TOTAL</b></td><td><input id="pr1" class="xlin" placeholder="=SUMA(B2:B4) o 1125"></td></tr>
+     </table>
+     <div class="hint">Tip: la fórmula empieza con = y suma el rango de montos.</div>`; },
+   check:function(){
+     var raw=(document.getElementById('pr1').value||"").trim().toUpperCase().replace(/\s|Q|,/g,"");
+     var okForm = /^=SUMA?\(B\d+:B\d+\)$/.test(raw) || /^=B\d+\+B\d+\+B\d+$/.test(raw);
+     var num=parseFloat(raw.replace(/[^0-9.]/g,""));
+     var okNum = raw.charAt(0)!=='=' && Math.abs(num-1125)<0.5;
+     var ok = okForm || okNum;
+     return {ok:ok, exp: ok ? "¡Bien! 350 + 500 + 275 = 1125." : "El total correcto es 1125 (350 + 500 + 275). También vale la fórmula =SUMA(B2:B4)."};
+   } },
+
+ { sec:"Práctica de Computación", type:"practico",
+   q:"Calculadora de IVA: el consumo de un huésped fue de Q500. Calcula el IVA (12%) y el total con IVA.",
+   sol:"IVA = 500 × 0.12 = 60. Total con IVA = 500 + 60 = 560.",
+   render:function(){ return `
+     <div class="prg">
+       <div class="prow"><span>Monto del consumo:</span><b>Q 500.00</b></div>
+       <div class="prow"><span>IVA (12%):</span><input id="pr2a" class="xlin" placeholder="Q ..."></div>
+       <div class="prow"><span>Total con IVA:</span><input id="pr2b" class="xlin" placeholder="Q ..."></div>
+     </div>
+     <div class="hint">Recuerda: IVA = monto × 0.12.</div>`; },
+   check:function(){
+     var iva=numVal('pr2a'), tot=numVal('pr2b');
+     var ok = Math.abs(iva-60)<0.5 && Math.abs(tot-560)<0.5;
+     return {ok:ok, exp: ok ? "¡Correcto! IVA = 500 × 0.12 = 60; Total = 560." : "IVA = 500 × 0.12 = 60. Total con IVA = 500 + 60 = 560."};
+   } },
+
+ { sec:"Práctica de Computación", type:"practico",
+   q:"Armar una tabla (tipo Word): completa el registro con al menos 2 huéspedes (nombre, habitación y noches).",
+   sol:"Se considera completa al llenar nombre, habitación y noches de por lo menos 2 filas.",
+   render:function(){ return `
+     <table class="xl">
+       <tr><th>Nombre</th><th>Habitación</th><th>Noches</th></tr>
+       ${[1,2,3].map(function(r){ return `<tr>
+         <td><input id="pr3n${r}" class="xlin" placeholder="Nombre"></td>
+         <td><input id="pr3h${r}" class="xlin" placeholder="# hab."></td>
+         <td><input id="pr3d${r}" class="xlin" placeholder="#"></td></tr>`; }).join('')}
+     </table>
+     <div class="hint">Llena los datos como si registraras huéspedes reales de la noche.</div>`; },
+   check:function(){
+     var full=0;
+     [1,2,3].forEach(function(r){
+       var n=(document.getElementById('pr3n'+r).value||"").trim();
+       var h=(document.getElementById('pr3h'+r).value||"").trim();
+       var d=(document.getElementById('pr3d'+r).value||"").trim();
+       if(n&&h&&d) full++;
+     });
+     var ok=full>=2;
+     return {ok:ok, exp: ok ? "¡Bien! Tu tabla de registro quedó completa." : "Completa nombre, habitación y noches de al menos 2 huéspedes."};
+   } },
+
+ { sec:"Práctica de Computación", type:"practico",
+   q:"Cálculo de cuenta: un huésped se queda 3 noches a Q400 por noche. Calcula el subtotal, el impuesto de hospedaje (10%) y el total.",
+   sol:"Subtotal = 400 × 3 = 1200. Impuesto 10% = 120. Total = 1200 + 120 = 1320.",
+   render:function(){ return `
+     <div class="prg">
+       <div class="prow"><span>Tarifa por noche:</span><b>Q 400.00</b></div>
+       <div class="prow"><span>Noches:</span><b>3</b></div>
+       <div class="prow"><span>Subtotal:</span><input id="pr4a" class="xlin" placeholder="Q ..."></div>
+       <div class="prow"><span>Impuesto hospedaje (10%):</span><input id="pr4b" class="xlin" placeholder="Q ..."></div>
+       <div class="prow"><span>TOTAL a pagar:</span><input id="pr4c" class="xlin" placeholder="Q ..."></div>
+     </div>
+     <div class="hint">Subtotal = tarifa × noches. Impuesto = subtotal × 0.10.</div>`; },
+   check:function(){
+     var s=numVal('pr4a'), im=numVal('pr4b'), t=numVal('pr4c');
+     var ok=Math.abs(s-1200)<0.5 && Math.abs(im-120)<0.5 && Math.abs(t-1320)<0.5;
+     return {ok:ok, exp: ok ? "¡Perfecto! 1200 + 120 (10%) = 1320." : "Subtotal = 400 × 3 = 1200. Impuesto 10% = 120. Total = 1320."};
+   } },
+
+ /* ===== continúa con escenarios ===== */
  { sec:"Turno Nocturno",
    q:"El 'cierre nocturno' o night audit consiste principalmente en…",
    opts:["Apagar todas las luces del hotel","Cuadrar la caja, cerrar el día en el sistema y dejar los reportes de ocupación e ingresos listos","Limpiar el lobby","Despertar a los huéspedes"], ok:1,
@@ -209,7 +309,7 @@ const QUESTIONS=[
    exp:"El turno nocturno exige responsabilidad y criterio propio: eres la cara del hotel, su seguridad y quien deja todo listo para el amanecer. Ese compromiso es lo que distingue a un gran recepcionista nocturno." },
 ];
 
-let answersLog=[];
+let answersLog=[], correctLog=[];
 let idx=0, score=0, name="", answered=false;
 const total=QUESTIONS.length;
 
@@ -217,10 +317,10 @@ function logToSheets(payload){
   if(!SHEETS_ENDPOINT || SHEETS_ENDPOINT.indexOf("PEGA_AQUI")===0) return;
   try{
     fetch(SHEETS_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(payload)});
-  }catch(e){/* guardado silencioso, no interrumpe al participante */}
+  }catch(e){/* guardado silencioso */}
 }
 function setProgress(p){ bar.style.width=p+"%"; }
-function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
 
 function intro(){
   setProgress(0);
@@ -230,7 +330,7 @@ function intro(){
      <div class="brand">HOTELES DE PETÉN</div>
      <div class="tag">&#127769; Turno Nocturno</div>
      <h2>Examen: Recepcionista Nocturno</h2>
-     <p>Evalúa tus conocimientos y criterio para el <b>turno de noche en Hoteles de Petén</b>: contabilidad básica, herramientas, atención al huésped, seguridad, mantenimiento básico y el cierre nocturno. Son ${total} preguntas de escenario; al final verás tu resultado y el desglose por competencia.</p>
+     <p>Evalúa tus conocimientos y criterio para el <b>turno de noche en Hoteles de Petén</b>: contabilidad, herramientas, atención al huésped, seguridad y mantenimiento. Incluye <b>ejercicios prácticos</b> de Excel y cálculo. Son ${total} retos; al final verás tu desglose por competencia.</p>
      <input type="text" id="nm" placeholder="Escribe tu nombre (opcional)">
      <button class="btn" onclick="start()">Comenzar &#127769;</button>
    </div>`;
@@ -238,12 +338,13 @@ function intro(){
 function start(){
   const el=document.getElementById("nm"); name=el && el.value.trim() ? el.value.trim() : "";
   whoami.textContent = name ? ("Participante: "+name) : "";
-  idx=0; score=0; answersLog=[]; renderQ();
+  idx=0; score=0; answersLog=[]; correctLog=[]; renderQ();
 }
 function renderQ(){
   answered=false;
   const it=QUESTIONS[idx];
   setProgress(Math.round(idx/total*100));
+  if(it.type==="practico"){ renderPractico(it); return; }
   let opts="";
   it.opts.forEach((o,oi)=>{ opts+=`<button class="opt" id="opt${oi}" onclick="answer(${oi})">${String.fromCharCode(65+oi)}. ${esc(o)}</button>`; });
   app.innerHTML=`
@@ -256,14 +357,44 @@ function renderQ(){
      <div id="nextwrap" style="margin-top:6px"></div>
    </div>`;
 }
+function renderPractico(it){
+  app.innerHTML=`
+   <div class="card">
+     <span class="tag">Pregunta ${idx+1} de ${total}</span>
+     <span class="tag prac">&#128187; Ejercicio práctico</span>
+     <h2>${esc(it.q)}</h2>
+     <div class="practico">${it.render()}</div>
+     <button class="btn" id="chk" onclick="checkPractico()">Comprobar</button>
+     <div class="feedback" id="fb"></div>
+     <div id="nextwrap" style="margin-top:6px"></div>
+   </div>`;
+}
 function answer(oi){
   if(answered) return; answered=true;
   answersLog[idx]=String.fromCharCode(65+oi);
   const it=QUESTIONS[idx];
+  correctLog[idx]=(oi===it.ok);
   for(let i=0;i<it.opts.length;i++){ const b=document.getElementById("opt"+i); b.disabled=true; if(i===it.ok) b.classList.add("ok"); }
   const fb=document.getElementById("fb");
   if(oi===it.ok){ score++; fb.className="feedback ok"; fb.innerHTML="&#9989; ¡Correcto! "+esc(it.exp); }
   else { document.getElementById("opt"+oi).classList.add("bad"); fb.className="feedback bad"; fb.innerHTML="&#10060; La respuesta correcta es <b>"+String.fromCharCode(65+it.ok)+"</b>. "+esc(it.exp); }
+  showNext();
+}
+function checkPractico(){
+  if(answered) return; answered=true;
+  const it=QUESTIONS[idx];
+  const res=it.check();
+  correctLog[idx]=res.ok;
+  answersLog[idx]=res.ok?"OK":"X";
+  if(res.ok) score++;
+  document.querySelectorAll('.practico input').forEach(function(i){ i.disabled=true; });
+  const chk=document.getElementById('chk'); if(chk) chk.disabled=true;
+  const fb=document.getElementById("fb");
+  fb.className="feedback "+(res.ok?"ok":"bad");
+  fb.innerHTML=(res.ok?"&#9989; ":"&#10060; ")+esc(res.exp);
+  showNext();
+}
+function showNext(){
   const last = idx===total-1;
   document.getElementById("nextwrap").innerHTML=`<button class="btn" onclick="next()">${last?"Ver resultado &#127942;":"Siguiente &rarr;"}</button>`;
 }
@@ -272,19 +403,16 @@ function next(){ idx++; if(idx<total) renderQ(); else result(); }
 function result(){
   setProgress(100);
   const passed = score>=Math.ceil(total*0.7);
-  const estado = passed ? "Aprobado ✅" : "No aprobado aún";
 
-  /* Desglose por competencia */
   const bySec={}; const orden=[];
   QUESTIONS.forEach((it,i)=>{
     if(!bySec[it.sec]){ bySec[it.sec]={ok:0,tot:0}; orden.push(it.sec); }
     bySec[it.sec].tot++;
-    if(answersLog[i]===String.fromCharCode(65+it.ok)) bySec[it.sec].ok++;
+    if(correctLog[i]) bySec[it.sec].ok++;
   });
 
   const completado = new Date().toLocaleString('es-GT',{day:'numeric',month:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true});
 
-  /* Enviar a Google Sheets (incluye desglose por competencia) */
   const compsSheet = orden.map(s=>({nombre:s, valor:bySec[s].ok+"/"+bySec[s].tot}));
   logToSheets({
     hoja:"Recepcionista Nocturno",
@@ -302,7 +430,6 @@ function result(){
   const stars = "⭐".repeat(filled)+"☆".repeat(5-filled);
   const cls = passed?"score-ok":(score>=Math.ceil(total*0.5)?"score-mid":"score-low");
 
-  /* Construir desglose para pantalla y para WhatsApp */
   let breakdown="", waLineas="";
   orden.forEach(s=>{
     const b=bySec[s];
@@ -315,7 +442,7 @@ function result(){
   const _msg = `🌙 Recepcionista Nocturno — Resultado de capacitación
 Hoteles de Petén
 Participante: ${name||"(sin nombre)"}
-Examen final: ${score}/${total} — ${estado}
+Examen final: ${score}/${total} — ${passed?"Aprobado ✅":"No aprobado aún"}
 
 Desglose por competencia:${waLineas}
 
@@ -324,12 +451,36 @@ Completado: ${completado}`;
 
   let review="";
   QUESTIONS.forEach((it,i)=>{
-    const okChar=String.fromCharCode(65+it.ok);
-    const got=answersLog[i];
-    const mark = got===okChar ? "&#9989;" : "&#10060;";
-    review+=`<div class="rev">${mark} <b>${i+1}.</b> ${esc(it.q)}<br><span style="color:var(--green)">&#10003; ${esc(it.opts[it.ok])}</span></div>`;
+    const mark = correctLog[i] ? "&#9989;" : "&#10060;";
+    const solucion = it.type==="practico" ? esc(it.sol) : esc(it.opts[it.ok]);
+    review+=`<div class="rev">${mark} <b>${i+1}.</b> ${esc(it.q)}<br><span style="color:var(--green)">&#10003; ${solucion}</span></div>`;
   });
 
   app.innerHTML=`
    <div class="card center">
-     <img class="logo-sm" sr
+     <img class="logo-sm" src="${LOGO_SRC}" alt="Hoteles de Petén">
+     <div class="brand">HOTELES DE PETÉN</div>
+     <div class="cap">Resultado de capacitación</div>
+     <h2 style="margin-top:4px">&#127769; Recepcionista Nocturno</h2>
+     <div class="cap" style="margin-top:6px">${name?esc(name):"(sin nombre)"}</div>
+     <div class="big ${cls}">${score} / ${total}</div>
+     <div style="font-size:30px;letter-spacing:5px;margin:2px 0 6px">${stars}</div>
+     <div class="estado ${passed?'ok':'no'}">${passed?"Aprobado &#9989;":"No aprobado aún"}</div>
+     <p style="margin-top:10px">${passed?"¡Excelente! Tienes el criterio y los conocimientos para cuidar el hotel mientras todos descansan.":"Vas por buen camino. Repasa las respuestas y vuelve a intentarlo: la noche exige responsabilidad y detalle."}</p>
+
+     <h3 style="text-align:left">Desglose por competencia</h3>
+     <div class="breakdown">${breakdown}</div>
+     <div class="stamp">Completado: ${completado}</div>
+
+     <div class="quote">Mientras el hotel duerme, el recepcionista nocturno es sus ojos, su voz y su seguridad.</div>
+     <a class="btn" style="text-decoration:none;display:inline-block;margin-top:6px" href="${_wa}" target="_blank" rel="noopener">&#128242; Enviar mi resultado por WhatsApp</a>
+     <div style="margin-top:10px"><button class="btn sec" onclick="intro()">Reiniciar para otro participante</button></div>
+     <h3 style="margin-top:18px;text-align:left">Respuestas correctas</h3>
+     <div style="text-align:left">${review}</div>
+   </div>`;
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+intro();
+</script>
+</body>
+</html>

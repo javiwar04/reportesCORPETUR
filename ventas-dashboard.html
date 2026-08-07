@@ -185,7 +185,10 @@ async function pull(first){
     const data = await r.json();
     ventas = (data||[]).map(v=>({...v, monto:Number(v.monto)}));
     setStatus("🟢 En vivo — Google Sheets","live");
-    if(first && ventas.length===0 && !seeded){ seeded=true; await seedInicial(); return; }
+    // Cargar las ventas iniciales SOLO la primera vez (candado para no rellenar tras borrar)
+    if(first && ventas.length===0 && !seeded && !localStorage.getItem("seed_hecho")){
+      seeded=true; localStorage.setItem("seed_hecho","1"); await seedInicial(); return;
+    }
     render();
   }catch(e){
     console.error(e);

@@ -151,6 +151,28 @@ const POLL_MS = 15000;
 const TIPOS = {web:{n:"Página Web",c:"web"}, rec:{n:"Recurrente",c:"rec"}, paq:{n:"Paquetes",c:"paq"}};
 const Q = n => "Q" + Number(n||0).toLocaleString("es-GT",{maximumFractionDigits:2});
 
+// Convierte montos en cualquier formato (coma o punto decimal, separador de miles) a número
+function num(x){
+  if(typeof x === "number") return x;
+  if(x == null) return 0;
+  let s = String(x).trim().replace(/[^\d.,-]/g,"");
+  if(s.includes(",") && s.includes(".")){
+    // el último separador que aparezca es el decimal
+    if(s.lastIndexOf(",") > s.lastIndexOf(".")) s = s.replace(/\./g,"").replace(",",".");
+    else s = s.replace(/,/g,"");
+  } else if(s.includes(",")){
+    s = s.replace(",",".");
+  }
+  return parseFloat(s) || 0;
+}
+// Normaliza fecha a YYYY-MM-DD (quita la parte de hora si viene como ISO)
+function fmtFecha(x){
+  if(x == null) return "";
+  let s = String(x);
+  if(s.includes("T")) s = s.slice(0,10);
+  return s;
+}
+
 let ventas = [];
 let live = false;
 let sortKey="fecha", sortDir=-1;
@@ -175,7 +197,7 @@ async function pull(first){
     if(first) setStatus("Cargando…","busy");
     const r = await fetch(WEBAPP_URL);
     const data = await r.json();
-    ventas = (data||[]).map(v=>({...v, monto:Number(v.monto)}));
+    ventas = (data||[]).map(v=>({...v, monto:num(v.monto), fecha:fmtFecha(v.fecha)}));
     setStatus("🟢 En vivo — Google Sheets","live");
     render();
   }catch(e){

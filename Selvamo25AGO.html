@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SELVAMO · Reporte Mensual y Metas por Sede</title>
+<style>
+  :root{
+    --verde-prof:#12301f;--verde:#1e4a30;--verde-med:#2f6b45;--verde-claro:#4a8c5f;
+    --hoja:#6fae74;--crema:#f4efe3;--crema-2:#ede5d3;--tierra:#8b6f47;--tierra-cl:#b79b6e;
+    --oro:#c9a227;--oro-cl:#e3c766;--rojo:#b6432f;--ambar:#d98324;
+    --morado:#6d4aa3;--morado-cl:#9b74d1;--morado-bg:#efe8fa;
+    --tinta:#20281f;--gris:#6b6a5f;--linea:#d9cfb8;
+    --ok:#2f8f57;--warn:#c98a12;--bad:#b6432f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;color:var(--tinta);background:var(--crema);line-height:1.55;
+    background-image:radial-gradient(circle at 12% -5%,rgba(111,174,116,.10),transparent 40%),radial-gradient(circle at 88% 105%,rgba(139,111,71,.10),transparent 45%);}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 80px}
+  .hero{position:relative;overflow:hidden;border-radius:0 0 30px 30px;
+    background:linear-gradient(135deg,var(--verde-prof) 0%,var(--verde) 55%,var(--verde-med) 100%);
+    color:var(--crema);padding:54px 44px 46px;margin-bottom:40px;box-shadow:0 18px 46px rgba(18,48,31,.32);}
+  .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.16;background:var(--hoja)}
+  .hero::before{width:320px;height:320px;top:-120px;right:-80px}
+  .hero::after{width:220px;height:220px;bottom:-110px;left:-60px;background:var(--oro)}
+  .leaf{position:absolute;font-size:120px;opacity:.09;top:8px;right:34px;transform:rotate(18deg)}
+  .brand{font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--oro-cl);font-weight:700}
+  .hero h1{font-size:38px;margin:8px 0 6px;letter-spacing:.5px;font-weight:800}
+  .hero .sub{font-size:17px;color:#d7e8d9;max-width:660px}
+  .hero .meta{margin-top:20px;display:flex;gap:26px;flex-wrap:wrap;font-size:14px;color:#c7ddc9}
+  .hero .meta b{color:var(--crema)}
+  section{margin-bottom:46px}
+  .sec-head{display:flex;align-items:center;gap:14px;margin:0 0 20px}
+  .sec-num{flex:none;width:44px;height:44px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--verde-med),var(--verde-claro));color:#fff;font-weight:800;font-size:19px;box-shadow:0 6px 16px rgba(47,107,69,.35)}
+  .sec-head h2{font-size:24px;color:var(--verde-prof);font-weight:800;letter-spacing:.3px}
+  .sec-head .em{font-size:23px}
+  .card{background:#fff;border:1px solid var(--linea);border-radius:18px;padding:24px 26px;box-shadow:0 8px 24px rgba(32,40,31,.06)}
+  .card+.card{margin-top:18px}
+  p.lead{font-size:16px;color:#33402f}
+  .muted{color:var(--gris);font-size:13.5px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:16px}
+  .kpi{border-radius:16px;padding:20px;color:#fff;position:relative;overflow:hidden;background:linear-gradient(140deg,var(--verde),var(--verde-med));box-shadow:0 10px 24px rgba(30,74,48,.28)}
+  .kpi .l{font-size:12.5px;letter-spacing:.6px;text-transform:uppercase;opacity:.85}
+  .kpi .v{font-size:29px;font-weight:800;margin-top:6px;line-height:1.05}
+  .kpi .d{font-size:12.5px;opacity:.85;margin-top:4px}
+  .kpi.gold{background:linear-gradient(140deg,var(--tierra),var(--oro))}
+  .kpi.earth{background:linear-gradient(140deg,#5a4a30,var(--tierra))}
+  .kpi.leaf-k{background:linear-gradient(140deg,var(--verde-med),var(--hoja))}
+  .kpi .emk{position:absolute;right:12px;bottom:-6px;font-size:52px;opacity:.16}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 12px;text-align:left}
+  thead th{background:var(--verde-prof);color:var(--crema);font-weight:600;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase}
+  thead th:first-child{border-radius:10px 0 0 0}thead th:last-child{border-radius:0 10px 0 0}
+  tbody tr{border-bottom:1px solid var(--linea)}
+  tbody tr:nth-child(even){background:var(--crema)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tfoot td{font-weight:800;background:var(--crema-2);border-top:2px solid var(--verde-med)}
+  .bar{height:8px;border-radius:6px;background:linear-gradient(90deg,var(--verde-med),var(--hoja));display:inline-block;vertical-align:middle}
+  .tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:.3px}
+  .t-crit{background:#f7dcd5;color:var(--rojo)}.t-low{background:#fbeecb;color:#a06a12}
+  .t-ok{background:#dcefdf;color:var(--verde-med)}.t-over{background:#e7dcf7;color:var(--morado)}
+  .t-new{background:#d5ecf7;color:#1f6f91}
+  .call{border-left:5px solid var(--oro);background:var(--crema-2);border-radius:0 14px 14px 0;padding:16px 20px;margin-top:14px}
+  .call.green{border-color:var(--verde-claro)}.call.red{border-color:var(--rojo);background:#fbeae5}
+  .call.purple{border-color:var(--morado-cl);background:var(--morado-bg)}.call.blue{border-color:#3a94b8;background:#e6f2f8}
+  .call b{color:var(--verde-prof)}.call.red b{color:var(--rojo)}.call.purple b{color:var(--morado)}.call.blue b{color:#1f6f91}
+  ul.clean{list-style:none;padding:0;margin:8px 0 0}
+  ul.clean li{padding:7px 0 7px 26px;position:relative;font-size:14.5px;border-bottom:1px solid var(--crema-2)}
+  ul.clean li::before{content:"🌿";position:absolute;left:0;top:6px;font-size:13px}
+  ul.clean li:last-child{border-bottom:none}
+  .note{font-size:12.5px;color:var(--gris);margin-top:10px;font-style:italic}
+  .foot{text-align:center;color:var(--gris);font-size:12.5px;margin-top:52px;padding-top:22px;border-top:2px dotted var(--linea)}
+  .foot b{color:var(--verde-med)}
+  .metabar{position:relative;height:26px;background:var(--crema-2);border-radius:8px;overflow:hidden;border:1px solid var(--linea)}
+  .metafill{position:absolute;left:0;top:0;bottom:0;border-radius:8px 0 0 8px}
+  .metafill.ahead{background:linear-gradient(90deg,var(--ok),#5cc57e)}
+  .metafill.onpace{background:linear-gradient(90deg,var(--oro),var(--oro-cl))}
+  .metafill.behind{background:linear-gradient(90deg,#c96a4f,#e08a6f)}
+  .metafill.done{background:linear-gradient(90deg,#1f7a44,#37b869)}
+  .pacemark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--verde-prof);opacity:.55}
+  .pacemark::after{content:"ritmo";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--verde-prof);white-space:nowrap}
+  .metapct{position:absolute;right:8px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:800;color:var(--verde-prof)}
+  .disp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+  .disp{background:#fff;border:1px solid var(--linea);border-radius:16px;overflow:hidden;box-shadow:0 8px 20px rgba(32,40,31,.06)}
+  .disp h4{background:linear-gradient(135deg,var(--verde),var(--verde-med));color:#fff;padding:12px 18px;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+  .disp h4 span{font-size:12px;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:20px;font-weight:600}
+  .disp ul{list-style:none;padding:10px 18px 16px}
+  .disp li{display:flex;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px dashed var(--linea);font-size:13.5px}
+  .disp li:last-child{border-bottom:none}
+  .disp li .q{font-weight:700;color:var(--verde-med);white-space:nowrap}
+  .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:7px;vertical-align:middle;border:1px solid rgba(0,0,0,.12)}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--gris);margin-top:12px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+  @media(max-width:720px){.hero{padding:40px 26px}.hero h1{font-size:29px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="leaf">🌴</div>
+  <div class="brand">Selvamo · Reporte Mensual</div>
+  <h1>Metas por Sede &amp; Análisis Mensual</h1>
+  <p class="sub">Corte al 25 de agosto: recta final del mes. Avance de cada hotel hacia su meta, comparativa Junio·Julio·Agosto, inventario y despacho de siempre.</p>
+  <div class="meta">
+    <div>📅 Ventas: <b>jun — 25 ago 2026</b></div>
+    <div>🎯 Corte de metas: <b>Agosto (día 25)</b></div>
+    <div>🏨 Sedes: <b>7 hoteles + COC</b></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- 1. RESUMEN -->
+<section>
+  <div class="sec-head"><div class="sec-num">1</div><h2>Resumen ejecutivo</h2><span class="em">🌿</span></div>
+  <div class="kpis">
+    <div class="kpi leaf-k"><div class="l">Agosto al 25</div><div class="v">Q37,445</div><div class="d">71% de la meta</div><div class="emk">📈</div></div>
+    <div class="kpi gold"><div class="l">Meta total mensual</div><div class="v">Q53,000</div><div class="d">faltan Q15,555 en 6 días</div><div class="emk">🎯</div></div>
+    <div class="kpi" style="background:linear-gradient(140deg,#1f7a44,#37b869)"><div class="l">Primera meta lograda</div><div class="v">Villa 🎉</div><div class="d">110% · ¡bonificación!</div><div class="emk">🏆</div></div>
+    <div class="kpi earth"><div class="l">Bodega Central</div><div class="v">40 uds</div><div class="d">sigue muy justa (52 → 40)</div><div class="emk">🏭</div></div>
+  </div>
+  <div class="card" style="margin-top:20px">
+    <p class="lead"><b>Lo clave de este corte:</b> ¡buenas noticias! <b>Villa del Lago ya cruzó su meta (110%)</b> — es la primera bonificación asegurada del mes 🎉. El ritmo se recuperó tras el bajón de la semana 2 (la semana 3 hizo Q10,825). Con Q37,445 vamos al <b>71% de la meta total</b> a 6 días del cierre. <b>Casona del Lago (84%) está a un paso</b>, y <b>Petén, Isla y Casa Turquesa (65-70%)</b> pueden lograrlo con una buena recta final. La alerta de siempre sigue siendo <b>El Mesón (24%)</b>. En producto: entraron <b>dos colores nuevos de camiseta</b> (Beige Jaguar y Azul Letras) y el <b>Sudadero premium ya hizo su primera venta</b>. La Bodega Central quedó muy justa (40 uds).</p>
+  </div>
+</section>
+
+<!-- 2. METAS -->
+<section>
+  <div class="sec-head"><div class="sec-num">2</div><h2>Metas por sede &amp; bonificación</h2><span class="em">🎯</span></div>
+  <div class="card">
+    <table>
+      <thead><tr><th>Sede</th><th class="num">Meta agosto</th><th class="num">Agosto al 25</th><th class="num">% meta</th><th class="num">Falta</th></tr></thead>
+      <tbody>
+        <tr style="background:#e4f5e9"><td>🏠 <b>Villa del Lago</b></td><td class="num">Q5,250</td><td class="num">Q5,760</td><td class="num" style="color:var(--ok);font-weight:800">110% 🎉</td><td class="num">✅ lograda</td></tr>
+        <tr><td>🏨 <b>Casona del Lago</b></td><td class="num">Q15,500</td><td class="num">Q13,080</td><td class="num" style="color:var(--ok)">84%</td><td class="num">Q2,420</td></tr>
+        <tr><td>🌿 Hotel Petén</td><td class="num">Q9,750</td><td class="num">Q6,850</td><td class="num" style="color:var(--warn)">70%</td><td class="num">Q2,900</td></tr>
+        <tr><td>🏨 Casona de la Isla</td><td class="num">Q8,500</td><td class="num">Q5,790</td><td class="num" style="color:var(--warn)">68%</td><td class="num">Q2,710</td></tr>
+        <tr><td>🏩 Casa Turquesa</td><td class="num">Q4,250</td><td class="num">Q2,780</td><td class="num" style="color:var(--warn)">65%</td><td class="num">Q1,470</td></tr>
+        <tr><td>💙 Casazul</td><td class="num">Q3,500</td><td class="num">Q1,710</td><td class="num" style="color:var(--rojo)">49%</td><td class="num">Q1,790</td></tr>
+        <tr><td>🍽 El Mesón</td><td class="num">Q6,250</td><td class="num">Q1,475</td><td class="num" style="color:var(--rojo)">24%</td><td class="num">Q4,775</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">Q53,000</td><td class="num">Q37,445</td><td class="num">71%</td><td class="num">Q15,555</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:6px">Avance de agosto vs. meta (al día 25)</h3>
+    <p class="muted" style="margin-bottom:8px">Llevamos <b>25 de 31 días (81% del mes)</b>. La marca vertical es el "ritmo": pasarla significa ir adelantada.</p>
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:16px">
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Villa del Lago 🏆</b><span class="muted">Q5,760 / Q5,250</span></div>
+        <div class="metabar"><div class="metafill done" style="width:100%"></div><div class="pacemark" style="left:81%"></div><div class="metapct" style="color:#fff">110% ✅</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Casona del Lago</b><span class="muted">Q13,080 / Q15,500</span></div>
+        <div class="metabar"><div class="metafill ahead" style="width:84.4%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">84%</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Hotel Petén</b><span class="muted">Q6,850 / Q9,750</span></div>
+        <div class="metabar"><div class="metafill onpace" style="width:70.3%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">70%</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Casona de la Isla</b><span class="muted">Q5,790 / Q8,500</span></div>
+        <div class="metabar"><div class="metafill onpace" style="width:68.1%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">68%</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Casa Turquesa</b><span class="muted">Q2,780 / Q4,250</span></div>
+        <div class="metabar"><div class="metafill onpace" style="width:65.4%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">65%</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>Casazul</b><span class="muted">Q1,710 / Q3,500</span></div>
+        <div class="metabar"><div class="metafill behind" style="width:48.9%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">49%</div></div></div>
+      <div><div style="display:flex;justify-content:space-between;font-size:13.5px;margin-bottom:4px"><b>El Mesón</b><span class="muted">Q1,475 / Q6,250</span></div>
+        <div class="metabar"><div class="metafill behind" style="width:23.6%"></div><div class="pacemark" style="left:81%"></div><div class="metapct">24%</div></div></div>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#1f7a44"></span> Meta lograda</span>
+      <span><span class="dot" style="background:var(--ok)"></span> A un paso</span>
+      <span><span class="dot" style="background:var(--oro)"></span> Al alcance con buen cierre</span>
+      <span><span class="dot" style="background:#c96a4f"></span> Fuera de alcance</span>
+    </div>
+    <div class="call green"><b>🏆 ¡Villa del Lago lo logró!</b> Q5,760 sobre una meta de Q5,250 (110%). Primera bonificación del mes. <b>Casona del Lago (84%)</b> la asegura casi con seguridad — le faltan Q2,420 en 6 días y su ritmo diario lo cubre de sobra.</div>
+    <div class="call"><b>En la pelea:</b> <b>Petén, Casona de la Isla y Casa Turquesa</b> (65-70%) necesitan ~Q450/día cada una en la recta final — es exigente pero posible si empujan. <b>Casazul (49%)</b> la tiene cuesta arriba, y <b>El Mesón (24%)</b> no llega este mes. Vale concentrar el esfuerzo (y el producto nuevo de ticket alto) en las tres que están en la pelea.</div>
+  </div>
+</section>
+
+<!-- 3. VISTA MENSUAL -->
+<section>
+  <div class="sec-head"><div class="sec-num">3</div><h2>Vista mensual · Junio · Julio · Agosto</h2><span class="em">📅</span></div>
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:14px">Ingresos por sede y mes</h3>
+    <table>
+      <thead><tr><th>Sede</th><th class="num">Junio</th><th class="num">Julio</th><th class="num">Agosto*</th><th class="num">Proy. cierre</th></tr></thead>
+      <tbody>
+        <tr><td>🏨 Casona del Lago</td><td class="num">Q17,405</td><td class="num">Q12,605</td><td class="num">Q13,080</td><td class="num" style="color:var(--ok)">~Q16,200</td></tr>
+        <tr><td>🌿 Hotel Petén</td><td class="num">Q5,325</td><td class="num">Q6,210</td><td class="num">Q6,850</td><td class="num" style="color:var(--ok)">~Q8,500</td></tr>
+        <tr><td>🏨 Casona de la Isla</td><td class="num">Q8,455</td><td class="num">Q9,180</td><td class="num">Q5,790</td><td class="num">~Q7,180</td></tr>
+        <tr><td>🏠 Villa del Lago</td><td class="num">Q4,505</td><td class="num">Q3,715</td><td class="num">Q5,760</td><td class="num" style="color:var(--ok)">~Q7,140 🏆</td></tr>
+        <tr><td>🏩 Casa Turquesa</td><td class="num">Q2,510</td><td class="num">Q3,065</td><td class="num">Q2,780</td><td class="num">~Q3,450</td></tr>
+        <tr><td>💙 Casazul</td><td class="num">Q1,190</td><td class="num">Q2,950</td><td class="num">Q1,710</td><td class="num">~Q2,120</td></tr>
+        <tr><td>🍽 El Mesón</td><td class="num">Q4,755</td><td class="num">Q6,485</td><td class="num">Q1,475</td><td class="num" style="color:var(--rojo)">~Q1,830 ⚠</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">Q44,145</td><td class="num">Q44,210</td><td class="num">Q37,445</td><td class="num">~Q46,400</td></tr></tfoot>
+    </table>
+    <p class="note">*Agosto al día 25. La proyección de cierre es simple, al ritmo actual (agosto ÷ 25 × 31).</p>
+    <div class="call"><b>Lectura:</b> agosto proyecta cerrar cerca de <b>Q46k</b> — abajo de la meta total de Q53k, pero con varias bonificaciones individuales al alcance. <b>Petén y Villa del Lago hacen su mejor mes del trimestre.</b> El único que rompe la tendencia es <b>El Mesón</b>, que cae fuerte frente a sus Q6,485 de julio.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:6px">Ventas por producto · últimos 3 meses</h3>
+    <p class="muted" style="margin-bottom:14px">Ingresos por producto por mes, con total y unidades del trimestre. Ordenado de mayor a menor.</p>
+    <table>
+      <thead><tr><th>Producto</th><th class="num">Junio</th><th class="num">Julio</th><th class="num">Agosto*</th><th class="num">Total 3m</th><th class="num">Uds 3m</th></tr></thead>
+      <tbody>
+        <tr><td>👕 <b>T-Shirt</b></td><td class="num">Q24,015</td><td class="num">Q20,815</td><td class="num">Q12,870</td><td class="num"><b>Q57,700</b></td><td class="num">311</td></tr>
+        <tr><td>🧢 Gorras</td><td class="num">Q4,960</td><td class="num">Q6,820</td><td class="num">Q5,425</td><td class="num"><b>Q17,205</b></td><td class="num">111</td></tr>
+        <tr><td>🕶 Lentes</td><td class="num">Q5,270</td><td class="num">Q2,480</td><td class="num">Q4,650</td><td class="num"><b>Q12,400</b></td><td class="num">80</td></tr>
+        <tr><td>👜 Bolsa Normal</td><td class="num">Q1,550</td><td class="num">Q2,635</td><td class="num">Q2,015</td><td class="num"><b>Q6,200</b></td><td class="num">40</td></tr>
+        <tr><td>👜 Bolsa Doblable</td><td class="num">Q1,045</td><td class="num">Q3,230</td><td class="num">Q950</td><td class="num"><b>Q5,225</b></td><td class="num">55</td></tr>
+        <tr><td>🆕 Crew Neck (Rosa+Beige)</td><td class="num">—</td><td class="num">—</td><td class="num">Q3,900</td><td class="num"><b>Q3,900</b></td><td class="num">10</td></tr>
+        <tr><td>🩳 Calzoneta</td><td class="num">Q1,575</td><td class="num">Q1,575</td><td class="num">Q225</td><td class="num"><b>Q3,375</b></td><td class="num">15</td></tr>
+        <tr><td>👜 Bolsa Circular</td><td class="num">Q1,045</td><td class="num">Q1,140</td><td class="num">Q950</td><td class="num"><b>Q3,135</b></td><td class="num">33</td></tr>
+        <tr><td>👚 Crop Top</td><td class="num">Q1,365</td><td class="num">Q780</td><td class="num">Q780</td><td class="num"><b>Q2,925</b></td><td class="num">15</td></tr>
+        <tr><td>🧲 Imanes</td><td class="num">Q880</td><td class="num">Q1,120</td><td class="num">Q600</td><td class="num"><b>Q2,600</b></td><td class="num">65</td></tr>
+        <tr><td>📚 Libro ABC</td><td class="num">Q620</td><td class="num">Q1,085</td><td class="num">Q620</td><td class="num"><b>Q2,325</b></td><td class="num">15</td></tr>
+        <tr><td>🧶 Gorritos</td><td class="num">Q620</td><td class="num">Q310</td><td class="num">Q1,085</td><td class="num"><b>Q2,015</b></td><td class="num">13</td></tr>
+        <tr><td>🎽 Tank Top</td><td class="num">Q585</td><td class="num">Q780</td><td class="num">Q585</td><td class="num"><b>Q1,950</b></td><td class="num">10</td></tr>
+        <tr><td>🏷 Tags Jaguar</td><td class="num">Q0</td><td class="num">Q570</td><td class="num">Q1,330</td><td class="num"><b>Q1,900</b></td><td class="num">20</td></tr>
+        <tr><td>👗 Vestido</td><td class="num">Q225</td><td class="num">Q675</td><td class="num">Q675</td><td class="num"><b>Q1,575</b></td><td class="num">7</td></tr>
+        <tr><td>🌞 Camisa de Sol (Rash Guard)</td><td class="num">Q390</td><td class="num">Q195</td><td class="num">Q310</td><td class="num"><b>Q895</b></td><td class="num">5</td></tr>
+        <tr><td>🆕 Sudadero (Q475)</td><td class="num">—</td><td class="num">—</td><td class="num">Q475</td><td class="num"><b>Q475</b></td><td class="num">1</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">Q44,145</td><td class="num">Q44,210</td><td class="num">Q37,445</td><td class="num">Q125,800</td><td class="num">806</td></tr></tfoot>
+    </table>
+    <p class="note">*Agosto al día 25. Ventas registradas a nivel de producto general, sin talla ni color.</p>
+    <div class="call"><b>Lo que cuenta la tabla:</b> la <b>T-Shirt es el 46%</b> del trimestre (Q57,700). El <b>Crew Neck sigue subiendo</b> — ya Q3,900 en agosto, entre los top del mes. Los <b>lentes revivieron fuerte</b> (Q4,650 en agosto, su mejor mes del trimestre) y las <b>gorras siguen sólidas</b> (Q5,425). El nuevo <b>Sudadero (Q475) estrenó con su primera venta</b>. Buen mes de accesorios en general, lo que explica que el inventario de bolsas y lentes bajara.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:12px">Resumen general por mes</h3>
+    <table>
+      <thead><tr><th>Mes</th><th class="num">Ingresos</th><th class="num">Unidades</th><th class="num">Tickets</th><th class="num">Ticket prom.</th></tr></thead>
+      <tbody>
+        <tr><td>Junio</td><td class="num">Q44,145</td><td class="num">277</td><td class="num">174</td><td class="num">Q254</td></tr>
+        <tr><td>Julio</td><td class="num">Q44,210</td><td class="num">301</td><td class="num">186</td><td class="num">Q238</td></tr>
+        <tr><td>Agosto* (al 25)</td><td class="num">Q37,445</td><td class="num">228</td><td class="num">136</td><td class="num">Q275</td></tr>
+      </tbody>
+    </table>
+    <p class="note">El ticket promedio de agosto (Q275) sigue por encima de julio, ayudado por Crew Neck y Sudadero.</p>
+  </div>
+</section>
+
+<!-- 4. SEGUIMIENTO SEMANAL -->
+<section>
+  <div class="sec-head"><div class="sec-num">4</div><h2>Seguimiento semanal · Agosto</h2><span class="em">🗓️</span></div>
+  <div class="card">
+    <p class="lead">Agosto por semana. Tras el bajón de la semana 2, la semana 3 recuperó bien. La semana 4 (recta final) va en curso.</p>
+    <table style="margin-top:14px">
+      <thead><tr><th>Semana</th><th class="num">Ingresos</th><th class="num">Unidades</th><th class="num">Tickets</th><th class="num">vs. meta semanal</th></tr></thead>
+      <tbody>
+        <tr><td><b>Semana 1</b> (1–7 ago)</td><td class="num">Q14,255</td><td class="num">85</td><td class="num">42</td><td class="num" style="color:var(--ok)">+8% 🟢</td></tr>
+        <tr><td><b>Semana 2</b> (8–14 ago)</td><td class="num">Q7,790</td><td class="num">47</td><td class="num">32</td><td class="num" style="color:var(--rojo)">−41% 🔴</td></tr>
+        <tr><td><b>Semana 3</b> (15–21 ago)</td><td class="num">Q10,825</td><td class="num">64</td><td class="num">42</td><td class="num" style="color:var(--warn)">−18% 🟡</td></tr>
+        <tr><td><b>Semana 4</b> (22–25, parcial)</td><td class="num">Q4,575</td><td class="num">32</td><td class="num">20</td><td class="num" style="color:var(--gris)">en curso</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL AGOSTO (al 25)</td><td class="num">Q37,445</td><td class="num">228</td><td class="num">136</td><td class="num">71% meta</td></tr></tfoot>
+    </table>
+    <div class="call blue"><b>Recta final:</b> quedan 6 días (26–31 ago). La semana 4 lleva Q4,575 en 4 días (~Q1,144/día). Si mantiene ese ritmo, sumaría ~Q6,900 más y agosto cerraría cerca de <b>Q44k</b> — parejo con junio/julio. Un fin de semana fuerte podría empujar a Petén, Isla y Turquesa sobre su meta.</div>
+  </div>
+</section>
+
+<!-- 5. INVENTARIO -->
+<section>
+  <div class="sec-head"><div class="sec-num">5</div><h2>Inventario</h2><span class="em">📦</span></div>
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:6px">Bodega Central (COC) — muy justa</h3>
+    <p class="muted" style="margin-bottom:14px">Sigue bajando: <b>137 → 95 → 69 → 66 → 52 → 40</b>. Solo quedan dos líneas con stock central: camiseta y libros.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="l">T-Shirt</div><div class="v">27</div><div class="d">bajó de 33 · buffer corto</div></div>
+      <div class="kpi leaf-k"><div class="l">Libros ABC</div><div class="v">13</div><div class="d">bajó de 19</div></div>
+      <div class="kpi earth"><div class="l">Resto de líneas</div><div class="v">0</div><div class="d">todo en hoteles</div></div>
+      <div class="kpi gold"><div class="l">Total COC</div><div class="v">40</div><div class="d">mínimo histórico</div></div>
+    </div>
+    <div class="call red"><b>⚠ Prioridad clara:</b> con 27 camisetas para surtir a 7 sedes, el buffer está al mínimo. <b>Reponer producción de T-Shirt</b> y dejar stock en COC (las últimas tandas de colores nuevos se fueron directo a los hoteles).</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:#1f6f91;margin-bottom:6px">🆕 Dos colores nuevos de camiseta</h3>
+    <p class="muted" style="margin-bottom:12px">Se produjeron y repartieron <b>Beige Jaguar (68 uds)</b> y <b>Azul Letras (45 uds)</b> — juntos 113 unidades, por eso el físico total de camiseta saltó a 288. Ambos con cero buffer en COC.</p>
+    <div class="call blue"><b>Nota:</b> Beige Jaguar ya es el color con más existencia de toda la línea (68). Buena señal de apuesta por variedad — solo recordá dejar algo en bodega para poder surtir huecos rápido.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:14px">T-Shirt en inventario, por color</h3>
+    <table>
+      <thead><tr><th>Color</th><th class="num">Total físico</th><th class="num">En COC (surtible)</th><th style="width:28%">Volumen</th></tr></thead>
+      <tbody>
+        <tr><td><span class="sw" style="background:#d8c9a8"></span>Beige Jaguar <span class="tag t-new">NUEVO</span></td><td class="num">68</td><td class="num">0</td><td><span class="bar" style="width:100%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#1a1a1a"></span>Negro tikal</td><td class="num">55</td><td class="num">0</td><td><span class="bar" style="width:81%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#2f5fa8"></span>Azul Letras <span class="tag t-new">NUEVO</span></td><td class="num">45</td><td class="num">0</td><td><span class="bar" style="width:66%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#2a2a2a"></span>Negro colores</td><td class="num">31</td><td class="num">12</td><td><span class="bar" style="width:46%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#f2f2f2"></span>Blanco con rojo</td><td class="num">28</td><td class="num">3</td><td><span class="bar" style="width:41%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#e8f0e8"></span>Blanco con verde</td><td class="num">25</td><td class="num">4</td><td><span class="bar" style="width:37%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#9a9a9a"></span>Gris Dos Jaguares</td><td class="num">15</td><td class="num">0</td><td><span class="bar" style="width:22%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#3a6fc4"></span>Azul</td><td class="num">8</td><td class="num">2</td><td><span class="bar" style="width:12%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#b8a2c9"></span>Gris Flor</td><td class="num">7</td><td class="num">4</td><td><span class="bar" style="width:10%"></span></td></tr>
+        <tr><td><span class="sw" style="background:#3f8f52"></span>Verde</td><td class="num">6</td><td class="num">2</td><td><span class="bar" style="width:9%"></span></td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL T-Shirt</td><td class="num">288</td><td class="num">27</td><td></td></tr></tfoot>
+    </table>
+    <p class="note">Los tres colores de más volumen (Beige Jaguar, Negro tikal, Azul Letras = 168 uds) están todos en hoteles con cero en COC. El buffer central se apoya en Negro colores (12), Blanco verde (4) y Gris Flor (4).</p>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--rojo);margin-bottom:6px">Accesorios: bajando, pero aún sobrados</h3>
+    <p class="muted" style="margin-bottom:14px">Buen mes de venta de accesorios: bajaron bolsas, lentes e imanes. Aun así siguen por encima del óptimo.</p>
+    <table>
+      <thead><tr><th>Accesorio</th><th class="num">Total</th><th class="num">Óptimo</th><th class="num">Ratio</th><th>Estado</th></tr></thead>
+      <tbody>
+        <tr><td>Lentes de Sol</td><td class="num">164</td><td class="num">11</td><td class="num">14.9×</td><td><span class="tag t-over">SOBRESTOCK EXTREMO</span></td></tr>
+        <tr><td>Bolsa Mediana</td><td class="num">211</td><td class="num">25</td><td class="num">8.4×</td><td><span class="tag t-over">SOBRESTOCK EXTREMO</span></td></tr>
+        <tr><td>Bolsa Doblable</td><td class="num">165</td><td class="num">25</td><td class="num">6.6×</td><td><span class="tag t-over">SOBRESTOCK ↓</span></td></tr>
+        <tr><td>Bolsa Redonda</td><td class="num">61</td><td class="num">15</td><td class="num">4.1×</td><td><span class="tag t-over">SOBRESTOCK ↓</span></td></tr>
+        <tr><td>Sombrero</td><td class="num">65</td><td class="num">19</td><td class="num">3.4×</td><td><span class="tag t-over">SOBRESTOCK</span></td></tr>
+        <tr><td>Imán</td><td class="num">99</td><td class="num">32</td><td class="num">3.1×</td><td><span class="tag t-over">SOBRESTOCK ↓</span></td></tr>
+        <tr><td>Gorra</td><td class="num">189</td><td class="num">87</td><td class="num">2.2×</td><td><span class="tag t-low">rota bien</span></td></tr>
+        <tr><td>Libros ABC</td><td class="num">30</td><td class="num">32</td><td class="num">0.9×</td><td><span class="tag t-ok">EQUILIBRADO</span></td></tr>
+      </tbody>
+    </table>
+    <div class="call purple"><b>Buena señal:</b> las bolsas y lentes por fin están rotando (bolsa doblable bajó de 226 a 165, lentes de 175 a 164). Seguir empujándolos en bundle con la camiseta para vaciar ese capital. La gorra sigue vendiendo muy bien, aguanta su stock.</div>
+  </div>
+</section>
+
+<!-- 6. REABASTECIMIENTO Y TRANSFERENCIAS -->
+<section>
+  <div class="sec-head"><div class="sec-num">6</div><h2>Reabastecimiento &amp; transferencias</h2><span class="em">🔄</span></div>
+  <div class="card">
+    <p class="lead">Con la COC tan justa, casi todo se resuelve por transferencia entre hoteles este cierre.</p>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:4px">🏭 A · Reabastecer desde la Bodega Central</h3>
+    <p class="muted" style="margin-bottom:14px">Solo quedan dos líneas surtibles desde COC.</p>
+    <table>
+      <thead><tr><th>Producto</th><th class="num">En COC</th><th>Dónde falta</th><th>Acción sugerida</th></tr></thead>
+      <tbody>
+        <tr><td>👕 <b>T-Shirt</b></td><td class="num">27</td><td>Todas con huecos de color/talla</td><td>Repartir según despacho (sección 7). Priorizar <b>Cas. del Lago (13)</b>, <b>Casa Turquesa (12)</b>, <b>El Mesón (11)</b>.</td></tr>
+        <tr><td>📚 Libro ABC</td><td class="num">13</td><td><span class="tag t-crit">Villa · Casazul · Turquesa · Mesón: 0</span></td><td>Colocar <b>2–3 uds</b> en las que quieran ofrecerlo.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:4px">🔄 B · Transferir entre hoteles (COC en cero)</h3>
+    <table>
+      <thead><tr><th>Producto</th><th>Dónde hay (origen)</th><th>Dónde falta</th><th>Acción sugerida</th></tr></thead>
+      <tbody>
+        <tr><td>🆕 Crew Neck <span class="muted">(42)</span></td><td>Cas. del Lago (18), Petén (12), Isla (8), Villa (4)</td><td><span class="tag t-crit">Casazul · Turquesa · Mesón: 0</span></td><td><b>Ticket alto (Q390) → llevarlo a las 3 que pelean/faltan,</b> sobre todo Casa Turquesa que está a Q1,470 de su meta.</td></tr>
+        <tr><td>🆕 Sudadero <span class="muted">(44)</span></td><td>Cas. del Lago (15), Isla (15), Petén (9), Villa (5)</td><td><span class="tag t-crit">Casazul · Turquesa · Mesón: 0</span></td><td>Ya estrenó venta (Q475). Llevar surtido a las 3 faltantes para el cierre.</td></tr>
+        <tr><td>🎽 Tank Top <span class="muted">(10)</span></td><td>Isla (3), Petén (3), Cas. del Lago (2), Mesón (2)</td><td><span class="tag t-crit">Villa · Casazul · Turquesa: 0</span></td><td>Mover 1–2 uds a Turquesa y Casazul.</td></tr>
+        <tr><td>🩳 Calzoneta <span class="muted">(19)</span></td><td>Isla (8), Cas. del Lago (7), Petén (4)</td><td>Resto: 0 (no la manejan)</td><td>Concentrada en las 3 que la venden.</td></tr>
+        <tr><td>👚 Crop Top <span class="muted">(4)</span> · 🌞 Camisa de Sol <span class="muted">(5)</span></td><td>Ambos solo en Casona del Lago</td><td>Resto: 0</td><td>Stock bajo. Reordenar si se quiere más presencia.</td></tr>
+      </tbody>
+    </table>
+    <div class="call blue"><b>Jugada de cierre:</b> mandar <b>Crew Neck y Sudadero a Casa Turquesa</b> (que está a solo Q1,470 de su meta) puede ser justo el empujón de ticket alto que necesita para cruzarla antes del 31.</div>
+  </div>
+</section>
+
+<!-- 7. LISTA DE DESPACHO -->
+<section>
+  <div class="sec-head"><div class="sec-num">7</div><h2>Lista de despacho · T-Shirt por color y talla</h2><span class="em">🚚</span></div>
+  <div class="card" style="margin-bottom:18px">
+    <p class="lead">Combinaciones <b>color + talla</b> en <b>cero</b> por hotel que la Bodega Central puede surtir. Priorizado por stock en COC y tallas de mayor rotación (M · L · XL). El número entre paréntesis es lo disponible en COC.</p>
+  </div>
+  <div class="disp-grid">
+    <div class="disp"><h4>🏨 Casona del Lago <span>13 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · L</span><span class="q">1 (COC 4)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · M</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · XL</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+    </ul></div>
+    <div class="disp"><h4>🏩 Casa Turquesa <span>12 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · M</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · XL</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · S</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · M</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+    <div class="disp"><h4>🍽 El Mesón <span>11 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · L</span><span class="q">1 (COC 4)</span></li>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · S</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#f2f2f2"></span>Blanco rojo · M</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+    <div class="disp"><h4>💙 Casazul <span>10 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · M</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · S</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · M</span><span class="q">1 (COC 1)</span></li>
+      <li><span><span class="sw" style="background:#3f8f52"></span>Verde · XL</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+    <div class="disp"><h4>🌿 Hotel Petén <span>9 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · S</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · M</span><span class="q">1 (COC 1)</span></li>
+      <li><span><span class="sw" style="background:#3f8f52"></span>Verde · XL</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+    <div class="disp"><h4>🏠 Villa del Lago <span>9 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · XL</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · M</span><span class="q">1 (COC 1)</span></li>
+      <li><span><span class="sw" style="background:#3f8f52"></span>Verde · XL</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+    <div class="disp"><h4>🏨 Casona de la Isla <span>8 huecos</span></h4><ul>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · XL</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#e8f0e8"></span>Blanco verde · XS</span><span class="q">1 (COC 3)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · L</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#2a2a2a"></span>Negro · S</span><span class="q">1 (COC 2)</span></li>
+      <li><span><span class="sw" style="background:#b8a2c9"></span>Gris Flor · M</span><span class="q">1 (COC 1)</span></li>
+    </ul></div>
+  </div>
+  <p class="note">⚠ Los colores nuevos (Beige Jaguar, Azul Letras) y Negro tikal tienen 0 en COC → no entran en despacho desde bodega (ya en hoteles). Buffer de camiseta muy corto (27 uds): priorizá Cas. del Lago, Casa Turquesa y El Mesón. Ajustá cantidades según lo que veas rotar.</p>
+</section>
+
+<!-- 8. CONCLUSIONES -->
+<section>
+  <div class="sec-head"><div class="sec-num">8</div><h2>Conclusiones y próximos pasos</h2><span class="em">🌱</span></div>
+  <div class="card">
+    <ul class="clean">
+      <li><b>🏆 ¡Primera meta lograda!</b> Villa del Lago cerró en 110% (Q5,760 / Q5,250). Bonificación asegurada.</li>
+      <li><b>Casona del Lago (84%) casi la asegura</b> — le faltan Q2,420 en 6 días, su ritmo lo cubre.</li>
+      <li><b>En la pelea:</b> Petén (70%), Casona de la Isla (68%) y Casa Turquesa (65%). Con un buen fin de semana pueden cruzar. Ahí conviene enfocar el esfuerzo y el producto de ticket alto.</li>
+      <li><b>🚨 El Mesón (24%)</b> no llega este mes; sigue siendo el tema a resolver de fondo.</li>
+      <li><b>Jugada de cierre:</b> mandar Crew Neck y Sudadero (Q390 y Q475) a Casa Turquesa — está a solo Q1,470 de su meta.</li>
+      <li><b>Producto:</b> dos colores nuevos de camiseta (Beige Jaguar 68, Azul Letras 45) y el Sudadero ya con su primera venta. Buena variedad entrando.</li>
+      <li><b>Reponer camiseta:</b> la COC quedó en 40 uds (mínimo histórico). Dejar buffer central en la próxima producción.</li>
+      <li><b>Accesorios rotando:</b> bolsas y lentes por fin bajaron. Seguir con bundles para vaciar el excedente.</li>
+    </ul>
+    <div class="call green"><b>Para el cierre de agosto:</b> en el próximo corte vemos el resultado final del mes y cuántas sedes lograron su bonificación 🎉. ¡Vamos por un buen remate!</div>
+  </div>
+
+  <div class="foot">
+    Reporte generado para <b>SELVAMO</b> · Ventas jun – 25 ago 2026 · Conteo físico al 25 ago 2026<br>
+    <span style="font-size:11.5px">Metas sobre el promedio mensual de meses activos por sede. Inventario recomputado dinámicamente desde el conteo físico (se integraron los dos colores nuevos de camiseta, Beige Jaguar y Azul Letras; algunas fórmulas de Total Físico venían en cero y se recalcularon). 🌴</span>
+  </div>
+</section>
+
+</div>
+</body>
+</html>

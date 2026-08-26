@@ -417,9 +417,45 @@
   <p class="note">⚠ Los colores nuevos (Beige Jaguar, Azul Letras) y Negro tikal tienen 0 en COC → no entran en despacho desde bodega (ya en hoteles). Buffer de camiseta muy corto (27 uds): priorizá Cas. del Lago, Casa Turquesa y El Mesón. Ajustá cantidades según lo que veas rotar.</p>
 </section>
 
-<!-- 8. CONCLUSIONES -->
+<!-- 8. ANALISIS DE TALLAS -->
 <section>
-  <div class="sec-head"><div class="sec-num">8</div><h2>Conclusiones y próximos pasos</h2><span class="em">🌱</span></div>
+  <div class="sec-head"><div class="sec-num">8</div><h2>Análisis de tallas · para pedidos de camiseta</h2><span class="em">📏</span></div>
+  <div class="card">
+    <div class="call blue" style="margin-top:0"><b>⚠ Importante sobre el origen del dato:</b> el sistema de SELVAMO <b>no registra las ventas por talla</b> (solo a nivel de producto). Estos porcentajes <b>se derivaron del histórico de conteos físicos</b>: comparando semanas consecutivas <b>sin producción de camiseta de por medio</b>, la baja de stock de cada talla equivale a lo que se vendió. Es venta real, no stock.</div>
+    <p class="lead" style="margin-top:16px">Se midieron <b>35 camisetas vendidas</b> en dos semanas limpias (6→11 y 11→18 de agosto). Así se movió cada talla:</p>
+    <table style="margin-top:14px">
+      <thead><tr><th>Talla</th><th class="num">Vendidas</th><th class="num">% venta real</th><th style="width:34%">Rotación</th><th class="num">% en stock</th></tr></thead>
+      <tbody>
+        <tr><td><b>L</b></td><td class="num">15</td><td class="num" style="color:var(--ok);font-weight:800">43%</td><td><span class="bar" style="width:100%"></span></td><td class="num muted">30%</td></tr>
+        <tr><td><b>M</b></td><td class="num">9</td><td class="num" style="font-weight:800">26%</td><td><span class="bar" style="width:60%"></span></td><td class="num muted">28%</td></tr>
+        <tr><td><b>XL</b></td><td class="num">6</td><td class="num" style="font-weight:800">17%</td><td><span class="bar" style="width:40%"></span></td><td class="num muted">23%</td></tr>
+        <tr><td><b>S</b></td><td class="num">4</td><td class="num" style="font-weight:800">11%</td><td><span class="bar" style="width:27%"></span></td><td class="num muted">17%</td></tr>
+        <tr><td>XS</td><td class="num">1</td><td class="num">3%</td><td><span class="bar" style="width:7%;background:linear-gradient(90deg,#c96a4f,#e08a6f)"></span></td><td class="num muted">2%</td></tr>
+        <tr><td>2XL</td><td class="num">0</td><td class="num">0%</td><td><span class="muted" style="font-size:12px">— sin ventas</span></td><td class="num muted">1%</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL medido</td><td class="num">35</td><td class="num">100%</td><td></td><td class="num">288 en piso</td></tr></tfoot>
+    </table>
+    <div class="call"><b>El hallazgo clave:</b> mirando la <b>venta real</b> (no el stock), la <b>L es la reina clarísima</b> — se vende casi el doble que la M. En el inventario parecían empatadas (M 28% ≈ L 30%), pero en la caja la L manda. La <b>XS y 2XL están prácticamente muertas</b> (1 y 0 ventas). Ese matiz no se veía mirando solo el stock.</div>
+  </div>
+
+  <div class="card">
+    <h3 style="color:var(--verde-prof);margin-bottom:6px">🎯 Mezcla sugerida para el pedido</h3>
+    <p class="muted" style="margin-bottom:14px">Por cada <b>100 camisetas</b> de un mismo color. Le da el peso a la L que muestra la venta real, sin apostar todo a la muestra chica (mantiene algo de XL y S apoyándose en el volumen de stock).</p>
+    <div class="kpis">
+      <div class="kpi" style="background:linear-gradient(140deg,#1f7a44,#37b869)"><div class="l">Talla L</div><div class="v">38</div><div class="d">la que más rota</div></div>
+      <div class="kpi leaf-k"><div class="l">Talla M</div><div class="v">28</div><div class="d">segunda</div></div>
+      <div class="kpi gold"><div class="l">Talla XL</div><div class="v">20</div><div class="d">sólida</div></div>
+      <div class="kpi earth"><div class="l">Talla S</div><div class="v">13</div><div class="d">relevante</div></div>
+      <div class="kpi" style="background:linear-gradient(140deg,#8a8a8a,#a9a9a9)"><div class="l">XS / 2XL</div><div class="v">1 / 0</div><div class="d">casi no salen</div></div>
+    </div>
+    <div class="call green"><b>Para ajustar:</b> si quien pide quiere ir agresivo y creerle 100% a la venta real, subí la <b>L a ~42</b> y bajá XL/S. Si prefiere ir seguro, esta mezcla está balanceada.</div>
+    <p class="note">Salvedad: son 35 camisetas medidas. La <b>dirección es sólida</b> (L manda, XS/2XL no van), pero los porcentajes exactos tienen algo de ruido. Cada corte semanal limpio (sin producción de camiseta en medio) suma muestra y afina el número.</p>
+  </div>
+</section>
+
+<!-- 9. CONCLUSIONES -->
+<section>
+  <div class="sec-head"><div class="sec-num">9</div><h2>Conclusiones y próximos pasos</h2><span class="em">🌱</span></div>
   <div class="card">
     <ul class="clean">
       <li><b>🏆 ¡Primera meta lograda!</b> Villa del Lago cerró en 110% (Q5,760 / Q5,250). Bonificación asegurada.</li>

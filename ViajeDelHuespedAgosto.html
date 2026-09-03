@@ -955,19 +955,20 @@
    "metaPax": 68,
    "metaDays": 31,
    "metaTotal": 2108,
-   "totalPax": 1410,
-   "avgPax": "61.3",
-   "pace": 90.2,
-   "w1": 352,
-   "w2": 523,
-   "w3": 442,
-   "w4": 93,
-   "w1pace": 73.9,
-   "w2pace": 109.9,
-   "w3pace": 92.9,
-   "w4pace": 68.4,
-   "gap": -6.7,
-   "note": "⚠️ <b>El archivo del Mesón no vino en esta entrega.</b> Datos del 1 al 23 de agosto: <b>1,410 pax</b> en 23 días (61.3/día = 90.2% de la meta de 68). Falta el cierre de los últimos 8 días."
+   "totalPax": 1406,
+   "avgPax": "45.4",
+   "pace": 66.7,
+   "w1": 299,
+   "w2": 372,
+   "w3": 365,
+   "w4": 370,
+   "w1pace": 62.8,
+   "w2pace": 78.2,
+   "w3pace": 76.7,
+   "w4pace": 54.4,
+   "gap": -22.6,
+   "venta": 66845,
+   "note": "<b>Cierre de agosto: 1,406 pax</b> (1,216 Mesón + 190 guías) sumando los 31 días del reporte, contra una meta de 2,108 (68/día). <b>66.7% — faltaron 702 pax</b>, unos 22.6 por día. Venta del mes: Q66,845. El ritmo subió en semanas 2 y 3 y cayó fuerte en la última. <b>⚠ Nota de datos:</b> la celda de GRAN TOTAL del archivo dice 1,523 pax (1,713 con guías), pero la suma de sus propias filas diarias da 1,216 (1,406 con guías) — <b>307 de diferencia</b>. Se usa el conteo día a día porque es el verificable y porque las guías cuadran exacto en ambos (190). Vale revisar la fórmula del total en el Excel."
   },
   "chayaPend": false,
   "stale": false
@@ -1754,7 +1755,7 @@ function p3(){var d=D.p3;
    '<text x="64" y="60" text-anchor="middle" font-family="Oswald" font-size="22" font-weight="600" fill="#15324f">'+top.share+'%</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="9" fill="#5b6b7a">'+top.name+'</text></svg>'+
    '<div class="donut-legend">'+leg+'</div></div></div>'+
    '<div class="card" style="border-left:4px solid var(--gold)"><h3>🆕 El Mesón · se mide por PAX <span style="float:right;font-family:Inter;text-transform:none;color:var(--txt-soft);font-size:12px">meta 68 pax/día</span></h3>'+
-   (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 ago",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 ago",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–21 ago",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 22–23 ago",pax:mz.w4,d:7,pace:mz.w4pace}];
+   (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 ago",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 ago",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–21 ago",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 22–31 ago",pax:mz.w4,d:7,pace:mz.w4pace}];
      var mxw=Math.max(mz.w1,mz.w2,mz.w3,mz.w4);
      var bars=wk.map(function(x){var avg=Math.round(x.pax/x.d*10)/10;
        return '<div class="fut-col"><div class="fut-bar'+(x.pax===mxw?' peak':'')+'" style="height:'+Math.max(14,x.pax/mxw*100)+'%"><span class="v">'+x.pax+'</span></div><span class="fut-lab">'+x.l+'<br><b>'+avg+'/día</b> · '+x.pace+'%</span></div>';}).join("");
@@ -1765,7 +1766,7 @@ function p3(){var d=D.p3;
        '<div class="kpi"><div class="n">'+mz.pace+'<small>%</small></div><div class="lab">Cumplimiento de meta acumulado</div><div class="delta up">▲ semana 4 en '+mz.w4pace+'%</div></div>'+
        '<div class="kpi"><div class="n">'+mz.totalPax+'</div><div class="lab">Pax reales · meta '+mz.metaTotal+'</div><div class="delta '+(mz.totalPax>=mz.metaTotal?'up':'down')+'">'+(mz.totalPax>=mz.metaTotal?'+':'▼ ')+Math.abs(mz.metaTotal-mz.totalPax)+' pax</div></div>'+
        '<div class="kpi"><div class="n">'+mz.avgPax+'</div><div class="lab">Prom./día · meta '+mz.metaPax+'</div><div class="delta '+(mz.gap>=0?'up':'down')+'">'+(mz.gap>=0?'+':'▼ ')+Math.abs(mz.gap)+' pax/día</div></div>'+
-       '<div class="kpi"><div class="n">'+mz.w4+'</div><div class="lab">Pax semana 4 (22–23 ago)</div><div class="delta flat">2 días de datos</div></div></div>'+
+       '<div class="kpi"><div class="n">'+mz.w4+'</div><div class="lab">Pax semana 4 (22–31 ago)</div><div class="delta flat">10 días</div></div></div>'+
        '<div class="stack-lab" style="margin-bottom:4px">Pax por semana · el ritmo va subiendo</div><div class="fut-chart" style="height:170px">'+bars+'</div>'+
        '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:12px">Cumplimiento vs meta de '+mz.metaPax+' pax/día · la línea marca el 100%</div><div class="hbars">'+pacebars+'</div></div>'+
        '<div class="insight" style="margin-top:16px"><b>Lectura:</b> con la meta en <b>'+mz.metaPax+' pax/día</b>, El Mesón va en <b>'+mz.pace+'%</b> y <b>subiendo cada semana</b>: '+mz.w1pace+'% → '+mz.w2pace+'% → '+mz.w3pace+'% → <b>'+mz.w4pace+'%</b>. La cuarta semana ('+mz.w4+' pax) es la mejor. Es la línea más nueva del ecosistema y la que más rápido mejora.</div>'+

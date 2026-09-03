@@ -1450,76 +1450,101 @@
  "septiembre": {
   "corte": "reservas en libros al 31 de agosto",
   "metas": {
-   "Casona del Lago": 36,
-   "Casona de la Isla": 26,
-   "Hotel Petén": 17,
-   "Villa del Lago": 17,
-   "Petén Express": 13,
-   "Casa Turquesa": 11,
-   "Casazul": 6.5
+   "Casona del Lago": 32,
+   "Casona de la Isla": 20.5,
+   "Hotel Petén": 14,
+   "Villa del Lago": 14,
+   "Petén Express": 9,
+   "Casa Turquesa": 9,
+   "Casazul": 4.5
   },
   "hoteles": [
    {
     "h": "Casona del Lago",
     "otb": 530,
     "tot": 1440,
-    "pct": 36.81,
-    "meta": 1080,
-    "pctMeta": 49.1
-   },
-   {
-    "h": "Hotel Petén",
-    "otb": 219,
-    "tot": 660,
-    "pct": 33.18,
-    "meta": 510,
-    "pctMeta": 42.9
+    "pct": 36.8,
+    "meta": 960,
+    "pctMeta": 55.2
    },
    {
     "h": "Villa del Lago",
     "otb": 230,
     "tot": 780,
-    "pct": 29.49,
-    "meta": 510,
-    "pctMeta": 45.1
+    "pct": 29.5,
+    "meta": 420,
+    "pctMeta": 54.8
+   },
+   {
+    "h": "Hotel Petén",
+    "otb": 219,
+    "tot": 660,
+    "pct": 33.2,
+    "meta": 420,
+    "pctMeta": 52.1
    },
    {
     "h": "Casona de la Isla",
     "otb": 294,
     "tot": 1020,
-    "pct": 28.82,
-    "meta": 780,
-    "pctMeta": 37.7
-   },
-   {
-    "h": "Casa Turquesa",
-    "otb": 91,
-    "tot": 480,
-    "pct": 18.96,
-    "meta": 330,
-    "pctMeta": 27.6
+    "pct": 28.8,
+    "meta": 615,
+    "pctMeta": 47.8
    },
    {
     "h": "Petén Express",
     "otb": 103,
     "tot": 660,
-    "pct": 15.61,
-    "meta": 390,
-    "pctMeta": 26.4
+    "pct": 15.6,
+    "meta": 270,
+    "pctMeta": 38.1
+   },
+   {
+    "h": "Casa Turquesa",
+    "otb": 91,
+    "tot": 480,
+    "pct": 19.0,
+    "meta": 270,
+    "pctMeta": 33.7
    },
    {
     "h": "Casazul",
     "otb": 44,
     "tot": 300,
-    "pct": 14.67,
-    "meta": 195,
-    "pctMeta": 22.6
+    "pct": 14.7,
+    "meta": 135,
+    "pctMeta": 32.6
+   }
+  ],
+  "metasRest": [
+   {
+    "r": "Las Ninfas",
+    "meta": 26500
+   },
+   {
+    "r": "La Chaya",
+    "meta": 6350
+   },
+   {
+    "r": "Isla Bonita",
+    "meta": 5350
+   },
+   {
+    "r": "Lindo Amanecer",
+    "meta": 1400
+   },
+   {
+    "r": "El Mesón",
+    "meta": 1050,
+    "pax": 45
    }
   ],
   "ecoOtb": 1408,
   "ecoTot": 4680,
   "ecoPct": 30.1,
-  "note": "Así arranca septiembre: <b>1,408 habitaciones en libros</b> de 4,680 disponibles (<b>30.1%</b>). Es el mes bajo del año y se nota. Para referencia: agosto arrancó en ~48% promedio y cerró en 72.5% — o sea que aún hay bastante margen para llenar, pero septiembre parte de más abajo. <b>Casona del Lago</b> es el mejor posicionado (36.8%), <b>Casazul</b> el más flojo (14.7%)."
+  "ecoMeta": 2820,
+  "ecoPctMeta": 49.9,
+  "note": "Septiembre arranca con <b>1,408 habitaciones en libros</b> de 4,680 disponibles (30.1% de ocupación) — o sea <b>49.9% de la meta mensual</b> ya cubierto antes de empezar. Ojo que <b>las metas de septiembre bajaron</b> respecto a agosto (Casona del Lago de 36 a 32, Casona de la Isla de 26 a 20.5, Casazul de 6.5 a 4.5), lo cual es coherente con la temporada baja. <b>Casona del Lago</b> es el mejor posicionado (55.2% de su meta) y <b>Casazul</b> el más rezagado (32.6%). Para referencia: agosto arrancó cerca del 48% de su meta y cerró en 102%."
  }
 }
 
@@ -1563,19 +1588,22 @@ function resumen(){var r=D.resumen;var ag=r.agosto;
     '<div class="flag" style="margin-top:12px">'+ag.note+'</div></div>'+
     (function(){var sp=D.septiembre; if(!sp) return '';
       var rows=sp.hoteles.map(function(x){
-        var cls=x.pct>=33?'':x.pct>=25?'a':'r';
-        var w=Math.max(4,x.pct);
-        return '<tr><td class="l">'+x.h+'</td><td>'+sp.metas[x.h]+' hab/día</td><td>'+x.otb+' / '+x.tot+'</td>'+
-          '<td><b>'+x.pct.toFixed(1)+'%</b></td><td>'+x.pctMeta+'%</td>'+
-          '<td><div class="hbar-track" style="height:14px"><div class="hbar-fill '+(x.pct>=33?'hi':x.pct>=25?'':'lo')+'" style="width:'+w+'%"></div></div></td></tr>';}).join("");
+        var w=Math.max(4,x.pctMeta);
+        return '<tr><td class="l">'+x.h+'</td><td>'+sp.metas[x.h]+' hab/día</td><td>'+x.meta+'</td><td>'+x.otb+'</td>'+
+          '<td>'+x.pct.toFixed(1)+'%</td><td><b>'+x.pctMeta+'%</b></td>'+
+          '<td><div class="hbar-track" style="height:14px"><div class="hbar-fill '+(x.pctMeta>=50?'hi':x.pctMeta>=40?'':'lo')+'" style="width:'+w+'%">'+x.pctMeta+'%</div></div></td></tr>';}).join("");
       return '<div class="card" style="margin-top:20px;border-left:4px solid var(--teal)">'+
         '<h3>▶ Así arranca septiembre <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">'+sp.corte+'</span></h3>'+
         '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 14px">Reservas ya en libros para septiembre, igual que hicimos con agosto. Este es el punto de partida contra el que mediremos el mes.</p>'+
         '<div class="kpis" style="margin-bottom:16px">'+
-        '<div class="kpi"><div class="n">'+sp.ecoPct+'<small>%</small></div><div class="lab">Ocupación en libros</div><div class="delta flat">'+sp.ecoOtb.toLocaleString("es-GT")+' de '+sp.ecoTot.toLocaleString("es-GT")+' hab</div></div>'+
-        '<div class="kpi"><div class="n">'+sp.hoteles[0].pct.toFixed(1)+'<small>%</small></div><div class="lab">'+sp.hoteles[0].h+' (mejor)</div><div class="delta up">'+sp.hoteles[0].pctMeta+'% de su meta</div></div>'+
-        '<div class="kpi"><div class="n">'+sp.hoteles[sp.hoteles.length-1].pct.toFixed(1)+'<small>%</small></div><div class="lab">'+sp.hoteles[sp.hoteles.length-1].h+' (más bajo)</div><div class="delta down">'+sp.hoteles[sp.hoteles.length-1].pctMeta+'% de su meta</div></div></div>'+
-        '<table><thead><tr><th class="l">Hotel</th><th>Meta</th><th>En libros</th><th>Ocupación</th><th>% de meta</th><th style="width:150px">Avance</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+        '<div class="kpi"><div class="n">'+sp.ecoPctMeta+'<small>%</small></div><div class="lab">De la meta mensual ya en libros</div><div class="delta up">'+sp.ecoOtb.toLocaleString("es-GT")+' de '+sp.ecoMeta.toLocaleString("es-GT")+' hab meta</div></div>'+
+        '<div class="kpi"><div class="n">'+sp.ecoPct+'<small>%</small></div><div class="lab">Ocupación sobre inventario</div><div class="delta flat">'+sp.ecoOtb.toLocaleString("es-GT")+' de '+sp.ecoTot.toLocaleString("es-GT")+' hab</div></div>'+
+        '<div class="kpi"><div class="n">'+sp.hoteles[0].pctMeta+'<small>%</small></div><div class="lab">'+sp.hoteles[0].h+' (mejor)</div><div class="delta up">'+sp.hoteles[0].pct.toFixed(1)+'% de ocupación</div></div>'+
+        '<div class="kpi"><div class="n">'+sp.hoteles[sp.hoteles.length-1].pctMeta+'<small>%</small></div><div class="lab">'+sp.hoteles[sp.hoteles.length-1].h+' (más bajo)</div><div class="delta down">'+sp.hoteles[sp.hoteles.length-1].pct.toFixed(1)+'% de ocupación</div></div></div>'+
+        '<table><thead><tr><th class="l">Hotel</th><th>Meta/día</th><th>Meta mes</th><th>En libros</th><th>Ocupación</th><th>% de meta</th><th style="width:160px">Avance vs meta</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+        (function(){var rr=sp.metasRest.map(function(m){
+          return '<div class="f"><span>'+m.r+'</span><b>'+(m.pax?m.pax+' pax · ':'')+Q(m.meta)+'</b></div>';}).join("");
+          return '<div style="margin-top:16px"><div class="stack-lab" style="margin-bottom:8px">Metas diarias restaurantes · septiembre</div><div class="feebox">'+rr+'</div></div>';})()+
         '<div class="flag" style="margin-top:12px">'+sp.note+'</div></div>';
     })()+'</section>';
 }

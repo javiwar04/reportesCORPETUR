@@ -1489,7 +1489,158 @@
    "note": "Meta de <b>45 pax/día</b>. Del 1 al 20 de septiembre: <b>623 pax</b> (31.1/día = <b>69.2%</b>) y <b>Q85,581 de venta</b>. El mes arrancó muy flojo (días 1 y 2 en cero, semana 1 al 35.6%) pero viene levantando fuerte: semana 2 al 64.8% y <b>semana 3 al 113.7%, ya sobre meta</b>. El 19 de septiembre fue el mejor día del mes con 92 pax."
   },
   "chayaPend": false,
-  "stale": false
+  "stale": false,
+  "combos": {
+   "win": "desde su lanzamiento (~10 sep) al 20 sep",
+   "rest": [
+    {
+     "rest": "La Chaya",
+     "items": [
+      {
+       "name": "Combo hamburguesa + gaseosa",
+       "cant": 3,
+       "neta": 200.88,
+       "bruta": 225.0,
+       "costo": 48.33,
+       "fc": 24.1
+      }
+     ],
+     "cant": 3,
+     "neta": 200.88,
+     "bruta": 225.0,
+     "costo": 48.33,
+     "fc": 24.1,
+     "share": 0.25,
+     "ticket": 75
+    },
+    {
+     "rest": "Isla Bonita",
+     "items": [
+      {
+       "name": "Combo hamburguesa + gaseosa",
+       "cant": 8,
+       "neta": 535.68,
+       "bruta": 600.0,
+       "costo": 134.72,
+       "fc": 25.1
+      },
+      {
+       "name": "Combo club sandwich + gaseosa",
+       "cant": 5,
+       "neta": 334.6,
+       "bruta": 374.75,
+       "costo": 72.65,
+       "fc": 21.7
+      },
+      {
+       "name": "Combo tacos de pollo + limonada o naranjada",
+       "cant": 3,
+       "neta": 294.63,
+       "bruta": 330.0,
+       "costo": 26.73,
+       "fc": 9.1
+      },
+      {
+       "name": "Combo fajitas de res + margarita",
+       "cant": 2,
+       "neta": 214.28,
+       "bruta": 240.0,
+       "costo": 56.76,
+       "fc": 26.5
+      },
+      {
+       "name": "Combo nachos fiesta + 2 gallos",
+       "cant": 2,
+       "neta": 196.42,
+       "bruta": 220.0,
+       "costo": 46.04,
+       "fc": 23.4
+      }
+     ],
+     "cant": 20,
+     "neta": 1575.61,
+     "bruta": 1764.75,
+     "costo": 336.9,
+     "fc": 21.4,
+     "share": 2.18,
+     "ticket": 88
+    },
+    {
+     "rest": "Las Ninfas",
+     "items": [
+      {
+       "name": "Combo hamburguesa + gaseosa",
+       "cant": 4,
+       "neta": 267.84,
+       "bruta": 300.0,
+       "costo": 61.64,
+       "fc": 23.0
+      },
+      {
+       "name": "Combo tacos de pollo + limonada o naranjada",
+       "cant": 2,
+       "neta": 196.42,
+       "bruta": 220.0,
+       "costo": 33.48,
+       "fc": 17.0
+      },
+      {
+       "name": "Combo capuccino + pastel del dia",
+       "cant": 1,
+       "neta": 49.11,
+       "bruta": 55.0,
+       "costo": 12.65,
+       "fc": 25.8
+      }
+     ],
+     "cant": 7,
+     "neta": 513.37,
+     "bruta": 575.0,
+     "costo": 107.77,
+     "fc": 21.0,
+     "share": 0.15,
+     "ticket": 82
+    }
+   ],
+   "cant": 30,
+   "bruta": 2564.75,
+   "neta": 2289.86,
+   "costo": 493.0,
+   "fc": 21.5,
+   "ticket": 85,
+   "top": [
+    {
+     "name": "Hamburguesa + gaseosa",
+     "cant": 15,
+     "bruta": 1125.0
+    },
+    {
+     "name": "Club sandwich + gaseosa",
+     "cant": 5,
+     "bruta": 374.75
+    },
+    {
+     "name": "Tacos de pollo + limonada o naranjada",
+     "cant": 5,
+     "bruta": 550.0
+    },
+    {
+     "name": "Fajitas de res + margarita",
+     "cant": 2,
+     "bruta": 240.0
+    },
+    {
+     "name": "Nachos fiesta + 2 gallos",
+     "cant": 2,
+     "bruta": 220.0
+    },
+    {
+     "name": "Capuccino + pastel del dia",
+     "cant": 1,
+     "bruta": 55.0
+    }
+   ]
+  }
  },
  "p4": {
   "win": "1–20 sep · reporte administrativo",
@@ -2195,6 +2346,28 @@ function p3(){var d=D.p3;
    '<svg width="150" height="150" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="#efe9db" stroke-width="20"/><g transform="rotate(-90 64 64)" fill="none" stroke-width="20">'+segs+'</g>'+
    '<text x="64" y="60" text-anchor="middle" font-family="Oswald" font-size="22" font-weight="600" fill="#15324f">'+top.share+'%</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="9" fill="#5b6b7a">'+top.name+'</text></svg>'+
    '<div class="donut-legend">'+leg+'</div></div></div>'+
+   (function(){var cb=d.combos; if(!cb) return '';
+     var rows=cb.rest.map(function(r){return '<tr><td class="l">'+r.rest+'</td><td>'+r.items.length+'</td><td>'+r.cant+'</td><td>'+Q(r.bruta)+'</td><td>'+Q(r.ticket)+'</td><td>'+Q(r.costo)+'</td><td class="'+(r.fc<=25?'pos':'neg')+'">'+r.fc+'%</td><td>'+r.share+'%</td></tr>';}).join("");
+     var det=cb.rest.map(function(r){
+       var it=r.items.map(function(i){return '<tr><td class="l" style="padding-left:18px;color:var(--txt-soft)">'+i.name.replace(/^Combo /,'')+'</td><td>'+i.cant+'</td><td>'+Q(i.bruta)+'</td><td>'+Q(i.costo)+'</td><td class="'+(i.fc<=25?'pos':'neg')+'">'+i.fc+'%</td></tr>';}).join("");
+       return '<tr class="grp"><td class="l"><b>'+r.rest+'</b></td><td><b>'+r.cant+'</b></td><td><b>'+Q(r.bruta)+'</b></td><td><b>'+Q(r.costo)+'</b></td><td><b>'+r.fc+'%</b></td></tr>'+it;}).join("");
+     var mx=cb.top[0].cant;
+     var bars=cb.top.map(function(t){return '<div class="hbar-row"><span class="hlab" style="width:230px;font-size:11.5px">'+t.name+'</span><div class="hbar-track"><div class="hbar-fill hi" style="width:'+Math.max(8,t.cant/mx*100)+'%">'+t.cant+' u · '+Q(t.bruta)+'</div></div></div>';}).join("");
+     var lider=cb.rest.slice().sort(function(a,b){return b.bruta-a.bruta;})[0];
+     return '<div class="card" style="border-left:4px solid var(--teal)"><h3>🆕 Combos <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">'+cb.win+'</span></h3>'+
+      '<p class="chart-cap">Los combos se lanzaron hace unos 10 días. Es la única línea que trae <b>costo por artículo</b>, así que aquí el food cost es el real de cada plato (no solo verdura).</p>'+
+      '<div class="kpis" style="margin-bottom:14px">'+
+      '<div class="kpi"><div class="n">'+cb.cant+'</div><div class="lab">Combos vendidos</div><div class="delta flat">en 3 restaurantes</div></div>'+
+      '<div class="kpi"><div class="n">'+Q(cb.bruta)+'</div><div class="lab">Venta bruta</div><div class="delta flat">ticket prom. '+Q(cb.ticket)+'</div></div>'+
+      '<div class="kpi"><div class="n">'+cb.fc+'<small>%</small></div><div class="lab">Food cost real</div><div class="delta up">costo '+Q(cb.costo)+' sobre venta neta</div></div>'+
+      '<div class="kpi"><div class="n">'+cb.top[0].cant+'</div><div class="lab">'+cb.top[0].name+'</div><div class="delta up">el combo más pedido</div></div></div>'+
+      '<table><thead><tr><th class="l">Restaurante</th><th>Combos</th><th>Unid.</th><th>Venta bruta</th><th>Ticket</th><th>Costo</th><th>Food cost</th><th>% de su venta</th></tr></thead><tbody>'+rows+
+      '<tr class="eco"><td class="l">Total</td><td>—</td><td>'+cb.cant+'</td><td>'+Q(cb.bruta)+'</td><td>'+Q(cb.ticket)+'</td><td>'+Q(cb.costo)+'</td><td>'+cb.fc+'%</td><td>—</td></tr></tbody></table>'+
+      '<div class="stack-lab" style="margin:16px 0 8px">Combos más vendidos · ecosistema</div><div class="hbars">'+bars+'</div>'+
+      '<div class="stack-lab" style="margin:16px 0 8px">Detalle por restaurante</div>'+
+      '<table style="font-size:12px"><thead><tr><th class="l">Combo</th><th>Unid.</th><th>Venta bruta</th><th>Costo</th><th>Food cost</th></tr></thead><tbody>'+det+'</tbody></table>'+
+      '<div class="insight" style="margin-top:12px"><b>Lectura:</b> arranque tímido pero rentable. <b>'+lider.rest+'</b> es donde más se mueven ('+lider.cant+' de '+cb.cant+', con 5 combos distintos), mientras Las Ninfas —el restaurante más grande— apenas lleva '+cb.rest.filter(function(r){return r.rest==="Las Ninfas";})[0].cant+'. El food cost real ronda el <b>'+cb.fc+'%</b>, sano para un combo; el de tacos de pollo es el más rentable (9%–17%). Hoy los combos pesan poco en la venta total (máx. '+lider.share+'% en '+lider.rest+'), así que el potencial está en empujarlos en carta y sala.</div></div>';
+   })()+
    '<div class="card" style="border-left:4px solid var(--gold)"><h3>🆕 El Mesón · se mide por PAX <span style="float:right;font-family:Inter;text-transform:none;color:var(--txt-soft);font-size:12px">meta 68 pax/día</span></h3>'+
    (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 sep",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 sep",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–20 sep",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 21–30 sep",pax:mz.w4,d:7,pace:mz.w4pace}];
      var mxw=Math.max(mz.w1,mz.w2,mz.w3,mz.w4);

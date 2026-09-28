@@ -1,0 +1,3811 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Viaje del Huésped — Reporte del Ecosistema · Septiembre 2026 (V15 · Corte 27 sep)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1d31; --navy-2:#0f2740; --navy-3:#15324f; --ink:#071425;
+    --gold:#c89b4c; --gold-soft:#d9b465; --gold-dim:#8a6f3c;
+    --cream:#f6f1e6; --paper:#fbf8f1; --teal:#3f8e93; --violet:#8e6bb0;
+    --line:rgba(200,155,76,.28); --txt:#1d2a38; --txt-soft:#5b6b7a; --white:#fff;
+    --red:#b23a3a; --amber:#d39022; --green:#3f8e62;
+    --shadow:0 18px 45px -22px rgba(7,20,37,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--txt);
+    background:radial-gradient(1200px 500px at 80% -10%, rgba(63,142,147,.12), transparent 60%),
+      linear-gradient(180deg,#0a1d31 0%,#0c2238 100%) fixed;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px 90px;}
+  header.top{position:relative;padding:46px 0 26px;color:var(--cream);}
+  .brand{display:flex;align-items:center;gap:13px;font-family:'Oswald',sans-serif;letter-spacing:.34em;
+    font-size:13px;font-weight:500;text-transform:uppercase;color:var(--gold-soft);}
+  .brand .mark{width:30px;height:30px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-size:14px;color:var(--gold);}
+  h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:18px 0 6px;color:#fff;letter-spacing:.01em;}
+  h1 .accent{color:var(--gold-soft);}
+  .sub-lead{color:#c3d2e2;max-width:700px;font-size:15.5px;line-height:1.6;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .chip{font-family:'Oswald',sans-serif;font-weight:400;letter-spacing:.08em;font-size:12.5px;text-transform:uppercase;
+    color:var(--cream);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:rgba(255,255,255,.03);}
+  .chip b{color:var(--gold-soft);font-weight:600;}
+  .tabs{display:flex;gap:6px;margin:26px 0 4px;}
+  .tab{font-family:'Oswald',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:13px;color:#bcd;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);border-bottom:none;padding:12px 20px;border-radius:12px 12px 0 0;cursor:pointer;transition:.2s;}
+  .tab.active{background:var(--paper);color:var(--navy);font-weight:600;}
+  .tabpanel{display:none;} .tabpanel.active{display:block;}
+  .road-wrap{background:linear-gradient(180deg,#0c2339,#0e2a44);border:1px solid var(--line);border-radius:18px;padding:14px 10px 6px;box-shadow:var(--shadow);overflow:hidden;}
+  .road-wrap svg{width:100%;height:auto;display:block;}
+  .stop-node{cursor:pointer;} .stop-node:hover circle.dot{fill:var(--gold-soft);}
+  .sheet{background:var(--paper);border-radius:0 18px 18px 18px;box-shadow:var(--shadow);padding:34px clamp(20px,4vw,46px);margin-top:0;}
+  .block{padding:30px 0;border-top:1px solid rgba(10,29,49,.1);} .block:first-of-type{border-top:none;}
+  .sec-head{display:flex;align-items:center;gap:14px;}
+  .sec-num{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--gold-soft);font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;display:grid;place-items:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;color:var(--navy);margin:0;letter-spacing:.01em;}
+  .sec-head .win{margin-left:auto;font-family:'Oswald';font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-soft);border:1px solid rgba(10,29,49,.15);border-radius:999px;padding:5px 11px;}
+  .sec-sub{color:var(--txt-soft);font-size:14.5px;margin:8px 0 18px;max-width:780px;}
+  .card{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 8px 22px -18px rgba(7,20,37,.35);}
+  .card h3{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.02em;font-size:15px;text-transform:uppercase;color:var(--gold-dim);margin:0 0 14px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{padding:9px 8px;text-align:right;border-bottom:1px solid rgba(10,29,49,.08);}
+  th{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;color:var(--txt-soft);}
+  th.l,td.l{text-align:left;}
+  tr.eco td{font-weight:700;color:var(--navy);border-top:2px solid var(--gold);background:rgba(200,155,76,.06);}
+  tr.grp td{font-weight:600;color:var(--navy);background:rgba(13,27,42,.035);border-top:1px solid rgba(13,27,42,.10);}
+  td.pos{color:var(--green);font-weight:600;} td.neg{color:var(--red);font-weight:600;}
+  .pill{display:inline-block;font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;color:#fff;}
+  .pill.g{background:var(--green);} .pill.a{background:var(--amber);} .pill.r{background:var(--red);} .pill.pend{background:#9aa6b2;}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0;}
+  .kpi{background:linear-gradient(180deg,#0c2339,#11304e);border-radius:12px;padding:16px 16px;color:var(--cream);}
+  .kpi .n{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:#fff;line-height:1;}
+  .kpi .n small{font-size:15px;color:var(--gold-soft);}
+  .kpi .lab{font-size:12px;color:#a9bccd;margin-top:7px;letter-spacing:.02em;}
+  .kpi .delta{font-size:12px;margin-top:4px;font-weight:600;}
+  .kpi .delta.up{color:#7fcf9c;} .kpi .delta.down{color:#e89a9a;} .kpi .delta.flat{color:#e6c98a;}
+  .insight{background:rgba(63,142,147,.08);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:12px 16px;font-size:14px;color:#22404a;margin-top:14px;line-height:1.55;}
+  .flag{background:rgba(200,155,76,.1);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 16px;font-size:13px;color:#5c4a23;margin-top:12px;line-height:1.5;}
+  .feebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;}
+  .feebox .f{display:flex;justify-content:space-between;align-items:center;background:#f3eee2;border-radius:8px;padding:9px 13px;font-size:13.5px;color:var(--navy);}
+  .feebox .f b{font-family:'Oswald',sans-serif;} .feebox .f.big{grid-column:1/-1;background:var(--navy);color:#fff;} .feebox .f.big b{color:var(--gold-soft);}
+  .fut-chart{display:flex;align-items:flex-end;gap:10px;height:200px;padding:24px 4px 0;border-bottom:2px solid rgba(10,29,49,.15);}
+  .fut-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;}
+  .fut-bar{width:100%;max-width:54px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim));position:relative;transition:height .8s cubic-bezier(.2,.8,.2,1);}
+  .fut-bar.peak{background:linear-gradient(180deg,#4fae6e,var(--green));} .fut-bar.valley{background:linear-gradient(180deg,#cf6b6b,var(--red));}
+  .fut-bar .v{position:absolute;top:-20px;left:0;right:0;text-align:center;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:var(--navy);}
+  .fut-lab{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-soft);}
+  .heat td{text-align:center;font-family:'Oswald',sans-serif;font-weight:500;color:#fff;border:2px solid #fff;border-radius:4px;font-size:13px;}
+  .heat td.l{text-align:left;color:var(--navy);background:#fff!important;font-family:'Inter';font-weight:600;} .heat th{text-align:center;}
+  .chart-cap{font-size:12.5px;color:var(--txt-soft);margin:0 0 14px;}
+  .hbars{display:flex;flex-direction:column;gap:11px;margin:4px 0 2px;}
+  .hbar-row{display:grid;grid-template-columns:minmax(96px,170px) 1fr;align-items:center;gap:12px;}
+  .hbar-row .hlab{font-size:13px;color:var(--navy);font-weight:500;}
+  .hbar-track{position:relative;background:#efe9db;border-radius:7px;height:26px;}
+    .hbar-track>.hbar-fill{border-radius:7px;}
+  .hbar-fill{height:100%;border-radius:7px 0 0 7px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-soft));display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#3a2c0c;font-family:'Oswald';font-weight:600;font-size:13px;white-space:nowrap;transition:width .9s cubic-bezier(.2,.8,.2,1);}
+  .hbar-fill.hi{background:linear-gradient(90deg,#2f6f4c,var(--green));color:#eafff1;}
+  .hbar-fill.lo{background:linear-gradient(90deg,#9a3030,var(--red));color:#ffecec;}
+  .hbar-fill.tealf{background:linear-gradient(90deg,#2a6468,var(--teal));color:#eafff1;}
+  .hbar-fill.violf{background:linear-gradient(90deg,#5c4483,var(--violet));color:#f2ecff;}
+  .hbar-fill.mut{background:repeating-linear-gradient(45deg,#cdd4dc,#cdd4dc 7px,#e2e7ec 7px,#e2e7ec 14px);color:#5b6b7a;}
+  .meta-line{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy);opacity:.55;}
+  .meta-line::after{content:"meta";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:9px;letter-spacing:.05em;color:var(--navy);opacity:.7;}
+  .stack-wrap{margin:12px 0 4px;}
+  .stack-lab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-soft);font-family:'Oswald';margin-bottom:5px;}
+  .stack{display:flex;height:30px;border-radius:7px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(10,29,49,.05);}
+  .stack span{display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-family:'Oswald';font-weight:500;min-width:0;overflow:hidden;}
+  .stack-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:12px;color:var(--txt-soft);}
+  .stack-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px;}
+  .gchart{display:flex;align-items:flex-end;gap:18px;height:210px;padding:24px 4px 0;border-bottom:2px solid rgba(10,29,49,.15);}
+  .ggroup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .gpair{display:flex;align-items:flex-end;gap:7px;height:100%;width:100%;justify-content:center;}
+  .gbar{width:38px;border-radius:7px 7px 0 0;position:relative;transition:height .9s cubic-bezier(.2,.8,.2,1);}
+  .gbar.real{background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim));} .gbar.real.over{background:linear-gradient(180deg,#4fae6e,var(--green));}
+  .gbar.meta{background:#dfe5ec;border:1.5px dashed #9aa6b2;}
+  .gbar .gv{position:absolute;top:-19px;left:0;right:0;text-align:center;font-family:'Oswald';font-size:12px;font-weight:600;color:var(--navy);}
+  .gglab{font-family:'Oswald';font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-soft);margin-top:8px;text-align:center;}
+  .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;font-size:13px;}
+  .donut-legend .dl{display:flex;align-items:center;gap:9px;color:var(--navy);} .donut-legend i{width:13px;height:13px;border-radius:4px;flex:0 0 auto;} .donut-legend b{font-family:'Oswald';}
+  details{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;}
+  summary{cursor:pointer;list-style:none;padding:13px 18px;font-family:'Oswald',sans-serif;letter-spacing:.05em;text-transform:uppercase;font-size:13px;color:var(--navy);background:rgba(200,155,76,.07);display:flex;align-items:center;gap:10px;}
+  summary::-webkit-details-marker{display:none;} summary::before{content:"▸";color:var(--gold-dim);transition:.2s;} details[open] summary::before{transform:rotate(90deg);}
+  .deep{padding:16px 20px;font-size:14px;line-height:1.65;color:#2a3946;} .deep p{margin:0 0 11px;} .deep b{color:var(--navy);}
+  .sgt-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+  .conn{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;}
+  .dot-st{width:11px;height:11px;border-radius:50%;background:#9aa6b2;flex:0 0 auto;}
+  .dot-st.ok{background:var(--green);box-shadow:0 0 0 4px rgba(63,142,98,.18);} .dot-st.off{background:#9aa6b2;} .dot-st.err{background:var(--red);}
+  .conn input{font-size:12.5px;padding:7px 10px;border:1px solid rgba(10,29,49,.2);border-radius:8px;min-width:230px;}
+  .btn{font-family:'Oswald',sans-serif;letter-spacing:.05em;text-transform:uppercase;font-size:12.5px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;transition:.15s;background:#e7e0d0;color:var(--navy);}
+  .btn:hover{transform:translateY(-1px);} .btn.p{background:var(--navy);color:#fff;} .btn.g{background:var(--gold);color:#3a2c0c;} .btn.d{background:#f0d9d9;color:var(--red);}
+  .counters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+  .cnt{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:10px;padding:11px 16px;min-width:108px;}
+  .cnt .n{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy);} .cnt .l{font-size:11.5px;color:var(--txt-soft);text-transform:uppercase;letter-spacing:.04em;}
+  .cnt.pend .n{color:var(--amber);} .cnt.proc .n{color:var(--teal);} .cnt.done .n{color:var(--green);}
+  #segTable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;min-width:1040px;}
+  #segTable th{background:var(--navy);color:var(--cream);position:sticky;top:0;}
+  #segTable td{border-bottom:1px solid rgba(10,29,49,.08);padding:6px;vertical-align:top;}
+  #segTable input,#segTable select,#segTable textarea{width:100%;border:1px solid transparent;background:transparent;font-family:inherit;font-size:13px;padding:5px 6px;border-radius:6px;resize:none;overflow:hidden;}
+  #segTable input:focus,#segTable select:focus,#segTable textarea:focus{border-color:var(--gold);background:#fff;outline:none;}
+  .st-sel{font-family:'Oswald',sans-serif;} .row-del{color:var(--red);cursor:pointer;border:none;background:none;font-size:16px;}
+  .save-note{font-size:12px;color:var(--txt-soft);margin-top:10px;}
+  footer{color:#8fa6bb;text-align:center;font-size:12.5px;padding:30px 0 0;letter-spacing:.03em;}
+  @media print{body{background:#fff;} .road-wrap,.tabs,.scroll-bus,.conn .btn,.sgt-toolbar{display:none!important;} .sheet{box-shadow:none;border-radius:0;} details{border:none;} details summary{display:none;} .deep{display:block!important;} .tabpanel{display:block!important;}}
+  .scroll-bus{position:fixed;right:14px;top:120px;z-index:40;transition:top .25s ease-out;pointer-events:none;}
+  @media (max-width:760px){.scroll-bus{display:none;} .conn input{min-width:150px;}}
+</style>
+</head>
+<body>
+<div class="scroll-bus" id="scroll-bus" aria-hidden="true">
+  <svg width="34" height="26" viewBox="0 0 34 26"><g>
+    <rect x="1" y="4" width="30" height="15" rx="3" fill="#c89b4c"/>
+    <rect x="4" y="7" width="6" height="5" rx="1" fill="#0a1d31"/><rect x="12" y="7" width="6" height="5" rx="1" fill="#0a1d31"/><rect x="20" y="7" width="6" height="5" rx="1" fill="#0a1d31"/>
+    <circle cx="8" cy="20" r="3.4" fill="#15324f"/><circle cx="24" cy="20" r="3.4" fill="#15324f"/>
+  </g></svg>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="mark">✦</span> Hoteles de Petén · La nueva manera de reportar</div>
+    <h1>El Viaje del <span class="accent">Huésped</span></h1>
+    <p class="sub-lead">El ecosistema como un solo sistema — siete hoteles, cinco restaurantes, tours, boletos de avión y compras de verdura. <b style="color:var(--gold-soft)">Cuarta semana de septiembre 2026</b>. Ocupación con el mes en libros; segmentos, restaurantes, tours y eventos al 27; boletos al 24, verduras al 18, web 21–27. <b>Todo al día.</b></p>
+    <div class="meta-row">
+      <span class="chip">Corte <b>27 Septiembre 2026</b></span>
+      <span class="chip"><b>8 paradas</b> · +Boletos +Verduras</span>
+      <span class="chip">7 hoteles · 5 restaurantes</span>
+      <span class="chip">Emisión <b>V15 · Corte 27 sep</b></span>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="reporte">Reporte</div>
+      <div class="tab" data-tab="seguimientos">Seguimientos</div>
+    </div>
+  </header>
+
+  <div class="road-wrap">
+    <svg viewBox="0 0 1200 150" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="rd" x1="0" x2="1"><stop offset="0" stop-color="#15324f"/><stop offset="1" stop-color="#1c4060"/></linearGradient></defs>
+      <path id="roadpath" d="M40,105 C 160,105 205,55 330,58 C 470,62 500,108 640,105 C 760,102 800,55 920,58 C 1030,61 1085,95 1160,88"
+            fill="none" stroke="url(#rd)" stroke-width="16" stroke-linecap="round"/>
+      <use href="#roadpath" stroke="#c89b4c" stroke-width="2" stroke-dasharray="2 14" stroke-linecap="round" opacity=".7"/>
+      <g id="stops"></g>
+      <g id="bus">
+        <rect x="-22" y="-13" width="44" height="22" rx="4" fill="#f6f1e6"/>
+        <rect x="-17" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/><rect x="-5" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/><rect x="7" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/>
+        <circle cx="-12" cy="10" r="4.5" fill="#0a1d31"/><circle cx="12" cy="10" r="4.5" fill="#0a1d31"/>
+        <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"
+          path="M40,105 C 160,105 205,55 330,58 C 470,62 500,108 640,105 C 760,102 800,55 920,58 C 1030,61 1085,95 1160,88"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="tabpanel active" id="reporte"><div class="sheet" id="sheet"></div></div>
+
+  <div class="tabpanel" id="seguimientos">
+  <div class="sheet">
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">✓</span><h2>Bitácora de seguimientos</h2></div>
+      <p class="sec-sub">Cada acción amarrada a su punto del reporte. Se guarda en este dispositivo y, si conectás la hoja de Google, se sincroniza en vivo para todo el equipo.</p>
+      <div class="sgt-head sgt-toolbar">
+        <div class="conn">
+          <span class="dot-st off" id="stDot"></span><span id="stText">Conectando…</span>
+          <input id="urlInput" placeholder="URL del Web App de Google (/exec)">
+          <button class="btn" id="connectBtn">Conectar</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn g" id="seedBtn">Cargar focos de julio</button>
+          <button class="btn p" id="addBtn">+ Agregar</button>
+          <button class="btn" id="expBtn">Exportar .json</button>
+          <button class="btn" id="impBtn">Importar</button>
+          <button class="btn" id="printBtn">Imprimir / PDF</button>
+          <button class="btn d" id="clearBtn">Limpiar</button>
+          <input type="file" id="impFile" accept="application/json" style="display:none">
+        </div>
+      </div>
+      <div class="counters">
+        <div class="cnt pend"><div class="n" id="cPend">0</div><div class="l">Pendientes</div></div>
+        <div class="cnt proc"><div class="n" id="cProc">0</div><div class="l">En proceso</div></div>
+        <div class="cnt done"><div class="n" id="cDone">0</div><div class="l">Listos</div></div>
+        <div class="cnt"><div class="n" id="cTot">0</div><div class="l">Total</div></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="segTable">
+          <thead><tr>
+            <th style="width:34px">#</th><th style="width:160px">Fase</th><th>Acción</th>
+            <th style="width:130px">Responsable</th><th style="width:120px">Fecha</th>
+            <th style="width:120px">Estado</th><th>Notas</th><th style="width:34px"></th>
+          </tr></thead><tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="save-note" id="saveNote">Guardado local activo. Al conectar la hoja de Google, el indicador pasa a verde y la bitácora queda colaborativa.</p>
+    </section>
+  </div>
+  </div>
+</div>
+
+<script id="vhdata" type="application/json">
+{
+ "resumen": {
+  "kpis": [
+   {
+    "n": "80.9",
+    "u": "%",
+    "lab": "Ocupación vs meta de septiembre",
+    "delta": "2,282 de 2,820 hab · +4.0 pts en la semana",
+    "dc": "up"
+   },
+   {
+    "n": "+31.0",
+    "u": " pts",
+    "lab": "Subida desde el arranque del mes",
+    "delta": "49.9% al 31 ago → 80.9% hoy · +874 hab",
+    "dc": "up"
+   },
+   {
+    "n": "Q356",
+    "u": "K",
+    "lab": "Eventos · ingreso 1–27 sep",
+    "delta": "75.3% del ritmo · 61 eventos",
+    "dc": "down"
+   },
+   {
+    "n": "Q26.8",
+    "u": "K",
+    "lab": "Tours · ganancia real 1–27 sep",
+    "delta": "Q73,232 bruto · margen 36.6%",
+    "dc": "up"
+   },
+   {
+    "n": "Q898",
+    "u": "K",
+    "lab": "Boletos · vendido 1–24 sep",
+    "delta": "280 operaciones · Q224K comisión neta",
+    "dc": "up"
+   },
+   {
+    "n": "77.3",
+    "u": "%",
+    "lab": "Restaurantes vs meta · 1–27 sep",
+    "delta": "Q826,053 · última semana al 85.7%",
+    "dc": "up"
+   }
+  ],
+  "agosto": {
+   "corte": "reservas en libros al 27 de septiembre",
+   "metas": {
+    "Casona del Lago": 32,
+    "Casona de la Isla": 20.5,
+    "Hotel Petén": 14,
+    "Villa del Lago": 14,
+    "Petén Express": 9,
+    "Casa Turquesa": 9,
+    "Casazul": 4.5
+   },
+   "metasRest": [
+    {
+     "r": "Las Ninfas",
+     "meta": 26500
+    },
+    {
+     "r": "La Chaya",
+     "meta": 6350
+    },
+    {
+     "r": "Isla Bonita",
+     "meta": 5350
+    },
+    {
+     "r": "Lindo Amanecer",
+     "meta": 1400
+    },
+    {
+     "r": "El Mesón",
+     "meta": 1050,
+     "pax": 45
+    }
+   ],
+   "note": "Con 27 días transcurridos, el ecosistema tiene <b>80.9% de la meta mensual</b> en libros (2,282 de 2,820); faltan 538 habitaciones con 3 días por delante, así que septiembre <b>no alcanza la meta</b> y cerrará cerca del 81–83%. <b>Casona del Lago</b> es el mejor (88.2%, a 113 hab de su meta). <b>Casazul</b> fue la sorpresa de la semana: de 78 a 101 hab (+23). <b>Petén Express</b> (40%) bajó de 120 a 108 por cancelaciones."
+  }
+ },
+ "p1": {
+  "win": "1–27 sep",
+  "totalRN": 1985,
+  "adr": 553,
+  "ing": 1096893,
+  "nseg": 12,
+  "channels": [
+   {
+    "name": "OTAs",
+    "rn": 781,
+    "mix": 39.3,
+    "adr": 561,
+    "ing": 438035,
+    "ingpct": 39.9,
+    "cls": "tealf",
+    "pill": "",
+    "tag": "",
+    "n": 2,
+    "w": 89
+   },
+   {
+    "name": "Corporativo",
+    "rn": 454,
+    "mix": 22.9,
+    "adr": 539,
+    "ing": 244925,
+    "ingpct": 22.3,
+    "cls": "violf",
+    "pill": "",
+    "tag": "",
+    "n": 2,
+    "w": 86
+   },
+   {
+    "name": "Agencias",
+    "rn": 393,
+    "mix": 19.8,
+    "adr": 484,
+    "ing": 190177,
+    "ingpct": 17.3,
+    "cls": "lo",
+    "pill": "",
+    "tag": "",
+    "n": 5,
+    "w": 77
+   },
+   {
+    "name": "Directos",
+    "rn": 357,
+    "mix": 18.0,
+    "adr": 627,
+    "ing": 223757,
+    "ingpct": 20.4,
+    "cls": "hi",
+    "pill": "g",
+    "tag": "sin comisión",
+    "n": 3,
+    "w": 100
+   }
+  ],
+  "segs": [
+   {
+    "name": "Booking.Com",
+    "canal": "OTAs",
+    "noches": 500,
+    "adr": 586,
+    "ingEst": 293229,
+    "pct": 25.2,
+    "ingpct": 26.7
+   },
+   {
+    "name": "Corporativo Directo",
+    "canal": "Corporativo",
+    "noches": 386,
+    "adr": 551,
+    "ingEst": 212500,
+    "pct": 19.4,
+    "ingpct": 19.4
+   },
+   {
+    "name": "Agencia General",
+    "canal": "Agencias",
+    "noches": 315,
+    "adr": 503,
+    "ingEst": 158478,
+    "pct": 15.9,
+    "ingpct": 14.4
+   },
+   {
+    "name": "Expedia Collect",
+    "canal": "OTAs",
+    "noches": 281,
+    "adr": 515,
+    "ingEst": 144806,
+    "pct": 14.2,
+    "ingpct": 13.2
+   },
+   {
+    "name": "Clientes Directos / Walk-In",
+    "canal": "Directos",
+    "noches": 275,
+    "adr": 639,
+    "ingEst": 175836,
+    "pct": 13.9,
+    "ingpct": 16.0
+   },
+   {
+    "name": "Redes Sociales",
+    "canal": "Directos",
+    "noches": 72,
+    "adr": 573,
+    "ingEst": 41247,
+    "pct": 3.6,
+    "ingpct": 3.8
+   },
+   {
+    "name": "Corporativo CxC",
+    "canal": "Corporativo",
+    "noches": 68,
+    "adr": 477,
+    "ingEst": 32425,
+    "pct": 3.4,
+    "ingpct": 3.0
+   },
+   {
+    "name": "Kiiper",
+    "canal": "Agencias",
+    "noches": 39,
+    "adr": 465,
+    "ingEst": 18144,
+    "pct": 2.0,
+    "ingpct": 1.7
+   },
+   {
+    "name": "Gap Adventures Inc",
+    "canal": "Agencias",
+    "noches": 29,
+    "adr": 277,
+    "ingEst": 8041,
+    "pct": 1.5,
+    "ingpct": 0.7
+   },
+   {
+    "name": "Web (página propia)",
+    "canal": "Directos",
+    "noches": 10,
+    "adr": 667,
+    "ingEst": 6673,
+    "pct": 0.5,
+    "ingpct": 0.6
+   },
+   {
+    "name": "Agencia Sostavisa",
+    "canal": "Agencias",
+    "noches": 5,
+    "adr": 437,
+    "ingEst": 2187,
+    "pct": 0.3,
+    "ingpct": 0.2
+   },
+   {
+    "name": "Mundo Maya",
+    "canal": "Agencias",
+    "noches": 5,
+    "adr": 665,
+    "ingEst": 3327,
+    "pct": 0.3,
+    "ingpct": 0.3
+   }
+  ],
+  "express": {
+   "segs": [
+    {
+     "name": "Agencias",
+     "canal": "Agencias",
+     "noches": 54,
+     "adr": 102,
+     "ingEst": 5491,
+     "pct": 51.4
+    },
+    {
+     "name": "OTAs",
+     "canal": "OTAs",
+     "noches": 34,
+     "adr": 139,
+     "ingEst": 4731,
+     "pct": 32.4
+    },
+    {
+     "name": "Directos",
+     "canal": "Directos",
+     "noches": 17,
+     "adr": 140,
+     "ingEst": 2382,
+     "pct": 16.2
+    }
+   ],
+   "noc": 105,
+   "adr": 120,
+   "ing": 12604,
+   "nseg": 5,
+   "detalle": [
+    {
+     "name": "Gap Adventures Inc",
+     "rn": 54
+    },
+    {
+     "name": "Hostel World",
+     "rn": 17
+    },
+    {
+     "name": "Tarifa Público",
+     "rn": 17
+    },
+    {
+     "name": "Booking.Com",
+     "rn": 12
+    },
+    {
+     "name": "Expedia Collect",
+     "rn": 5
+    }
+   ]
+  },
+  "hoteles": {
+   "Casona del Lago": {
+    "total": 719,
+    "ing": 457524,
+    "adr": 636,
+    "canales": {
+     "Agencias": {
+      "rn": 100,
+      "pct": 13.9,
+      "adr": 585,
+      "ing": 58535
+     },
+     "Directos": {
+      "rn": 138,
+      "pct": 19.2,
+      "adr": 740,
+      "ing": 102160
+     },
+     "Corporativo": {
+      "rn": 272,
+      "pct": 37.8,
+      "adr": 588,
+      "ing": 159892
+     },
+     "OTAs": {
+      "rn": 209,
+      "pct": 29.1,
+      "adr": 655,
+      "ing": 136937
+     }
+    },
+    "segs": [
+     {
+      "name": "Corporativo Directo",
+      "canal": "Corporativo",
+      "rn": 240,
+      "pct": 33.4,
+      "adr": 591,
+      "ing": 141797
+     },
+     {
+      "name": "Expedia Collect",
+      "canal": "OTAs",
+      "rn": 117,
+      "pct": 16.3,
+      "adr": 588,
+      "ing": 68742
+     },
+     {
+      "name": "Clientes Directos / Walk-In",
+      "canal": "Directos",
+      "rn": 106,
+      "pct": 14.7,
+      "adr": 775,
+      "ing": 82106
+     },
+     {
+      "name": "Agencia General",
+      "canal": "Agencias",
+      "rn": 95,
+      "pct": 13.2,
+      "adr": 581,
+      "ing": 55209
+     },
+     {
+      "name": "Booking.Com",
+      "canal": "OTAs",
+      "rn": 92,
+      "pct": 12.8,
+      "adr": 741,
+      "ing": 68195
+     },
+     {
+      "name": "Corporativo CxC",
+      "canal": "Corporativo",
+      "rn": 32,
+      "pct": 4.5,
+      "adr": 565,
+      "ing": 18095
+     },
+     {
+      "name": "Redes Sociales",
+      "canal": "Directos",
+      "rn": 29,
+      "pct": 4.0,
+      "adr": 615,
+      "ing": 17835
+     },
+     {
+      "name": "Mundo Maya",
+      "canal": "Agencias",
+      "rn": 5,
+      "pct": 0.7,
+      "adr": 665,
+      "ing": 3327
+     },
+     {
+      "name": "Web (página propia)",
+      "canal": "Directos",
+      "rn": 3,
+      "pct": 0.4,
+      "adr": 740,
+      "ing": 2219
+     }
+    ]
+   },
+   "Casona de la Isla": {
+    "total": 442,
+    "ing": 237057,
+    "adr": 536,
+    "canales": {
+     "Agencias": {
+      "rn": 175,
+      "pct": 39.6,
+      "adr": 490,
+      "ing": 85737
+     },
+     "Directos": {
+      "rn": 54,
+      "pct": 12.2,
+      "adr": 603,
+      "ing": 32554
+     },
+     "Corporativo": {
+      "rn": 81,
+      "pct": 18.3,
+      "adr": 499,
+      "ing": 40440
+     },
+     "OTAs": {
+      "rn": 132,
+      "pct": 29.9,
+      "adr": 593,
+      "ing": 78326
+     }
+    },
+    "segs": [
+     {
+      "name": "Agencia General",
+      "canal": "Agencias",
+      "rn": 131,
+      "pct": 29.6,
+      "adr": 499,
+      "ing": 65406
+     },
+     {
+      "name": "Booking.Com",
+      "canal": "OTAs",
+      "rn": 97,
+      "pct": 21.9,
+      "adr": 605,
+      "ing": 58655
+     },
+     {
+      "name": "Corporativo Directo",
+      "canal": "Corporativo",
+      "rn": 74,
+      "pct": 16.7,
+      "adr": 505,
+      "ing": 37399
+     },
+     {
+      "name": "Clientes Directos / Walk-In",
+      "canal": "Directos",
+      "rn": 41,
+      "pct": 9.3,
+      "adr": 615,
+      "ing": 25217
+     },
+     {
+      "name": "Kiiper",
+      "canal": "Agencias",
+      "rn": 39,
+      "pct": 8.8,
+      "adr": 465,
+      "ing": 18144
+     },
+     {
+      "name": "Expedia Collect",
+      "canal": "OTAs",
+      "rn": 35,
+      "pct": 7.9,
+      "adr": 562,
+      "ing": 19672
+     },
+     {
+      "name": "Redes Sociales",
+      "canal": "Directos",
+      "rn": 8,
+      "pct": 1.8,
+      "adr": 482,
+      "ing": 3852
+     },
+     {
+      "name": "Corporativo CxC",
+      "canal": "Corporativo",
+      "rn": 7,
+      "pct": 1.6,
+      "adr": 434,
+      "ing": 3041
+     },
+     {
+      "name": "Agencia Sostavisa",
+      "canal": "Agencias",
+      "rn": 5,
+      "pct": 1.1,
+      "adr": 437,
+      "ing": 2187
+     },
+     {
+      "name": "Web (página propia)",
+      "canal": "Directos",
+      "rn": 5,
+      "pct": 1.1,
+      "adr": 697,
+      "ing": 3485
+     }
+    ]
+   },
+   "Hotel Petén": {
+    "total": 320,
+    "ing": 154033,
+    "adr": 481,
+    "canales": {
+     "Agencias": {
+      "rn": 72,
+      "pct": 22.5,
+      "adr": 428,
+      "ing": 30846
+     },
+     "Directos": {
+      "rn": 106,
+      "pct": 33.1,
+      "adr": 551,
+      "ing": 58391
+     },
+     "Corporativo": {
+      "rn": 46,
+      "pct": 14.4,
+      "adr": 424,
+      "ing": 19482
+     },
+     "OTAs": {
+      "rn": 96,
+      "pct": 30.0,
+      "adr": 472,
+      "ing": 45315
+     }
+    },
+    "segs": [
+     {
+      "name": "Clientes Directos / Walk-In",
+      "canal": "Directos",
+      "rn": 84,
+      "pct": 26.2,
+      "adr": 556,
+      "ing": 46697
+     },
+     {
+      "name": "Expedia Collect",
+      "canal": "OTAs",
+      "rn": 55,
+      "pct": 17.2,
+      "adr": 406,
+      "ing": 22351
+     },
+     {
+      "name": "Agencia General",
+      "canal": "Agencias",
+      "rn": 43,
+      "pct": 13.4,
+      "adr": 530,
+      "ing": 22804
+     },
+     {
+      "name": "Booking.Com",
+      "canal": "OTAs",
+      "rn": 41,
+      "pct": 12.8,
+      "adr": 560,
+      "ing": 22964
+     },
+     {
+      "name": "Gap Adventures Inc",
+      "canal": "Agencias",
+      "rn": 29,
+      "pct": 9.1,
+      "adr": 277,
+      "ing": 8041
+     },
+     {
+      "name": "Corporativo Directo",
+      "canal": "Corporativo",
+      "rn": 25,
+      "pct": 7.8,
+      "adr": 441,
+      "ing": 11019
+     },
+     {
+      "name": "Redes Sociales",
+      "canal": "Directos",
+      "rn": 22,
+      "pct": 6.9,
+      "adr": 532,
+      "ing": 11694
+     },
+     {
+      "name": "Corporativo CxC",
+      "canal": "Corporativo",
+      "rn": 21,
+      "pct": 6.6,
+      "adr": 403,
+      "ing": 8463
+     }
+    ]
+   },
+   "Villa del Lago": {
+    "total": 314,
+    "ing": 151133,
+    "adr": 481,
+    "canales": {
+     "Agencias": {
+      "rn": 29,
+      "pct": 9.2,
+      "adr": 220,
+      "ing": 6374
+     },
+     "Directos": {
+      "rn": 32,
+      "pct": 10.2,
+      "adr": 499,
+      "ing": 15967
+     },
+     "Corporativo": {
+      "rn": 23,
+      "pct": 7.3,
+      "adr": 469,
+      "ing": 10786
+     },
+     "OTAs": {
+      "rn": 230,
+      "pct": 73.2,
+      "adr": 513,
+      "ing": 118006
+     }
+    },
+    "segs": [
+     {
+      "name": "Booking.Com",
+      "canal": "OTAs",
+      "rn": 194,
+      "pct": 61.8,
+      "adr": 530,
+      "ing": 102744
+     },
+     {
+      "name": "Expedia Collect",
+      "canal": "OTAs",
+      "rn": 36,
+      "pct": 11.5,
+      "adr": 424,
+      "ing": 15262
+     },
+     {
+      "name": "Clientes Directos / Walk-In",
+      "canal": "Directos",
+      "rn": 30,
+      "pct": 9.6,
+      "adr": 494,
+      "ing": 14829
+     },
+     {
+      "name": "Agencia General",
+      "canal": "Agencias",
+      "rn": 29,
+      "pct": 9.2,
+      "adr": 220,
+      "ing": 6374
+     },
+     {
+      "name": "Corporativo Directo",
+      "canal": "Corporativo",
+      "rn": 23,
+      "pct": 7.3,
+      "adr": 469,
+      "ing": 10786
+     },
+     {
+      "name": "Redes Sociales",
+      "canal": "Directos",
+      "rn": 2,
+      "pct": 0.6,
+      "adr": 569,
+      "ing": 1138
+     }
+    ]
+   },
+   "Casa Turquesa": {
+    "total": 190,
+    "ing": 97146,
+    "adr": 511,
+    "canales": {
+     "Agencias": {
+      "rn": 17,
+      "pct": 8.9,
+      "adr": 511,
+      "ing": 8685
+     },
+     "Directos": {
+      "rn": 27,
+      "pct": 14.2,
+      "adr": 544,
+      "ing": 14685
+     },
+     "Corporativo": {
+      "rn": 32,
+      "pct": 16.8,
+      "adr": 448,
+      "ing": 14325
+     },
+     "OTAs": {
+      "rn": 114,
+      "pct": 60.0,
+      "adr": 521,
+      "ing": 59451
+     }
+    },
+    "segs": [
+     {
+      "name": "Booking.Com",
+      "canal": "OTAs",
+      "rn": 76,
+      "pct": 40.0,
+      "adr": 535,
+      "ing": 40672
+     },
+     {
+      "name": "Expedia Collect",
+      "canal": "OTAs",
+      "rn": 38,
+      "pct": 20.0,
+      "adr": 494,
+      "ing": 18779
+     },
+     {
+      "name": "Corporativo Directo",
+      "canal": "Corporativo",
+      "rn": 24,
+      "pct": 12.6,
+      "adr": 479,
+      "ing": 11499
+     },
+     {
+      "name": "Agencia General",
+      "canal": "Agencias",
+      "rn": 17,
+      "pct": 8.9,
+      "adr": 511,
+      "ing": 8685
+     },
+     {
+      "name": "Clientes Directos / Walk-In",
+      "canal": "Directos",
+      "rn": 14,
+      "pct": 7.4,
+      "adr": 499,
+      "ing": 6987
+     },
+     {
+      "name": "Redes Sociales",
+      "canal": "Directos",
+      "rn": 11,
+      "pct": 5.8,
+      "adr": 612,
+      "ing": 6728
+     },
+     {
+      "name": "Corporativo CxC",
+      "canal": "Corporativo",
+      "rn": 8,
+      "pct": 4.2,
+      "adr": 353,
+      "ing": 2826
+     },
+     {
+      "name": "Web (página propia)",
+      "canal": "Directos",
+      "rn": 2,
+      "pct": 1.1,
+      "adr": 485,
+      "ing": 969
+     }
+    ]
+   }
+  },
+  "ingReal": true,
+  "mixNote": "<b>Hotel Petén</b> es el que más vende directo (33.1% de sus noches, sin comisión) y <b>Casona del Lago</b> tiene el ADR más alto (Q636). En el otro extremo, <b>Villa del Lago depende de las OTAs en 73.2%</b> de sus noches. <b>Casona de la Isla</b> es el más apoyado en agencias (39.6%) y <b>Casona del Lago</b> el de más músculo corporativo (37.8%)."
+ },
+ "pbol": {
+  "win": "1–24 sep (último registro)",
+  "boletos": 280,
+  "vendido": 897751,
+  "credito": 160872,
+  "contado": 736879,
+  "costo": 2149109,
+  "comNeta": 224202,
+  "ticket": 3206,
+  "note": "Del 1 al 24 de septiembre (último registro el 24): <b>280 operaciones</b>, <b>Q897,751 vendidos</b> (Q160,872 a crédito y Q736,879 al contado) y <b>Q224,202 de comisión neta</b>; la suma de filas cuadra con el total impreso del PDF (diferencia de centavos). Contra el corte anterior (1–21 sep: 220 op., Q532,040) son <b>+60 operaciones y +Q365,711</b> — casi la mitad por una sola venta grupal (IB, 19 sep: Q170,685 al contado, Q37,499 de comisión). <b>Dos cosas a revisar en origen:</b> (1) hay 6 operaciones sin costo ni IVA (00K1PJ, TRIPAN, 00K1V1, CITY PETEN, una LR 133 y el Milán–Guatemala del 22 sep) que aportan Q36,061 a la comisión; sin ellas quedaría en Q188,141. (2) El boleto <b>00K6I1 del 21 sep</b> trae un costo de Q936,975 (total Q1,049,412) contra Q38,750 cobrados — casi seguro un error de captura; infla el costo acumulado, no la comisión.",
+  "iva": 257893,
+  "costoTotal": null,
+  "comNetaRep": 224202,
+  "anomalia": 0,
+  "stale": false,
+  "prev": {
+   "win": "1–21 sep",
+   "boletos": 220,
+   "vendido": 532040,
+   "comNeta": 138279
+  }
+ },
+ "p2": {
+  "win": "1–30 sep · reservas en libros al 27 sep",
+  "feeLabel": "Destination Fee",
+  "metaRN": 2820,
+  "otbRN": 2282,
+  "pctMeta": 80.9,
+  "occPct": 48.8,
+  "sfTotal": 41813.72,
+  "pax": 3993,
+  "hotels": [
+   {
+    "h": "Casona del Lago",
+    "meta": 960,
+    "metaDia": 32,
+    "otb": 847,
+    "faltan": 113,
+    "pctMeta": 88.2,
+    "occ": 58.82,
+    "adr": 645,
+    "revpar": 380,
+    "sf": 11155.47,
+    "cmp": "a"
+   },
+   {
+    "h": "Hotel Petén",
+    "meta": 420,
+    "metaDia": 14,
+    "otb": 337,
+    "faltan": 83,
+    "pctMeta": 80.2,
+    "occ": 51.06,
+    "adr": 494,
+    "revpar": 252,
+    "sf": 13010.24,
+    "cmp": "a"
+   },
+   {
+    "h": "Villa del Lago",
+    "meta": 420,
+    "metaDia": 14,
+    "otb": 325,
+    "faltan": 95,
+    "pctMeta": 77.4,
+    "occ": 41.67,
+    "adr": 490,
+    "revpar": 204,
+    "sf": 7737.75,
+    "cmp": "r"
+   },
+   {
+    "h": "Casona de la Isla",
+    "meta": 615,
+    "metaDia": 20.5,
+    "otb": 470,
+    "faltan": 145,
+    "pctMeta": 76.4,
+    "occ": 46.08,
+    "adr": 555,
+    "revpar": 256,
+    "sf": 5304.27,
+    "cmp": "r"
+   },
+   {
+    "h": "Casa Turquesa",
+    "meta": 270,
+    "metaDia": 9,
+    "otb": 202,
+    "faltan": 68,
+    "pctMeta": 74.8,
+    "occ": 42.08,
+    "adr": 519,
+    "revpar": 219,
+    "sf": 4605.99,
+    "cmp": "r"
+   },
+   {
+    "h": "Casazul",
+    "meta": 135,
+    "metaDia": 4.5,
+    "otb": 101,
+    "faltan": 34,
+    "pctMeta": 74.8,
+    "occ": 33.67,
+    "adr": null,
+    "revpar": null,
+    "sf": 0,
+    "cmp": "r"
+   },
+   {
+    "h": "Petén Express",
+    "meta": 270,
+    "metaDia": 9,
+    "otb": 108,
+    "faltan": 162,
+    "pctMeta": 40.0,
+    "occ": 16.36,
+    "adr": 128,
+    "revpar": 21,
+    "sf": 0,
+    "cmp": "r"
+   }
+  ],
+  "forecast": [
+   {
+    "m": "Oct",
+    "pct": 45.3,
+    "k": "valley"
+   },
+   {
+    "m": "Nov",
+    "pct": 71.6,
+    "k": "peak"
+   },
+   {
+    "m": "Dic",
+    "pct": 49.1,
+    "k": ""
+   },
+   {
+    "m": "Ene 27",
+    "pct": 48.4,
+    "k": ""
+   },
+   {
+    "m": "Feb 27",
+    "pct": 57.2,
+    "k": ""
+   },
+   {
+    "m": "Mar 27",
+    "pct": 56.6,
+    "k": ""
+   }
+  ],
+  "heat": {
+   "Casona del Lago": [
+    68,
+    85,
+    59,
+    61,
+    73,
+    71
+   ],
+   "Casona de la Isla": [
+    42,
+    82,
+    49,
+    50,
+    61,
+    61
+   ],
+   "Villa del Lago": [
+    41,
+    74,
+    50,
+    47,
+    56,
+    57
+   ],
+   "Hotel Petén": [
+    42,
+    78,
+    56,
+    54,
+    73,
+    69
+   ],
+   "Casa Turquesa": [
+    32,
+    66,
+    48,
+    34,
+    35,
+    49
+   ],
+   "Casazul": [
+    38,
+    66,
+    42,
+    21,
+    25,
+    15
+   ],
+   "Petén Express": [
+    23,
+    23,
+    25,
+    38,
+    36,
+    29
+   ]
+  },
+  "adrEco": 567,
+  "occEco": 48.8,
+  "faltanRN": 538,
+  "metasAgosto": {
+   "hoteles": [
+    {
+     "h": "Casona del Lago",
+     "meta": 36
+    },
+    {
+     "h": "Casona de la Isla",
+     "meta": 26
+    },
+    {
+     "h": "Hotel Petén",
+     "meta": 17
+    },
+    {
+     "h": "Villa del Lago",
+     "meta": 17
+    },
+    {
+     "h": "Petén Express",
+     "meta": 13
+    },
+    {
+     "h": "Casa Turquesa",
+     "meta": 11
+    },
+    {
+     "h": "Casazul",
+     "meta": 6.5
+    }
+   ],
+   "restaurantes": [
+    {
+     "r": "Las Ninfas",
+     "meta": 22000
+    },
+    {
+     "r": "Isla Bonita",
+     "meta": 6700
+    },
+    {
+     "r": "La Chaya",
+     "meta": 6900
+    },
+    {
+     "r": "Lindo Amanecer",
+     "meta": 2300
+    }
+   ],
+   "proyeccion": {
+    "Casona del Lago": 54.84,
+    "Casona de la Isla": 55.98,
+    "Hotel Petén": 55.72,
+    "Villa del Lago": 51.24,
+    "Petén Express": 35.92,
+    "Casa Turquesa": 33.06,
+    "Casazul": 44.19
+   }
+  },
+  "evol": {
+   "snap": [
+    "31 ago",
+    "8 sep",
+    "20 sep",
+    "27 sep"
+   ],
+   "eco": [
+    1408,
+    1760,
+    2168,
+    2282
+   ],
+   "ecoPct": [
+    49.9,
+    62.4,
+    76.9,
+    80.9
+   ],
+   "ecoOcc": [
+    30.1,
+    37.6,
+    46.3,
+    48.8
+   ],
+   "hot": [
+    {
+     "h": "Casona del Lago",
+     "meta": 960,
+     "v": [
+      530,
+      690,
+      838,
+      847
+     ],
+     "pct": [
+      55.2,
+      71.9,
+      87.3,
+      88.2
+     ],
+     "gan": 317,
+     "sem": 9
+    },
+    {
+     "h": "Hotel Petén",
+     "meta": 420,
+     "v": [
+      219,
+      265,
+      323,
+      337
+     ],
+     "pct": [
+      52.1,
+      63.1,
+      76.9,
+      80.2
+     ],
+     "gan": 118,
+     "sem": 14
+    },
+    {
+     "h": "Villa del Lago",
+     "meta": 420,
+     "v": [
+      230,
+      256,
+      312,
+      325
+     ],
+     "pct": [
+      54.8,
+      61.0,
+      74.3,
+      77.4
+     ],
+     "gan": 95,
+     "sem": 13
+    },
+    {
+     "h": "Casona de la Isla",
+     "meta": 615,
+     "v": [
+      294,
+      367,
+      445,
+      470
+     ],
+     "pct": [
+      47.8,
+      59.7,
+      72.4,
+      76.4
+     ],
+     "gan": 176,
+     "sem": 25
+    },
+    {
+     "h": "Casa Turquesa",
+     "meta": 270,
+     "v": [
+      91,
+      125,
+      172,
+      202
+     ],
+     "pct": [
+      33.7,
+      46.3,
+      63.7,
+      74.8
+     ],
+     "gan": 111,
+     "sem": 30
+    },
+    {
+     "h": "Casazul",
+     "meta": 135,
+     "v": [
+      44,
+      57,
+      78,
+      101
+     ],
+     "pct": [
+      32.6,
+      42.2,
+      57.8,
+      74.8
+     ],
+     "gan": 57,
+     "sem": 23
+    },
+    {
+     "h": "Petén Express",
+     "meta": 270,
+     "v": [
+      103,
+      118,
+      120,
+      108
+     ],
+     "pct": [
+      38.1,
+      43.7,
+      44.4,
+      40.0
+     ],
+     "gan": 5,
+     "sem": -12
+    }
+   ],
+   "pick": [
+    {
+     "tramo": "31 ago → 8 sep",
+     "hab": 352,
+     "dias": 8,
+     "porDia": 44.0
+    },
+    {
+     "tramo": "8 sep → 20 sep",
+     "hab": 408,
+     "dias": 12,
+     "porDia": 34.0
+    },
+    {
+     "tramo": "20 sep → 27 sep",
+     "hab": 114,
+     "dias": 7,
+     "porDia": 16.3
+    }
+   ],
+   "meta": 2820,
+   "inv": 4680,
+   "agosto": {
+    "arranque": 48,
+    "cierre": 102.0,
+    "nota": "agosto arrancó con ~48% de ocupación en libros y cerró en 74.2% real (102% de su meta)"
+   },
+   "note": "Septiembre arrancó con <b>1,408 habitaciones en libros (49.9% de la meta, 30.1% de ocupación)</b>. En 27 días el equipo sumó <b>+874 habitaciones</b> y la ocupación subió a 48.8%. El ritmo se fue frenando: <b>44 hab/día</b> la primera semana, 34/día a mediados y solo <b>16/día en la última semana</b>. Para llegar a la meta harían falta 179 hab/día en los 3 días que quedan. Casa Turquesa (+111 hab, de 33.7% a 74.8%) y Casazul (de 32.6% a 74.8%) son los que más crecieron en proporción; Casona del Lago ya venía arriba y se estancó (+9 en la semana)."
+  },
+  "proy": {
+   "dias": 3,
+   "hot": [
+    {
+     "h": "Casona del Lago",
+     "hoy": 847,
+     "ritmo": 1.3,
+     "cierre": 851,
+     "meta": 960,
+     "pct": 88.6,
+     "ne": true
+    },
+    {
+     "h": "Casazul",
+     "hoy": 101,
+     "ritmo": 3.3,
+     "cierre": 111,
+     "meta": 135,
+     "pct": 82.2,
+     "ne": true
+    },
+    {
+     "h": "Hotel Petén",
+     "hoy": 337,
+     "ritmo": 2.0,
+     "cierre": 343,
+     "meta": 420,
+     "pct": 81.7,
+     "ne": true
+    },
+    {
+     "h": "Casa Turquesa",
+     "hoy": 202,
+     "ritmo": 4.3,
+     "cierre": 215,
+     "meta": 270,
+     "pct": 79.6,
+     "ne": true
+    },
+    {
+     "h": "Villa del Lago",
+     "hoy": 325,
+     "ritmo": 1.9,
+     "cierre": 331,
+     "meta": 420,
+     "pct": 78.8,
+     "ne": true
+    },
+    {
+     "h": "Casona de la Isla",
+     "hoy": 470,
+     "ritmo": 3.6,
+     "cierre": 481,
+     "meta": 615,
+     "pct": 78.2,
+     "ne": true
+    },
+    {
+     "h": "Petén Express",
+     "hoy": 108,
+     "ritmo": -1.7,
+     "cierre": 108,
+     "meta": 270,
+     "pct": 40.0,
+     "ne": false
+    }
+   ],
+   "eco": 2332,
+   "ecoPct": 82.7,
+   "ecoRitmo": 16.4
+  },
+  "pickup": {
+   "months": [
+    {
+     "m": "Oct",
+     "ago": 2200,
+     "hoy": 2499,
+     "tot": 5518,
+     "pAgo": 39.9,
+     "pHoy": 45.3,
+     "gan": 299
+    },
+    {
+     "m": "Nov",
+     "ago": 3625,
+     "hoy": 3824,
+     "tot": 5340,
+     "pAgo": 67.9,
+     "pHoy": 71.6,
+     "gan": 199
+    },
+    {
+     "m": "Dic",
+     "ago": 2399,
+     "hoy": 2707,
+     "tot": 5518,
+     "pAgo": 43.5,
+     "pHoy": 49.1,
+     "gan": 308
+    },
+    {
+     "m": "Ene 27",
+     "ago": 2540,
+     "hoy": 2669,
+     "tot": 5518,
+     "pAgo": 46.0,
+     "pHoy": 48.4,
+     "gan": 129
+    },
+    {
+     "m": "Feb 27",
+     "ago": 2713,
+     "hoy": 2852,
+     "tot": 4984,
+     "pAgo": 54.4,
+     "pHoy": 57.2,
+     "gan": 139
+    },
+    {
+     "m": "Mar 27",
+     "ago": 2918,
+     "hoy": 3123,
+     "tot": 5518,
+     "pAgo": 52.9,
+     "pHoy": 56.6,
+     "gan": 205
+    }
+   ],
+   "hot": [
+    {
+     "h": "Casona del Lago",
+     "m": [
+      {
+       "ago": 863,
+       "sep20": 982,
+       "hoy": 1005,
+       "tot": 1488,
+       "pAgo": 58,
+       "pHoy": 68
+      },
+      {
+       "ago": 1152,
+       "sep20": 1224,
+       "hoy": 1227,
+       "tot": 1440,
+       "pAgo": 80,
+       "pHoy": 85
+      },
+      {
+       "ago": 729,
+       "sep20": 863,
+       "hoy": 871,
+       "tot": 1488,
+       "pAgo": 49,
+       "pHoy": 59
+      },
+      {
+       "ago": 863,
+       "sep20": 893,
+       "hoy": 901,
+       "tot": 1488,
+       "pAgo": 58,
+       "pHoy": 61
+      },
+      {
+       "ago": 981,
+       "sep20": 981,
+       "hoy": 976,
+       "tot": 1344,
+       "pAgo": 73,
+       "pHoy": 73
+      },
+      {
+       "ago": 997,
+       "sep20": 1012,
+       "hoy": 1053,
+       "tot": 1488,
+       "pAgo": 67,
+       "pHoy": 71
+      }
+     ]
+    },
+    {
+     "h": "Casona de la Isla",
+     "m": [
+      {
+       "ago": 390,
+       "sep20": null,
+       "hoy": 442,
+       "tot": 1054,
+       "pAgo": 37,
+       "pHoy": 42
+      },
+      {
+       "ago": 734,
+       "sep20": null,
+       "hoy": 834,
+       "tot": 1020,
+       "pAgo": 72,
+       "pHoy": 82
+      },
+      {
+       "ago": 453,
+       "sep20": null,
+       "hoy": 513,
+       "tot": 1054,
+       "pAgo": 43,
+       "pHoy": 49
+      },
+      {
+       "ago": 516,
+       "sep20": null,
+       "hoy": 525,
+       "tot": 1054,
+       "pAgo": 49,
+       "pHoy": 50
+      },
+      {
+       "ago": 543,
+       "sep20": null,
+       "hoy": 576,
+       "tot": 952,
+       "pAgo": 57,
+       "pHoy": 61
+      },
+      {
+       "ago": 601,
+       "sep20": null,
+       "hoy": 647,
+       "tot": 1054,
+       "pAgo": 57,
+       "pHoy": 61
+      }
+     ]
+    },
+    {
+     "h": "Villa del Lago",
+     "m": [
+      {
+       "ago": 306,
+       "sep20": 274,
+       "hoy": 329,
+       "tot": 806,
+       "pAgo": 38,
+       "pHoy": 41
+      },
+      {
+       "ago": 616,
+       "sep20": 632,
+       "hoy": 578,
+       "tot": 780,
+       "pAgo": 79,
+       "pHoy": 74
+      },
+      {
+       "ago": 379,
+       "sep20": 395,
+       "hoy": 404,
+       "tot": 806,
+       "pAgo": 47,
+       "pHoy": 50
+      },
+      {
+       "ago": 355,
+       "sep20": 371,
+       "hoy": 380,
+       "tot": 806,
+       "pAgo": 44,
+       "pHoy": 47
+      },
+      {
+       "ago": 357,
+       "sep20": 371,
+       "hoy": 406,
+       "tot": 728,
+       "pAgo": 49,
+       "pHoy": 56
+      },
+      {
+       "ago": 443,
+       "sep20": 451,
+       "hoy": 458,
+       "tot": 806,
+       "pAgo": 55,
+       "pHoy": 57
+      }
+     ]
+    },
+    {
+     "h": "Hotel Petén",
+     "m": [
+      {
+       "ago": 259,
+       "sep20": 273,
+       "hoy": 287,
+       "tot": 682,
+       "pAgo": 38,
+       "pHoy": 42
+      },
+      {
+       "ago": 502,
+       "sep20": 508,
+       "hoy": 518,
+       "tot": 660,
+       "pAgo": 76,
+       "pHoy": 78
+      },
+      {
+       "ago": 361,
+       "sep20": 368,
+       "hoy": 379,
+       "tot": 682,
+       "pAgo": 53,
+       "pHoy": 56
+      },
+      {
+       "ago": 382,
+       "sep20": 396,
+       "hoy": 371,
+       "tot": 682,
+       "pAgo": 56,
+       "pHoy": 54
+      },
+      {
+       "ago": 437,
+       "sep20": 450,
+       "hoy": 448,
+       "tot": 616,
+       "pAgo": 71,
+       "pHoy": 73
+      },
+      {
+       "ago": 436,
+       "sep20": 471,
+       "hoy": 473,
+       "tot": 682,
+       "pAgo": 64,
+       "pHoy": 69
+      }
+     ]
+    },
+    {
+     "h": "Casa Turquesa",
+     "m": [
+      {
+       "ago": 159,
+       "sep20": 174,
+       "hoy": 159,
+       "tot": 496,
+       "pAgo": 32,
+       "pHoy": 32
+      },
+      {
+       "ago": 288,
+       "sep20": 307,
+       "hoy": 319,
+       "tot": 480,
+       "pAgo": 60,
+       "pHoy": 66
+      },
+      {
+       "ago": 223,
+       "sep20": 228,
+       "hoy": 240,
+       "tot": 496,
+       "pAgo": 45,
+       "pHoy": 48
+      },
+      {
+       "ago": 134,
+       "sep20": 174,
+       "hoy": 168,
+       "tot": 496,
+       "pAgo": 27,
+       "pHoy": 34
+      },
+      {
+       "ago": 134,
+       "sep20": 134,
+       "hoy": 155,
+       "tot": 448,
+       "pAgo": 30,
+       "pHoy": 35
+      },
+      {
+       "ago": 218,
+       "sep20": 243,
+       "hoy": 244,
+       "tot": 496,
+       "pAgo": 44,
+       "pHoy": 49
+      }
+     ]
+    },
+    {
+     "h": "Casazul",
+     "m": [
+      {
+       "ago": 87,
+       "sep20": 105,
+       "hoy": 117,
+       "tot": 310,
+       "pAgo": 28,
+       "pHoy": 38
+      },
+      {
+       "ago": 201,
+       "sep20": 204,
+       "hoy": 199,
+       "tot": 300,
+       "pAgo": 67,
+       "pHoy": 66
+      },
+      {
+       "ago": 90,
+       "sep20": 124,
+       "hoy": 129,
+       "tot": 310,
+       "pAgo": 29,
+       "pHoy": 42
+      },
+      {
+       "ago": 31,
+       "sep20": 43,
+       "hoy": 66,
+       "tot": 310,
+       "pAgo": 10,
+       "pHoy": 21
+      },
+      {
+       "ago": 39,
+       "sep20": 62,
+       "hoy": 69,
+       "tot": 280,
+       "pAgo": 14,
+       "pHoy": 25
+      },
+      {
+       "ago": 25,
+       "sep20": 46,
+       "hoy": 48,
+       "tot": 310,
+       "pAgo": 8,
+       "pHoy": 15
+      }
+     ]
+    },
+    {
+     "h": "Petén Express",
+     "m": [
+      {
+       "ago": 136,
+       "sep20": 150,
+       "hoy": 160,
+       "tot": 682,
+       "pAgo": 20,
+       "pHoy": 23
+      },
+      {
+       "ago": 132,
+       "sep20": 139,
+       "hoy": 149,
+       "tot": 660,
+       "pAgo": 20,
+       "pHoy": 23
+      },
+      {
+       "ago": 164,
+       "sep20": 170,
+       "hoy": 171,
+       "tot": 682,
+       "pAgo": 24,
+       "pHoy": 25
+      },
+      {
+       "ago": 259,
+       "sep20": 259,
+       "hoy": 258,
+       "tot": 682,
+       "pAgo": 38,
+       "pHoy": 38
+      },
+      {
+       "ago": 222,
+       "sep20": 222,
+       "hoy": 222,
+       "tot": 616,
+       "pAgo": 36,
+       "pHoy": 36
+      },
+      {
+       "ago": 198,
+       "sep20": 198,
+       "hoy": 200,
+       "tot": 682,
+       "pAgo": 29,
+       "pHoy": 29
+      }
+     ]
+    }
+   ],
+   "oct": [
+    {
+     "h": "Casona del Lago",
+     "ago": 863,
+     "sep20": 982,
+     "hoy": 1005,
+     "pHoy": 68,
+     "metaRef": 992,
+     "pctRef": 101.3
+    },
+    {
+     "h": "Casona de la Isla",
+     "ago": 390,
+     "sep20": null,
+     "hoy": 442,
+     "pHoy": 42,
+     "metaRef": 636,
+     "pctRef": 69.6
+    },
+    {
+     "h": "Villa del Lago",
+     "ago": 306,
+     "sep20": 274,
+     "hoy": 329,
+     "pHoy": 41,
+     "metaRef": 434,
+     "pctRef": 75.8
+    },
+    {
+     "h": "Hotel Petén",
+     "ago": 259,
+     "sep20": 273,
+     "hoy": 287,
+     "pHoy": 42,
+     "metaRef": 434,
+     "pctRef": 66.1
+    },
+    {
+     "h": "Casa Turquesa",
+     "ago": 159,
+     "sep20": 174,
+     "hoy": 159,
+     "pHoy": 32,
+     "metaRef": 279,
+     "pctRef": 57.0
+    },
+    {
+     "h": "Casazul",
+     "ago": 87,
+     "sep20": 105,
+     "hoy": 117,
+     "pHoy": 38,
+     "metaRef": 140,
+     "pctRef": 83.9
+    },
+    {
+     "h": "Petén Express",
+     "ago": 136,
+     "sep20": 150,
+     "hoy": 160,
+     "pHoy": 23,
+     "metaRef": 279,
+     "pctRef": 57.3
+    }
+   ],
+   "octHoy": 2339,
+   "octRef": 2915,
+   "octPct": 80.2
+  },
+  "alertas": {
+   "bajas": [
+    {
+     "h": "Petén Express",
+     "sem": -12
+    }
+   ],
+   "toursCanc": 8,
+   "slow": [
+    "Casona del Lago"
+   ]
+  }
+ },
+ "pverd": {
+  "win": "1–18 sep (última compra)",
+  "total": 31189,
+  "docs": 45,
+  "lastday": 18,
+  "byhotel": [
+   {
+    "h": "Casona del Lago",
+    "gasto": 14724,
+    "pct": 47.2
+   },
+   {
+    "h": "Hotel Petén",
+    "gasto": 5678,
+    "pct": 18.2
+   },
+   {
+    "h": "Casona de la Isla",
+    "gasto": 4758,
+    "pct": 15.3
+   },
+   {
+    "h": "El Mesón",
+    "gasto": 3056,
+    "pct": 9.8
+   },
+   {
+    "h": "Villa del Lago",
+    "gasto": 1702,
+    "pct": 5.5
+   },
+   {
+    "h": "Varios",
+    "gasto": 1270,
+    "pct": 4.1
+   }
+  ],
+  "tipo": [
+   {
+    "t": "Ordinaria",
+    "v": 24303
+   },
+   {
+    "t": "Extraordinaria",
+    "v": 6886
+   }
+  ],
+  "foodcost": [
+   {
+    "hotel": "Hotel Petén",
+    "rest": "La Chaya",
+    "verd": 5678,
+    "venta": 80899,
+    "pct": 7.0
+   },
+   {
+    "hotel": "Villa del Lago",
+    "rest": "Lindo Amanecer",
+    "verd": 1702,
+    "venta": 26045,
+    "pct": 6.5
+   },
+   {
+    "hotel": "Casona de la Isla",
+    "rest": "Isla Bonita",
+    "verd": 4758,
+    "venta": 75022,
+    "pct": 6.3
+   },
+   {
+    "hotel": "Casona del Lago",
+    "rest": "Las Ninfas",
+    "verd": 14724,
+    "venta": 354929,
+    "pct": 4.1
+   }
+  ],
+  "mesonVerd": 3056,
+  "ratioEco": 5.0,
+  "ventasEco": 536895,
+  "note": "Compras del 1 al 18 de septiembre (última compra cargada: 18 sep) contra la venta real de cada restaurante en la <b>misma ventana 1–18</b> — ahora sí exacto, con la venta diaria. Ecosistema en <b>5.0%</b>, arriba del 4.19% con que cerró agosto. <b>La Chaya</b> es el más alto (7.0%) y <b>Las Ninfas</b> el más bajo (4.1%). El salto frente al 2.36% del corte pasado es porque el archivo de compras ahora trae 45 documentos de septiembre (antes 15): aquel ratio estaba incompleto.",
+  "cat": [
+   {
+    "t": "Verdura",
+    "v": 17569
+   },
+   {
+    "t": "Fruta",
+    "v": 11386
+   },
+   {
+    "t": "Otros",
+    "v": 2058
+   },
+   {
+    "t": "Condimento",
+    "v": 175
+   }
+  ],
+  "ago": {
+   "total": 66704,
+   "porDia": 2152,
+   "ratio": 4.19
+  },
+  "porDia": 1733,
+  "hotNote": "<b>Casona del Lago</b> concentra el 47.2% de la compra (Q14,724), lógico por el tamaño de Las Ninfas. El ritmo del mes va en <b>Q1,733/día</b> contra Q2,152/día de agosto (Q66,704 en todo el mes). El Mesón suma Q3,056 y 'Varios' Q1,270.",
+  "exacto": true
+ },
+ "p3": {
+  "win": "1–27 sep",
+  "totalMTD": 826053,
+  "metaMTD": 1069200,
+  "pace": 77.3,
+  "rest": [
+   {
+    "name": "Lindo Amanecer",
+    "hotel": "Villa del Lago",
+    "mtd": 40060,
+    "metaDay": 1400,
+    "dias": 27,
+    "prom": 1484,
+    "pace": 106.0,
+    "gap": 84,
+    "share": 4.8,
+    "cmp": "g",
+    "prevPace": 100.5,
+    "semPace": 121.6,
+    "semProm": 1702
+   },
+   {
+    "name": "Isla Bonita",
+    "hotel": "Casona de la Isla",
+    "mtd": 116680,
+    "metaDay": 5350,
+    "dias": 27,
+    "prom": 4321,
+    "pace": 80.8,
+    "gap": -1029,
+    "share": 14.1,
+    "cmp": "r",
+    "prevPace": 75.7,
+    "semPace": 95.3,
+    "semProm": 5097
+   },
+   {
+    "name": "Las Ninfas",
+    "hotel": "Casona del Lago",
+    "mtd": 550109,
+    "metaDay": 26500,
+    "dias": 27,
+    "prom": 20374,
+    "pace": 76.9,
+    "gap": -6126,
+    "share": 66.6,
+    "cmp": "r",
+    "prevPace": 73.6,
+    "semPace": 86.4,
+    "semProm": 22891
+   },
+   {
+    "name": "La Chaya",
+    "hotel": "Hotel Petén",
+    "mtd": 119204,
+    "metaDay": 6350,
+    "dias": 27,
+    "prom": 4415,
+    "pace": 69.5,
+    "gap": -1935,
+    "share": 14.4,
+    "cmp": "r",
+    "prevPace": 70.4,
+    "semPace": 67.0,
+    "semProm": 4255
+   }
+  ],
+  "meson": {
+   "metaPax": 45,
+   "metaDays": 27,
+   "metaTotal": 1215,
+   "totalPax": 830,
+   "avgPax": "30.7",
+   "pace": 68.3,
+   "w1": 112,
+   "w2": 204,
+   "w3": 337,
+   "w4": 177,
+   "w1pace": 35.6,
+   "w2pace": 64.8,
+   "w3pace": 107.0,
+   "w4pace": 65.6,
+   "gap": -14.3,
+   "note": "Del 1 al 27 sep: <b>830 pax</b> (30.7/día) contra una meta de 45/día = <b>68.3%</b>. Venta Q112,699 (ticket Q136 por pax). Arrancó muy flojo (días 1 y 2 en cero) pero la tercera semana pasó la meta (107.0%), con el mejor día el 19 sep (92 pax). La última semana (22–27) bajó a 65.6%. Food cost de verdura 1–18 sep: Q3,056 de compra contra Q64,759 de venta = <b>4.7%</b>.",
+   "w1d": 7,
+   "w2d": 7,
+   "w3d": 7,
+   "w4d": 6,
+   "ventas": 112698.77,
+   "ticket": 136,
+   "best": 19,
+   "bestPax": 92
+  },
+  "chayaPend": false,
+  "stale": false,
+  "salonNinfas": 71370.0,
+  "semEco": 85.7,
+  "note": "Del 1 al 27 de septiembre el bloque vendió <b>Q826,053</b> (sin propina) contra Q1,069,200 de meta proporcional: <b>77.3%</b>. Subió desde el 74.3% del corte al 20: la última semana (21–27) corrió al <b>85.7%</b> de la meta diaria. <b>Lindo Amanecer</b> lidera (106.0%) y <b>La Chaya</b> es el más rezagado (69.5%). Las Ninfas se mide con VENTA NETA; el salón/tarima (Q71,370) va aparte porque es alquiler de espacio.",
+  "combos": {
+   "win": "1–27 sep",
+   "rest": [
+    {
+     "rest": "La Chaya",
+     "items": [
+      {
+       "name": "Combo Hamburguesa + gaseosa",
+       "cant": 4,
+       "neta": 267.84,
+       "bruta": 300.0,
+       "costo": 64.45,
+       "fc": 24.1
+      }
+     ],
+     "cant": 4,
+     "neta": 267.84,
+     "bruta": 300.0,
+     "costo": 64.45,
+     "fc": 24.1,
+     "share": 0.22
+    },
+    {
+     "rest": "Isla Bonita",
+     "items": [
+      {
+       "name": "Combo Hamburguesa + Gaseosa",
+       "cant": 8,
+       "neta": 535.68,
+       "bruta": 600.0,
+       "costo": 134.72,
+       "fc": 25.1
+      },
+      {
+       "name": "Combo Club Sandwich + Gaseosa",
+       "cant": 6,
+       "neta": 401.52,
+       "bruta": 449.7,
+       "costo": 87.46,
+       "fc": 21.8
+      },
+      {
+       "name": "Combo Tacos de Pollo + Limonada o Naranjada",
+       "cant": 3,
+       "neta": 294.63,
+       "bruta": 330.0,
+       "costo": 26.73,
+       "fc": 9.1
+      },
+      {
+       "name": "Combo Fajitas de Res + Margarita",
+       "cant": 2,
+       "neta": 214.28,
+       "bruta": 240.0,
+       "costo": 56.76,
+       "fc": 26.5
+      },
+      {
+       "name": "Combo Nachos Fiesta + 2 Gallos",
+       "cant": 2,
+       "neta": 196.42,
+       "bruta": 220.0,
+       "costo": 46.04,
+       "fc": 23.4
+      },
+      {
+       "name": "Combo Ceviche + Gallo",
+       "cant": 1,
+       "neta": 107.14,
+       "bruta": 120.0,
+       "costo": 21.0,
+       "fc": 19.6
+      }
+     ],
+     "cant": 22,
+     "neta": 1749.67,
+     "bruta": 1959.7,
+     "costo": 372.71,
+     "fc": 21.3,
+     "share": 1.5
+    },
+    {
+     "rest": "Las Ninfas",
+     "items": [
+      {
+       "name": "Combo Tacos de pollo + limonada o naranjada",
+       "cant": 5,
+       "neta": 491.05,
+       "bruta": 550.0,
+       "costo": 80.94,
+       "fc": 16.5
+      },
+      {
+       "name": "Combo Hamburguesa + Gaseosa",
+       "cant": 6,
+       "neta": 401.76,
+       "bruta": 450.0,
+       "costo": 92.46,
+       "fc": 23.0
+      },
+      {
+       "name": "Combo Capuccino + pastel del dia",
+       "cant": 1,
+       "neta": 49.11,
+       "bruta": 55.0,
+       "costo": 12.65,
+       "fc": 25.8
+      }
+     ],
+     "cant": 12,
+     "neta": 941.92,
+     "bruta": 1055.0,
+     "costo": 186.05,
+     "fc": 19.8,
+     "share": 0.17
+    }
+   ],
+   "cant": 38,
+   "neta": 2959.43,
+   "bruta": 3314.7,
+   "costo": 623.21,
+   "top": [
+    {
+     "name": "Hamburguesa + gaseosa",
+     "cant": 18,
+     "bruta": 1350.0
+    },
+    {
+     "name": "Tacos de Pollo + Limonada o Naranjada",
+     "cant": 8,
+     "bruta": 880.0
+    },
+    {
+     "name": "Club Sandwich + Gaseosa",
+     "cant": 6,
+     "bruta": 449.7
+    },
+    {
+     "name": "Fajitas de Res + Margarita",
+     "cant": 2,
+     "bruta": 240.0
+    },
+    {
+     "name": "Nachos Fiesta + 2 Gallos",
+     "cant": 2,
+     "bruta": 220.0
+    },
+    {
+     "name": "Ceviche + Gallo",
+     "cant": 1,
+     "bruta": 120.0
+    }
+   ],
+   "prev": {
+    "cant": 30,
+    "bruta": 2565
+   },
+   "fc": 21.1
+  },
+  "mesonFC": 4.7
+ },
+ "p4": {
+  "win": "1–27 sep · reporte administrativo",
+  "tours": 108,
+  "pax": 231,
+  "bruto": 73232,
+  "attach": {
+   "hot": [
+    {
+     "h": "Hotel Petén",
+     "tourPax": 49,
+     "hotPax": 585,
+     "rate": 8.4
+    },
+    {
+     "h": "Villa del Lago",
+     "tourPax": 42,
+     "hotPax": 623,
+     "rate": 6.7
+    },
+    {
+     "h": "Casona de la Isla",
+     "tourPax": 54,
+     "hotPax": 870,
+     "rate": 6.2
+    },
+    {
+     "h": "Casa Turquesa",
+     "tourPax": 21,
+     "hotPax": 377,
+     "rate": 5.6
+    },
+    {
+     "h": "Casona del Lago",
+     "tourPax": 57,
+     "hotPax": 1430,
+     "rate": 4.0
+    },
+    {
+     "h": "Casazul",
+     "tourPax": 8,
+     "hotPax": null,
+     "rate": null
+    }
+   ],
+   "eco": 5.7,
+   "tourPax": 223,
+   "hotPax": 3885
+  },
+  "marginPct": 54,
+  "gananciaEst": 71211,
+  "byHotel": [
+   {
+    "h": "Hotel Casona del Lago",
+    "tours": 29,
+    "pax": 57,
+    "bruto": 18992,
+    "gan": 7293,
+    "part": 25.9,
+    "prevTours": 23,
+    "prevBruto": 16062
+   },
+   {
+    "h": "Hotel Casona de la Isla",
+    "tours": 21,
+    "pax": 54,
+    "bruto": 17640,
+    "gan": 6742,
+    "part": 24.1,
+    "prevTours": 21,
+    "prevBruto": 17640
+   },
+   {
+    "h": "Hotel Petén",
+    "tours": 23,
+    "pax": 49,
+    "bruto": 15740,
+    "gan": 5608,
+    "part": 21.5,
+    "prevTours": 20,
+    "prevBruto": 14310
+   },
+   {
+    "h": "Hotel Villa del Lago",
+    "tours": 18,
+    "pax": 42,
+    "bruto": 12120,
+    "gan": 4176,
+    "part": 16.6,
+    "prevTours": 11,
+    "prevBruto": 6680
+   },
+   {
+    "h": "Hotel Casa Turquesa",
+    "tours": 12,
+    "pax": 21,
+    "bruto": 6530,
+    "gan": 2199,
+    "part": 8.9,
+    "prevTours": 4,
+    "prevBruto": 1750
+   },
+   {
+    "h": "Hotel Casazul",
+    "tours": 5,
+    "pax": 8,
+    "bruto": 2210,
+    "gan": 796,
+    "part": 3.0,
+    "prevTours": 3,
+    "prevBruto": 1150
+   }
+  ],
+  "byAgency": [
+   {
+    "a": "Retpsa",
+    "tours": 87,
+    "bruto": 45000
+   },
+   {
+    "a": "MayaLand's",
+    "tours": 45,
+    "bruto": 36200
+   },
+   {
+    "a": "Total Petén",
+    "tours": 14,
+    "bruto": 16800
+   },
+   {
+    "a": "Garrido Expedition",
+    "tours": 16,
+    "bruto": 12600
+   },
+   {
+    "a": "Mayan World",
+    "tours": 9,
+    "bruto": 7565
+   },
+   {
+    "a": "Tikal Express",
+    "tours": 9,
+    "bruto": 4300
+   },
+   {
+    "a": "Otros",
+    "tours": 9,
+    "bruto": 9408
+   }
+  ],
+  "cancelados": 8,
+  "note": "Del 1 al 27 de septiembre: <b>108 ventas / 231 pax / Q73,232</b> en bruto (8 cancelados aparte). Descontando costo de tours (Q44,671) y fees bancarios (Q1,747), la <b>ganancia real es Q26,814 — margen de 36.6%</b>. En la última semana entraron <b>+26 ventas y +Q15,640</b>; el que más creció fue <b>Casa Turquesa</b> (de 4 a 12 ventas). <b>Casona del Lago</b> pasa al frente en bruto. Por margen, Atardecer a Yaxhá (47%) y Tikal con guía (43%) siguen siendo los más rentables; Tikal con almuerzo el más apretado (26%).",
+  "julio_comp": {
+   "tours": 0,
+   "pax": 0,
+   "bruto": 0,
+   "byHotel": []
+  },
+  "topToursAgo": [
+   {
+    "tour": "Transporte + Guia + Almuerzo (Tikal)",
+    "ventas": 17,
+    "pax": 45,
+    "bruto": 15750,
+    "gan": 4145,
+    "ticket": 350,
+    "margen": 26
+   },
+   {
+    "tour": "Cráter Azul · Transporte + Almuerzos",
+    "ventas": 11,
+    "pax": 31,
+    "bruto": 13950,
+    "gan": 4247,
+    "ticket": 450,
+    "margen": 30
+   },
+   {
+    "tour": "Tikal · Transporte + Guía",
+    "ventas": 29,
+    "pax": 60,
+    "bruto": 13800,
+    "gan": 5940,
+    "ticket": 230,
+    "margen": 43
+   },
+   {
+    "tour": "Transporte + Guía (Tikal Amanecer)",
+    "ventas": 22,
+    "pax": 43,
+    "bruto": 12900,
+    "gan": 4036,
+    "ticket": 300,
+    "margen": 31
+   },
+   {
+    "tour": "Atardecer a Yaxhá",
+    "ventas": 13,
+    "pax": 23,
+    "bruto": 5750,
+    "gan": 2710,
+    "ticket": 250,
+    "margen": 47
+   },
+   {
+    "tour": "Cráter Azul · Solo transporte",
+    "ventas": 6,
+    "pax": 10,
+    "bruto": 3500,
+    "gan": 948,
+    "ticket": 350,
+    "margen": 27
+   },
+   {
+    "tour": "Transporte + Guía (Tikal Atardecer)",
+    "ventas": 5,
+    "pax": 9,
+    "bruto": 2700,
+    "gan": 858,
+    "ticket": 300,
+    "margen": 32
+   },
+   {
+    "tour": "Tour Privado a Tikal · Transporte + Guía",
+    "ventas": 1,
+    "pax": 2,
+    "bruto": 1792,
+    "gan": 1738,
+    "ticket": 896,
+    "margen": 97
+   },
+   {
+    "tour": "Transporte + Guia + Entradas + Almuerzo con TIKAL GO (Tikal Extranjero)",
+    "ventas": 1,
+    "pax": 2,
+    "bruto": 1740,
+    "gan": 842,
+    "ticket": 870,
+    "margen": 48
+   },
+   {
+    "tour": "Tour al Lago",
+    "ventas": 3,
+    "pax": 6,
+    "bruto": 1350,
+    "gan": 1350,
+    "ticket": 225,
+    "margen": 100
+   }
+  ],
+  "topToursJul": [],
+  "byAgencyAgo": [
+   {
+    "a": "Retpsa",
+    "ventas": 51,
+    "bruto": 26700,
+    "gan": 9976
+   },
+   {
+    "a": "MayaLand´s",
+    "ventas": 30,
+    "bruto": 23200,
+    "gan": 7905
+   },
+   {
+    "a": "Garrido Expedition",
+    "ventas": 17,
+    "bruto": 15750,
+    "gan": 4145
+   },
+   {
+    "a": "Total Petén",
+    "ventas": 4,
+    "bruto": 3142,
+    "gan": 3088
+   },
+   {
+    "a": "Tikal Express",
+    "ventas": 5,
+    "bruto": 2700,
+    "gan": 858
+   },
+   {
+    "a": "Tikal GO",
+    "ventas": 1,
+    "bruto": 1740,
+    "gan": 842
+   }
+  ],
+  "costo": 44671,
+  "fee": 1747.04,
+  "ganancia": 26813.96,
+  "margenReal": 36.6,
+  "dias": 27,
+  "prev": {
+   "win": "1–20 sep",
+   "tours": 82,
+   "pax": 183,
+   "bruto": 57592,
+   "ganancia": 21864
+  },
+  "recep": [
+   {
+    "n": "Melanie Bernales",
+    "ventas": 11,
+    "bruto": 9180,
+    "gan": 3094,
+    "margen": 33.7
+   },
+   {
+    "n": "Alexis Duarte",
+    "ventas": 9,
+    "bruto": 8580,
+    "gan": 3422,
+    "margen": 39.88
+   },
+   {
+    "n": "Fabian Che",
+    "ventas": 7,
+    "bruto": 6412,
+    "gan": 3141,
+    "margen": 48.98
+   },
+   {
+    "n": "Raúl Gimenez",
+    "ventas": 9,
+    "bruto": 5810,
+    "gan": 1863,
+    "margen": 32.07
+   },
+   {
+    "n": "Ronald Segura",
+    "ventas": 7,
+    "bruto": 5610,
+    "gan": 1744,
+    "margen": 31.09
+   },
+   {
+    "n": "Sandy Recinos",
+    "ventas": 6,
+    "bruto": 4020,
+    "gan": 1356,
+    "margen": 33.73
+   },
+   {
+    "n": "Sheny Girón",
+    "ventas": 5,
+    "bruto": 3420,
+    "gan": 1123,
+    "margen": 32.84
+   },
+   {
+    "n": "Ervin Vásquez",
+    "ventas": 5,
+    "bruto": 3210,
+    "gan": 1055,
+    "margen": 32.88
+   },
+   {
+    "n": "Grendy Tobar",
+    "ventas": 5,
+    "bruto": 2990,
+    "gan": 1289,
+    "margen": 43.11
+   },
+   {
+    "n": "Kelly Guzmán",
+    "ventas": 4,
+    "bruto": 2790,
+    "gan": 1349,
+    "margen": 48.36
+   },
+   {
+    "n": "Gilma Zamora",
+    "ventas": 4,
+    "bruto": 2740,
+    "gan": 883,
+    "margen": 32.22
+   },
+   {
+    "n": "Wilfred Orellana",
+    "ventas": 3,
+    "bruto": 2630,
+    "gan": 788,
+    "margen": 29.96
+   },
+   {
+    "n": "Edwin Cifuentes",
+    "ventas": 6,
+    "bruto": 2460,
+    "gan": 822,
+    "margen": 33.42
+   },
+   {
+    "n": "Arnulfo Bonilla",
+    "ventas": 4,
+    "bruto": 2360,
+    "gan": 733,
+    "margen": 31.07
+   },
+   {
+    "n": "Miltón Hernández",
+    "ventas": 4,
+    "bruto": 2330,
+    "gan": 760,
+    "margen": 32.62
+   },
+   {
+    "n": "Julio Cesar",
+    "ventas": 5,
+    "bruto": 2240,
+    "gan": 1058,
+    "margen": 47.25
+   },
+   {
+    "n": "Antonio Portillo",
+    "ventas": 3,
+    "bruto": 1400,
+    "gan": 512,
+    "margen": 36.54
+   },
+   {
+    "n": "Darissa Burgos",
+    "ventas": 2,
+    "bruto": 1160,
+    "gan": 410,
+    "margen": 35.34
+   },
+   {
+    "n": "Lucas Gimenez",
+    "ventas": 1,
+    "bruto": 900,
+    "gan": 300,
+    "margen": 33.33
+   },
+   {
+    "n": "Concepción Mendez",
+    "ventas": 2,
+    "bruto": 900,
+    "gan": 282,
+    "margen": 31.33
+   },
+   {
+    "n": "Darwin Avalos",
+    "ventas": 3,
+    "bruto": 780,
+    "gan": 316,
+    "margen": 40.46
+   },
+   {
+    "n": "Rudy Guzman",
+    "ventas": 2,
+    "bruto": 710,
+    "gan": 314,
+    "margen": 44.18
+   },
+   {
+    "n": "Selvin Vásquez",
+    "ventas": 1,
+    "bruto": 600,
+    "gan": 200,
+    "margen": 33.33
+   }
+  ]
+ },
+ "p5": {
+  "win": "1–27 sep",
+  "pendiente": false,
+  "totalMTD": 355594,
+  "metaTotal": 525000,
+  "pace": 75.3,
+  "metaedMTD": 355594,
+  "metaedPace": 75.3,
+  "yoy2025": 475906,
+  "yoyGrowth": null,
+  "vol2025": null,
+  "volMTD": 51,
+  "volGrowth": null,
+  "seg": [
+   {
+    "name": "Corporativo",
+    "ev": 46,
+    "pax": 2314,
+    "mtd": 287153,
+    "meta": 262500,
+    "metaProp": 236250,
+    "pace": 121.5,
+    "share": 80.8,
+    "color": "#8e6bb0",
+    "paxFlag": false
+   },
+   {
+    "name": "ONG",
+    "ev": 12,
+    "pax": 197,
+    "mtd": 40291,
+    "meta": 183750,
+    "metaProp": 165375,
+    "pace": 24.4,
+    "share": 11.3,
+    "color": "#3f8e62",
+    "paxFlag": false
+   },
+   {
+    "name": "Social",
+    "ev": 3,
+    "pax": 154,
+    "mtd": 28150,
+    "meta": 78750,
+    "metaProp": 70875,
+    "pace": 39.7,
+    "share": 7.9,
+    "color": "#c89b4c",
+    "paxFlag": false
+   }
+  ],
+  "totEv": 61,
+  "totPax": 2665,
+  "agendados": 5,
+  "d29": 0,
+  "d29n": 0,
+  "ongPaxAnom": true,
+  "note": "Meta de septiembre: <b>Q525,000</b> (+10% sobre el real de sep 2025, Q475,906). Al día 27 la meta proporcional es <b>Q472,500</b> y van <b>Q355,594</b> — <b>75.3% del ritmo</b> y 67.7% de la meta del mes. El archivo actualizado sumó la última semana: el <b>Congreso Médico (24–26 sep)</b> solo aporta Q97,510 en 3 días. Desde el corte al 8 sep (Q52,772, 10 eventos) van <b>+Q302,822 y +51 eventos</b>. Contra el mismo tramo de 2025 (Q428,315 proporcional) va -17.0%. Para la meta faltan Q169,406 en 3 días: no es alcanzable; el mes cierra cerca del 75% si sigue el ritmo. <b>Notas de datos:</b> del 9 al 20 sep las filas vienen sin fecha (se toman como acumulado); 'Tikindustrias / Catering' no trae tipo y va a Corporativo; ACOFOP del 23 sep viene como Corporativo (antes siempre ONG) — conviene confirmarlo. 5 registros en Q0. NETO = ALIMENTOS ÷ 1.1 cuando venía vacío, + OTROS; por eso da más que el TOTAL del Excel (Q312,339), que deja fuera 8 filas sin NETO calculado.",
+  "metaProp": 472500,
+  "diasTrans": 27,
+  "diasMes": 30,
+  "paceMes": 67.7,
+  "ritmoReq": 17500,
+  "ritmoReal": 13170,
+  "faltaMes": 169406,
+  "ritmoNec": 56469,
+  "yoyProp": 428315,
+  "yoyCrec": 10,
+  "stale": false,
+  "prev": {
+   "win": "1–8 sep",
+   "total": 52772,
+   "ev": 10
+  }
+ },
+ "p6": {
+  "win": "21–27 sep · últimos 7 días",
+  "visitors": 2117,
+  "views": 3557,
+  "bounce": 83,
+  "pctVisBounce": 102,
+  "pctViews": 48,
+  "pctBounce": 16,
+  "perVisit": 1.7,
+  "pages": [
+   {
+    "p": "/packages",
+    "v": 1500
+   },
+   {
+    "p": "/ (Home)",
+    "v": 287
+   },
+   {
+    "p": "/hotels",
+    "v": 184
+   },
+   {
+    "p": "/hotels/casona-del-lago",
+    "v": 182
+   },
+   {
+    "p": "/hotels/peten",
+    "v": 93
+   },
+   {
+    "p": "/hotels/casona-de-la-isla",
+    "v": 43
+   }
+  ],
+  "referrers": [
+   {
+    "r": "m.facebook.com",
+    "v": 1300
+   },
+   {
+    "r": "google.com",
+    "v": 201
+   },
+   {
+    "r": "l.instagram.com",
+    "v": 78
+   },
+   {
+    "r": "facebook.com",
+    "v": 77
+   },
+   {
+    "r": "l.wl.co",
+    "v": 20
+   },
+   {
+    "r": "hotelcasonadellago.reservadirecto.com",
+    "v": 11
+   }
+  ],
+  "experiences": {
+   "visitors": 173,
+   "views": 668,
+   "bounce": 41,
+   "pctVis": 4,
+   "pctViews": -3,
+   "pctBounce": 1,
+   "perVisit": 3.9,
+   "pages": [
+    {
+     "p": "/ (Home)",
+     "v": 88
+    },
+    {
+     "p": "/experiencia/caminata-isla-flores",
+     "v": 75
+    },
+    {
+     "p": "/agenda",
+     "v": 29
+    },
+    {
+     "p": "/reservar/caminata-isla-flores",
+     "v": 29
+    }
+   ],
+   "referrers": [
+    {
+     "r": "lm.facebook.com",
+     "v": 6
+    },
+    {
+     "r": "facebook.com",
+     "v": 4
+    },
+    {
+     "r": "com.google.android.gm",
+     "v": 3
+    },
+    {
+     "r": "ntp.msn.com",
+     "v": 3
+    },
+    {
+     "r": "expedia.com",
+     "v": 1
+    },
+    {
+     "r": "google.com",
+     "v": 1
+    }
+   ],
+   "nuevo": false,
+   "interno": 48
+  },
+  "dayPeak": {
+   "date": "",
+   "visitors": 0
+  },
+  "devices": [],
+  "countries": [],
+  "note": "<b>hotelesdepeten</b>: 2,117 visitantes (<b>+102%</b>) y 3,557 vistas (+48%), pero el <b>bounce se disparó a 83%</b>. El salto viene casi todo de <b>Facebook móvil (~1,300)</b> aterrizando en <b>/packages (~1,500)</b> — huele a publicación o pauta apuntando a paquetes. Mucha gente llega y se va sin ver una segunda página: vale revisar qué ve el usuario al aterrizar ahí. /arma-tu-viaje cayó de 286 a 40. <b>experiences</b>: 173 visitantes (+4%), bounce 41% y /reservar/caminata-isla-flores con 29 visitas. /admin/* (48 visitas) es tráfico interno y se sacó de la lista. Los valores '1.5K' y '1.3K' de la captura se registran como aproximados."
+ },
+ "meta": {
+  "version": "V15",
+  "corteLabel": "27 de septiembre 2026",
+  "corteCorto": "27 sep",
+  "semana": "cuarta semana del mes",
+  "ventanas": {
+   "ocupacion": "1–30 sep (en libros)",
+   "segmentos": "1–27 sep",
+   "boletos": "1–24 sep",
+   "verduras": "1–18 sep",
+   "tours": "1–27 sep",
+   "eventos": "1–27 sep",
+   "restaurantes": "1–27 sep",
+   "web": "21–27 sep"
+  }
+ }
+}
+</script>
+<script>(function(){
+"use strict";
+var D=JSON.parse(document.getElementById("vhdata").textContent);
+var Q=function(v,d){d=d||0;return "Q"+Number(v).toLocaleString("es-GT",{minimumFractionDigits:d,maximumFractionDigits:d});};
+var cmpPill=function(c){return c==="g"?"g":c==="a"?"a":"r";};
+
+/* ---------- RESUMEN ---------- */
+function resumen(){var r=D.resumen;var ag=r.agosto;
+  var k=r.kpis.map(function(x){return '<div class="kpi"><div class="n">'+x.n+'<small>'+x.u+'</small></div><div class="lab">'+x.lab+'</div><div class="delta '+x.dc+'">'+x.delta+'</div></div>';}).join("");
+  /* Metas restaurantes */
+  var agRest=ag.metasRest.map(function(x){
+    return '<div class="f"><span>'+x.r+'</span><b>'+Q(x.meta)+'/día</b></div>';
+  }).join("");
+  return '<section class="block" id="resumen"><div class="sec-head"><span class="sec-num">✦</span><h2>Resumen ejecutivo</h2><span class="win">septiembre · '+D.meta.semana+'</span></div>'+
+    '<p class="sec-sub">Foto del ecosistema al <b>'+D.meta.corteLabel+'</b> — '+D.meta.semana+'. Metas de septiembre, reservas en libros y lo que falta mover.</p>'+
+    '<div class="kpis">'+k+'</div>'+
+    '<div class="insight"><b>Lo que manda la lectura:</b> el ecosistema va en <b>'+D.p2.occPct+'% de ocupación real</b> ('+D.p2.otbRN.toLocaleString("es-GT")+' hab, incl. CPL, de '+D.p2.metaRN.toLocaleString("es-GT")+' meta) y '+D.p2.pax.toLocaleString("es-GT")+' pax. Restaurantes al <b>'+D.p3.pace+'%</b> de su meta (última semana al '+D.p3.semEco+'%). Boletos: <b>'+Q(D.pbol.vendido)+'</b> bruto, <b>'+Q(D.pbol.comNeta)+'</b> comisión neta. Food cost ecosistema: <b>'+D.pverd.ratioEco+'%</b>. Tours: '+Q(D.p4.bruto)+' bruto, '+D.p4.pax+' pax. Eventos: '+D.p5.totEv+' con ingreso, '+D.p5.pace+'% del ritmo. Web: '+D.p6.visitors.toLocaleString("es-GT")+' visitantes en 7 días ('+(D.p6.pctVisBounce>=0?'+':'')+D.p6.pctVisBounce+'%). <b>Proyección de cierre: ~'+D.p2.proy.ecoPct+'% de la meta de ocupación</b>; octubre arranca con '+D.p2.pickup.months[0].pHoy+'% en libros. Tours por huésped: '+D.p4.attach.eco+'%.</div>'+
+    '<div class="card" style="margin-top:20px;border-left:4px solid var(--gold)">'+
+    '<h3>⭐ Metas de septiembre 2026 <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">'+ag.corte+'</span></h3>'+
+    '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 16px">Las metas que el equipo persigue este mes y cuánto se lleva cubierto con lo que ya está en libros.</p>'+
+    (function(){
+      var rows=D.p2.hotels.map(function(x){
+        var cls=x.pctMeta>=70?'hi':x.pctMeta>=55?'':'lo';
+        return '<tr><td class="l">'+x.h+'</td>'+
+          '<td>'+x.metaDia+' hab/día</td><td>'+x.meta+'</td><td>'+x.otb+'</td>'+
+          '<td>'+x.occ.toFixed(1)+'%</td><td><b>'+x.pctMeta+'%</b></td>'+
+          '<td><div class="hbar-track" style="height:14px"><div class="hbar-fill '+cls+'" style="width:'+Math.max(4,x.pctMeta)+'%">'+x.pctMeta+'%</div></div></td></tr>';}).join("");
+      var rr=ag.metasRest.map(function(m){
+        return '<div class="f"><span>'+m.r+'</span><b>'+(m.pax?m.pax+' pax · ':'')+Q(m.meta)+'/día</b></div>';}).join("");
+      return '<table><thead><tr><th class="l">Hotel</th><th>Meta/día</th><th>Meta mes</th><th>En libros</th><th>Ocupación</th><th>% de meta</th><th style="width:150px">Avance</th></tr></thead><tbody>'+rows+
+        '<tr class="eco"><td class="l">Ecosistema (sin Express)</td><td>—</td><td>'+D.p2.metaRN+'</td><td>'+D.p2.otbRN+'</td><td>'+D.p2.occEco+'%</td><td><b>'+D.p2.pctMeta+'%</b></td><td>—</td></tr></tbody></table>'+
+        '<div style="margin-top:16px"><div class="stack-lab" style="margin-bottom:8px">Metas diarias de restaurantes · septiembre</div><div class="feebox">'+rr+'</div></div>';
+    })()+
+    '<div class="flag" style="margin-top:12px">'+ag.note+'</div></div>'+
+    evolCard()+'</section>';
+}
+
+
+/* ---------- EVOLUCIÓN DEL MES (arranque → hoy) ---------- */
+function evolCard(){var v=D.p2.evol; if(!v) return '';
+  var W=680,H=236,L=70,Rr=70,T=28,B=42,n=v.snap.length;
+  var X=function(i){return L+i*(W-L-Rr)/(n-1);}, Y=function(p){return T+(100-Math.min(p,105))*(H-T-B)/100;};
+  var grid=[0,25,50,75,100].map(function(g){return '<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+Y(g)+'" y2="'+Y(g)+'" stroke="'+(g===100?'#c9a227':'#e4ddcc')+'" stroke-width="'+(g===100?1.6:1)+'"'+(g===100?' stroke-dasharray="6 5"':'')+'/><text x="'+(L-8)+'" y="'+(Y(g)+4)+'" text-anchor="end" font-family="Inter" font-size="10.5" fill="#6b6b6b">'+g+'%</text>';}).join("");
+  var hl=v.hot.filter(function(x){return x.h!=="Petén Express";}).map(function(x){
+    return '<polyline fill="none" stroke="#b9c3cf" stroke-width="1.4" points="'+x.pct.map(function(p,i){return X(i)+','+Y(p);}).join(" ")+'"/>';}).join("");
+  var pts=v.ecoPct.map(function(p,i){return X(i)+','+Y(p);}).join(" ");
+  var area='<polygon fill="rgba(201,162,39,.13)" points="'+X(0)+','+Y(0)+' '+pts+' '+X(n-1)+','+Y(0)+'"/>';
+  var dots=v.ecoPct.map(function(p,i){return '<circle cx="'+X(i)+'" cy="'+Y(p)+'" r="5.5" fill="#15324f" stroke="#c9a227" stroke-width="2.5"/>'+
+    '<text x="'+X(i)+'" y="'+(Y(p)-13)+'" text-anchor="middle" font-family="Oswald" font-size="15" font-weight="600" fill="#15324f">'+p+'%</text>'+
+    '<text x="'+X(i)+'" y="'+(H-B+18)+'" text-anchor="middle" font-family="Inter" font-size="11.5" font-weight="600" fill="#15324f">'+v.snap[i]+'</text>'+
+    '<text x="'+X(i)+'" y="'+(H-B+32)+'" text-anchor="middle" font-family="Inter" font-size="10" fill="#6b6b6b">'+v.eco[i].toLocaleString("es-GT")+' hab · '+v.ecoOcc[i]+'% occ.</text>';}).join("");
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block" role="img" aria-label="Evolución de la ocupación en libros vs meta">'+grid+
+    '<text x="'+(W-Rr)+'" y="'+(Y(100)-6)+'" text-anchor="end" font-family="Inter" font-size="10.5" font-weight="600" fill="#a8841c">meta del mes</text>'+hl+area+
+    '<polyline fill="none" stroke="#c9a227" stroke-width="3.5" stroke-linejoin="round" points="'+pts+'"/>'+dots+'</svg>';
+  var mxp=Math.max.apply(null,v.pick.map(function(p){return p.porDia;}));
+  var pick=v.pick.map(function(p){return '<div class="hbar-row"><span class="hlab" style="width:130px;font-size:11.5px">'+p.tramo+'</span><div class="hbar-track"><div class="hbar-fill '+(p.porDia===mxp?'hi':p.porDia<mxp/2?'lo':'')+'" style="width:'+Math.max(10,p.porDia/mxp*100)+'%">+'+p.hab+' hab · '+p.porDia+'/día</div></div></div>';}).join("");
+  var rows=v.hot.map(function(x){var cells=x.pct.map(function(p,i){return '<td'+(i===n-1?' style="font-weight:700"':'')+'>'+x.v[i]+' <span style="color:var(--txt-soft);font-size:11px">'+p+'%</span></td>';}).join("");
+    var spark='<div style="display:flex;align-items:flex-end;gap:3px;height:26px">'+x.pct.map(function(p,i){return '<i style="display:block;width:12px;height:'+Math.max(3,Math.min(100,p)*0.26)+'px;background:'+(i===n-1?'#c9a227':'#b9c3cf')+';border-radius:2px"></i>';}).join("")+'</div>';
+    return '<tr><td class="l">'+x.h+(x.h==="Petén Express"?' <span style="color:var(--txt-soft);font-size:11px">(fuera del ecosistema)</span>':'')+'</td>'+cells+'<td class="'+(x.gan>=0?'pos':'neg')+'">'+(x.gan>=0?'+':'')+x.gan+'</td><td class="'+(x.sem>=0?'pos':'neg')+'">'+(x.sem>=0?'+':'')+x.sem+'</td><td>'+spark+'</td></tr>';}).join("");
+  var ecoRow='<tr class="eco"><td class="l">Ecosistema (sin Express)</td>'+v.eco.map(function(a,i){return '<td>'+a.toLocaleString("es-GT")+' <span style="font-size:11px">'+v.ecoPct[i]+'%</span></td>';}).join("")+'<td class="pos">+'+(v.eco[n-1]-v.eco[0])+'</td><td class="pos">+'+(v.eco[n-1]-v.eco[n-2])+'</td><td>—</td></tr>';
+  return '<div class="card" style="margin-top:20px;border-left:4px solid var(--gold)"><h3>📈 Cómo arrancó septiembre y cómo ha subido <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">reservas en libros · % de la meta del mes</span></h3>'+
+    '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 14px">La foto de lo que había en libros al cerrar agosto (arranque) y en cada corte del mes. La línea dorada es el ecosistema; las grises, cada hotel.</p>'+
+    svg+
+    '<div style="margin-top:18px;overflow-x:auto"><table><thead><tr><th class="l">Hotel</th>'+v.snap.map(function(s,i){return '<th>'+(i===0?'Arranque '+s:s)+'</th>';}).join("")+'<th>Ganó en el mes</th><th>Última semana</th><th style="width:80px">Curva</th></tr></thead><tbody>'+rows+ecoRow+'</tbody></table></div>'+
+    '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:10px">Ritmo de captación del ecosistema · habitaciones sumadas por día en cada tramo</div><div class="hbars">'+pick+'</div></div>'+
+    '<div class="insight" style="margin-top:14px"><b>Lectura:</b> '+v.note+'</div>'+
+    '<div class="flag" style="margin-top:10px">Referencia: '+v.agosto.nota+'. El arranque de septiembre se toma del cierre de agosto (V12); los cortes intermedios, de los reportes del 8 y del 20 de septiembre.</div></div>';
+}
+
+
+/* ---------- PRONÓSTICO DE CIERRE + ALERTAS ---------- */
+function proyCard(){var P=D.p2.proy; if(!P) return '';
+  var rows=P.hot.map(function(x){var cls=x.pct>=100?'g':x.pct>=80?'a':'r';
+    return '<tr><td class="l">'+x.h+(x.ne?'':' <span style="color:var(--txt-soft);font-size:11px">(fuera del ecosistema)</span>')+'</td><td>'+x.hoy+'</td><td>'+(x.ritmo>=0?'+':'')+x.ritmo+'/día</td><td><b>'+x.cierre+'</b></td><td>'+x.meta+'</td><td><span class="pill '+cls+'">'+x.pct+'%</span></td>'+
+      '<td><div class="hbar-track" style="height:14px"><div class="meta-line" style="left:'+(100/1.15)+'%"></div><div class="hbar-fill '+(cls==='g'?'hi':cls==='r'?'lo':'')+'" style="width:'+Math.min(100,x.pct/1.15)+'%"></div></div></td></tr>';}).join("");
+  return '<div class="card" style="border-left:4px solid var(--gold)"><h3>🔮 Pronóstico de cierre de septiembre <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">ritmo de los últimos 7 días × '+P.dias+' días restantes</span></h3>'+
+   '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 14px">Si cada hotel sigue sumando al mismo ritmo de la última semana, así cerraría el mes. No suma cancelaciones ni walk-ins de último minuto: es una proyección sencilla para ver con tiempo quién llega y quién no.</p>'+
+   '<table><thead><tr><th class="l">Hotel</th><th>Hoy</th><th>Ritmo semana</th><th>Cierre proy.</th><th>Meta</th><th>% meta proy.</th><th style="width:140px">vs 100%</th></tr></thead><tbody>'+rows+
+   '<tr class="eco"><td class="l">Ecosistema (sin Express)</td><td>'+D.p2.otbRN.toLocaleString("es-GT")+'</td><td>+'+P.ecoRitmo+'/día</td><td><b>'+P.eco.toLocaleString("es-GT")+'</b></td><td>'+D.p2.metaRN.toLocaleString("es-GT")+'</td><td><span class="pill a">'+P.ecoPct+'%</span></td><td>—</td></tr></tbody></table>'+
+   '<div class="insight"><b>Lectura:</b> con el ritmo actual el ecosistema cerraría en <b>~'+P.eco.toLocaleString("es-GT")+' habitaciones = '+P.ecoPct+'% de la meta</b>. Ningún hotel llega al 100%; el más cerca es <b>'+P.hot[0].h+'</b> ('+P.hot[0].pct+'%). A partir de octubre esta tabla sale desde la primera semana, para corregir a tiempo y no al cierre.</div></div>';
+}
+function alertCard(){var A=D.p2.alertas, K=D.p2.pickup; if(!A) return '';
+  var li=[];
+  A.bajas.forEach(function(b){li.push('<li><b>'+b.h+'</b> perdió <b>'+Math.abs(b.sem)+' habitaciones netas</b> de septiembre en la última semana (cancelaciones mayores que reservas nuevas).</li>');});
+  if(K){K.oct.forEach(function(o){if(o.sep20!=null&&o.hoy<o.sep20) li.push('<li><b>'+o.h+'</b> bajó en octubre: de '+o.sep20+' a '+o.hoy+' hab en libros ('+(o.hoy-o.sep20)+') en la última semana.</li>');});}
+  if(A.slow.length) li.push('<li>Captación lenta (menos de 10 hab en la semana): <b>'+A.slow.join(', ')+'</b>.</li>');
+  li.push('<li>Tours: <b>'+A.toursCanc+' ventas canceladas</b> en el mes (fuera de las cifras).</li>');
+  return '<div class="card" style="border-left:4px solid var(--danger)"><h3>🚨 Alertas de la semana · bajas y cancelaciones</h3><ul style="margin:0 0 10px 18px;font-size:13.5px;line-height:1.6">'+li.join("")+'</ul>'+
+   '<div class="flag">Por ahora las bajas se detectan como <b>caída neta</b> entre un corte y otro (reservas en libros que desaparecen). Para contar cancelaciones reales por hotel y por canal, necesito el <b>reporte de cancelaciones del PMS</b> (reservas canceladas con fecha de cancelación, fecha de llegada y canal) — con eso esta tarjeta muestra cuántas, de dónde y cuánto ingreso se fue.</div></div>';
+}
+function pickupCard(){var K=D.p2.pickup; if(!K) return '';
+  var mx=Math.max.apply(null,K.months.map(function(m){return m.pHoy;}));
+  var cols=K.months.map(function(m){
+    return '<div class="fut-col"><div style="position:relative;height:100%;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:4px">'+
+      '<div class="fut-bar" style="height:'+Math.max(6,m.pAgo*1.15)+'%;background:#b9c3cf;width:38%"><span class="v" style="color:#6b6b6b">'+m.pAgo+'%</span></div>'+
+      '<div class="fut-bar'+(m.pHoy===mx?' peak':'')+'" style="height:'+Math.max(6,m.pHoy*1.15)+'%;width:38%"><span class="v">'+m.pHoy+'%</span></div></div>'+
+      '<span class="fut-lab">'+m.m+'<br><b class="pos">+'+m.gan+' hab</b></span></div>';}).join("");
+  var orows=K.oct.map(function(o){var d1=o.sep20!=null?o.hoy-o.sep20:null;
+    return '<tr><td class="l">'+o.h+'</td><td>'+o.ago+'</td><td>'+(o.sep20==null?'<span style="color:var(--txt-soft)">s/d</span>':o.sep20)+'</td><td><b>'+o.hoy+'</b></td><td class="'+(o.hoy-o.ago>=0?'pos':'neg')+'">'+(o.hoy-o.ago>=0?'+':'')+(o.hoy-o.ago)+'</td><td class="'+(d1==null?'':d1>=0?'pos':'neg')+'">'+(d1==null?'—':(d1>=0?'+':'')+d1)+'</td><td>'+o.pHoy+'%</td><td>'+o.metaRef+'</td><td><span class="pill '+(o.pctRef>=90?'g':o.pctRef>=65?'a':'r')+'">'+o.pctRef+'%</span></td></tr>';}).join("");
+  var best=K.months.slice().sort(function(a,b){return b.gan-a.gan;})[0];
+  return '<div class="card" style="border-left:4px solid var(--teal)"><h3>📥 Pickup · cuánto entró para los próximos meses <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">31 ago vs 27 sep</span></h3>'+
+   '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 14px">Gris: ocupación en libros al cerrar agosto. Dorado: hoy. Debajo, las habitaciones que se vendieron en septiembre para cada mes.</p>'+
+   '<div class="fut-chart">'+cols+'</div>'+
+   '<div class="insight" style="margin-top:16px"><b>Lectura:</b> en septiembre el equipo no solo llenó septiembre: también vendió <b>+'+K.months.reduce(function(s,m){return s+m.gan;},0).toLocaleString("es-GT")+' habitaciones</b> para los próximos 6 meses. <b>'+best.m+'</b> es el que más captó (+'+best.gan+'). Noviembre, el pico, sumó +'+K.months[1].gan+' y va en '+K.months[1].pHoy+'%.</div>'+
+   '<div style="margin-top:20px;overflow-x:auto"><div class="stack-lab" style="margin-bottom:10px">★ Así viene octubre · habitaciones en libros por corte</div>'+
+   '<table><thead><tr><th class="l">Hotel</th><th>31 ago</th><th>20 sep</th><th>27 sep</th><th>Δ desde 31 ago</th><th>Δ semana</th><th>Ocup.</th><th>Meta ref.*</th><th>% ref.</th></tr></thead><tbody>'+orows+
+   '<tr class="eco"><td class="l">Ecosistema (sin Express)</td><td colspan="2">—</td><td><b>'+K.octHoy.toLocaleString("es-GT")+'</b></td><td colspan="3">—</td><td>'+K.octRef.toLocaleString("es-GT")+'</td><td><span class="pill a">'+K.octPct+'%</span></td></tr></tbody></table></div>'+
+   '<div class="flag" style="margin-top:12px">Esta es la <b>foto de arranque de octubre</b>: el próximo reporte ya la usa como punto de partida de la curva del mes, igual que hicimos con septiembre. *Meta ref. = meta diaria de septiembre × 31, solo como referencia hasta que definan las metas de octubre. Las cifras al 31 ago y 20 sep salen del % redondeado de reportes anteriores (±1 punto de ocupación por hotel). Casona de la Isla no tiene dato confiable al 20 sep.</div></div>';
+}
+
+/* ---------- PUNTO 1 · SEGMENTOS ---------- */
+function p1(){var d=D.p1;
+  var canalCls={Directos:"#3f8e62",OTAs:"#3f8e93",Corporativo:"#8e6bb0",Agencias:"#c89b4c"};
+  var order=["Directos","OTAs","Corporativo","Agencias"];
+  var body="";
+  order.forEach(function(cn){
+    var items=d.segs.filter(function(s){return s.canal===cn;}).sort(function(a,b){return b.ingEst-a.ingEst;});
+    if(!items.length) return;
+    var ch=d.channels.filter(function(c){return c.name===cn;})[0];
+    body+='<tr class="grp"><td class="l" style="border-left:3px solid '+canalCls[cn]+'"><b>'+cn+'</b>'+(cn==="Directos"?' <span class="pill g">sin comisión</span>':'')+' <span style="font-weight:400;color:var(--txt-soft);font-size:11px">'+ch.n+' seg</span></td><td>'+ch.rn+'</td><td>'+ch.mix+'%</td><td><b>'+Q(ch.adr)+'</b></td><td><b>'+Q(ch.ing)+'</b></td><td>'+ch.ingpct+'%</td></tr>';
+    items.forEach(function(s){
+      body+='<tr><td class="l" style="padding-left:22px;color:var(--txt-soft)">'+s.name+'</td><td>'+s.noches+'</td><td>'+s.pct+'%</td><td>'+Q(s.adr)+'</td><td>'+Q(s.ingEst)+'</td><td>'+s.ingpct+'%</td></tr>';
+    });
+  });
+  var exbody=d.express.segs.map(function(s){return '<tr><td class="l">'+s.name+' <span style="color:var(--txt-soft);font-size:11px">('+s.canal+')</span></td><td>'+s.noches+'</td><td>'+s.pct+'%</td><td>'+Q(s.adr)+'</td></tr>';}).join("");
+  var adrbars=d.channels.slice().sort(function(a,b){return b.adr-a.adr;}).map(function(c){
+    return '<div class="hbar-row"><span class="hlab">'+c.name+'</span><div class="hbar-track"><div class="hbar-fill '+c.cls+'" style="width:'+c.w+'%">'+Q(c.adr)+'</div></div></div>';}).join("");
+  var byRN=d.channels.slice().sort(function(a,b){return b.mix-a.mix;});
+  var byIng=d.channels.slice().sort(function(a,b){return b.ingpct-a.ingpct;});
+  var s1=byRN.map(function(c){return '<span style="width:'+c.mix+'%;background:'+canalCls[c.name]+'">'+c.name.slice(0,4)+' '+Math.round(c.mix)+'%</span>';}).join("");
+  var s2=byIng.map(function(c){return '<span style="width:'+c.ingpct+'%;background:'+canalCls[c.name]+'">'+c.name.slice(0,4)+' '+Math.round(c.ingpct)+'%</span>';}).join("");
+  var dir=d.channels.filter(function(c){return c.name==="Directos";})[0];
+  var ota=d.channels.filter(function(c){return c.name==="OTAs";})[0];
+  var age=d.channels.filter(function(c){return c.name==="Agencias";})[0];
+  var topseg=d.segs.slice().sort(function(a,b){return b.ingEst-a.ingEst;})[0];
+  return '<section class="block" id="p1"><div class="sec-head"><span class="sec-num">1</span><h2>Explotación de segmentos · Ecosistema</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Los <b>'+d.nseg+' segmentos</b> del ecosistema (5 hoteles con export de segmentos, consolidados en un solo cuadro; Casazul no exporta), agrupados por canal. <b>Petén Express va aparte</b> — su ADR de ~Q'+d.express.adr+' distorsionaría el promedio. Se clasifica por nombre de contrato, no por el "mercado" del sistema.</p>'+
+   
+   '<div class="card"><h3>Los '+d.nseg+' segmentos del ecosistema (5 hoteles · '+D.meta.ventanas.segmentos+')</h3><table><thead><tr><th class="l">Segmento / canal</th><th>Noches</th><th>% noches</th><th>ADR</th><th>Ingreso</th><th>% ing.</th></tr></thead><tbody>'+body+
+   '<tr class="eco"><td class="l">Ecosistema (5 hoteles)</td><td>'+d.totalRN.toLocaleString("es-GT")+'</td><td>100%</td><td>'+Q(d.adr)+'</td><td>'+Q(d.ing)+'</td><td>100%</td></tr></tbody></table>'+
+   '<div class="insight"><b>Lectura:</b> el segmento más grande del ecosistema es <b>'+topseg.name+'</b> ('+topseg.noches+' noches, ADR '+Q(topseg.adr)+'). Por canal: <b>OTAs</b> mueve el mayor volumen ('+ota.mix+'% de noches, '+ota.ingpct+'% del ingreso) — dependencia alta de Booking y Expedia, que cobran comisión. <b>Agencias</b> es el segundo bloque ('+age.mix+'%) con el ADR más bajo ('+Q(age.adr)+'). <b>Directos</b> pega el mejor ADR ('+Q(dir.adr)+', sin comisión) pero solo el '+dir.mix+'% de las noches — ahí está la palanca: crecer directo sube margen y baja dependencia de OTAs.</div>'+
+   '<div class="flag" style="border-left:4px solid var(--gold);background:#fbf4e2"><b>✅ Ingreso ya es real:</b> esta semana los 6 exports vienen con columnas de ingreso, así que el ingreso es <b>Ing. Hosp. + Ing. Rég. Aloj.</b> del sistema (sin impuestos), ya no noches × tarifa. Cuadra con la Tarifa Prom. de cada contrato. No incluye <b>Ing. Otros</b> (consumos de puntos de venta cargados a la habitación — en Casona del Lago son Q94,892, casi todos en Corporativo Directo). Casazul sigue fuera: su sistema no exporta segmentos.</div>'+
+   '<div class="flag"><b>Clasificación:</b> el canal se asigna por nombre de contrato (corrige que el sistema mete Directos y OTAs bajo "Agencias"). <b>Hostel World → OTA</b> (el sistema lo lista como Agencia, se ve claro en Petén Express); Booking/Expedia → OTA; Web, Redes Sociales, Clientes Directos, Rack y Tarifa Público → Directos; GAP Adventures y agencias → Agencias.</div></div>'+
+   '<div class="card" style="border-left:4px solid #6b7f99"><h3>Petén Express · aparte (ADR ~Q'+d.express.adr+')</h3>'+
+   '<p class="chart-cap">Se reporta separado del ecosistema porque su modelo de hostal opera a una tarifa mucho más baja y jalaría los promedios hacia abajo.</p>'+
+   '<table><thead><tr><th class="l">Segmento</th><th>Noches</th><th>% noches</th><th>ADR</th></tr></thead><tbody>'+exbody+
+   '<tr class="eco"><td class="l">Total Petén Express</td><td>'+d.express.noc+'</td><td>100%</td><td>'+Q(d.express.adr)+'</td></tr></tbody></table>'+
+   '<div class="insight"><b>Fíjate:</b> en Express manda <b>GAP Adventures</b> (agencia, '+d.express.detalle[0].rn+' noches); <b>Hostel World</b> se clasifica como <b>OTA</b> (el sistema lo mete en Agencias). Todo el hostal corre a ADR de ~Q'+d.express.adr+', menos de un cuarto del ADR del ecosistema (Q'+d.adr+'), por eso va aparte.</div></div>'+
+   /* ── MIX POR HOTEL ── */
+   (function(){var HH=d.hoteles; if(!HH) return '';
+     var CC={Directos:"#3f8e62",OTAs:"#3f8e93",Corporativo:"#8e6bb0",Agencias:"#c89b4c"};
+     var ord=Object.keys(HH).filter(function(k){return k!=="Petén Express";});
+     // tabla comparativa
+     var trs=ord.map(function(hn){var x=HH[hn]; if(!x) return '';
+       var g=function(c){return x.canales[c]?x.canales[c].pct:0;};
+       var dirPct=g("Directos"), otaPct=g("OTAs");
+       return '<tr><td class="l">'+hn+'</td><td>'+x.total+'</td><td>'+Q(x.adr)+'</td>'+
+         '<td class="'+(dirPct>=18?'pos':dirPct<=8?'neg':'')+'">'+dirPct+'%</td>'+
+         '<td class="'+(otaPct>=60?'neg':'')+'">'+otaPct+'%</td>'+
+         '<td>'+g("Agencias")+'%</td><td>'+g("Corporativo")+'%</td>'+
+         '<td><div class="stack" style="height:16px">'+
+           ["Directos","OTAs","Corporativo","Agencias"].map(function(c){var pp=g(c);
+             return pp>0?'<i style="width:'+pp+'%;background:'+CC[c]+'"></i>':'';}).join("")+
+         '</div></td></tr>';}).join("");
+     // fichas por hotel
+     var ecoADR=d.adr;
+     var cards=ord.map(function(hn){var x=HH[hn]; if(!x) return '';
+       var body="";
+       ["Directos","OTAs","Corporativo","Agencias"].forEach(function(cn){
+         var cd=x.canales[cn]; if(!cd) return;
+         var items=x.segs.filter(function(sg){return sg.canal===cn;});
+         body+='<tr class="grp"><td class="l" style="border-left:3px solid '+CC[cn]+'"><b>'+cn+'</b>'+
+           (cn==="Directos"?' <span class="pill g" style="font-size:9px">sin comisión</span>':'')+'</td>'+
+           '<td><b>'+cd.rn+'</b></td><td><b>'+cd.pct+'%</b></td><td><b>'+Q(cd.adr)+'</b></td><td><b>'+Q(cd.ing)+'</b></td></tr>';
+         items.forEach(function(sg){
+           body+='<tr><td class="l" style="padding-left:20px;color:var(--txt-soft)">'+sg.name+'</td>'+
+             '<td>'+sg.rn+'</td><td>'+sg.pct+'%</td><td>'+Q(sg.adr)+'</td><td>'+Q(sg.ing)+'</td></tr>';});
+       });
+       var bars=["Directos","OTAs","Corporativo","Agencias"].map(function(c){
+         var cd=x.canales[c]; if(!cd) return '';
+         return '<div class="hbar-row"><span class="hlab" style="width:92px;font-size:11px">'+c+'</span>'+
+           '<div class="hbar-track" style="height:20px"><div class="hbar-fill" style="width:'+Math.max(7,cd.pct)+'%;background:'+CC[c]+';font-size:10.5px">'+cd.pct+'%</div></div>'+
+           '<span style="font-size:10.5px;color:var(--txt-soft);margin-left:6px;white-space:nowrap">'+cd.rn+' rn · '+Q(cd.adr)+'</span></div>';}).join("");
+       var dADR=x.adr-ecoADR;
+       var best=x.segs.slice().sort(function(a,b){return b.adr-a.adr;})[0];
+       var big=x.segs[0];
+       var dep=Math.round(big.pct);
+       return '<div style="border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff;margin-bottom:16px">'+
+         '<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid var(--line)">'+
+         '<b style="font-family:Oswald;font-size:18px;letter-spacing:.02em">'+hn+'</b>'+
+         '<span style="font-size:12px;color:var(--txt-soft)">'+x.total+' noches · ADR <b style="color:var(--ink)">'+Q(x.adr)+'</b> '+
+         '<span class="'+(dADR>=0?'pos':'neg')+'">('+(dADR>=0?'+':'')+Q(dADR)+' vs ecosistema)</span> · ingreso '+Q(x.ing)+'</span></div>'+
+         '<div style="display:grid;grid-template-columns:minmax(240px,1fr) minmax(300px,1.6fr);gap:18px;align-items:start">'+
+         '<div><div class="stack-lab" style="margin-bottom:8px">Reparto por canal</div><div class="hbars">'+bars+'</div>'+
+         '<div class="stack" style="height:18px;margin-top:12px">'+
+           ["Directos","OTAs","Corporativo","Agencias"].map(function(c){var cd=x.canales[c];
+             return cd?'<i style="width:'+cd.pct+'%;background:'+CC[c]+'"></i>':'';}).join("")+'</div>'+
+         '<div class="flag" style="margin-top:12px;font-size:11.5px">Su segmento más grande es <b>'+big.name+'</b> ('+dep+'% de las noches). '+
+         'El que mejor paga es <b>'+best.name+'</b> a '+Q(best.adr)+'.</div></div>'+
+         '<div><div class="stack-lab" style="margin-bottom:8px">Todos sus segmentos</div>'+
+         '<table style="font-size:12px"><thead><tr><th class="l">Segmento / canal</th><th>Noches</th><th>%</th><th>ADR</th><th>Ingreso</th></tr></thead>'+
+         '<tbody>'+body+'<tr class="eco"><td class="l">Total '+hn+'</td><td>'+x.total+'</td><td>100%</td><td>'+Q(x.adr)+'</td><td>'+Q(x.ing)+'</td></tr></tbody></table></div>'+
+         '</div></div>';}).join("");
+     return '<div class="card"><h3>★ Mix de canales por hotel</h3>'+
+       '<p class="chart-cap">Cada hotel vende distinto. Aquí se ve quién depende de OTAs, quién trae más directo (sin comisión) y quién tiene músculo corporativo.</p>'+
+       '<table><thead><tr><th class="l">Hotel</th><th>Noches</th><th>ADR</th><th>Directos</th><th>OTAs</th><th>Agencias</th><th>Corp.</th><th style="width:150px">Mix</th></tr></thead><tbody>'+trs+'</tbody></table>'+
+       '<div class="stack-legend" style="margin-top:8px"><span><i style="background:#3f8e62"></i>Directos</span><span><i style="background:#3f8e93"></i>OTAs</span><span><i style="background:#8e6bb0"></i>Corporativo</span><span><i style="background:#c89b4c"></i>Agencias</span></div>'+
+       '<div class="insight" style="margin-top:14px"><b>Lo que salta a la vista:</b> '+d.mixNote+'</div></div>'+
+       '<div style="margin-top:18px">'+cards+'</div>';
+   })()+
+   '<div class="card"><h3>ADR por canal · ecosistema</h3><p class="chart-cap">Tarifa promedio que deja cada canal (sin Petén Express).</p><div class="hbars">'+adrbars+'</div></div>'+
+   '<div class="card"><h3>Volumen vs. valor</h3><p class="chart-cap">El mismo canal pesa distinto según se mire por noches vendidas o por ingreso generado.</p>'+
+   '<div class="stack-wrap"><div class="stack-lab">Reparto de noches-habitación</div><div class="stack">'+s1+'</div></div>'+
+   '<div class="stack-wrap"><div class="stack-lab">Reparto de ingreso</div><div class="stack">'+s2+'</div></div>'+
+   '<div class="stack-legend"><span><i style="background:#3f8e62"></i>Directos</span><span><i style="background:#3f8e93"></i>OTAs</span><span><i style="background:#8e6bb0"></i>Corporativo</span><span><i style="background:#c89b4c"></i>Agencias</span></div>'+
+   '<div class="insight"><b>La palanca del ecosistema:</b> OTAs domina el volumen pero cobra comisión; Directos deja más por noche y no paga intermediación. Empujar <b>reserva directa</b> (con la web del Punto 8 ya midiendo tráfico) sube margen sin vender un cuarto más.</div></div></section>';
+}
+
+/* ---------- PUNTO 2 · BOLETOS ---------- */
+function pbol(){var d=D.pbol;
+  var margin=Math.round(d.comNeta/d.vendido*1000)/10;
+  var pcredito=d.credito+d.contado>0?Math.round(d.credito/(d.credito+d.contado)*100):0;
+  var hayAjuste=d.comNetaRep&&d.comNetaRep!==d.comNeta;
+  return '<section class="block" id="pbol"><div class="sec-head"><span class="sec-num">2</span><h2>Agencia de Viajes · Boletos</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">La venta de boletos de avión que intermedia la agencia. <b>Vendido</b> es lo que pagan los clientes (crédito + contado); de ahí se descuenta el costo del boleto y el IVA, y lo que queda es la <b>comisión</b> del grupo.</p>'+
+   (d.stale?'<div class="flag" style="margin-bottom:14px;border-left-color:var(--danger)">⏳ <b>Pendiente de actualizar.</b> Los datos de esta sección siguen siendo de la ventana '+(d.staleWin||d.win)+'; los nuevos llegan en la próxima entrega.</div>':'')+
+   '<div class="kpis">'+
+   '<div class="kpi"><div class="n">'+Q(d.vendido)+'</div><div class="lab">Vendido a clientes</div><div class="delta flat">'+d.boletos+' boletos · ticket prom. '+Q(d.ticket)+'</div></div>'+
+   (d.costoTotal?'<div class="kpi"><div class="n">'+Q(d.costoTotal)+'</div><div class="lab">Costo boletos + IVA</div><div class="delta flat">lo que se paga a la aerolínea</div></div>':'<div class="kpi"><div class="n">'+d.boletos+'</div><div class="lab">Operaciones</div><div class="delta flat">ticket prom. '+Q(d.ticket)+'</div></div>')+
+   '<div class="kpi"><div class="n">'+Q(d.comNeta)+'</div><div class="lab">Comisión neta (ganancia)</div><div class="delta '+(hayAjuste?'flat':'up')+'">margen '+margin+'% sobre lo vendido</div></div>'+
+   '<div class="kpi"><div class="n">'+pcredito+'<small>%</small></div><div class="lab">Vendido a crédito</div><div class="delta flat">'+(100-pcredito)+'% de contado</div></div></div>'+
+   '<div class="card"><h3>Anatomía de la venta</h3>'+
+   '<div class="hbars">'+
+   '<div class="hbar-row"><span class="hlab">Vendido</span><div class="hbar-track"><div class="hbar-fill hi" style="width:100%">'+Q(d.vendido)+'</div></div></div>'+
+   (d.costoTotal?'<div class="hbar-row"><span class="hlab">Costo + IVA</span><div class="hbar-track"><div class="hbar-fill lo" style="width:'+Math.round(d.costoTotal/d.vendido*100)+'%">'+Q(d.costoTotal)+'</div></div></div>':'')+
+   '<div class="hbar-row"><span class="hlab">Comisión neta</span><div class="hbar-track"><div class="hbar-fill tealf" style="width:'+Math.max(4,Math.round(d.comNeta/d.vendido*100))+'%">'+Q(d.comNeta)+'</div></div></div></div>'+
+   '<div class="insight"><b>Lectura:</b> por la agencia pasaron <b>'+Q(d.vendido)+'</b> en boletos ('+d.boletos+' emisiones, ticket promedio '+Q(d.ticket)+'). '+
+   'Al grupo le quedan <b>'+Q(d.comNeta)+' de comisión neta</b> — un margen de '+margin+'% sobre lo vendido. '+
+   'Es un rubro de <b>alta rotación y bajo riesgo</b>: no hay inventario, solo intermediación.</div>'+
+   (hayAjuste?'<div class="flag">⚠ <b>Dato ajustado.</b> El reporte de la agencia arroja '+Q(d.comNetaRep)+' de comisión neta, más que el costo de los boletos, lo cual no es posible. La causa es el boleto <b>00K1PJ ('+Q(d.anomalia)+' al contado) que viene con costo e IVA en cero</b>, así que el sistema lo cuenta entero como ganancia. Aquí se reporta la comisión <b>sin esa fila: '+Q(d.comNeta)+'</b>. Conviene revisar esa venta en el origen.</div>':'')+
+   '<div class="flag">'+d.note+'</div></div></section>';
+}
+
+
+/* ---------- PUNTO 3 · OCUPACIÓN ---------- */
+function p2(){var d=D.p2;
+  var rows=d.hotels.map(function(h){
+    var falta=h.faltan>0?'<span class="neg">faltan '+h.faltan+'</span>':'<span class="pos">✓ +'+Math.abs(h.faltan)+'</span>';
+    return '<tr><td class="l">'+h.h+'</td><td>'+h.meta+'</td><td>'+h.otb+'</td><td>'+falta+'</td><td><span class="pill '+cmpPill(h.cmp)+'">'+h.pctMeta+'%</span></td><td>'+h.occ+'%</td><td>'+(h.adr==null?'<span style="color:var(--txt-soft)">s/d</span>':Q(h.adr))+'</td><td>'+(h.revpar==null?'<span style="color:var(--txt-soft)">s/d</span>':Q(h.revpar))+'</td></tr>';
+  }).join("");
+  var metabars=d.hotels.map(function(h){var cls=h.cmp==="g"?"hi":h.cmp==="r"?"lo":"";var w=Math.min(115,h.pctMeta)/1.15;
+    return '<div class="hbar-row"><span class="hlab">'+h.h+'</span><div class="hbar-track"><div class="meta-line" style="left:'+(100/1.15)+'%"></div><div class="hbar-fill '+cls+'" style="width:'+w+'%">'+h.pctMeta+'%</div></div></div>';}).join("");
+  var feeSorted=d.hotels.slice().filter(function(h){return h.sf>0;}).sort(function(a,b){return b.sf-a.sf;});
+  var fees=feeSorted.map(function(h){return '<div class="f">'+h.h+'<b>'+Q(h.sf,2)+'</b></div>';}).join("")+'<div class="f big">Total acumulado a la fecha<b>'+Q(d.sfTotal,2)+'</b></div>';
+  var maxsf=feeSorted.length?feeSorted[0].sf:1;
+  var feebars=feeSorted.map(function(h){var w=Math.max(4,h.sf/maxsf*100);
+    return '<div class="hbar-row"><span class="hlab">'+h.h+'</span><div class="hbar-track"><div class="hbar-fill" style="width:'+w+'%">'+Q(h.sf)+'</div></div></div>';}).join("");
+  var topFee=feeSorted[0], topPct=Math.round(topFee.sf/d.sfTotal*100);
+  var fut=d.forecast.map(function(f){var cls=f.k==="peak"?"peak":f.k==="valley"?"valley":"";
+    return '<div class="fut-col"><div class="fut-bar '+cls+'" style="height:'+Math.max(6,f.pct*1.15)+'%"><span class="v">'+f.pct+'%</span></div><span class="fut-lab">'+f.m+'</span></div>';}).join("");
+  var peak=d.forecast.filter(function(f){return f.k==="peak";})[0], valley=d.forecast.filter(function(f){return f.k==="valley";})[0];
+  var best=d.hotels[0], worst=d.hotels[d.hotels.length-1];
+  var cumplidos=d.hotels.filter(function(h){return h.faltan<=0;}).length;
+  return '<section class="block" id="p2"><div class="sec-head"><span class="sec-num">3</span><h2>Ocupación vs. meta mensual y Destination Fee</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Habitaciones en firme contra la <b>meta mensual de cada hotel</b> (meta diaria × 30 días de septiembre). La pregunta clave: <b>¿cuántas habitaciones faltan para la meta del mes?</b> Más ocupación real, ADR, RevPAR y el Destination Fee acumulado.</p>'+
+   '<div class="card"><h3>Meta mensual de habitaciones · septiembre 2026</h3><table><thead><tr><th class="l">Hotel</th><th>Meta mes</th><th>En firme</th><th>Faltan</th><th>% Meta</th><th>Ocup. real</th><th>ADR</th><th>RevPAR</th></tr></thead><tbody>'+rows+
+   '<tr class="eco"><td class="l">Ecosistema</td><td>'+d.metaRN.toLocaleString("es-GT")+'</td><td>'+d.otbRN.toLocaleString("es-GT")+'</td><td>'+(d.faltanRN>0?'<span class="neg">faltan '+d.faltanRN+'</span>':'<span class="pos">✓ +'+Math.abs(d.faltanRN)+'</span>')+'</td><td><span class="pill '+(d.pctMeta>=100?'g':'a')+'">'+d.pctMeta+'%</span></td><td>'+d.occEco+'%</td><td>'+Q(d.adrEco)+'</td><td>—</td></tr></tbody></table>'+
+   '<div class="insight"><b>Lectura:</b> al '+D.meta.corteLabel+', el ecosistema va con <b>'+d.otbRN.toLocaleString("es-GT")+' habitaciones</b> (incl. CPL) de una meta de '+d.metaRN.toLocaleString("es-GT")+' — <b>'+d.pctMeta+'%</b> de cumplimiento mensual. <b>'+best.h+'</b> es el ganador del mes ('+best.pctMeta+'%'+(best.faltan<=0?', superó la meta':'')+') y <b>'+worst.h+'</b> el más rezagado ('+worst.pctMeta+'%). '+(cumplidos>0?cumplidos+' hotel(es) cerraron sobre su meta mensual.':'Ningún hotel ha llegado aún a su meta mensual.')+' Ocupación real sobre inventario: <b>'+d.occEco+'%</b>. Arrancó el mes en '+d.evol.ecoPct[0]+'% de la meta — la curva completa está en el resumen.</div>'+
+   '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:12px">% de meta mensual por hotel · la línea marca el 100%</div><div class="hbars">'+metabars+'</div></div></div>'+
+   proyCard()+alertCard()+
+   '<div class="card"><h3>Destination Fee → presupuesto de agenda cultural</h3><div class="feebox">'+fees+'</div>'+
+   '<div style="margin-top:16px"><div class="stack-lab" style="margin-bottom:12px">Aporte de cada hotel a la bolsa (a la fecha)</div><div class="hbars">'+feebars+'</div></div>'+
+   '<div class="insight"><b>Lectura:</b> la bolsa va en <b>'+Q(d.sfTotal,2)+'</b> al corte '+D.meta.corteLabel+'. <b>'+topFee.h+'</b> aporta el grueso ('+Q(topFee.sf,2)+', '+topPct+'%). Casazul aporta mínimo y <b>Petén Express</b> no reporta Destination Fee — coherente con su modelo de hostal.</div>'+
+   '<div class="flag">Es lo acumulado al corte; bolsa disponible para financiar la agenda cultural — conviene seguirla semana a semana.</div></div>'+
+   '<div class="card" id="futuro"><h3>★ Ocupación futura · Oct 2026 – Mar 2027 (reservas en libros)</h3>'+
+   '<p style="font-size:13.5px;color:var(--txt-soft);margin:0 0 16px">Ritmo de reserva ya confirmado (OTB) del ecosistema, octubre 2026 a marzo 2027 (los 7 hoteles, ponderado por inventario). No es pronóstico: son las noches ya vendidas hoy contra el inventario disponible.</p>'+
+   '<div class="fut-chart">'+fut+'</div>'+
+   '<div style="margin-top:22px;overflow-x:auto"><div class="stack-lab" style="margin-bottom:10px">Ocupación futura por hotel · Oct 2026 – Mar 2027 · reservas en libros</div><table class="heat"><thead><tr><th class="l">Hotel</th><th>Oct</th><th>Nov ⭐</th><th>Dic</th><th>Ene 27</th><th>Feb 27</th><th>Mar 27</th></tr></thead><tbody id="heatBody"></tbody></table></div>'+
+   '<div class="insight"><b>Lectura:</b> el pulso ya en libros marca un <b>pico en '+(peak?peak.m:'—')+' ('+(peak?peak.pct:0)+'%)</b> y un <b>valle en '+(valley?valley.m:'—')+' ('+(valley?valley.pct:0)+'%)</b>. Ese valle es la ventana más clara para meter grupos, promos y eventos con anticipación.</div>'+
+   '<div class="flag">Los meses cercanos seguirán subiendo con reservas de último momento, así que el % de cierre será mayor. El valor está en ver <b>dónde está el hueco con tiempo</b> para llenarlo.</div></div>'+
+   pickupCard()+
+   
+'</section>';
+}
+
+/* ---------- PUNTO 4 · VERDURAS ---------- */
+function pverd(){var d=D.pverd;
+  var maxg=Math.max.apply(null,d.byhotel.map(function(x){return x.gasto;}));
+  var hbars=d.byhotel.map(function(x){
+    var pct=Math.round(x.gasto/d.total*100);
+    return '<div class="hbar-row"><span class="hlab">'+x.h+'</span><div class="hbar-track"><div class="hbar-fill" style="width:'+Math.max(6,x.gasto/maxg*100)+'%">'+Q(x.gasto)+' · '+pct+'%</div></div></div>';}).join("");
+  var tipobars=d.tipo.map(function(t){return '<div class="hbar-row"><span class="hlab">'+t.t+'</span><div class="hbar-track"><div class="hbar-fill tealf" style="width:'+Math.max(6,t.v/d.total*100)+'%">'+Q(t.v)+'</div></div></div>';}).join("");
+  var hasFC=d.foodcost&&d.foodcost.length>0;
+  var fcrows=hasFC?d.foodcost.map(function(f){
+    var cl=f.pct>=7?'r':f.pct<=5?'g':'a';
+    return '<tr><td class="l">'+f.hotel+'</td><td>'+f.rest+'</td><td>'+Q(f.verd)+'</td><td>'+Q(f.venta)+'</td><td><span class="pill '+cl+'">'+f.pct+'%</span></td></tr>';}).join(""):"";
+  var fcbars=hasFC?d.foodcost.map(function(f){var cl=f.pct>=7?'lo':f.pct<=5?'hi':'';
+    return '<div class="hbar-row"><span class="hlab">'+f.rest+'</span><div class="hbar-track"><div class="hbar-fill '+cl+'" style="width:'+Math.max(8,f.pct/10*100)+'%">'+f.pct+'%</div></div></div>';}).join(""):"";
+  var hi=hasFC?d.foodcost.slice().sort(function(a,b){return b.pct-a.pct;})[0]:null;
+  var lo=hasFC?d.foodcost.slice().sort(function(a,b){return a.pct-b.pct;})[0]:null;
+  return '<section class="block" id="pverd"><div class="sec-head"><span class="sec-num">4</span><h2>Compra de verduras · Food cost</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Gasto en verdura, fruta e insumos frescos. El food cost cruza la compra de cada hotel contra la venta de <b>su restaurante en la misma ventana</b> — cuando ambas fuentes tengan el mismo corte.</p>'+
+   '<div class="kpis">'+
+   '<div class="kpi"><div class="n">'+Q(d.total)+'</div><div class="lab">Gasto en insumos</div><div class="delta flat">'+d.docs+' documentos · todos los hoteles</div></div>'+
+   (hasFC?'<div class="kpi"><div class="n">'+d.ratioEco+'<small>%</small></div><div class="lab">Food cost ecosistema</div><div class="delta flat">agosto cerró en '+d.ago.ratio+'%</div></div>':'<div class="kpi"><div class="n" style="font-size:22px;color:var(--txt-soft)">Pendiente</div><div class="lab">Food cost ecosistema</div><div class="delta flat">faltan ventas de restaurantes</div></div>')+
+   '<div class="kpi"><div class="n">'+Q(d.porDia)+'</div><div class="lab">Promedio diario compras</div><div class="delta flat">última compra: '+d.lastday+' sep · agosto '+Q(d.ago.porDia)+'/día</div></div></div>'+
+   '<div class="card"><h3>Gasto por hotel · septiembre</h3><div class="hbars">'+hbars+'</div>'+
+   '<div class="insight"><b>Lectura:</b> '+d.hotNote+'</div></div>'+
+   (hasFC?('<div class="card" style="border-left:4px solid var(--gold)"><h3>★ Food cost · verdura vs. venta</h3>'+
+   '<p class="chart-cap">Compras 1–'+d.lastday+' sep contra la venta real del mismo tramo, día por día. El Mesón se reporta aparte (métr. en pax).</p>'+
+   '<table><thead><tr><th class="l">Hotel</th><th>Restaurante</th><th>Verdura</th><th>Venta rest. 1–'+d.lastday+'</th><th>Food %</th></tr></thead><tbody>'+fcrows+'</tbody></table>'+
+   '<div class="stack-lab" style="margin:14px 0 8px">Food cost por restaurante</div><div class="hbars">'+fcbars+'</div>'+
+   '<div class="insight"><b>Lectura:</b> ecosistema en <b>'+d.ratioEco+'%</b>. <b>'+hi.rest+'</b> es el más alto ('+hi.pct+'%) y <b>'+lo.rest+'</b> el más bajo ('+lo.pct+'%).</div>'+
+   '<div class="flag">'+d.note+' El Mesón: Q'+d.mesonVerd.toLocaleString("es-GT")+' en verdura = '+D.p3.mesonFC+'% de su venta 1–'+d.lastday+' (va aparte porque su meta es en pax).</div></div>')
+   :('<div class="card" style="border-left:4px solid var(--gold)"><h3>★ Food cost · pendiente de cruce</h3>'+
+   '<div class="flag">'+d.note+' El Mesón compró Q'+d.mesonVerd.toLocaleString("es-GT")+' en verdura.</div></div>'))+
+   '<div class="card"><h3>Por tipo de compra</h3><div class="hbars">'+tipobars+'</div></div></section>';
+}
+
+/* ---------- PUNTO 5 · RESTAURANTES ---------- */
+function p3(){var d=D.p3;
+  var rows=d.rest.map(function(r){
+    if(r.pend) return '<tr><td class="l">'+r.name+' <span style="color:var(--txt-soft);font-size:12px">('+r.hotel+')</span></td><td>'+Q(r.metaDay)+'</td><td colspan="3" style="text-align:center;color:var(--txt-soft)">pendiente de datos</td><td><span class="pill a">—</span></td></tr>';
+    return '<tr><td class="l">'+r.name+' <span style="color:var(--txt-soft);font-size:12px">('+r.hotel+')</span></td><td>'+Q(r.metaDay)+'</td><td>'+Q(r.mtd)+'</td><td>'+Q(r.prom)+'</td><td class="'+(r.gap>=0?'pos':'neg')+'">'+(r.gap>=0?'+':'')+Q(r.gap)+'</td><td><span class="pill '+cmpPill(r.cmp)+'">'+r.pace+'%</span></td><td class="'+(r.semPace>=r.pace?'pos':'neg')+'">'+(r.semPace!=null?r.semPace+'%':'—')+'</td><td style="color:var(--txt-soft)">'+(r.prevPace!=null?r.prevPace+'%':'—')+'</td></tr>';
+  }).join("");
+  var vis=d.rest.filter(function(r){return !r.pend;});
+  var metabars=vis.map(function(r){var cls=r.cmp==="g"?"hi":r.cmp==="r"?"lo":"";var w=Math.min(100,r.pace/1.2);
+    return '<div class="hbar-row"><span class="hlab">'+r.name+'</span><div class="hbar-track"><div class="meta-line" style="left:83.3%"></div><div class="hbar-fill '+cls+'" style="width:'+w+'%">'+r.pace+'%</div></div></div>';}).join("");
+  var col=["#15324f","#6b7f99","#c89b4c","#3f8e93"];var byShare=vis.slice().sort(function(a,b){return b.share-a.share;});
+  var C=2*Math.PI*52;var off=0;var segs="";var leg="";
+  byShare.forEach(function(r,i){var len=r.share/100*C;segs+='<circle cx="64" cy="64" r="52" stroke="'+col[i%4]+'" stroke-dasharray="'+len.toFixed(1)+' '+(C-len).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'"/>';off+=len;
+    leg+='<div class="dl"><i style="background:'+col[i%4]+'"></i>'+r.name+' <b>'+r.share+'%</b> · '+Q(r.mtd)+'</div>';});
+  var top=byShare[0];
+  var dd=(d.rest[0]&&d.rest[0].dias)||31; var ecoProm=Math.round(d.totalMTD/dd);
+  return '<section class="block" id="p3"><div class="sec-head"><span class="sec-num">5</span><h2>Restaurantes</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Venta (sin propina) contra meta diaria, por establecimiento y como ecosistema. Más <b>El Mesón</b>, que se mide en <b>pax contra una meta de '+d.meson.metaPax+'/día</b> y por eso lleva su propio tablero.</p>'+
+   (d.stale?'<div class="flag" style="margin-bottom:14px;border-left-color:var(--danger)">⏳ <b>Pendiente de actualizar.</b> Los datos de esta sección siguen siendo de la ventana '+(d.staleWin||d.win)+'; los nuevos llegan en la próxima entrega.</div>':'')+
+   '<div class="card"><h3>Cumplimiento de meta diaria · septiembre 2026 (días reales por restaurante)</h3><table><thead><tr><th class="l">Restaurante</th><th>Meta/día</th><th>Venta período</th><th>Prom./día</th><th>Brecha/día</th><th>Cumpl.</th><th>Sem. 21–27</th><th>Al 20 sep</th></tr></thead><tbody>'+rows+
+   '<tr class="eco"><td class="l">Ecosistema (4 rest.)</td><td>'+Q(d.metaMTD/dd)+'</td><td>'+Q(d.totalMTD)+'</td><td>'+Q(ecoProm)+'</td><td class="'+((ecoProm-d.metaMTD/dd)>=0?'pos':'neg')+'">'+((ecoProm-d.metaMTD/dd)>=0?'+':'')+Q(Math.round(ecoProm-d.metaMTD/dd))+'</td><td><span class="pill '+(d.pace>=95?'g':'a')+'">'+d.pace+'%</span></td><td class="pos">'+d.semEco+'%</td><td style="color:var(--txt-soft)">74.3%</td></tr></tbody></table>'+
+   '<div class="insight"><b>Lectura:</b> el bloque va en <b>'+d.pace+'%</b> de ritmo con los 4 restaurantes ya reportando. <b>'+top.name+'</b> carga el '+top.share+'% de toda la venta del bloque. La dependencia de un solo restaurante es alta: si '+top.name+' tropieza un mes, el bloque entero lo siente.</div>'+
+   '<div class="flag">Cifras de venta <b>sin propina</b>. '+d.note+' Fechas corregidas por posición: en Isla Bonita del 8 en adelante venían como julio, y en La Chaya hay fechas mal escritas (06/08, 14/09/25026, 18//09/2026); la venta del 1 al 20 cuadra al centavo con el corte anterior.</div></div>'+
+   '<div class="card"><h3>Cumplimiento de meta diaria</h3><p class="chart-cap">La línea marca el 100%.</p><div class="hbars">'+metabars+'</div></div>'+
+   '<div class="card"><h3>Concentración de la venta</h3><p class="chart-cap">La mayor parte de la venta de restaurante pasa por un solo lugar.</p><div class="donut-wrap">'+
+   '<svg width="150" height="150" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="#efe9db" stroke-width="20"/><g transform="rotate(-90 64 64)" fill="none" stroke-width="20">'+segs+'</g>'+
+   '<text x="64" y="60" text-anchor="middle" font-family="Oswald" font-size="22" font-weight="600" fill="#15324f">'+top.share+'%</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="9" fill="#5b6b7a">'+top.name+'</text></svg>'+
+   '<div class="donut-legend">'+leg+'</div></div></div>'+
+   (function(){var cb=d.combos; if(!cb) return '';
+     var rows=cb.rest.map(function(r){var it=r.items.map(function(i){return '<tr><td class="l" style="padding-left:18px;color:var(--txt-soft)">'+i.name.replace(/^Combo /,'')+'</td><td>'+i.cant+'</td><td>'+Q(i.bruta)+'</td><td>'+Q(i.costo)+'</td><td class="'+(i.fc<=25?'pos':'neg')+'">'+i.fc+'%</td><td></td></tr>';}).join("");
+       return '<tr class="grp"><td class="l"><b>'+r.rest+'</b></td><td><b>'+r.cant+'</b></td><td><b>'+Q(r.bruta)+'</b></td><td><b>'+Q(r.costo)+'</b></td><td><b>'+r.fc+'%</b></td><td>'+r.share+'%</td></tr>'+it;}).join("");
+     var mx=cb.top[0].cant;
+     var bars=cb.top.map(function(t){return '<div class="hbar-row"><span class="hlab" style="width:240px;font-size:11.5px">'+t.name+'</span><div class="hbar-track"><div class="hbar-fill hi" style="width:'+Math.max(10,t.cant/mx*100)+'%">'+t.cant+' u · '+Q(t.bruta)+'</div></div></div>';}).join("");
+     var lider=cb.rest.slice().sort(function(a,b){return b.bruta-a.bruta;})[0];
+     return '<div class="card" style="border-left:4px solid var(--teal)"><h3>🆕 Combos <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">'+cb.win+'</span></h3>'+
+      '<p class="chart-cap">Es la única línea con <b>costo por artículo</b>, así que aquí el food cost es el real de cada plato.</p>'+
+      '<div class="kpis" style="margin-bottom:14px"><div class="kpi"><div class="n">'+cb.cant+'</div><div class="lab">Combos vendidos</div><div class="delta up">+'+(cb.cant-cb.prev.cant)+' desde el corte al 20</div></div>'+
+      '<div class="kpi"><div class="n">'+Q(cb.bruta)+'</div><div class="lab">Venta bruta</div><div class="delta flat">ticket prom. '+Q(Math.round(cb.bruta/cb.cant))+'</div></div>'+
+      '<div class="kpi"><div class="n">'+cb.fc+'<small>%</small></div><div class="lab">Food cost real</div><div class="delta up">costo / venta neta</div></div></div>'+
+      '<table><thead><tr><th class="l">Restaurante / combo</th><th>Unid.</th><th>Venta bruta</th><th>Costo</th><th>Food cost</th><th>% de su venta</th></tr></thead><tbody>'+rows+'</tbody></table>'+
+      '<div class="stack-lab" style="margin:14px 0 8px">Los más pedidos (los 3 restaurantes)</div><div class="hbars">'+bars+'</div>'+
+      '<div class="insight" style="margin-top:12px"><b>Lectura:</b> <b>'+lider.rest+'</b> es donde más se mueven ('+lider.cant+' de '+cb.cant+'). La hamburguesa + gaseosa es el favorito ('+cb.top[0].cant+' unidades). El food cost ('+cb.fc+'%) es sano, pero los combos siguen pesando poco en la venta (máx. '+lider.share+'% en '+lider.rest+'): el potencial está en empujarlos en carta y en sala.</div></div>';
+   })()+
+   '<div class="card" style="border-left:4px solid var(--gold)"><h3>🆕 El Mesón · se mide por PAX <span style="float:right;font-family:Inter;text-transform:none;color:var(--txt-soft);font-size:12px">meta '+d.meson.metaPax+' pax/día</span></h3>'+
+   (function(){var mz=d.meson;var wk=[{l:"Sem 1 · 1–7 sep",pax:mz.w1,d:7,pace:mz.w1pace},{l:"Sem 2 · 8–14 sep",pax:mz.w2,d:7,pace:mz.w2pace},{l:"Sem 3 · 15–21 sep",pax:mz.w3,d:7,pace:mz.w3pace},{l:"Sem 4 · 22–27 sep",pax:mz.w4,d:mz.w4d||7,pace:mz.w4pace}];
+     var mxw=Math.max(mz.w1,mz.w2,mz.w3,mz.w4);
+     var bars=wk.map(function(x){var avg=Math.round(x.pax/x.d*10)/10;
+       return '<div class="fut-col"><div class="fut-bar'+(x.pax===mxw?' peak':'')+'" style="height:'+Math.max(14,x.pax/mxw*100)+'%"><span class="v">'+x.pax+'</span></div><span class="fut-lab">'+x.l+'<br><b>'+avg+'/día</b> · '+x.pace+'%</span></div>';}).join("");
+     var pacebars=wk.map(function(x){var w=Math.min(100,x.pace/1.2);
+       return '<div class="hbar-row"><span class="hlab">'+x.l.split(" · ")[0]+'</span><div class="hbar-track"><div class="meta-line" style="left:83.3%"></div><div class="hbar-fill '+(x.pace>=95?'hi':x.pace>=80?'':'lo')+'" style="width:'+w+'%">'+x.pace+'%</div></div></div>';}).join("")+
+       '<div class="hbar-row"><span class="hlab"><b>Acumulado</b></span><div class="hbar-track"><div class="meta-line" style="left:83.3%"></div><div class="hbar-fill '+(mz.pace>=95?'hi':mz.pace>=80?'':'lo')+'" style="width:'+Math.min(100,mz.pace/1.2)+'%">'+mz.pace+'%</div></div></div>';
+     return '<div class="kpis" style="margin:0 0 16px">'+
+       '<div class="kpi"><div class="n">'+mz.pace+'<small>%</small></div><div class="lab">Cumplimiento de meta acumulado</div><div class="delta '+(mz.pace>=95?'up':'down')+'">mejor semana: sem 3 al '+mz.w3pace+'%</div></div>'+
+       '<div class="kpi"><div class="n">'+mz.totalPax+'</div><div class="lab">Pax reales 1–'+mz.metaDays+' sep · meta '+mz.metaTotal+'</div><div class="delta '+(mz.totalPax>=mz.metaTotal?'up':'down')+'">'+(mz.totalPax>=mz.metaTotal?'+':'▼ ')+Math.abs(mz.metaTotal-mz.totalPax)+' pax</div></div>'+
+       '<div class="kpi"><div class="n">'+mz.avgPax+'</div><div class="lab">Prom./día · meta '+mz.metaPax+'</div><div class="delta '+(mz.gap>=0?'up':'down')+'">'+(mz.gap>=0?'+':'▼ ')+Math.abs(mz.gap)+' pax/día</div></div>'+
+       '<div class="kpi"><div class="n">'+Q(mz.ventas)+'</div><div class="lab">Venta 1–'+mz.metaDays+' sep</div><div class="delta flat">ticket '+Q(mz.ticket)+' por pax</div></div></div>'+
+       '<div class="stack-lab" style="margin-bottom:4px">Pax por semana</div><div class="fut-chart" style="height:170px">'+bars+'</div>'+
+       '<div style="margin-top:18px"><div class="stack-lab" style="margin-bottom:12px">Cumplimiento vs meta de '+mz.metaPax+' pax/día · la línea marca el 100%</div><div class="hbars">'+pacebars+'</div></div>'+
+       '<div class="insight" style="margin-top:16px"><b>Lectura:</b> con la meta en <b>'+mz.metaPax+' pax/día</b>, El Mesón va en <b>'+mz.pace+'%</b>'+(mz.w2>0?' por semana: '+mz.w1pace+'% → '+mz.w2pace+'% → '+mz.w3pace+'% → <b>'+mz.w4pace+'%</b>.':' con solo la primera semana reportada; las semanas 2 a 4 salen en cero porque aún no llega el archivo, no porque no haya vendido.')+'</div>'+
+       '<div class="flag" style="margin-top:12px">'+mz.note+'</div>';})()+
+   '</div></section>';
+}
+
+/* ---------- PUNTO 6 · TOURS ---------- */
+function p4(){var d=D.p4;
+  var jc=d.julio_comp;
+  var maxbAgo=(d.byHotel&&d.byHotel.length)?d.byHotel[0].bruto:0;
+  var maxbJul=(jc&&jc.byHotel&&jc.byHotel.length)?jc.byHotel[0].bruto:0;
+  var maxBoth=Math.max(maxbAgo,maxbJul);
+  // Comparative bars: ago vs jul side by side by hotel
+  var hotelOrder=d.byHotel.map(function(h){return h.h;});
+  var hasComp=jc&&jc.byHotel&&jc.byHotel.length>0;
+  var julMap={}; if(hasComp) jc.byHotel.forEach(function(h){julMap[h.h]=h;});
+  var compRows=d.byHotel.map(function(h){
+    if(!hasComp) return '<tr><td class="l">'+h.h.replace(/^Hotel (?!Petén)/,'')+'</td><td>'+h.tours+(h.prevTours!=null?' <span class="pos" style="font-size:11px">(+'+(h.tours-h.prevTours)+')</span>':'')+'</td><td>'+h.pax+'</td><td>'+Q(h.bruto)+'</td><td>'+h.part+'%</td></tr>';
+    var jh=julMap[h.h]||{tours:0,pax:0,bruto:0};
+    var diffBruto=h.bruto-jh.bruto; var diffPct=jh.bruto?Math.round(diffBruto/jh.bruto*100):100;
+    var sign=diffBruto>=0?'+':''; var cls=diffBruto>=0?'pos':'neg';
+    return '<tr><td class="l">'+h.h.replace(/^Hotel (?!Petén)/,'')+'</td>'+
+      '<td>'+h.tours+' / '+Q(h.bruto)+'</td>'+
+      '<td>'+(jh.tours||0)+' / '+Q(jh.bruto)+'</td>'+
+      '<td class="'+cls+'">'+sign+Q(diffBruto)+'</td>'+
+      '<td class="'+cls+'">'+sign+diffPct+'%</td></tr>';
+  }).join("");
+  // KPIs comparativo
+  var diffBruto=hasComp?d.bruto-jc.bruto:0, diffPax=hasComp?d.pax-jc.pax:0, diffTours=hasComp?d.tours-jc.tours:0;
+  var diffPctBruto=hasComp?Math.round(diffBruto/jc.bruto*100):0;
+  // Top tours del mes
+  var topAgo=(!d.topToursAgo||!d.topToursAgo.length)?'':d.topToursAgo.map(function(t,i){
+    var w=Math.max(8,t.bruto/d.topToursAgo[0].bruto*100);
+    var lbl=Q(t.bruto)+' · '+t.ventas+'v · '+t.pax+'p';
+    var inside=w>=38;
+    return '<div class="hbar-row"><span class="hlab" style="width:260px;font-size:11.5px">'+t.tour+'</span>'+
+      '<div class="hbar-track"><div class="hbar-fill hi" style="width:'+w+'%">'+(inside?lbl:'')+'</div>'+
+      (inside?'':'<span style="position:absolute;left:calc('+w+'% + 8px);top:50%;transform:translateY(-50%);font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap">'+lbl+'</span>')+'</div>'+
+      '<span style="font-size:11px;color:var(--txt-soft);margin-left:6px;white-space:nowrap">Q'+t.ticket+'/pax</span></div>';
+  }).join("");
+  // Top tours julio
+  var hasJul=d.topToursJul&&d.topToursJul.length>0;
+  var topJul=!hasJul?'':d.topToursJul.map(function(t){
+    var w=Math.max(8,t.bruto/d.topToursJul[0].bruto*100);
+    var lbl=Q(t.bruto)+' · '+t.ventas+'v · '+t.pax+'p';
+    var inside=w>=38;
+    return '<div class="hbar-row"><span class="hlab" style="width:260px;font-size:11.5px">'+t.tour+'</span>'+
+      '<div class="hbar-track"><div class="hbar-fill tealf" style="width:'+w+'%">'+(inside?lbl:'')+'</div>'+
+      (inside?'':'<span style="position:absolute;left:calc('+w+'% + 8px);top:50%;transform:translateY(-50%);font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap">'+lbl+'</span>')+'</div>'+
+      '<span style="font-size:11px;color:var(--txt-soft);margin-left:6px;white-space:nowrap">Q'+t.ticket+'/pax</span></div>';
+  }).join("");
+  // Agencias
+  var maxAg=d.byAgencyAgo[0].bruto;
+  var agBars=d.byAgencyAgo.map(function(a){var w=Math.max(6,a.bruto/maxAg*100);
+    return '<div class="hbar-row"><span class="hlab">'+a.a+'</span><div class="hbar-track"><div class="hbar-fill violf" style="width:'+w+'%">'+Q(a.bruto)+' · '+a.ventas+'v</div></div></div>';}).join("");
+
+  return '<section class="block" id="p4"><div class="sec-head"><span class="sec-num">6</span><h2>Tours</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Ventas confirmadas (pending), ventana '+D.meta.ventanas.tours+', con costo y ganancia real por venta.</p>'+
+   // KPIs comparativo
+   '<div class="kpis" style="margin-bottom:20px">'+
+   '<div class="kpi"><div class="n">'+d.tours+'</div><div class="lab">Ventas '+D.meta.ventanas.tours+'</div><div class="delta up">+'+(d.tours-d.prev.tours)+' en la semana · '+d.cancelados+' cancelados aparte</div></div>'+
+   '<div class="kpi"><div class="n">'+d.pax+'</div><div class="lab">Pax '+D.meta.ventanas.tours+'</div><div class="delta flat">+'+(d.pax-d.prev.pax)+' en la semana · '+Math.round(d.pax/d.tours*10)/10+' pax por venta</div></div>'+
+   '<div class="kpi"><div class="n">'+Q(d.bruto)+'</div><div class="lab">Bruto '+D.meta.ventanas.tours+'</div><div class="delta flat">ritmo '+Q(Math.round(d.bruto/d.dias))+'/día · +'+Q(d.bruto-d.prev.bruto)+' en la semana</div></div>'+
+   '<div class="kpi"><div class="n">Q'+Math.round(d.bruto/d.tours).toLocaleString("es-GT")+'</div><div class="lab">Ticket promedio</div><div class="delta flat">'+(hasComp?'antes Q'+Math.round(jc.bruto/jc.tours).toLocaleString("es-GT"):'por venta')+'</div></div></div>'+
+   (d.ganancia!=null?'<div class="card" style="border-left:4px solid var(--gold)"><h3>★ Rentabilidad real de los tours</h3>'+
+    '<div class="hbars">'+
+    '<div class="hbar-row"><span class="hlab">Ingreso bruto</span><div class="hbar-track"><div class="hbar-fill hi" style="width:100%">'+Q(d.bruto)+'</div></div></div>'+
+    '<div class="hbar-row"><span class="hlab">Costo de tours</span><div class="hbar-track"><div class="hbar-fill lo" style="width:'+Math.round(d.costo/d.bruto*100)+'%">'+Q(d.costo)+'</div></div></div>'+
+    '<div class="hbar-row"><span class="hlab">Fees bancarios</span><div class="hbar-track"><div class="hbar-fill lo" style="width:'+Math.max(4,Math.round(d.fee/d.bruto*100))+'%">'+Q(d.fee)+'</div></div></div>'+
+    '<div class="hbar-row"><span class="hlab"><b>Ganancia real</b></span><div class="hbar-track"><div class="hbar-fill tealf" style="width:'+Math.round(d.ganancia/d.bruto*100)+'%">'+Q(d.ganancia)+' · '+d.margenReal+'%</div></div></div></div>'+
+    '<table style="margin-top:14px"><thead><tr><th class="l">Hotel</th><th>Ventas</th><th>Bruto</th><th>Ganancia</th><th>Margen</th></tr></thead><tbody>'+
+    d.byHotel.map(function(x){return '<tr><td class="l">'+x.h.replace(/^Hotel (?!Petén)/,'')+'</td><td>'+x.tours+'</td><td>'+Q(x.bruto)+'</td><td>'+Q(x.gan)+'</td><td>'+Math.round(x.gan/x.bruto*100)+'%</td></tr>';}).join("")+
+    '</tbody></table>'+
+    '<table style="margin-top:14px"><thead><tr><th class="l">Tour</th><th>Ventas</th><th>Bruto</th><th>Ganancia</th><th>Margen</th></tr></thead><tbody>'+
+    d.topToursAgo.slice(0,8).map(function(x){return '<tr><td class="l">'+x.tour+'</td><td>'+x.ventas+'</td><td>'+Q(x.bruto)+'</td><td>'+Q(x.gan)+'</td><td class="'+(x.margen>=40?'pos':x.margen<30?'neg':'')+'">'+x.margen+'%</td></tr>';}).join("")+
+    '</tbody></table></div>':'')+
+   (function(){var A=d.attach; if(!A) return '';
+     var mx=Math.max.apply(null,A.hot.filter(function(a){return a.rate!=null;}).map(function(a){return a.rate;}));
+     var bars=A.hot.map(function(a){ if(a.rate==null) return '<div class="hbar-row"><span class="hlab">'+a.h+'</span><div class="hbar-track"><div style="padding:0 10px;font-size:11px;color:var(--txt-soft);line-height:22px">'+a.tourPax+' pax de tour · sin dato de huéspedes</div></div></div>';
+       return '<div class="hbar-row"><span class="hlab">'+a.h+'</span><div class="hbar-track"><div class="hbar-fill '+(a.rate===mx?'hi':a.rate<A.eco?'lo':'')+'" style="width:'+Math.max(8,a.rate/mx*100)+'%">'+a.rate+'% · '+a.tourPax+' de '+a.hotPax.toLocaleString("es-GT")+'</div></div></div>';}).join("");
+     var R=d.recep.slice(0,10), mb=R[0].bruto;
+     var rb=R.map(function(r){return '<tr><td class="l">'+r.n+'</td><td>'+r.ventas+'</td><td>'+Q(r.bruto)+'</td><td>'+Q(r.gan)+'</td><td class="'+(r.margen>=40?'pos':r.margen<32?'neg':'')+'">'+Math.round(r.margen)+'%</td></tr>';}).join("");
+     return '<div class="card" style="border-left:4px solid var(--gold)"><h3>🎯 Tours por huésped · cuántos huéspedes compran tour</h3>'+
+      '<div class="kpis" style="margin:0 0 14px"><div class="kpi"><div class="n">'+A.eco+'<small>%</small></div><div class="lab">Pax de tour / huéspedes del hotel</div><div class="delta flat">'+A.tourPax+' de '+A.hotPax.toLocaleString("es-GT")+' personas</div></div>'+
+      '<div class="kpi"><div class="n">'+Math.round(1000/A.eco)/10+'</div><div class="lab">Huéspedes por cada pax de tour</div><div class="delta flat">meta sugerida: 1 de cada 10</div></div></div>'+
+      '<div class="hbars">'+bars+'</div>'+
+      '<div class="insight" style="margin-top:12px"><b>Lectura:</b> solo <b>'+A.eco+'%</b> de los huéspedes sale en un tour vendido por el hotel. <b>'+A.hot[0].h+'</b> convierte mejor ('+A.hot[0].rate+'%); <b>Casona del Lago</b>, el hotel más grande, está abajo del promedio — ahí está el mayor volumen por ganar. Llevarlo al 10% sería casi el doble de pax de tour.</div>'+
+      '<div class="stack-lab" style="margin:16px 0 8px">Top 10 recepcionistas · ventas de tours '+D.meta.ventanas.tours+'</div>'+
+      '<table><thead><tr><th class="l">Recepcionista</th><th>Ventas</th><th>Bruto</th><th>Ganancia</th><th>Margen</th></tr></thead><tbody>'+rb+'</tbody></table>'+
+      '<div class="flag" style="margin-top:10px">Huéspedes = "Número de Personas" del informe de gerencia de cada hotel (septiembre completo en libros), así que el % es un piso: cuando cierre el mes se ajusta. Casazul no exporta ese dato.</div></div>';})()+
+   // Tabla comparativa por hotel
+   '<div class="card"><h3>Ventas por hotel · septiembre '+D.meta.ventanas.tours+'</h3>'+
+   (hasComp?'<table><thead><tr><th class="l">Hotel</th><th>Este mes (ventas / bruto)</th><th>Mes anterior</th><th>Δ bruto</th><th>Δ %</th></tr></thead><tbody>'+compRows+'</tbody></table>'
+             :'<table><thead><tr><th class="l">Hotel</th><th>Ventas (Δ semana)</th><th>Pax</th><th>Bruto</th><th>Part.</th></tr></thead><tbody>'+compRows+'</tbody></table>')+
+   '<div class="insight" style="margin-top:12px">'+d.note+'</div></div>'+
+   // Top tours del mes
+   '<div class="card" style="margin-top:16px"><h3>Top tours septiembre '+D.meta.ventanas.tours+' <span style="float:right;font-family:Inter;font-size:12px;text-transform:none;color:var(--txt-soft)">por bruto</span></h3>'+
+   '<div class="hbars">'+topAgo+'</div></div>'+
+   // Top tours julio
+   (hasJul?'<div class="card" style="margin-top:16px"><h3>Top tours mes anterior <span style="float:right;font-family:Inter;font-size:12px;text-transform:none;color:var(--txt-soft)">para comparar</span></h3><div class="hbars">'+topJul+'</div></div>':'')+
+   // Agencias
+   '<div class="card" style="margin-top:16px"><h3>Por agencia · septiembre '+D.meta.ventanas.tours+'</h3><div class="hbars">'+agBars+'</div></div></section>';
+}
+
+/* ---------- PUNTO 7 · EVENTOS ---------- */
+function p5(){var d=D.p5;
+  var sinMeta=d.metaTotal==null;
+  var rows=d.seg.map(function(s){
+    var pace=s.pace!=null?'<span class="pill '+(s.pace>=95?'g':s.pace>=70?'a':'r')+'">'+s.pace+'%</span>':'<span class="pill" style="background:#e7e2d6;color:#6b6350">sin meta</span>';
+    var paxtxt=s.paxFlag?'<span title="dato con posible error de captura">'+s.pax+' ⚠</span>':s.pax;
+    return '<tr><td class="l">'+s.name+'</td><td>'+s.ev+'</td><td>'+paxtxt+'</td><td>'+Q(s.mtd)+'</td><td>'+(s.metaProp?Q(s.metaProp):'—')+'</td><td style="color:var(--txt-soft)">'+(s.meta?Q(s.meta):'—')+'</td><td>'+pace+'</td><td>'+s.share+'%</td></tr>';
+  }).join("");
+  var C=2*Math.PI*52, off=0, segs="", leg="";
+  d.seg.forEach(function(s){var len=s.share/100*C;
+    segs+='<circle cx="64" cy="64" r="52" stroke="'+s.color+'" stroke-dasharray="'+len.toFixed(1)+' '+(C-len).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'"/>';off+=len;
+    leg+='<div class="dl"><i style="background:'+s.color+'"></i>'+s.name+' <b>'+s.share+'%</b> · '+Q(s.mtd)+'</div>';});
+  var top=d.seg.slice().sort(function(a,b){return b.mtd-a.mtd;})[0];
+  var metaStr=sinMeta?'pendiente de definir':'Q'+d.metaTotal.toLocaleString("es-GT");
+  var paceStr=sinMeta?'—':d.pace+'%';
+  var kpi2='<div class="kpi"><div class="n">'+d.pace+'<small>%</small></div><div class="lab">Del ritmo esperado al día '+d.diasTrans+'</div><div class="delta '+(d.pace>=95?'up':'down')+'">meta proporcional '+Q(d.metaProp)+'</div></div>';
+  var yoyPct=Math.round((d.totalMTD/d.yoyProp-1)*1000)/10;
+  var kpi4='<div class="kpi"><div class="n">'+(yoyPct>=0?'+':'')+yoyPct+'<small>%</small></div><div class="lab">vs. mismo tramo de sep 2025</div><div class="delta '+(yoyPct>=0?'up':'down')+'">'+Q(d.yoyProp)+' llevaba el año pasado</div></div>';
+  var subStr='Meta del mes: <b>'+Q(d.metaTotal)+'</b> (+'+d.yoyCrec+'% sobre septiembre 2025). Todo se mide contra la <b>meta proporcional</b> a los '+d.diasTrans+' días transcurridos — total y por segmento — que es la lectura justa del ritmo.';
+  var insightStr='<div class="insight"><b>Lectura:</b> al día '+d.diasTrans+' deberían llevarse '+Q(d.metaProp)+' y van <b>'+Q(d.totalMTD)+'</b> — <b>'+d.pace+'% del ritmo</b>, una brecha de '+Q(d.metaProp-d.totalMTD)+'. <b>'+top.name+'</b> es el que sostiene el mes ('+top.share+'% del ingreso, '+top.pace+'% de su ritmo). Para cerrar la meta faltan '+Q(d.faltaMes)+' en '+(d.diasMes-d.diasTrans)+' días: '+Q(d.ritmoNec)+'/día contra los '+Q(d.ritmoReal)+'/día que se llevan.</div>';
+  var yoyStr=d.yoyGrowth!=null
+    ?'<div class="insight"><b>vs. 2025:</b> el ingreso creció <b>+'+d.yoyGrowth+'%</b> (de Q'+Math.round(d.yoy2025).toLocaleString("es-GT")+' a Q'+d.totalMTD.toLocaleString("es-GT")+') y el volumen pasó de '+d.vol2025+' a '+d.totEv+' eventos (+'+d.volGrowth+'%). Mes claramente más fuerte que el año pasado.</div>'
+    :'';
+  return '<section class="block" id="p5"><div class="sec-head"><span class="sec-num">7</span><h2>Eventos · por ingreso</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">'+subStr+'</p>'+
+   (d.stale?'<div class="flag" style="margin-bottom:14px;border-left-color:var(--danger)">⏳ <b>Pendiente de actualizar.</b> Los datos de esta sección siguen siendo de la ventana '+(d.staleWin||d.win)+'; los nuevos llegan en la próxima entrega.</div>':'')+
+   '<div class="kpis">'+
+   '<div class="kpi"><div class="n">'+Q(d.totalMTD)+'</div><div class="lab">Ingreso del mes</div><div class="delta flat">'+d.totEv+' evento(s) registrado(s)</div></div>'+
+   kpi2+
+   '<div class="kpi"><div class="n">'+d.totEv+'</div><div class="lab">Eventos con ingreso</div><div class="delta flat">'+d.totPax+' pax · '+d.agendados+' registros en Q0</div></div>'+
+   kpi4+'<div class="kpi"><div class="n">'+Q(d.ritmoNec)+'</div><div class="lab">Ritmo necesario/día</div><div class="delta down">hoy va en '+Q(d.ritmoReal)+'/día</div></div></div>'+
+   '<div class="card"><h3>Ingreso por segmento · vs meta proporcional</h3><table><thead><tr><th class="l">Segmento</th><th>Ev.</th><th>Pax</th><th>Ingreso</th><th>Meta al día '+d.diasTrans+'</th><th>Meta mes</th><th>Cumpl.</th><th>Share</th></tr></thead><tbody>'+rows+
+   '<tr class="eco"><td class="l">Total</td><td>'+d.totEv+'</td><td>'+d.totPax+'</td><td>'+Q(d.totalMTD)+'</td><td>'+Q(d.metaProp)+'</td><td style="color:var(--txt-soft)">'+Q(d.metaTotal)+'</td><td><span class="pill '+(d.pace>=95?'g':d.pace>=70?'a':'r')+'">'+d.pace+'%</span></td><td>100%</td></tr></tbody></table>'+
+   insightStr+'</div>'+
+   '<div class="card"><h3>Composición del ingreso</h3><div class="donut-wrap">'+
+   '<svg width="150" height="150" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="#efe9db" stroke-width="20"/><g transform="rotate(-90 64 64)" fill="none" stroke-width="20">'+segs+'</g>'+
+   '<text x="64" y="60" text-anchor="middle" font-family="Oswald" font-size="20" font-weight="600" fill="#15324f">'+top.share+'%</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="9" fill="#5b6b7a">'+top.name+'</text></svg>'+
+   '<div class="donut-legend">'+leg+'</div></div>'+yoyStr+
+   '<div class="flag">'+d.note+'</div></div></section>';
+}
+
+/* ---------- PUNTO 8 · WEB ---------- */
+function p6(){var d=D.p6; var x=d.experiences;
+  function bars(arr,key,cls){var mx=arr[0][key==="p"?"v":"v"];
+    return arr.map(function(o){var lbl=o[key]; var w=Math.max(8,o.v/mx*100);
+      return '<div class="hbar-row"><span class="hlab">'+lbl+'</span><div class="hbar-track"><div class="hbar-fill '+cls+'" style="width:'+w+'%">'+o.v+'</div></div></div>';}).join("");}
+  var pbars=bars(d.pages,"p",""), rbars=bars(d.referrers,"r","tealf");
+  var xpbars=bars(x.pages,"p","hi"), xrbars=bars(x.referrers,"r","violf");
+  var social=0; d.referrers.forEach(function(o){if(/facebook|instagram/.test(o.r))social+=o.v;});
+  var goog=0; d.referrers.forEach(function(o){if(/google/.test(o.r))goog+=o.v;});
+  var dir=D.p1.channels.filter(function(c){return c.name==="Directos";})[0];
+  var sign=function(n){return (n>=0?"+":"")+n+"%";};
+  return '<section class="block" id="p6"><div class="sec-head"><span class="sec-num">8</span><h2>Página Web</h2><span class="win">'+d.win+'</span></div>'+
+   '<p class="sec-sub">Dos sitios activos: <b>hotelesdepeten</b> (el principal, reservas de hotel) y <b>experiences</b> (tours y actividades). Ambos medidos en los últimos 7 días.</p>'+
+
+   /* ── SITIO 1 ── */
+   '<div class="card"><h3>hotelesdepeten.com <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">sitio principal</span></h3>'+
+   '<div class="kpis" style="margin-bottom:16px">'+
+   '<div class="kpi"><div class="n">'+d.visitors.toLocaleString("es-GT")+'</div><div class="lab">Visitantes</div><div class="delta '+(d.pctVisBounce>=0?'up':'down')+'">'+sign(d.pctVisBounce)+' vs período anterior</div></div>'+
+   '<div class="kpi"><div class="n">'+d.views.toLocaleString("es-GT")+'</div><div class="lab">Páginas vistas</div><div class="delta '+(d.pctViews>=0?'up':'down')+'">'+sign(d.pctViews)+' · '+d.perVisit+' por visita</div></div>'+
+   '<div class="kpi"><div class="n">'+d.bounce+'<small>%</small></div><div class="lab">Bounce rate</div><div class="delta '+(d.pctBounce>0?'down':d.pctBounce<0?'up':'flat')+'">'+(d.pctBounce?sign(d.pctBounce)+' vs período anterior':'sin cambio')+'</div></div>'+
+   '<div class="kpi"><div class="n">'+social+'</div><div class="lab">Desde redes sociales</div><div class="delta flat">vs '+goog+' de Google</div></div></div>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">'+
+   '<div><div class="stack-lab" style="margin-bottom:8px">Páginas más vistas</div><div class="hbars">'+pbars+'</div></div>'+
+   '<div><div class="stack-lab" style="margin-bottom:8px">¿De dónde llegan?</div><div class="hbars">'+rbars+'</div></div></div>'+
+   '<div class="insight" style="margin-top:14px"><b>Lectura:</b> '+(d.pctVisBounce>=0?'semana al alza':'semana a la baja')+' ('+sign(d.pctVisBounce)+' visitantes, '+sign(d.pctViews)+' vistas), aunque el bounce '+(d.pctBounce>0?'subió a':'está en')+' '+d.bounce+'%. '+(social>goog?'<b>Las redes sociales traen más tráfico que Google</b> ('+social+' vs '+goog+'), con Facebook móvil a la cabeza.':'<b>Google manda el tráfico</b> ('+goog+') por encima de las redes ('+social+').')+' <b>'+d.pages[0].p+'</b> es la página más visitada.</div></div>'+
+
+   /* ── SITIO 2 ── */
+   '<div class="card" style="border-left:4px solid var(--teal)"><h3>experiences.hotelesdepeten.com <span style="float:right;font-family:Inter;text-transform:none;font-size:12px;color:var(--txt-soft)">tours y actividades</span></h3>'+
+   '<div class="kpis" style="margin-bottom:16px">'+
+   '<div class="kpi"><div class="n">'+x.visitors.toLocaleString("es-GT")+'</div><div class="lab">Visitantes</div><div class="delta '+(x.pctVis>=0?'up':'down')+'">'+sign(x.pctVis)+' vs período anterior</div></div>'+
+   '<div class="kpi"><div class="n">'+x.views.toLocaleString("es-GT")+'</div><div class="lab">Páginas vistas</div><div class="delta '+(x.pctViews>=0?'up':'down')+'">'+sign(x.pctViews)+' · '+x.perVisit+' por visita</div></div>'+
+   '<div class="kpi"><div class="n">'+x.bounce+'<small>%</small></div><div class="lab">Bounce rate</div><div class="delta up">mejor que el sitio principal</div></div>'+
+   '<div class="kpi"><div class="n">'+x.perVisit+'</div><div class="lab">Vistas por visita</div><div class="delta up">vs '+d.perVisit+' del principal</div></div></div>'+
+   '<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">'+
+   '<div><div class="stack-lab" style="margin-bottom:8px">Páginas más vistas</div><div class="hbars">'+xpbars+'</div></div>'+
+   '<div><div class="stack-lab" style="margin-bottom:8px">¿De dónde llegan?</div><div class="hbars">'+xrbars+'</div></div></div>'+
+   '<div class="insight" style="margin-top:14px"><b>Lectura:</b> '+(x.pctVis>=0?'semana estable para experiences':'semana floja para experiences')+' ('+sign(x.pctVis)+' visitantes, '+sign(x.pctViews)+' vistas) y la calidad del tráfico sigue siendo la mejor de los dos sitios: <b>'+x.perVisit+' páginas por visita</b> contra '+d.perVisit+' del principal y un bounce de '+x.bounce+'% (vs '+d.bounce+'%). La página de <b>caminata isla Flores</b> y <b>/agenda</b> siguen arriba, y ya aparece <b>/reservar/caminata-isla-flores</b> — gente llegando hasta la pantalla de reserva.</div></div>'+
+
+   /* ── COMPARATIVA / OPORTUNIDAD ── */
+   '<div class="card"><h3>Los dos sitios, lado a lado</h3>'+
+   '<table><thead><tr><th class="l">Métrica</th><th>hotelesdepeten</th><th>experiences</th><th>Diferencia</th></tr></thead><tbody>'+
+   '<tr><td class="l">Visitantes</td><td>'+d.visitors+'</td><td>'+x.visitors+'</td><td><span class="'+(d.pctVisBounce>=0?'pos':'neg')+'">'+sign(d.pctVisBounce)+'</span> vs <span class="'+(x.pctVis>=0?'pos':'neg')+'">'+sign(x.pctVis)+'</span></td></tr>'+
+   '<tr><td class="l">Páginas vistas</td><td>'+d.views+'</td><td>'+x.views+'</td><td><span class="'+(d.pctViews>=0?'pos':'neg')+'">'+sign(d.pctViews)+'</span> vs <span class="'+(x.pctViews>=0?'pos':'neg')+'">'+sign(x.pctViews)+'</span></td></tr>'+
+   '<tr><td class="l">Vistas por visita</td><td>'+d.perVisit+'</td><td><b>'+x.perVisit+'</b></td><td class="pos">experiences engancha más</td></tr>'+
+   '<tr><td class="l">Bounce rate</td><td>'+d.bounce+'%</td><td><b>'+x.bounce+'%</b></td><td class="pos">'+(d.bounce-x.bounce)+' pts mejor</td></tr>'+
+   '</tbody></table>'+
+   '<div class="insight" style="margin-top:12px"><b>Conectá los puntos:</b> el Punto 1 muestra que <b>Directos</b> paga el mejor ADR ('+Q(dir.adr)+') sin comisión pero mueve solo el '+dir.mix+'% de las noches. Tours lleva '+Q(D.p4.bruto)+' en '+D.meta.ventanas.tours+'. El sitio de experiences va con '+x.visitors+' visitantes en 7 días y el mejor engagement de los dos. Es el canal natural para empujar <b>tours prevendidos antes del check-in</b> — hoy casi todo se vende en recepción. Vale seguirlo el próximo mes, ya con base de comparación real.</div>'+
+   '<div class="flag">'+d.note+'</div></div>'+
+   '<footer>Hoteles de Petén · El Viaje del Huésped · Emisión V15 · Corte 27 septiembre 2026 · Ventanas por punto indicadas en cada sección · Segmentos consolidados como ecosistema con ingreso real del sistema (Casazul sin export de segmentos). Petén Express reportado aparte.</footer></section>';
+}
+
+
+/* build report */
+document.getElementById("sheet").innerHTML = resumen()+p1()+pbol()+p2()+pverd()+p3()+p4()+p5()+p6();
+
+/* heatmap · cuadritos ocupación por hotel × mes */
+(function(){var b=document.getElementById("heatBody");if(!b||!D.p2.heat)return;var H=D.p2.heat;
+  function color(p){return p>=70?"#3f8e62":p>=50?"#6fa362":p>=35?"#c89b4c":p>=20?"#cf8a4c":"#b23a3a";}
+  Object.keys(H).forEach(function(h){var tr=document.createElement("tr");
+    var td=document.createElement("td");td.className="l";td.textContent=h;tr.appendChild(td);
+    H[h].forEach(function(p){var c=document.createElement("td");if(p==null){c.textContent="s/d";c.style.color="#8a8375";c.style.fontSize="11px";c.style.background="#f2eee4";}else{c.textContent=p+"%";c.style.background=color(p);}tr.appendChild(c);});
+    b.appendChild(tr);});})();
+/* road stops */
+(function(){var path=document.getElementById("roadpath");var L=path.getTotalLength();var g=document.getElementById("stops");
+  var labels=["SEGMENTOS","BOLETOS","OCUPACIÓN","VERDURAS","RESTAURANTES","TOURS","EVENTOS","WEB"];var ids=["p1","pbol","p2","pverd","p3","p4","p5","p6"];
+  var fr=[0.02,0.16,0.30,0.44,0.575,0.71,0.845,0.985];
+  fr.forEach(function(f,i){var pt=path.getPointAtLength(L*f);var above=(pt.y<82);
+    var ly=above?pt.y-24:pt.y+30;
+    var node=document.createElementNS("http://www.w3.org/2000/svg","g");node.setAttribute("class","stop-node");node.setAttribute("data-target",ids[i]);
+    node.innerHTML='<circle class="dot" cx="'+pt.x+'" cy="'+pt.y+'" r="13" fill="#c89b4c"/><text x="'+pt.x+'" y="'+(pt.y+5)+'" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">'+(i+1)+'</text><text x="'+pt.x+'" y="'+ly+'" text-anchor="middle" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">'+labels[i]+'</text>';
+    g.appendChild(node);});})();
+
+/* =============== SEGUIMIENTOS =============== */
+var DEFAULT_URL="https://script.google.com/macros/s/AKfycbw1jTZOC7H115i8Tppt7j9p0qrmwCSe4f4WNf5ZqjUdhcOnt7klwfRPaXf0cNIiuxiMnA/exec";
+var LS_KEY="vh_seg_v4",LS_URL="vh_url_v4";
+var FASES=["Punto 1 · Segmentos","Punto 2 · Boletos","Punto 3 · Ocupación","Punto 3 · Futuro 6m","Punto 4 · Verduras/Food cost","Punto 5 · Restaurantes","Punto 6 · Tours","Punto 7 · Eventos","Punto 8 · Página Web"];
+var ESTADOS=["Pendiente","En proceso","Listo"];
+var state={rows:[]},URL="",connected=false,rowTimers={};
+function hora(){var d=new Date();return d.getHours()+":"+("0"+d.getMinutes()).slice(-2);}
+function uid(){return "r"+Date.now()+Math.floor(Math.random()*1000);}
+function norm(r){r=r||{};return{id:r.id||uid(),fase:r.fase||FASES[0],accion:r.accion||"",responsable:r.responsable||"",fecha:r.fecha||"",estado:r.estado||ESTADOS[0],notas:r.notas||""};}
+function setStatus(kind,msg){var d=document.getElementById("stDot"),t=document.getElementById("stText");d.className="dot-st "+kind;t.textContent=msg;}
+function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(state.rows));}catch(e){}}
+function loadLocal(){try{var v=localStorage.getItem(LS_KEY);state.rows=v?JSON.parse(v).map(norm):[];}catch(e){state.rows=[];}}
+function cloudGet(){return fetch(URL+"?action=list",{method:"GET"}).then(function(r){return r.json();});}
+function cloudPost(p){return fetch(URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)}).then(function(r){return r.json();});}
+function upsertCloud(row){if(!connected)return;cloudPost({action:"upsert",row:row}).catch(function(){});}
+function deleteCloud(id){if(!connected)return;cloudPost({action:"delete",id:id}).catch(function(){});}
+function connect(){var u=document.getElementById("urlInput").value.trim();
+  if(!u){setStatus("off","Sin conexión — guardado solo en este dispositivo");connected=false;return;}
+  URL=u;setStatus("off","Conectando…");
+  cloudGet().then(function(d){if(d&&d.ok){connected=true;try{localStorage.setItem(LS_URL,u);}catch(e){}
+    setStatus("ok","Sincronizado con la hoja de Google · "+hora());
+    var fresh=(d.rows||[]).map(norm);
+    if(fresh.length){state.rows=fresh;saveLocal();render();}else if(state.rows.length){state.rows.forEach(upsertCloud);}
+  }else{connected=false;setStatus("err","La hoja respondió pero sin datos válidos");}
+  }).catch(function(){connected=false;setStatus("err","No se pudo conectar — revisá la URL /exec");});}
+function counters(){var p=0,pr=0,d=0;state.rows.forEach(function(r){if(r.estado==="Pendiente")p++;else if(r.estado==="En proceso")pr++;else if(r.estado==="Listo")d++;});
+  document.getElementById("cPend").textContent=p;document.getElementById("cProc").textContent=pr;document.getElementById("cDone").textContent=d;document.getElementById("cTot").textContent=state.rows.length;}
+function opt(list,val){return list.map(function(o){return '<option'+(o===val?' selected':'')+'>'+o+'</option>';}).join("");}
+function grow(t){t.style.height="auto";t.style.height=t.scrollHeight+"px";}
+function render(){var tb=document.getElementById("rows");tb.innerHTML="";
+  state.rows.forEach(function(r,i){var tr=document.createElement("tr");tr.dataset.id=r.id;
+    tr.innerHTML='<td style="text-align:center;color:#90a">'+(i+1)+'</td>'+
+      '<td><select class="st-sel" data-k="fase">'+opt(FASES,r.fase)+'</select></td>'+
+      '<td><textarea data-k="accion" rows="1" placeholder="¿Qué hay que hacer?">'+(r.accion||"")+'</textarea></td>'+
+      '<td><input data-k="responsable" value="'+(r.responsable||"").replace(/"/g,"&quot;")+'" placeholder="¿Quién?"></td>'+
+      '<td><input data-k="fecha" type="date" value="'+(r.fecha||"")+'"></td>'+
+      '<td><select class="st-sel" data-k="estado">'+opt(ESTADOS,r.estado)+'</select></td>'+
+      '<td><textarea data-k="notas" rows="1" placeholder="Notas">'+(r.notas||"")+'</textarea></td>'+
+      '<td><button class="row-del" title="Eliminar">×</button></td>';
+    tb.appendChild(tr);});
+  tb.querySelectorAll("textarea").forEach(function(t){grow(t);});counters();}
+function findRow(id){for(var i=0;i<state.rows.length;i++)if(state.rows[i].id===id)return state.rows[i];return null;}
+document.getElementById("rows").addEventListener("input",function(e){var k=e.target.dataset.k;if(!k)return;
+  var tr=e.target.closest("tr");var row=findRow(tr.dataset.id);if(!row)return;row[k]=e.target.value;
+  if(e.target.tagName==="TEXTAREA")grow(e.target);saveLocal();counters();
+  if(connected){clearTimeout(rowTimers[row.id]);rowTimers[row.id]=setTimeout(function(){upsertCloud(row);},700);}});
+document.getElementById("rows").addEventListener("click",function(e){if(!e.target.classList.contains("row-del"))return;
+  var tr=e.target.closest("tr");var id=tr.dataset.id;state.rows=state.rows.filter(function(r){return r.id!==id;});saveLocal();render();if(connected)deleteCloud(id);});
+function addRow(data){var r=norm(data);state.rows.push(r);saveLocal();render();if(connected)upsertCloud(r);}
+document.getElementById("addBtn").addEventListener("click",function(){addRow({});});
+document.getElementById("seedBtn").addEventListener("click",function(){
+  var seeds=[
+    {fase:"Punto 7 · Eventos",accion:"Definir meta para los segmentos nuevos GOBIERNO (Q18.7K) y OTRO (Q10.3K): hoy quedan fuera del esquema de meta (Corp/ONG/Social = Q200K). Decidir si Gobierno cuenta como Corporativo o lleva meta propia",estado:"Pendiente"},
+    {fase:"Punto 7 · Eventos",accion:"Corregir el pax del evento ONG del 27-jul (25,150 pax, casi seguro error de captura): el ingreso está bien, pero el pax infla el total del segmento",estado:"Pendiente"},
+    {fase:"Punto 5 · Restaurantes",accion:"El Mesón va en 87.3% de su meta (68 pax/día) y sube cada semana (48.6→80.7→103.6→116.4%): sostener el empuje",estado:"En proceso"},
+    {fase:"Punto 1 · Segmentos",accion:"Reexportar segmentos de los 6 hoteles faltantes (Casa Turquesa, Casazul, Casona de la Isla, Hotel Petén, Villa del Lago, Petén Express) con rango 1-28 + columnas de ingreso, para consolidar el ecosistema",estado:"Pendiente"},
+    {fase:"Punto 3 · Ocupación",accion:"Subir Petén Express (49.3% de ocupación real) — el rezago del ecosistema; medirlo como hostal: camas, no tarifa",estado:"Pendiente"},
+    {fase:"Punto 3 · Futuro 6m",accion:"Llenar el valle de Sep (19%) con grupos/eventos/promos anticipadas",estado:"Pendiente"},
+    {fase:"Punto 8 · Página Web",accion:"Bajar el bounce rate (53%): revisar velocidad y CTA de reserva directa en las fichas de hotel más vistas",estado:"Pendiente"},
+    {fase:"Punto 1 · Segmentos",accion:"Plan de empuje a reserva DIRECTA: en Casona del Lago, Directos paga Q432 de hospedaje sin comisión pero solo mueve 21% de las noches",estado:"Pendiente"},
+    {fase:"Punto 6 · Tours",accion:"Sostener el ritmo (177 tours, Q122K): amarrar tour al check-in en Casazul (6) y Casa Turquesa (14), los más bajos",estado:"Pendiente"}
+    ];
+  if(state.rows.length && !confirm("¿Agregar los focos de julio a la bitácora actual?"))return;
+  seeds.forEach(function(s){addRow(s);});});
+document.getElementById("expBtn").addEventListener("click",function(){
+  var blob=new Blob([JSON.stringify(state.rows,null,2)],{type:"application/json"});
+  var a=document.createElement("a");a.href=window.URL.createObjectURL(blob);a.download="seguimientos-julio-2026.json";a.click();});
+document.getElementById("impBtn").addEventListener("click",function(){document.getElementById("impFile").click();});
+document.getElementById("impFile").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var fr=new FileReader();
+  fr.onload=function(){try{var arr=JSON.parse(fr.result);if(Array.isArray(arr)){state.rows=arr.map(norm);saveLocal();render();if(connected)state.rows.forEach(upsertCloud);}}catch(err){alert("Archivo no válido");}};fr.readAsText(f);});
+document.getElementById("printBtn").addEventListener("click",function(){window.print();});
+document.getElementById("clearBtn").addEventListener("click",function(){if(confirm("¿Limpiar toda la bitácora? Esto borra todas las filas.")){
+  var ids=state.rows.map(function(r){return r.id;});state.rows=[];saveLocal();render();if(connected)ids.forEach(deleteCloud);}});
+document.getElementById("connectBtn").addEventListener("click",function(){connect();});
+setInterval(function(){if(!connected)return;var ae=document.activeElement;if(ae&&ae.closest&&ae.closest("#rows"))return;
+  cloudGet().then(function(d){if(d&&d.ok){var cur=JSON.stringify(state.rows.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+    var fresh=(d.rows||[]).map(norm);var nx=JSON.stringify(fresh.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+    if(cur!==nx){state.rows=fresh;saveLocal();render();setStatus("ok","Actualizado desde la nube · "+hora());}}}).catch(function(){});},18000);
+
+/* tabs + road nav + bus */
+function showTab(name){document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("active",t.dataset.tab===name);});
+  document.querySelectorAll(".tabpanel").forEach(function(p){p.classList.toggle("active",p.id===name);});moveBus();}
+document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){showTab(t.dataset.tab);});});
+document.getElementById("stops").addEventListener("click",function(e){var g=e.target.closest(".stop-node");if(!g)return;
+  showTab("reporte");var el=document.getElementById(g.getAttribute("data-target"));if(el)el.scrollIntoView({behavior:"smooth"});});
+var sbus=document.getElementById("scroll-bus");
+function moveBus(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;var frac=max>0?Math.min(1,Math.max(0,(window.scrollY||h.scrollTop)/max)):0;
+  sbus.style.top=(110+frac*(window.innerHeight-150))+"px";}
+window.addEventListener("scroll",function(){requestAnimationFrame(moveBus);},{passive:true});window.addEventListener("resize",moveBus);
+
+/* init */
+loadLocal();render();moveBus();
+try{var u=localStorage.getItem(LS_URL)||DEFAULT_URL;if(u){document.getElementById("urlInput").value=u;connect();}else setStatus("off","Sin conexión — guardado local");}catch(e){setStatus("off","Sin conexión — guardado local");}
+})();
+</script>
+</body>
+</html>

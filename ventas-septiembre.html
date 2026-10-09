@@ -183,7 +183,7 @@ async function initData(){
 async function pull(first){
   try{
     if(first) setStatus("Cargando…","busy");
-    const r = await fetch(WEBAPP_URL);
+    const r = await fetch(WEBAPP_URL + "?t=" + Date.now(), {cache:"no-store"});
     const data = await r.json();
     ventas = (data||[]).map(v=>({...v, monto:num(v.monto), fecha:fmtFecha(v.fecha)}));
     setStatus("🟢 En vivo — Google Sheets","live");
@@ -218,10 +218,16 @@ function adjuntarComprobante(id){
     try{
       setStatus("Subiendo comprobante…","busy");
       const b64=await fileToB64(inp.files[0]);
-      await post("setComprobante",{ id, comprobante_b64:b64,
+      const res=await post("setComprobante",{ id, comprobante_b64:b64,
         comprobante_name:inp.files[0].name, comprobante_mime:inp.files[0].type||"image/jpeg" });
+      if(!res || res.ok===false){
+        alert("No se guardó el comprobante.\nMotivo: "+((res&&res.error)||"desconocido")+
+              "\n\nSi dice 'accion desconocida', falta reimplementar el Code.gs (Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar).");
+        setStatus("🟢 En vivo — Google Sheets","live");
+        return;
+      }
       await pull(false);
-    }catch(e){ console.error(e); alert("No se pudo subir el comprobante."); }
+    }catch(e){ console.error(e); alert("No se pudo subir el comprobante (conexión)."); }
   };
   inp.click();
 }

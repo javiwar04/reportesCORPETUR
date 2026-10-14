@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análisis de Ventas e Inventario SELVAMO</title>
+<style>
+  :root{
+    --selva:#1f4d3a;--selva-osc:#143026;--oliva:#5a7a3c;--oliva-cl:#8ba86a;
+    --arena:#e9e2d0;--arena-cl:#f4efe3;--tierra:#6f4e37;--tierra-cl:#a07a58;
+    --blanco:#fbfaf6;--hoja:#3c7a52;
+    --alta-bg:#f7dcda;--alta-tx:#8f2b23;--alta-bd:#e0a39d;
+    --media-bg:#fbecd2;--media-tx:#95601a;--media-bd:#e6c690;
+    --baja-bg:#d9e7f0;--baja-tx:#2b5a78;--baja-bd:#a7c6d9;
+    --nore-bg:#e4e4de;--nore-tx:#5a5a52;--nore-bd:#c3c3ba;
+    --promo:#7a4e86;--promo-bg:#efe4f3;--promo-bd:#cdaed9;
+    --shadow:0 4px 18px rgba(20,48,38,.08);--shadow-sm:0 2px 8px rgba(20,48,38,.06);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;background:linear-gradient(135deg,#f4efe3 0%,#eef2e6 100%);color:#2b2b26;line-height:1.6;padding:0 0 60px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  header.portada{background:linear-gradient(135deg,var(--selva-osc) 0%,var(--selva) 45%,var(--oliva) 120%);color:var(--blanco);padding:60px 20px 70px;text-align:center;position:relative;overflow:hidden;}
+  header.portada::before{content:"🌿";position:absolute;font-size:190px;opacity:.06;top:-30px;left:-10px;transform:rotate(-18deg);}
+  header.portada::after{content:"🍃";position:absolute;font-size:170px;opacity:.06;bottom:-40px;right:-10px;transform:rotate(24deg);}
+  header .eyebrow{letter-spacing:5px;font-size:13px;text-transform:uppercase;opacity:.85;margin-bottom:14px}
+  header h1{font-size:40px;font-weight:700;letter-spacing:1px;margin-bottom:10px;position:relative}
+  header .sub{font-size:17px;opacity:.9;max-width:680px;margin:0 auto;font-weight:300}
+  header .meta{margin-top:22px;font-size:13px;opacity:.8;border-top:1px solid rgba(255,255,255,.2);display:inline-block;padding-top:14px}
+  .leafbar{height:6px;background:repeating-linear-gradient(90deg,var(--oliva),var(--oliva) 22px,var(--hoja) 22px,var(--hoja) 44px)}
+  section{margin-top:44px;scroll-margin-top:20px}
+  h2.sec{font-size:24px;color:var(--selva);border-left:6px solid var(--oliva);padding:6px 0 6px 16px;margin-bottom:8px;font-weight:700;}
+  h2.sec .ico{margin-right:8px}
+  .sec-desc{color:var(--tierra);font-size:15px;margin:0 0 20px 22px;font-style:italic}
+  h3.sub{color:var(--tierra);font-size:18px;margin:26px 0 12px;font-weight:600;border-bottom:2px dotted var(--arena);padding-bottom:6px}
+  p.tx{margin:10px 0;font-size:15px}
+  ul.tx{margin:10px 0 10px 24px;font-size:15px}ul.tx li{margin:5px 0}
+  .card{background:var(--blanco);border:1px solid #e3e0d2;border-radius:16px;padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px}
+  .grid{display:grid;gap:16px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
+  .kpi{background:var(--blanco);border-radius:16px;padding:20px;text-align:center;box-shadow:var(--shadow-sm);border-top:4px solid var(--oliva)}
+  .kpi .n{font-size:29px;font-weight:700;color:var(--selva);line-height:1.1}
+  .kpi .l{font-size:12.5px;color:var(--tierra);margin-top:6px;text-transform:uppercase;letter-spacing:.5px}
+  .kpi.alt{border-top-color:var(--tierra)}.kpi.alt .n{color:var(--tierra)}
+  .kpi.promo{border-top-color:var(--promo)}.kpi.promo .n{color:var(--promo)}
+  .kpi.crit{border-top-color:var(--alta-tx)}.kpi.crit .n{color:var(--alta-tx)}
+  .kpi.good{border-top-color:var(--hoja)}.kpi.good .n{color:var(--hoja)}
+  .callout{border-radius:14px;padding:16px 20px;margin:14px 0;font-size:14.5px;border-left:5px solid}
+  .callout.warn{background:#fbecd2;border-color:var(--media-tx);color:#5c3d10}
+  .callout.info{background:#e5efe6;border-color:var(--hoja);color:#234a33}
+  .callout.crit{background:#f7dcda;border-color:var(--alta-tx);color:#6f221c}
+  .callout.promo{background:var(--promo-bg);border-color:var(--promo);color:#4d2f56}
+  .callout b{font-weight:700}
+  .tbl-scroll{overflow-x:auto;border-radius:14px;box-shadow:var(--shadow-sm);margin:14px 0}
+  table{border-collapse:collapse;width:100%;background:var(--blanco);font-size:13.5px;min-width:560px}
+  thead th{background:var(--selva);color:var(--blanco);padding:11px 12px;text-align:left;font-weight:600;font-size:12.5px;letter-spacing:.3px}
+  tbody td{padding:9px 12px;border-bottom:1px solid #edeadf}
+  tbody tr:nth-child(even){background:#f6f4ec}tbody tr:hover{background:#eef3e8}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}td.ct,th.ct{text-align:center}
+  tfoot td{background:var(--arena);font-weight:700;color:var(--selva-osc);padding:10px 12px;border-top:2px solid var(--oliva)}
+  .badge{display:inline-block;padding:3px 11px;border-radius:20px;font-size:11.5px;font-weight:700;letter-spacing:.3px;white-space:nowrap;border:1px solid}
+  .b-alta{background:var(--alta-bg);color:var(--alta-tx);border-color:var(--alta-bd)}
+  .b-media{background:var(--media-bg);color:var(--media-tx);border-color:var(--media-bd)}
+  .b-baja{background:var(--baja-bg);color:var(--baja-tx);border-color:var(--baja-bd)}
+  .b-nore{background:var(--nore-bg);color:var(--nore-tx);border-color:var(--nore-bd)}
+  .b-up{background:#d9ede0;color:#1f6b3f;border-color:#a9d4bb}
+  .b-down{background:#f7dcda;color:#8f2b23;border-color:#e0a39d}
+  .b-flat{background:#eee9db;color:#7a6a45;border-color:#d8cfb4}
+  .b-new{background:var(--promo-bg);color:var(--promo);border-color:var(--promo-bd)}
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .mini-list{list-style:none;margin:0}
+  .mini-list li{padding:8px 0;border-bottom:1px dashed #e0dccb;font-size:14px;display:flex;justify-content:space-between;gap:10px}
+  .mini-list li:last-child{border-bottom:none}.mini-list .v{font-weight:700;color:var(--selva)}
+  .despacho{border:2px solid var(--oliva);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:16px}
+  .despacho .head{background:linear-gradient(120deg,var(--selva),var(--oliva));color:#fff;padding:14px 20px;font-size:17px;font-weight:700}
+  .despacho table{min-width:520px}
+  footer{margin-top:56px;text-align:center;color:var(--tierra);font-size:13px;padding-top:26px;border-top:2px solid var(--arena)}
+  footer .brand{font-weight:700;color:var(--selva);letter-spacing:2px;font-size:15px}
+  @media(max-width:820px){.grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}.grid-2,.split{grid-template-columns:1fr}header h1{font-size:30px}}
+  @media(max-width:480px){.grid-4,.grid-3{grid-template-columns:1fr}.wrap{padding:0 12px}}
+</style>
+</head>
+<body>
+
+<header class="portada">
+  <div class="eyebrow">SELVAMO · Selva Elegante</div>
+  <h1>Análisis de Ventas e Inventario</h1>
+  <p class="sub">Reporte semanal: octubre acelera. Rotación, metas por hotel, promociones, productos nuevos y estado de la bodega central COC.</p>
+  <div class="meta">Datos: Agosto · Septiembre · <b>Octubre (1–13)</b> 2026 &nbsp;|&nbsp; Inventario: conteo físico 13-10 &nbsp;|&nbsp; Generado: 13/10/2026</div>
+</header>
+<div class="leafbar"></div>
+
+<div class="wrap">
+
+<!-- ============ RESUMEN EJECUTIVO ============ -->
+<section id="resumen">
+  <h2 class="sec"><span class="ico">🌿</span>Resumen ejecutivo</h2>
+  <p class="sec-desc">El avance de octubre de un vistazo, para gerencia.</p>
+  <div class="grid grid-4">
+    <div class="kpi good"><div class="n">146 u</div><div class="l">Octubre 1–13 · Q22,150 · 11.2 u/día</div></div>
+    <div class="kpi"><div class="n">624 u</div><div class="l">Total ventana (Ago–Oct 13) · Q100,170</div></div>
+    <div class="kpi crit"><div class="n">15</div><div class="l">T-Shirts en COC (3 semanas sin reponer)</div></div>
+    <div class="kpi promo"><div class="n">Q2,750</div><div class="l">Promos de octubre (todas C. del Lago)</div></div>
+  </div>
+  <div class="card" style="margin-top:18px">
+    <ul class="tx">
+      <li><b>Octubre sigue acelerando.</b> En 13 días van <b>146 u / Q22,150</b>, un ritmo de <b>11.2 u/día</b> — aún mejor que la primera semana (9.9) y muy por encima de septiembre (7.4) y agosto (8.5). La recuperación se confirma y se fortalece.</li>
+      <li><b>Casona del Lago está encendido:</b> 86 u / Q12,180 en 13 días — ya superó su total de todo septiembre (74 u). Concentra más de la mitad de la venta de la red.</li>
+      <li><b>🆕 Productos nuevos vendiendo:</b> apareció una línea de cuidado personal — <b>Crema de mano (9 u), Bálsamo labial (6 u)</b> y Crema corporal (1 u) — más un <b>color nuevo de T-Shirt: "Isla Flores"</b>. Buena señal de renovación de catálogo.</li>
+      <li><b>⚠ Petén, segunda semana en el piso:</b> solo 8 u en octubre tras 54 en septiembre. Ya no parece un tema de una sola semana — hay que <b>confirmar en sitio si es un problema de registro de ventas o una caída real</b>.</li>
+      <li><b>COC sigue en 15 T-Shirts — y ya van 3 semanas sin reponerse.</b> Con octubre vendiendo tan fuerte, <b>la producción/compra de T-Shirt está atrasada y es la prioridad #1.</b></li>
+      <li><b>Casona del Lago, otra vez ajustado pese al refuerzo:</b> subió a 33 camisas, pero vende ~17/semana → <b>~2 semanas de cobertura</b>. Necesita otro rebalanceo.</li>
+      <li><b>Promos de octubre:</b> <b>15 promos 2x1, 22 camisas, Q2,750 — todas en Casona del Lago</b> (tercer mes con el mismo patrón). Ya superan a todo septiembre.</li>
+      <li><b>Acción de la semana:</b> producir T-Shirt para COC (urgente/atrasado); rebalancear ~18 camisas a Casona del Lago (10 de Villa + 8 de El Mesón); aclarar el registro de Petén; no comprar accesorios.</li>
+    </ul>
+  </div>
+  <div class="callout info" style="font-size:13.5px"><b>Nota sobre los datos:</b> las ventas no registran talla ni color (todo "General"); el detalle de talla se infiere del inventario. La columna "Total Físico" sigue fallando (39 filas en 0 con unidades reales) y <b>el nuevo color "Isla Flores" tiene su Total Físico mal capturado</b> (no cuadra con la suma por ubicación: ~69 reales vs. 109 en la columna). Todos los totales se calcularon sumando celda por celda cada ubicación. El semáforo "Estado" no es confiable.</div>
+</section>
+
+<!-- ============ ANÁLISIS DE VENTAS ============ -->
+<section id="ventas">
+  <h2 class="sec"><span class="ico">📊</span>Análisis de ventas</h2>
+  <p class="sec-desc">Octubre en contexto con agosto y septiembre.</p>
+
+  <h3 class="sub">Comparación mensual</h3>
+  <div class="grid grid-3">
+    <div class="kpi"><div class="n">263 u</div><div class="l">Agosto · Q43,645 · 8.5 u/día</div></div>
+    <div class="kpi alt"><div class="n">215 u</div><div class="l">Septiembre · Q34,375 · 7.4 u/día</div></div>
+    <div class="kpi good"><div class="n">146 u</div><div class="l">Octubre 1–13 · Q22,150 · 11.2 u/día</div></div>
+  </div>
+  <div class="callout info" style="margin-top:14px"><b>Octubre es el mejor ritmo diario de la ventana.</b> Si el ritmo de 11.2 u/día se mantuviera, octubre cerraría cerca de <b>~348 u / ~Q52,800</b> — superando a agosto. Es proyección sobre 13 días (ya más confiable que la semana pasada), pero conviene seguir confirmándola.</div>
+
+  <h3 class="sub">Ventas por producto (unidades)</h3>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Producto</th><th class="num">Ago</th><th class="num">Sep</th><th class="num">Oct 1–13</th><th class="num">Total</th><th>Comentario</th></tr></thead>
+      <tbody>
+        <tr><td>T-Shirt General</td><td class="num">81</td><td class="num">82</td><td class="num">54</td><td class="num">217</td><td>Motor del negocio; octubre a muy buen ritmo.</td></tr>
+        <tr><td>Gorras (General)</td><td class="num">44</td><td class="num">22</td><td class="num">12</td><td class="num">78</td><td>Se estabiliza; stock muy alto.</td></tr>
+        <tr><td>Lentes</td><td class="num">32</td><td class="num">27</td><td class="num">16</td><td class="num">75</td><td>▲ Rotación fuerte y constante.</td></tr>
+        <tr><td>Imanes (General)</td><td class="num">16</td><td class="num">21</td><td class="num">11</td><td class="num">48</td><td>Buena rotación; la mejor cobertura.</td></tr>
+        <tr><td>Crop Top (General)</td><td class="num">4</td><td class="num">20</td><td class="num">12</td><td class="num">36</td><td>▲ Se consolida tras el pico de septiembre.</td></tr>
+        <tr><td>Bolsa Normal (General)</td><td class="num">13</td><td class="num">10</td><td class="num">6</td><td class="num">29</td><td>Baja; sobreinventario fuerte.</td></tr>
+        <tr><td>Bolsa Doblable (General)</td><td class="num">13</td><td class="num">7</td><td class="num">4</td><td class="num">24</td><td>Baja; sobreinventario.</td></tr>
+        <tr><td>Gorritos (General)</td><td class="num">7</td><td class="num">5</td><td class="num">6</td><td class="num">18</td><td>Estable; mapeo por confirmar (¿Sombrero?).</td></tr>
+        <tr><td>Bolsa Circular (General)</td><td class="num">11</td><td class="num">3</td><td class="num">1</td><td class="num">15</td><td>Frenada.</td></tr>
+        <tr><td>Tags Jaguar</td><td class="num">14</td><td class="num">0</td><td class="num">0</td><td class="num">14</td><td>Sin venta desde septiembre.</td></tr>
+        <tr><td>Crema de mano <span class="badge b-new">NUEVO</span></td><td class="num">0</td><td class="num">2</td><td class="num">9</td><td class="num">11</td><td>▲ Línea de cuidado personal; arranca bien.</td></tr>
+        <tr><td>Libro ABC</td><td class="num">4</td><td class="num">5</td><td class="num">2</td><td class="num">11</td><td>Rotación baja estable.</td></tr>
+        <tr><td>Crew Necks <span class="badge b-new">NUEVO</span></td><td class="num">5</td><td class="num">3</td><td class="num">1</td><td class="num">9</td><td>Clima fresco; rotación lenta.</td></tr>
+        <tr><td>Vestidos (General)</td><td class="num">5</td><td class="num">1</td><td class="num">2</td><td class="num">8</td><td>Rotación baja.</td></tr>
+        <tr><td>Bálsamo labial <span class="badge b-new">NUEVO</span></td><td class="num">0</td><td class="num">0</td><td class="num">6</td><td class="num">6</td><td>▲ Nuevo; buen arranque en octubre.</td></tr>
+        <tr><td>Calzonetas (General)</td><td class="num">2</td><td class="num">3</td><td class="num">1</td><td class="num">6</td><td>Fin de temporada de playa.</td></tr>
+        <tr><td>Tank Top (General)</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td class="num">5</td><td>Rotación baja.</td></tr>
+        <tr><td>Sudadera con capucha <span class="badge b-new">NUEVO</span></td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">4</td><td>Stock alto vs. venta baja.</td></tr>
+        <tr><td>Crema Corporal <span class="badge b-new">NUEVO</span></td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">1</td><td>Nuevo; recién aparece.</td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">263</td><td class="num">215</td><td class="num">146</td><td class="num">624</td><td>—</td></tr></tfoot>
+    </table>
+  </div>
+  <div class="callout info"><b>🆕 Cuidado personal:</b> crema de mano, bálsamo labial y crema corporal suman 16 u en octubre partiendo casi de cero. Vale la pena darles visibilidad en recepción y vigilar si se consolidan — podrían ser una categoría nueva de buen margen.</div>
+
+  <h3 class="sub">Ventas por hotel</h3>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Hotel</th><th class="num">Ago</th><th class="num">Sep</th><th class="num">Oct 1–13</th><th class="num">Total u</th><th class="num">Ingreso (Q)</th><th>Tendencia</th></tr></thead>
+      <tbody>
+        <tr><td>Casona del Lago</td><td class="num">92</td><td class="num">74</td><td class="num">86</td><td class="num">252</td><td class="num">37,800</td><td><span class="badge b-up">▲ Encendido</span></td></tr>
+        <tr><td>Casona de la Isla</td><td class="num">39</td><td class="num">48</td><td class="num">25</td><td class="num">112</td><td class="num">19,235</td><td><span class="badge b-flat">Sólido</span></td></tr>
+        <tr><td>Hotel Petén</td><td class="num">45</td><td class="num">54</td><td class="num">8</td><td class="num">107</td><td class="num">17,080</td><td><span class="badge b-alta">⚠ 2ª semana en el piso</span></td></tr>
+        <tr><td>Casa Turquesa</td><td class="num">18</td><td class="num">17</td><td class="num">18</td><td class="num">53</td><td class="num">8,525</td><td><span class="badge b-up">▲ Repunta en octubre</span></td></tr>
+        <tr><td>Villa del Lago</td><td class="num">40</td><td class="num">13</td><td class="num">4</td><td class="num">57</td><td class="num">10,085</td><td><span class="badge b-down">▼ Bajo</span></td></tr>
+        <tr><td>El Mesón</td><td class="num">16</td><td class="num">4</td><td class="num">2</td><td class="num">22</td><td class="num">3,750</td><td><span class="badge b-down">▼ En el piso</span></td></tr>
+        <tr><td>Casazul</td><td class="num">13</td><td class="num">5</td><td class="num">3</td><td class="num">21</td><td class="num">3,695</td><td><span class="badge b-down">▼ Muy bajo</span></td></tr>
+      </tbody>
+      <tfoot><tr><td>TOTAL</td><td class="num">263</td><td class="num">215</td><td class="num">146</td><td class="num">624</td><td class="num">100,170</td><td>—</td></tr></tfoot>
+    </table>
+  </div>
+  <div class="callout warn"><b>Petén necesita verificación urgente:</b> dos semanas seguidas casi sin ventas (3 y luego 5 u) tras un septiembre de 54 u, y además es el hotel con más camisas en stock (53). Si es un problema de registro, se está perdiendo visibilidad de un buen punto de venta; si es real, hay que entender qué pasó. <b>Confirmar antes de mover su inventario.</b> Buen contraste: <b>Casa Turquesa repuntó</b> (18 u, su mejor mes).</div>
+</section>
+
+<!-- ============ PROMOCIONES ============ -->
+<section id="promos">
+  <h2 class="sec"><span class="ico">🎟️</span>Promociones vendidas en octubre (2x1)</h2>
+  <p class="sec-desc">Foco del mes: las promociones de octubre. El acumulado queda como referencia.</p>
+  <div class="grid grid-4">
+    <div class="kpi promo"><div class="n">15</div><div class="l">Promos vendidas en octubre (tickets)</div></div>
+    <div class="kpi promo"><div class="n">22</div><div class="l">Camisas entregadas en promo</div></div>
+    <div class="kpi promo"><div class="n">Q2,750</div><div class="l">Ingreso por promos de octubre</div></div>
+    <div class="kpi promo"><div class="n">100%</div><div class="l">En Casona del Lago</div></div>
+  </div>
+  <div class="callout promo" style="margin-top:16px"><b>Octubre (1–13): 15 promociones · 22 camisas · Q2,750, todas en Casona del Lago.</b> Tercer mes seguido con el mismo patrón (sep y oct 100% Casona del Lago). Todas son <b>T-Shirt 2x1</b>. En 13 días ya superan a todo septiembre (12 promos) — el 2x1 está empujando fuerte el motor de ventas.</div>
+  <div class="split">
+    <div class="card">
+      <b style="color:var(--promo)">🏨 Promos de octubre por hotel</b>
+      <ul class="mini-list">
+        <li><span>Casona del Lago</span><span class="v">15 promos · 22 camisas</span></li>
+        <li><span>Resto de hoteles</span><span class="v">0</span></li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="color:var(--tierra)">Referencia — promos por mes</b>
+      <ul class="mini-list">
+        <li><span>Agosto</span><span class="v">0 promos</span></li>
+        <li><span>Septiembre</span><span class="v">12 promos · 18 cam · Q2,250</span></li>
+        <li><span>Octubre (1–13)</span><span class="v">15 promos · 22 cam · Q2,750</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout info"><b>Oportunidad (recurrente):</b> el 2x1 funciona muy bien pero solo se usa en Casona del Lago. Villa, El Mesón y Casazul siguen muy por debajo de meta — <b>probar el 2x1 ahí</b> podría activarlos, cuidando el margen (dos camisas al precio de una).</div>
+</section>
+
+<!-- ============ METAS ============ -->
+<section id="metas">
+  <h2 class="sec"><span class="ico">🎯</span>Metas por hotel</h2>
+  <p class="sec-desc">Meta mensual (base: promedio ago + sep, redondeado a Q250) vs. el avance de octubre.</p>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Hotel</th><th class="num">Meta mensual</th><th class="num">Oct 1–13</th><th class="num">Proy. mes*</th><th class="num">% meta*</th><th>Lectura</th></tr></thead>
+      <tbody>
+        <tr><td>Casa Turquesa</td><td class="num">3,000</td><td class="num">2,845</td><td class="num">6,784</td><td class="num">226%</td><td><span class="badge b-up">Excelente mes</span></td></tr>
+        <tr><td>Casona del Lago</td><td class="num">13,000</td><td class="num">12,180</td><td class="num">29,045</td><td class="num">223%</td><td><span class="badge b-up">Encendido</span></td></tr>
+        <tr><td>Casona de la Isla</td><td class="num">7,500</td><td class="num">4,555</td><td class="num">10,862</td><td class="num">145%</td><td><span class="badge b-up">Sobre ritmo</span></td></tr>
+        <tr><td>Casazul</td><td class="num">1,750</td><td class="num">545</td><td class="num">1,300</td><td class="num">74%</td><td><span class="badge b-media">Bajo ritmo</span></td></tr>
+        <tr><td>El Mesón</td><td class="num">1,750</td><td class="num">350</td><td class="num">835</td><td class="num">48%</td><td><span class="badge b-down">Bajo ritmo</span></td></tr>
+        <tr><td>Villa del Lago</td><td class="num">4,750</td><td class="num">700</td><td class="num">1,669</td><td class="num">35%</td><td><span class="badge b-down">Bajo ritmo</span></td></tr>
+        <tr><td>Hotel Petén</td><td class="num">8,250</td><td class="num">975</td><td class="num">2,325</td><td class="num">28%</td><td><span class="badge b-alta">⚠ Vigilar registro</span></td></tr>
+      </tbody>
+      <tfoot><tr><td>SUMA</td><td class="num">40,000</td><td class="num">22,150</td><td class="num">~52,800</td><td class="num">132%</td><td>—</td></tr></tfoot>
+    </table>
+  </div>
+  <p class="tx" style="font-size:13px;color:var(--tierra)">* Proyección: ritmo de los primeros 13 días llevado a 31. Ya más confiable que la semana pasada, pero aún preliminar. El caso de Petén (28%) casi seguro refleja registro incompleto.</p>
+  <div class="callout info"><b>Lectura:</b> la red va a <b>132% del ritmo de meta</b> — octubre pinta como un mes muy por encima de lo esperado, liderado por Casa Turquesa, Casona del Lago y Casona de la Isla. Los rezagados de fondo siguen siendo <b>Villa, El Mesón y Casazul</b>; Petén es caso aparte (registro).</div>
+</section>
+
+<!-- ============ INVENTARIO ============ -->
+<section id="inventario">
+  <h2 class="sec"><span class="ico">📦</span>Análisis de inventario actual</h2>
+  <p class="sec-desc">Estado de la bodega central COC y de los hoteles (conteo físico al 13-10).</p>
+  <div class="callout crit"><b>COC sigue en 15 T-Shirts — tercera semana sin reponerse.</b> Y 0 de todo lo demás (salvo 7 libros ABC). Con octubre vendiendo al mejor ritmo del trimestre, <b>la producción/compra de T-Shirt ya está atrasada: es la decisión #1.</b></div>
+  <div class="callout info"><b>Nota:</b> el stock de T-Shirt en hoteles subió de 202 a 250, pero es principalmente por el <b>nuevo color "Isla Flores"</b> que se distribuyó a los hoteles — no por reposición de los colores que sí rotan. COC no recibió nada.</div>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Producto</th><th class="num">COC</th><th class="num">Total hoteles</th><th class="num">Vendido ventana</th><th>Lectura</th></tr></thead>
+      <tbody>
+        <tr><td>T-Shirt (todos los colores)</td><td class="num">15</td><td class="num">250</td><td class="num">217</td><td>COC al mínimo; Casona del Lago ajustado, resto con holgura.</td></tr>
+        <tr><td>Gorra</td><td class="num">0</td><td class="num">212</td><td class="num">78</td><td>Sobreinventario (33 sem).</td></tr>
+        <tr><td>Bolsa Mediana (Normal)</td><td class="num">0</td><td class="num">194</td><td class="num">29</td><td>Sobreinventario fuerte.</td></tr>
+        <tr><td>Crop Top</td><td class="num">0</td><td class="num">124</td><td class="num">36</td><td>Bien surtido; buena rotación.</td></tr>
+        <tr><td>Lentes de Sol</td><td class="num">0</td><td class="num">124</td><td class="num">75</td><td>Buena venta; solo en 3 hoteles.</td></tr>
+        <tr><td>Bolsa Doblable</td><td class="num">0</td><td class="num">120</td><td class="num">24</td><td>Sobreinventario.</td></tr>
+        <tr><td>Sombrero</td><td class="num">0</td><td class="num">80</td><td class="num">18</td><td>Stock alto vs. venta.</td></tr>
+        <tr><td>Bolsa Redonda (Circular)</td><td class="num">0</td><td class="num">56</td><td class="num">15</td><td>Suficiente.</td></tr>
+        <tr><td>Imán</td><td class="num">0</td><td class="num">50</td><td class="num">48</td><td>La mejor rotación; sin respaldo central.</td></tr>
+        <tr><td>Sudadera con capucha (nuevo)</td><td class="num">0</td><td class="num">41</td><td class="num">4</td><td>Stock alto vs. venta baja.</td></tr>
+        <tr><td>Crew Neck (nuevo)</td><td class="num">0</td><td class="num">33</td><td class="num">9</td><td>Concentrado en C. del Lago e Isla.</td></tr>
+        <tr><td>libros ABC</td><td class="num">7</td><td class="num">16</td><td class="num">11</td><td>Único con reserva central.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="split">
+    <div class="card">
+      <b style="color:var(--selva)">🔻 Crítico en COC</b>
+      <ul class="tx">
+        <li><b>T-Shirt:</b> 15 — reserva mínima, sin reponer en 3 semanas.</li>
+        <li><b>Todo lo demás en 0:</b> accesorios, crop top, crew neck, sudaderas, calzoneta sin respaldo central.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="color:var(--selva)">📦 T-Shirt en hoteles (cobertura ritmo oct)</b>
+      <ul class="tx">
+        <li><b>Casona del Lago 33</b> — ajustado (~2 sem) pese al refuerzo.</li>
+        <li><b>Petén 53, Villa 40, Isla 38, Casazul 31, Mesón 31, Turquesa 24</b> — con holgura (5 a 58 sem).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REABASTECIMIENTO ============ -->
+<section id="reab">
+  <h2 class="sec"><span class="ico">🚚</span>Recomendaciones de reabastecimiento</h2>
+  <p class="sec-desc">Octubre vende fuerte y COC está vacío: la prioridad es producir y sostener a Casona del Lago.</p>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Prioridad</th><th>Acción</th><th>Producto</th><th>Detalle</th><th>Motivo</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge b-alta">URGENTE</span></td><td>Producción / compra (atrasada)</td><td>T-Shirt</td><td>Reponer COC (15) y respaldar la demanda de octubre.</td><td>3 semanas sin reponer y el mes vende al mejor ritmo del trimestre.</td></tr>
+        <tr><td><span class="badge b-alta">ALTA</span></td><td>Traslado entre hoteles</td><td>T-Shirt → Casona del Lago</td><td>~18 camisas (10 de Villa + 8 de El Mesón).</td><td>Casona del Lago vende ~17/sem y tiene 33 (~2 semanas).</td></tr>
+        <tr><td><span class="badge b-media">REVISAR</span></td><td>Compra futura</td><td>Imán · Lentes</td><td>Mejor rotación del catálogo; COC en 0.</td><td>Incluir en la próxima compra (rotan bien).</td></tr>
+        <tr><td><span class="badge b-nore">NO REABASTECER</span></td><td>Ninguna</td><td>Accesorios · T-Shirt otros hoteles</td><td>Gorras, bolsas, sombreros; camisas en Petén/Villa/Mesón/Casazul.</td><td>Sobrestockeados; coberturas de 25 a 58 semanas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout info"><b>Cobertura de T-Shirt por hotel (ritmo octubre):</b> Casona del Lago <b>1.9 sem</b> · Casa Turquesa 5.6 · Casona de la Isla 10.1 · Casazul 28.8 · Villa 37.1 · Petén 49.2 · El Mesón 57.6. Solo Casona del Lago (y en menor medida Turquesa) necesita atención; el resto tiene para meses.</div>
+</section>
+
+<!-- ============ TRASLADOS ============ -->
+<section id="traslados">
+  <h2 class="sec"><span class="ico">🔄</span>Recomendaciones de traslado entre hoteles</h2>
+  <p class="sec-desc">Alimentar a Casona del Lago desde Villa y El Mesón (baja venta real). A Petén no se le toca hasta aclarar su registro.</p>
+  <div class="despacho">
+    <div class="head">🌿 Villa del Lago → Casona del Lago &nbsp;·&nbsp; T-Shirt &nbsp;·&nbsp; <span class="badge b-alta">PRIORIDAD ALTA</span> &nbsp; Total: 10</div>
+    <div class="tbl-scroll" style="margin:0;box-shadow:none">
+      <table>
+        <thead><tr><th>Color de camisa</th><th>Tallas a mover</th><th class="num">Subtotal</th></tr></thead>
+        <tbody>
+          <tr><td>Gris Flor</td><td>L ×2, XL ×1</td><td class="num">3</td></tr>
+          <tr><td>Negro colores</td><td>S ×1, M ×1</td><td class="num">2</td></tr>
+          <tr><td>Blanco con verde</td><td>S ×1, L ×1</td><td class="num">2</td></tr>
+          <tr><td>Negro tikal</td><td>XL ×1</td><td class="num">1</td></tr>
+          <tr><td>Beige Jaguar</td><td>L ×1</td><td class="num">1</td></tr>
+          <tr><td>Isla Flores</td><td>L ×1</td><td class="num">1</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total a mover (Villa queda ~30, aún ~27 semanas)</td><td class="num">10</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="despacho">
+    <div class="head">🌿 El Mesón → Casona del Lago &nbsp;·&nbsp; T-Shirt &nbsp;·&nbsp; <span class="badge b-media">PRIORIDAD MEDIA</span> &nbsp; Total: 8</div>
+    <div class="tbl-scroll" style="margin:0;box-shadow:none">
+      <table>
+        <thead><tr><th>Color de camisa</th><th>Tallas a mover</th><th class="num">Subtotal</th></tr></thead>
+        <tbody>
+          <tr><td>Beige Jaguar</td><td>M ×2, L ×1</td><td class="num">3</td></tr>
+          <tr><td>Gris Flor</td><td>L ×2</td><td class="num">2</td></tr>
+          <tr><td>Blanco con rojo</td><td>L ×1</td><td class="num">1</td></tr>
+          <tr><td>Negro colores</td><td>XL ×1</td><td class="num">1</td></tr>
+          <tr><td>Azul Letras</td><td>L ×1</td><td class="num">1</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total a mover (El Mesón queda ~23, sobrado para su venta casi nula)</td><td class="num">8</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="callout info"><b>Resultado:</b> Casona del Lago pasa de 33 a ~51 camisas — ~3 semanas al ritmo fuerte de octubre. <b>Sigue siendo un parche: la solución de fondo es producir y reponer COC.</b> COC conserva sus 15 de reserva. No se tomó de Petén por la duda de registro ni de Casa Turquesa porque también está vendiendo bien.</div>
+</section>
+
+<!-- ============ PRODUCTOS CRÍTICOS ============ -->
+<section id="criticos">
+  <h2 class="sec"><span class="ico">🚨</span>Productos críticos</h2>
+  <p class="sec-desc">Lo que requiere decisión pronta.</p>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Producto / tema</th><th>Dónde</th><th>Problema detectado</th><th>Acción recomendada</th></tr></thead>
+      <tbody>
+        <tr><td>T-Shirt (bodega)</td><td>COC</td><td>15 unidades, 3 semanas sin reponer; octubre vende fuerte.</td><td>Producir/comprar ya — está atrasado.</td></tr>
+        <tr><td>T-Shirt</td><td>Casona del Lago</td><td>Vende ~17/sem y tiene 33 (~2 semanas) pese al refuerzo.</td><td>Rebalancear ~18 desde Villa y El Mesón.</td></tr>
+        <tr><td>Ventas (registro)</td><td>Hotel Petén</td><td>2ª semana casi sin ventas (8 u) tras 54 en septiembre.</td><td>Verificar en sitio si es registro o caída real.</td></tr>
+        <tr><td>Imán</td><td>Toda la red</td><td>Mejor rotación (48 u) y COC en 0.</td><td>Incluir en la próxima compra.</td></tr>
+        <tr><td>Cuidado personal (nuevo)</td><td>Toda la red</td><td>Crema de mano y bálsamo arrancan bien pero sin stock controlado.</td><td>Dar visibilidad y empezar a controlar inventario.</td></tr>
+        <tr><td>Isla Flores (dato)</td><td>Inventario</td><td>Color nuevo con "Total Físico" inconsistente.</td><td>Verificar el conteo real del color.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ BAJA ROTACIÓN ============ -->
+<section id="baja">
+  <h2 class="sec"><span class="ico">🐢</span>Sobreinventario y baja rotación</h2>
+  <p class="sec-desc">No reabastecer; dar salida con combos en vez de comprar más.</p>
+  <div class="tbl-scroll">
+    <table>
+      <thead><tr><th>Producto</th><th class="num">Stock hoteles</th><th class="num">Venta ventana</th><th class="num">Cobertura*</th><th>Recomendación</th></tr></thead>
+      <tbody>
+        <tr><td>Bolsa Redonda (Circular)</td><td class="num">56</td><td class="num">15</td><td class="num">104 sem</td><td><span class="badge b-nore">NO REABASTECER</span> Bundle.</td></tr>
+        <tr><td>Bolsa Mediana (Normal)</td><td class="num">194</td><td class="num">29</td><td class="num">60 sem</td><td><span class="badge b-nore">NO REABASTECER</span> Combo con camisa.</td></tr>
+        <tr><td>Bolsa Doblable</td><td class="num">120</td><td class="num">24</td><td class="num">56 sem</td><td><span class="badge b-nore">NO REABASTECER</span> Bundle.</td></tr>
+        <tr><td>Gorra</td><td class="num">212</td><td class="num">78</td><td class="num">33 sem</td><td><span class="badge b-nore">NO COMPRAR MÁS</span> Stock para meses.</td></tr>
+        <tr><td>Sombrero</td><td class="num">80</td><td class="num">18</td><td class="num">25 sem</td><td><span class="badge b-nore">NO COMPRAR MÁS</span> Stock alto.</td></tr>
+        <tr><td>Lentes de Sol</td><td class="num">124</td><td class="num">75</td><td class="num">14 sem</td><td><span class="badge b-baja">MANTENER</span> Buena venta; solo en 3 hoteles.</td></tr>
+        <tr><td>Sudadera con capucha (nuevo)</td><td class="num">41</td><td class="num">4</td><td class="num">alta</td><td><span class="badge b-baja">MONITOREAR</span> Ver si arranca con el frío.</td></tr>
+        <tr><td>Camisas en Petén / Villa / Mesón</td><td class="num">124</td><td class="num">—</td><td class="num">37–58 sem</td><td><span class="badge b-baja">DONAR</span> Fuente para Casona del Lago.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tx" style="font-size:13px;color:var(--tierra)">* Cobertura estimada con el ritmo de venta de octubre.</p>
+</section>
+
+<!-- ============ LISTA DE DESPACHO ============ -->
+<section id="despacho">
+  <h2 class="sec"><span class="ico">✅</span>Lista final de despacho / movimientos</h2>
+  <p class="sec-desc">Directa, para bodega y coordinación de traslados. Solo lo que sí se recomienda mover.</p>
+  <div class="despacho">
+    <div class="head">🌿 Movimientos — semana del 13 oct</div>
+    <div class="tbl-scroll" style="margin:0;box-shadow:none">
+      <table>
+        <thead><tr><th>Origen</th><th>Destino</th><th>Producto</th><th class="num">Cantidad</th><th>Prioridad</th><th>Observación</th></tr></thead>
+        <tbody>
+          <tr><td>Villa del Lago</td><td>Casona del Lago</td><td>T-Shirt (surtido)</td><td class="num">10</td><td><span class="badge b-alta">ALTA</span></td><td>Ver desglose de tallas en Traslados.</td></tr>
+          <tr><td>El Mesón</td><td>Casona del Lago</td><td>T-Shirt (surtido)</td><td class="num">8</td><td><span class="badge b-media">MEDIA</span></td><td>Ver desglose de tallas en Traslados.</td></tr>
+          <tr><td>COC</td><td>— (no despachar)</td><td>T-Shirt</td><td class="num">0</td><td><span class="badge b-nore">RESERVA</span></td><td>Conservar las 15 como emergencia.</td></tr>
+          <tr><td>Compra / producción</td><td>COC</td><td>T-Shirt (+ Imán / Lentes)</td><td class="num">—</td><td><span class="badge b-alta">URGENTE</span></td><td>Decisión de compra — atrasada.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="callout info">Esta semana <b>no hay despacho desde la bodega central</b>: el ajuste se hace por traslado entre hoteles hacia Casona del Lago, y la acción de fondo es reponer COC con producción.</div>
+</section>
+
+<!-- ============ CONCLUSIONES ============ -->
+<section id="conclusiones">
+  <h2 class="sec"><span class="ico">🌱</span>Conclusiones y decisiones sugeridas</h2>
+  <p class="sec-desc">Qué debería hacer SELVAMO esta semana.</p>
+  <div class="grid grid-2">
+    <div class="card">
+      <b style="color:var(--selva)">🏭 Producir / comprar (atrasado)</b>
+      <ul class="tx">
+        <li><b>T-Shirt para COC:</b> 3 semanas sin reponer y octubre al mejor ritmo del trimestre. Es la decisión #1.</li>
+        <li><b>Imán y Lentes:</b> mejor rotación y COC en 0 — incluir en la compra.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="color:var(--selva)">🔄 Redistribuir</b>
+      <ul class="tx">
+        <li><b>~18 T-Shirts a Casona del Lago</b> (10 de Villa + 8 de El Mesón) para sostener al motor de ventas sin tocar COC ni Petén.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="color:var(--selva)">🆕 Impulsar / controlar</b>
+      <ul class="tx">
+        <li><b>Cuidado personal</b> (crema de mano, bálsamo): darles visibilidad y empezar a controlar su inventario.</li>
+        <li><b>2x1 en Villa, Mesón y Casazul</b> para activar a los rezagados.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <b style="color:var(--selva)">👀 Vigilar</b>
+      <ul class="tx">
+        <li><b>Petén:</b> confirmar si es registro o caída real (2ª semana).</li>
+        <li><b>Isla Flores:</b> verificar el conteo del color nuevo.</li>
+        <li><b>Ritmo de octubre:</b> confirmar que el buen mes se sostenga.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout info" style="margin-top:16px"><b>En síntesis:</b> octubre va camino a ser un mes excelente (132% del ritmo de meta), empujado por Casona del Lago, Casa Turquesa y Casona de la Isla, con catálogo renovándose (color nuevo y cuidado personal). El riesgo no es la demanda sino el abastecimiento: <b>COC lleva 3 semanas sin reponerse y el motor de ventas tiene ~2 semanas de camisas.</b> Hay que producir ya, rebalancear hacia Casona del Lago desde Villa y El Mesón, y resolver cuanto antes la duda del registro de Petén. Accesorios: ni una compra más.</div>
+</section>
+
+<footer>
+  <div class="brand">🌿 SELVAMO</div>
+  <p>Análisis de Ventas e Inventario · Reporte semanal 13-10-2026 · Datos ago–oct(1–13) · Inventario 13-10</p>
+  <p style="opacity:.7;margin-top:6px">Reporte basado únicamente en los datos de los archivos proporcionados. Las cifras marcadas como proyección son preliminares. Totales de inventario calculados sumando celda por celda cada ubicación.</p>
+</footer>
+
+</div>
+</body>
+</html>

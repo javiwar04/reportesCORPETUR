@@ -9,59 +9,78 @@
   :root{
     --bg:#0f1220; --card:#181c2e; --card2:#1f2438; --line:#2a3050;
     --txt:#e8ebf5; --muted:#9aa3c0; --accent:#5b8cff; --accent2:#7c5bff;
-    --web:#3fb6ff; --rec:#ffb13f; --paq:#5be5a0; --ok:#5be5a0; --danger:#ff5b7a;
+    --web:#3fb6ff; --rec:#ffb13f; --dir:#5be5a0; --paq:#b78cff; --ok:#5be5a0; --danger:#ff5b7a; --warn:#ffb13f;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);}
+  body{margin:0;font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt)}
   header{padding:22px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
   h1{font-size:20px;margin:0;font-weight:700}
   .sub{color:var(--muted);font-size:13px;margin-top:3px}
   .status{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--card2);border:1px solid var(--line);color:var(--muted)}
   .status.live{color:var(--ok);border-color:var(--ok)}
-  .status.busy{color:var(--rec);border-color:var(--rec)}
+  .status.busy{color:var(--warn);border-color:var(--warn)}
   .wrap{max-width:1180px;margin:0 auto;padding:24px 28px 60px}
-  .goal{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:22px}
+  .aviso{background:rgba(255,177,63,.1);border:1px solid var(--warn);color:var(--warn);border-radius:12px;padding:12px 16px;font-size:13px;margin-bottom:18px}
+  h2.sec{font-size:16px;margin:30px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);color:#c9d2f0}
+  .goal{background:linear-gradient(135deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:16px;padding:22px 24px;margin-bottom:18px}
   .goal .top{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
   .goal .big{font-size:34px;font-weight:800}
   .goal .of{color:var(--muted);font-size:15px;font-weight:500}
   .bar{height:16px;background:#0c0f1c;border-radius:10px;margin-top:16px;overflow:hidden;position:relative}
   .bar > div{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:10px;transition:width .5s ease;width:0}
   .bar .pct{position:absolute;right:10px;top:-1px;font-size:11px;font-weight:700;line-height:18px}
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:22px}
-  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-  .c .lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-  .c .val{font-size:24px;font-weight:800;margin-top:6px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:18px}
+  .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 17px}
+  .c .lbl{color:var(--muted);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+  .c .val{font-size:22px;font-weight:800;margin-top:6px}
+  .c .mini{font-size:12px;color:var(--muted);margin-top:3px}
   .dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:6px}
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:22px}
+  .kband{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));background:#1d2a4d;border:1px solid #2c3b66;border-radius:14px;margin-bottom:18px;overflow:hidden}
+  .kband > div{padding:16px 18px;border-right:1px solid #2c3b66}
+  .kband > div:last-child{border-right:none}
+  .kband .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:#aab8e6}
+  .kband .val{font-size:28px;font-weight:800;margin-top:4px}
+  .kband .mini{font-size:12px;color:#aab8e6;margin-top:2px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
   .panel h3{margin:0 0 14px;font-size:15px}
-  form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:22px}
-  form h3{margin:0 0 16px;font-size:15px}
-  .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-  label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
-  input,select{width:100%;padding:10px 12px;border-radius:9px;border:1px solid var(--line);background:#0c0f1c;color:var(--txt);font-size:14px;font-family:inherit}
-  input:focus,select:focus{outline:none;border-color:var(--accent)}
-  .btn{margin-top:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:11px 22px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer}
-  .btn:hover{opacity:.92}
-  .btn:disabled{opacity:.5;cursor:default}
+  .nota{font-size:11.5px;color:var(--muted);margin:10px 0 0}
   table{width:100%;border-collapse:collapse;font-size:13.5px}
-  th,td{text-align:left;padding:11px 10px;border-bottom:1px solid var(--line)}
-  td.amt{font-weight:700;text-align:right}
-  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;cursor:pointer;user-select:none}
-  .tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600}
-  .tag.web{background:rgba(63,182,255,.15);color:var(--web)}
-  .tag.rec{background:rgba(255,177,63,.15);color:var(--rec)}
-  .tag.paq{background:rgba(91,229,160,.15);color:var(--paq)}
+  th,td{text-align:left;padding:10px 9px;border-bottom:1px solid var(--line);vertical-align:middle}
+  th{color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;user-select:none}
+  th[data-s]{cursor:pointer}
+  .r{text-align:right}
+  td.amt{font-weight:700;text-align:right;white-space:nowrap}
+  table.mini td,table.mini th{padding:8px 6px}
+  tr.tot td{font-weight:800;border-top:2px solid var(--line)}
+  .tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;white-space:nowrap}
   .del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:15px}
-  .adj{background:rgba(91,140,255,.12);border:1px solid var(--line);color:var(--accent);cursor:pointer;font-size:12px;padding:4px 9px;border-radius:7px}
-  .adj:hover{border-color:var(--accent)}
   .del:hover{color:var(--danger)}
-  .empty{text-align:center;color:var(--muted);padding:30px}
-  .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 18px 18px;overflow-x:auto}
+  .adj{background:rgba(91,140,255,.12);border:1px solid var(--line);color:var(--accent);cursor:pointer;font-size:12px;padding:4px 9px;border-radius:7px;white-space:nowrap}
+  .adj:hover{border-color:var(--accent)}
+  .funnel .row{margin-bottom:14px}
+  .funnel .lab{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+  .funnel .lab b{font-size:14px}
+  .funnel .track{background:#0c0f1c;border-radius:8px;height:22px;overflow:hidden}
+  .funnel .fill{height:100%;border-radius:8px}
+  select.est{width:auto;padding:5px 8px;font-size:12.5px;border-radius:7px;font-weight:600}
+  .notas{color:var(--muted);cursor:pointer;font-size:12.5px;max-width:240px}
+  .notas:hover{color:var(--txt)}
+  .hint{font-size:12px;color:var(--muted);margin:-6px 0 12px}
+  form{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  form h3{margin:0 0 14px;font-size:15px}
+  .row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px}
+  input,select{width:100%;padding:9px 11px;border-radius:9px;border:1px solid var(--line);background:#0c0f1c;color:var(--txt);font-size:14px;font-family:inherit}
+  input:focus,select:focus{outline:none;border-color:var(--accent)}
+  .btn{margin-top:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;padding:10px 20px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer}
+  .btn:disabled{opacity:.5;cursor:default}
+  .empty{text-align:center;color:var(--muted);padding:26px}
+  .tblwrap{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 18px 18px;overflow-x:auto;margin-bottom:18px}
   .tblhead{display:flex;justify-content:space-between;align-items:center;padding:12px 2px;flex-wrap:wrap;gap:10px}
   .filter{display:flex;gap:8px;flex-wrap:wrap}
-  .filter select{width:auto;padding:7px 10px;font-size:13px}
-  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .filter select,.filter input{width:auto;padding:7px 10px;font-size:13px}
+  @media(max-width:860px){.grid2{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -74,6 +93,9 @@
 </header>
 
 <div class="wrap">
+  <div id="aviso" class="aviso" style="display:none"></div>
+
+  <!-- META -->
   <div class="goal">
     <div class="top">
       <div>
@@ -81,55 +103,127 @@
         <div class="sub" id="gMonth"></div>
       </div>
       <div style="text-align:right">
-        <div class="c" style="border:none;padding:0;background:none">
-          <div class="lbl">Falta</div>
-          <div class="val" id="gRemain" style="color:var(--accent)">Q200,000</div>
-        </div>
+        <div class="lbl" style="color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.5px" id="gRemainLbl">Falta</div>
+        <div style="font-size:24px;font-weight:800;color:var(--accent)" id="gRemain">Q200,000</div>
       </div>
     </div>
     <div class="bar"><div id="gBar"></div><span class="pct" id="gPct">0%</span></div>
   </div>
 
   <div class="cards">
-    <div class="c"><div class="lbl"><span class="dot" style="background:var(--web)"></span>Página Web</div><div class="val" id="cWeb">Q0</div></div>
-    <div class="c"><div class="lbl"><span class="dot" style="background:var(--rec)"></span>Recurrente</div><div class="val" id="cRec">Q0</div></div>
-    <div class="c"><div class="lbl"><span class="dot" style="background:var(--paq)"></span>Paquetes</div><div class="val" id="cPaq">Q0</div></div>
-    <div class="c"><div class="lbl"># Ventas</div><div class="val" id="cNum">0</div></div>
+    <div class="c"><div class="lbl">Reservas / ventas</div><div class="val" id="cNum">0</div></div>
+    <div class="c"><div class="lbl">Clientes</div><div class="val" id="cCli">0</div></div>
     <div class="c"><div class="lbl">Ticket promedio</div><div class="val" id="cAvg">Q0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--web)"></span>Web</div><div class="val" id="cWeb">Q0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--rec)"></span>Recurrente</div><div class="val" id="cRec">Q0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--dir)"></span>Directo</div><div class="val" id="cDir">Q0</div></div>
   </div>
 
+  <!-- VENTAS -->
+  <h2 class="sec">Ventas del mes</h2>
   <div class="grid2">
-    <div class="panel"><h3>Ventas por categoría</h3><canvas id="chCat" height="220"></canvas></div>
-    <div class="panel"><h3>Avance acumulado del mes</h3><canvas id="chAcc" height="220"></canvas></div>
+    <div class="panel"><h3>Por servicio</h3><canvas id="chServ" height="230"></canvas>
+      <p class="nota">Las reservas que combinan hotel con boletos o tours cuentan como <b>Paquete</b>.</p></div>
+    <div class="panel"><h3>Por hotel</h3><table class="mini" id="tHotel"></table></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Por canal</h3><canvas id="chCanal" height="230"></canvas></div>
+    <div class="panel"><h3>Avance acumulado del mes</h3><canvas id="chAcc" height="230"></canvas></div>
   </div>
 
-  <form id="frm">
-    <h3>➕ Registrar nueva venta (Septiembre)</h3>
-    <div class="row">
-      <div><label>Fecha</label><input type="date" id="fFecha" required></div>
-      <div><label>Tipo de venta</label><select id="fTipo"><option value="web">Página Web</option><option value="rec">Recurrente</option><option value="paq">Paquetes</option></select></div>
-      <div><label>Cliente / Descripción</label><input type="text" id="fDesc" placeholder="Ej. Lara Morganti — Tour a Tikal"></div>
-      <div><label># Recibo (opcional)</label><input type="text" id="fRecibo" placeholder="1736-4273"></div>
-      <div><label>Monto (Q)</label><input type="number" id="fMonto" min="0" step="0.01" placeholder="0.00" required></div>
-      <div><label>Comprobante (foto)</label><input type="file" id="fComp" accept="image/*"></div>
-    </div>
-    <button class="btn" id="btnSave" type="submit">Guardar venta</button>
-  </form>
+  <!-- CONVERSION -->
+  <h2 class="sec">Conversión de cotizaciones</h2>
+  <div class="kband">
+    <div><div class="lbl">Total cotizaciones</div><div class="val" id="kTot">0</div><div class="mini" id="kTotM">Q0 cotizado</div></div>
+    <div><div class="lbl">Convertidas</div><div class="val" id="kConv">0</div><div class="mini" id="kConvM">Q0</div></div>
+    <div><div class="lbl">No convertidas</div><div class="val" id="kNo">0</div><div class="mini" id="kNoM">Q0</div></div>
+    <div><div class="lbl">Tasa de conversión</div><div class="val" id="kTasa">0%</div><div class="mini" id="kTasaM">0% del monto cotizado</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h3>Embudo del mes</h3><div class="funnel" id="funnel"></div>
+      <p class="nota">Tasa calculada por cliente. Una cotización marcada como <b>Recuperada</b> cuenta como convertida.</p></div>
+    <div class="panel"><h3>No convertidas por hotel cotizado</h3><table class="mini" id="tNoConv"></table></div>
+  </div>
 
+  <!-- OPORTUNIDADES -->
+  <h2 class="sec">Oportunidades de venta</h2>
+  <div class="cards">
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--accent)"></span>Abiertas</div><div class="val" id="oAb">Q0</div><div class="mini" id="oAbN">0 cotizaciones</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--warn)"></span>En seguimiento</div><div class="val" id="oSeg">Q0</div><div class="mini" id="oSegN">0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--ok)"></span>Recuperadas</div><div class="val" id="oRec">Q0</div><div class="mini" id="oRecN">0</div></div>
+    <div class="c"><div class="lbl"><span class="dot" style="background:var(--danger)"></span>Perdidas</div><div class="val" id="oPer">Q0</div><div class="mini" id="oPerN">0</div></div>
+  </div>
   <div class="tblwrap">
+    <div class="tblhead">
+      <h3 style="margin:0">Cotizaciones por recuperar</h3>
+      <div class="filter">
+        <input id="fBusca" placeholder="Buscar cliente…">
+        <select id="fEstado">
+          <option value="abiertas">Abiertas (pendientes + seguimiento)</option>
+          <option value="">Todas</option>
+          <option>Pendiente</option><option>En seguimiento</option><option>Recuperada</option><option>Perdida</option>
+        </select>
+        <select id="fHotelOp"><option value="">Todos los hoteles</option></select>
+      </div>
+    </div>
+    <p class="hint">Cambia el estado conforme le das seguimiento. Si una se cierra, márcala <b>Recuperada</b> y registra la venta abajo con la fecha en que se cerró. Clic en la nota para editarla.</p>
+    <table>
+      <thead><tr><th>Cliente</th><th>Hotel cotizado</th><th class="r">Monto</th><th>Estado</th><th>Notas</th></tr></thead>
+      <tbody id="tbOp"></tbody>
+    </table>
+    <div id="emptyOp" class="empty">No hay cotizaciones con ese filtro.</div>
+  </div>
+
+  <!-- FORMULARIOS -->
+  <h2 class="sec">Registrar</h2>
+  <div class="grid2">
+    <form id="frmV">
+      <h3>➕ Nueva venta</h3>
+      <div class="row2">
+        <div><label>Fecha de venta</label><input type="date" id="vFecha" required></div>
+        <div><label>Canal</label><select id="vCanal"></select></div>
+        <div><label>Servicio</label><select id="vServ"></select></div>
+        <div><label>Hotel</label><select id="vHotel"></select></div>
+      </div>
+      <div class="row2" style="margin-top:10px">
+        <div style="grid-column:span 2"><label>Cliente / detalle</label><input type="text" id="vDesc" placeholder="Ej. Ana López — 1 doble · 2 noches"></div>
+        <div><label># Reserva / recibo</label><input type="text" id="vRecibo" placeholder="opcional"></div>
+        <div><label>Monto (Q)</label><input type="number" id="vMonto" min="0" step="0.01" required></div>
+      </div>
+      <div style="margin-top:10px"><label>Comprobante (foto, opcional)</label><input type="file" id="vComp" accept="image/*"></div>
+      <button class="btn" id="vBtn" type="submit">Guardar venta</button>
+    </form>
+    <form id="frmC">
+      <h3>📝 Nueva cotización</h3>
+      <div class="row2">
+        <div><label>Fecha</label><input type="date" id="cFecha" required></div>
+        <div><label>Estado</label><select id="cEstado"></select></div>
+      </div>
+      <div class="row2" style="margin-top:10px">
+        <div style="grid-column:span 2"><label>Cliente</label><input type="text" id="cCliente" required></div>
+        <div><label>Hotel cotizado</label><select id="cHotel"></select></div>
+        <div><label>Monto cotizado (Q)</label><input type="number" id="cMonto" min="0" step="0.01" required></div>
+      </div>
+      <div style="margin-top:10px"><label>Notas (opcional)</label><input type="text" id="cNotas" placeholder="Ej. pidió precio con boletos"></div>
+      <button class="btn" id="cBtn" type="submit">Guardar cotización</button>
+    </form>
+  </div>
+
+  <!-- TABLA DE VENTAS -->
+  <div class="tblwrap" style="margin-top:18px">
     <div class="tblhead">
       <h3 style="margin:0">Registro de ventas · Septiembre</h3>
       <div class="filter">
-        <select id="filTipo"><option value="">Todos los tipos</option><option value="web">Página Web</option><option value="rec">Recurrente</option><option value="paq">Paquetes</option></select>
+        <select id="filCanal"><option value="">Todos los canales</option></select>
+        <select id="filServ"><option value="">Todos los servicios</option></select>
+        <select id="filHotel"><option value="">Todos los hoteles</option></select>
       </div>
     </div>
     <table>
       <thead><tr>
-        <th data-s="fecha">Fecha</th><th data-s="tipo">Tipo</th>
-        <th data-s="descripcion">Cliente / Descripción</th>
-        <th data-s="recibo">Recibo</th>
-        <th>Comprobante</th>
-        <th data-s="monto" style="text-align:right">Monto</th><th></th>
+        <th data-s="fecha">Fecha</th><th data-s="_c">Canal</th><th data-s="_s">Servicio</th><th data-s="_h">Hotel</th>
+        <th data-s="descripcion">Cliente / detalle</th><th data-s="recibo">Reserva</th><th>Comprobante</th>
+        <th data-s="monto" class="r">Monto</th><th></th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -139,19 +233,29 @@
 
 <script>
 /* ====================================================================
-   TABLERO DE SEPTIEMBRE 2026
-   Usa la MISMA Google Sheet que el tablero general (misma URL de abajo).
-   Solo muestra y suma las ventas cuya fecha sea de septiembre 2026.
-   Lo que registres aquí se guarda en la misma hoja compartida.
+   TABLERO DE SEPTIEMBRE 2026 — misma Google Sheet que el tablero principal
+   Pestaña "Ventas": ventas (con hotel, servicio y canal)
+   Pestaña "Cotizaciones": cotizaciones con estado → conversión y oportunidades
    ==================================================================== */
 const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzbAiupv7nhSvbpq5u8PjGgQDT6VK6zBbVx1zU6FpuZLvVfEIGiFdX70Ch5qRdJm2Xl1Q/exec";
-const MES_FIJO   = "2026-09";   // este tablero es SOLO de septiembre 2026
-
+const MES_FIJO = "2026-09";
+const MES_NOMBRE = "Septiembre 2026";
 const META = 200000;
-const POLL_MS = 15000;
-const TIPOS = {web:{n:"Página Web",c:"web"}, rec:{n:"Recurrente",c:"rec"}, paq:{n:"Paquetes",c:"paq"}};
-const Q = n => "Q" + Number(n||0).toLocaleString("es-GT",{maximumFractionDigits:2});
+const POLL_MS = 20000;
 
+const HOTELES   = ["Casona del Lago","Casona de la Isla","Hotel Petén","Casa Turquesa","Casazul","Villa del Lago","Sin hotel"];
+const SERVICIOS = ["Hospedaje","Boletos aéreos","Tours","Paquete","Sin clasificar"];
+const COL_SERV  = {"Hospedaje":"#3fb6ff","Boletos aéreos":"#ffb13f","Tours":"#5be5a0","Paquete":"#b78cff","Sin clasificar":"#6b7390"};
+const CANALES   = ["Web","Recurrente","Directo"];
+const COL_CANAL = {"Web":"#3fb6ff","Recurrente":"#ffb13f","Directo":"#5be5a0"};
+const TIPO_DE_CANAL = {"Web":"web","Recurrente":"rec","Directo":"dir"};
+const ESTADOS_OP = ["Pendiente","En seguimiento","Recuperada","Perdida"];
+const COL_EST   = {"Pendiente":"#5b8cff","En seguimiento":"#ffb13f","Recuperada":"#5be5a0","Perdida":"#ff5b7a","Convertida":"#5be5a0"};
+
+const Q = n => "Q" + Number(n||0).toLocaleString("es-GT",{minimumFractionDigits:2,maximumFractionDigits:2});
+const Q0 = n => "Q" + Number(n||0).toLocaleString("es-GT",{maximumFractionDigits:0});
+const pct = (a,b) => b ? a/b*100 : 0;
+const suma = arr => arr.reduce((s,x)=>s+num(x.monto),0);
 function num(x){
   if(typeof x === "number") return x;
   if(x == null) return 0;
@@ -163,56 +267,93 @@ function num(x){
   return parseFloat(s) || 0;
 }
 function fmtFecha(x){ if(x==null) return ""; let s=String(x); if(s.includes("T")) s=s.slice(0,10); return s; }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function delMes(x){ return String(x.fecha||"").slice(0,7) === MES_FIJO; }
+function fechaDefault(){
+  const hoy = new Date();
+  const local = new Date(hoy.getTime() - hoy.getTimezoneOffset()*60000).toISOString().slice(0,10);
+  if(local.slice(0,7) === MES_FIJO) return local;
+  const [y,m] = MES_FIJO.split("-").map(Number);
+  return MES_FIJO + "-" + String(new Date(y,m,0).getDate()).padStart(2,"0");
+}
 
-let ventas = [];       // todas las de la hoja
-let live = false;
-let sortKey="fecha", sortDir=-1;
-let chCat, chAcc;
+// Las ventas cargadas antes no traen hotel/servicio/canal: se deducen del detalle
+function inferHotel(v){
+  if(v.hotel) return String(v.hotel);
+  const d = String(v.descripcion||"");
+  if(/casona del lago/i.test(d)) return "Casona del Lago";
+  if(/casona de la isla/i.test(d)) return "Casona de la Isla";
+  if(/hotel pet[eé]n/i.test(d)) return "Hotel Petén";
+  if(/turquesa/i.test(d)) return "Casa Turquesa";
+  if(/casazul/i.test(d)) return "Casazul";
+  if(/villa del lago|casa violeta/i.test(d)) return "Villa del Lago";
+  return "Sin hotel";
+}
+function inferServicio(v){
+  if(v.servicio) return String(v.servicio);
+  const d = String(v.descripcion||"");
+  if(/paquete/i.test(d)) return "Paquete";
+  if(/boleto/i.test(d)) return "Boletos aéreos";
+  if(/tour|cr[aá]ter|tikal|yaxh|selva itz|sol pet|coctel/i.test(d)) return "Tours";
+  if(/hotel|casona|casa |turquesa|casazul|villa/i.test(d)) return "Hospedaje";
+  return "Sin clasificar";
+}
+function inferCanal(v){
+  if(v.canal) return String(v.canal);
+  return ({web:"Web",rec:"Recurrente",dir:"Directo"})[String(v.tipo||"").toLowerCase()] || "Web";
+}
+function clienteDe(v){ return String(v.descripcion||"").split(/\s+[—-]\s+/)[0].trim(); }
+
+/* ---------------- Datos ---------------- */
+let ventas = [], cots = [], cotOK = true, live = true;
+let sortKey = "fecha", sortDir = -1;
+let chServ, chCanal, chAcc;
 
 function setStatus(txt,cls){ const s=document.getElementById("status"); s.textContent=txt; s.className="status"+(cls?" "+cls:""); }
+function aviso(txt){ const a=document.getElementById("aviso"); a.style.display = txt ? "block" : "none"; a.textContent = txt||""; }
 
-async function initData(){
-  if(WEBAPP_URL){
-    live = true;
-    await pull(true);
-    setInterval(()=>pull(false), POLL_MS);
-  } else {
-    live = false; setStatus("Sin URL configurada"); ventas=[]; render();
-  }
+async function getJSON(q){
+  const r = await fetch(WEBAPP_URL + "?" + (q ? q + "&" : "") + "t=" + Date.now(), {cache:"no-store"});
+  return r.json();
 }
 async function pull(first){
   try{
     if(first) setStatus("Cargando…","busy");
-    const r = await fetch(WEBAPP_URL + "?t=" + Date.now(), {cache:"no-store"});
-    const data = await r.json();
-    ventas = (data||[]).map(v=>({...v, monto:num(v.monto), fecha:fmtFecha(v.fecha)}));
+    const [v,c] = await Promise.all([getJSON(""), getJSON("hoja=Cotizaciones")]);
+    ventas = (v||[]).map(x=>({...x, monto:num(x.monto), fecha:fmtFecha(x.fecha)}));
+    cotOK = Array.isArray(c) && (c.length === 0 || ("estado" in c[0]));
+    cots = cotOK ? c.map(x=>({...x, monto:num(x.monto), fecha:fmtFecha(x.fecha)})) : [];
+    aviso(cotOK ? "" : "Para ver la conversión y las oportunidades falta publicar el Code.gs nuevo: Apps Script → Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar.");
     setStatus("🟢 En vivo — Google Sheets","live");
     render();
   }catch(e){ console.error(e); setStatus("Sin conexión a la hoja","busy"); }
 }
-async function post(action, payload){
+async function post(action, payload, hoja){
   const r = await fetch(WEBAPP_URL, {
     method:"POST", headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body: JSON.stringify({action, ...payload})
+    body: JSON.stringify({action, hoja: hoja||"Ventas", ...payload})
   });
   return r.json();
 }
-async function addVenta(v){
-  setStatus("Guardando…","busy");
-  try{ await post("add", v); await pull(false); }
-  catch(e){ alert("No se pudo guardar. Revisa tu conexión."); }
+function falla(res){ return !res || res.ok === false; }
+function avisoFalla(res, que){
+  const motivo = (res && res.error) || "desconocido";
+  alert("No se pudo " + que + ".\nMotivo: " + motivo +
+        (motivo === "accion desconocida" ? "\n\nFalta publicar el Code.gs nuevo (Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar)." : ""));
 }
+function fileToB64(file){
+  return new Promise((res,rej)=>{ const r=new FileReader();
+    r.onload=()=>res(String(r.result).split(",")[1]); r.onerror=rej; r.readAsDataURL(file); });
+}
+
 async function delVenta(id){
   if(!confirm("¿Eliminar esta venta?")) return;
   setStatus("Eliminando…","busy");
-  try{ await post("delete",{id}); await pull(false); }
-  catch(e){ alert("No se pudo eliminar."); }
+  try{ const res = await post("delete",{id}); if(falla(res)) avisoFalla(res,"eliminar"); await pull(false); }
+  catch(e){ alert("No se pudo eliminar (conexión)."); }
 }
-
 function adjuntarComprobante(id){
-  if(!live){ alert("Necesitas estar conectado a la hoja para adjuntar."); return; }
-  const inp=document.createElement("input");
-  inp.type="file"; inp.accept="image/*";
+  const inp=document.createElement("input"); inp.type="file"; inp.accept="image/*";
   inp.onchange=async()=>{
     if(!inp.files || !inp.files[0]) return;
     try{
@@ -220,123 +361,264 @@ function adjuntarComprobante(id){
       const b64=await fileToB64(inp.files[0]);
       const res=await post("setComprobante",{ id, comprobante_b64:b64,
         comprobante_name:inp.files[0].name, comprobante_mime:inp.files[0].type||"image/jpeg" });
-      if(!res || res.ok===false){
-        alert("No se guardó el comprobante.\nMotivo: "+((res&&res.error)||"desconocido")+
-              "\n\nSi dice 'accion desconocida', falta reimplementar el Code.gs (Administrar implementaciones → ✏️ → Versión: Nueva versión → Implementar).");
-        setStatus("🟢 En vivo — Google Sheets","live");
-        return;
-      }
+      if(falla(res)){ avisoFalla(res,"guardar el comprobante"); setStatus("🟢 En vivo — Google Sheets","live"); return; }
       await pull(false);
     }catch(e){ console.error(e); alert("No se pudo subir el comprobante (conexión)."); }
   };
   inp.click();
 }
+async function cambiarCot(id, campos){
+  const c = cots.find(x=>String(x.id)===String(id));
+  if(c) Object.assign(c, campos);         // se ve al instante
+  render();
+  try{
+    const res = await post("update",{id, campos},"Cotizaciones");
+    if(falla(res)){ avisoFalla(res,"guardar el cambio"); await pull(false); }
+  }catch(e){ alert("No se pudo guardar el cambio (conexión)."); await pull(false); }
+}
+function editarNota(id){
+  const c = cots.find(x=>String(x.id)===String(id)); if(!c) return;
+  const nueva = prompt("Nota para " + (c.cliente||"esta cotización") + ":", c.notas||"");
+  if(nueva === null) return;
+  cambiarCot(id, {notas: nueva.trim()});
+}
 
-function render(){
-  const base = ventas.filter(v=>(v.fecha||"").slice(0,7)===MES_FIJO);   // SOLO septiembre
-  const total = base.reduce((s,v)=>s+num(v.monto),0);
-  const by = k => base.filter(v=>v.tipo===k).reduce((s,v)=>s+num(v.monto),0);
-  const web=by("web"), rec=by("rec"), paq=by("paq");
+/* ---------------- Render ---------------- */
+function render(){ renderVentas(); renderConversion(); renderOportunidades(); }
+const $ = id => document.getElementById(id);
 
-  document.getElementById("gTotal").textContent = Q(total);
-  document.getElementById("gRemain").textContent = Q(Math.max(0,META-total));
-  const pct = Math.min(100, total/META*100);
-  document.getElementById("gBar").style.width = pct+"%";
-  document.getElementById("gPct").textContent = pct.toFixed(1)+"%";
-  document.getElementById("cWeb").textContent = Q(web);
-  document.getElementById("cRec").textContent = Q(rec);
-  document.getElementById("cPaq").textContent = Q(paq);
-  document.getElementById("cNum").textContent = base.length;
-  document.getElementById("cAvg").textContent = Q(base.length? total/base.length : 0);
-  document.getElementById("gMonth").textContent = "Septiembre 2026 · Actualizado "+new Date().toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"});
+function agrupar(arr, key){
+  const m = {};
+  arr.forEach(x=>{ const k = x[key]; (m[k] = m[k] || {n:0, monto:0}); m[k].n++; m[k].monto += num(x.monto); });
+  return m;
+}
+function tablaGrupo(el, grupos, total, titulo1, titulo2){
+  const filas = Object.entries(grupos).sort((a,b)=>b[1].monto-a[1].monto);
+  const nTot = filas.reduce((s,[,g])=>s+g.n,0);
+  el.innerHTML = `<thead><tr><th>${titulo1}</th><th class="r">${titulo2}</th><th class="r">Monto</th><th class="r">%</th></tr></thead><tbody>` +
+    (filas.length ? filas.map(([k,g])=>`<tr><td>${esc(k)}</td><td class="r">${g.n}</td><td class="amt">${Q(g.monto)}</td><td class="r">${pct(g.monto,total).toFixed(1)}%</td></tr>`).join("")
+                  : `<tr><td colspan="4" class="empty">Sin datos</td></tr>`) +
+    (filas.length ? `<tr class="tot"><td>Total</td><td class="r">${nTot}</td><td class="amt">${Q(total)}</td><td class="r">100%</td></tr>` : "") + `</tbody>`;
+}
+function dona(prev, canvasId, etiquetas, valores, colores){
+  if(typeof Chart === "undefined") return null;
+  if(prev) prev.destroy();
+  return new Chart($(canvasId), {type:"doughnut",
+    data:{labels:etiquetas, datasets:[{data:valores, backgroundColor:colores, borderColor:"#181c2e", borderWidth:3}]},
+    options:{cutout:"58%", plugins:{legend:{position:"right",labels:{color:"#9aa3c0",font:{size:12}}},
+      tooltip:{callbacks:{label:ctx=>` ${ctx.label}: ${Q(ctx.raw)}`}}}}});
+}
 
-  const fT=document.getElementById("filTipo").value;
-  let rows = base.filter(v=>(!fT||v.tipo===fT));
-  rows.sort((a,b)=>{ let x=a[sortKey]??"",y=b[sortKey]??"";
-    if(sortKey==="monto"){x=+x;y=+y;} return (x>y?1:x<y?-1:0)*sortDir; });
-  const tb=document.getElementById("tbody"); tb.innerHTML="";
+function renderVentas(){
+  const base = ventas.filter(delMes).map(v=>({...v, _h:inferHotel(v), _s:inferServicio(v), _c:inferCanal(v)}));
+  const total = suma(base);
+
+  $("gTotal").textContent = Q(total);
+  const falta = META - total;
+  $("gRemainLbl").textContent = falta > 0 ? "Falta" : "Meta superada por";
+  $("gRemain").textContent = Q(Math.abs(falta));
+  $("gRemain").style.color = falta > 0 ? "var(--accent)" : "var(--ok)";
+  const p = pct(total, META);
+  $("gBar").style.width = Math.min(100,p) + "%";
+  $("gPct").textContent = p.toFixed(1) + "%";
+  $("gMonth").textContent = MES_NOMBRE + " · Actualizado " + new Date().toLocaleTimeString("es-GT",{hour:"2-digit",minute:"2-digit"});
+
+  const clientes = new Set(base.map(v=>clienteDe(v).toLowerCase()).filter(Boolean));
+  $("cNum").textContent = base.length;
+  $("cCli").textContent = clientes.size;
+  $("cAvg").textContent = Q(base.length ? total/base.length : 0);
+  const porCanal = agrupar(base,"_c");
+  $("cWeb").textContent = Q((porCanal.Web||{}).monto);
+  $("cRec").textContent = Q((porCanal.Recurrente||{}).monto);
+  $("cDir").textContent = Q((porCanal.Directo||{}).monto);
+
+  const porServ = agrupar(base,"_s");
+  const sv = SERVICIOS.filter(s=>porServ[s]);
+  chServ = dona(chServ,"chServ", sv, sv.map(s=>porServ[s].monto), sv.map(s=>COL_SERV[s]));
+  const cv = CANALES.filter(c=>porCanal[c]);
+  chCanal = dona(chCanal,"chCanal", cv, cv.map(c=>porCanal[c].monto), cv.map(c=>COL_CANAL[c]));
+  tablaGrupo($("tHotel"), agrupar(base,"_h"), total, "Hotel", "Reservas");
+
+  // acumulado
+  if(typeof Chart !== "undefined"){
+    const byDate = {}; base.forEach(v=>{ byDate[v.fecha]=(byDate[v.fecha]||0)+num(v.monto); });
+    const fechas = Object.keys(byDate).sort(); let acc = 0;
+    const serie = fechas.map(f=>(acc+=byDate[f]));
+    if(chAcc) chAcc.destroy();
+    chAcc = new Chart($("chAcc"),{type:"line",
+      data:{labels:fechas.map(f=>f.slice(8)+"/"+f.slice(5,7)), datasets:[
+        {label:"Acumulado",data:serie,borderColor:"#5b8cff",backgroundColor:"rgba(91,140,255,.15)",fill:true,tension:.3,pointRadius:3},
+        {label:"Meta",data:fechas.map(()=>META),borderColor:"#5be5a0",borderDash:[6,5],pointRadius:0,fill:false}]},
+      options:{plugins:{legend:{labels:{color:"#9aa3c0"}}},
+        scales:{x:{ticks:{color:"#9aa3c0"},grid:{display:false}},
+                y:{ticks:{color:"#9aa3c0",callback:v=>Q0(v)},grid:{color:"#2a3050"}}}}});
+  }
+
+  // tabla de ventas
+  const fC=$("filCanal").value, fS=$("filServ").value, fH=$("filHotel").value;
+  const rows = base.filter(v=>(!fC||v._c===fC)&&(!fS||v._s===fS)&&(!fH||v._h===fH));
+  rows.sort((a,b)=>{ let x=a[sortKey]??"", y=b[sortKey]??"";
+    if(sortKey==="monto"){ x=+x; y=+y; } else { x=String(x).toLowerCase(); y=String(y).toLowerCase(); }
+    return (x>y?1:x<y?-1:0)*sortDir; });
+  const tb = $("tbody"); tb.innerHTML = "";
   rows.forEach(v=>{
-    const t=TIPOS[v.tipo]||{n:v.tipo,c:"web"};
-    const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${v.fecha}</td>
-      <td><span class="tag ${t.c}">${t.n}</span></td>
-      <td>${v.descripcion||"—"}</td>
-      <td style="color:var(--muted)">${v.recibo||"—"}</td>
-      <td class="comp"></td>
-      <td class="amt">${Q(v.monto)}</td>
-      <td><button class="del" title="Eliminar">✕</button></td>`;
-    const compTd=tr.querySelector(".comp");
+    const tr = document.createElement("tr");
+    const cc = COL_CANAL[v._c]||"#6b7390", cs = COL_SERV[v._s]||"#6b7390";
+    tr.innerHTML = `<td style="white-space:nowrap">${esc(v.fecha)}</td>
+      <td><span class="tag" style="background:${cc}22;color:${cc}">${esc(v._c)}</span></td>
+      <td><span class="tag" style="background:${cs}22;color:${cs}">${esc(v._s)}</span></td>
+      <td>${esc(v._h)}</td><td>${esc(v.descripcion||"—")}</td>
+      <td style="color:var(--muted)">${esc(v.recibo||"—")}</td><td class="comp"></td>
+      <td class="amt">${Q(v.monto)}</td><td><button class="del" title="Eliminar">✕</button></td>`;
+    const td = tr.querySelector(".comp");
     if(v.comprobante){
-      compTd.innerHTML=`<a href="${v.comprobante}" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">📎 Ver</a>`;
-    } else if(live){
-      const b=document.createElement("button");
-      b.textContent="📎 Adjuntar"; b.className="adj";
-      b.onclick=()=>adjuntarComprobante(v.id);
-      compTd.appendChild(b);
-    } else { compTd.innerHTML=`<span style="color:var(--muted)">—</span>`; }
+      const a=document.createElement("a"); a.href=String(v.comprobante); a.target="_blank"; a.rel="noopener";
+      a.textContent="📎 Ver"; a.style.cssText="color:var(--accent);text-decoration:none"; td.appendChild(a);
+    } else {
+      const b=document.createElement("button"); b.textContent="📎 Adjuntar"; b.className="adj";
+      b.onclick=()=>adjuntarComprobante(v.id); td.appendChild(b);
+    }
     tr.querySelector(".del").onclick=()=>delVenta(v.id);
     tb.appendChild(tr);
   });
-  document.getElementById("empty").style.display = rows.length?"none":"block";
-  drawCharts(web,rec,paq,base);
+  $("empty").style.display = rows.length ? "none" : "block";
 }
 
-function drawCharts(web,rec,paq,base){
-  const opt={plugins:{legend:{labels:{color:"#9aa3c0",font:{size:12}}}}};
-  if(chCat) chCat.destroy();
-  chCat=new Chart(document.getElementById("chCat"),{type:"doughnut",
-    data:{labels:["Página Web","Recurrente","Paquetes"],
-      datasets:[{data:[web,rec,paq],backgroundColor:["#3fb6ff","#ffb13f","#5be5a0"],borderColor:"#181c2e",borderWidth:3}]},
-    options:{...opt,cutout:"60%"}});
-  const byDate={};
-  base.forEach(v=>{ byDate[v.fecha]=(byDate[v.fecha]||0)+num(v.monto); });
-  const fechas=Object.keys(byDate).sort();
-  let acc=0; const serie=fechas.map(f=>{ acc+=byDate[f]; return acc; });
-  if(chAcc) chAcc.destroy();
-  chAcc=new Chart(document.getElementById("chAcc"),{type:"line",
-    data:{labels:fechas,datasets:[{label:"Acumulado",data:serie,
-      borderColor:"#5b8cff",backgroundColor:"rgba(91,140,255,.15)",fill:true,tension:.3,pointRadius:4,pointBackgroundColor:"#7c5bff"}]},
-    options:{...opt,plugins:{legend:{display:false}},
-      scales:{x:{ticks:{color:"#9aa3c0"},grid:{display:false}},
-              y:{ticks:{color:"#9aa3c0",callback:v=>"Q"+v.toLocaleString("es-GT")},grid:{color:"#2a3050"}}}}});
+function renderConversion(){
+  const cm = cots.filter(delMes);
+  const esConv = c => c.estado==="Convertida" || c.estado==="Recuperada";
+  const conv = cm.filter(esConv), no = cm.filter(c=>!esConv(c));
+  const mTot = suma(cm), mConv = suma(conv), mNo = suma(no);
+  $("kTot").textContent = cm.length;             $("kTotM").textContent = Q(mTot) + " cotizado";
+  $("kConv").textContent = conv.length;          $("kConvM").textContent = Q(mConv);
+  $("kNo").textContent = no.length;              $("kNoM").textContent = Q(mNo);
+  $("kTasa").textContent = pct(conv.length, cm.length).toFixed(1) + "%";
+  $("kTasaM").textContent = pct(mConv, mTot).toFixed(1) + "% del monto cotizado";
+
+  const f = $("funnel");
+  if(!cm.length){ f.innerHTML = `<div class="empty">${cotOK ? "Aún no hay cotizaciones de este mes." : "Falta publicar el Code.gs nuevo."}</div>`; }
+  else {
+    const abiertas = cm.filter(c=>c.estado==="Pendiente"||c.estado==="En seguimiento");
+    const perdidas = cm.filter(c=>c.estado==="Perdida");
+    const pasos = [
+      ["Cotizado", cm.length, mTot, "#5b8cff"],
+      ["Convertido en venta", conv.length, mConv, "#5be5a0"],
+      ["Oportunidades abiertas", abiertas.length, suma(abiertas), "#ffb13f"],
+      ["Perdidas", perdidas.length, suma(perdidas), "#ff5b7a"]
+    ];
+    f.innerHTML = pasos.map(([lab,n,m,col])=>`<div class="row">
+      <div class="lab"><span>${lab} · <b>${n}</b></span><b>${Q0(m)}</b></div>
+      <div class="track"><div class="fill" style="width:${Math.max(1.5,pct(m,mTot)).toFixed(1)}%;background:${col}"></div></div></div>`).join("");
+  }
+  tablaGrupo($("tNoConv"), agrupar(no,"hotel"), mNo, "Hotel cotizado", "Cotizaciones");
 }
 
-function fileToB64(file){
-  return new Promise((res,rej)=>{ const r=new FileReader();
-    r.onload=()=>res(String(r.result).split(",")[1]); r.onerror=rej; r.readAsDataURL(file); });
+function renderOportunidades(){
+  const ops = cots.filter(delMes).filter(c=>c.estado!=="Convertida");
+  const de = e => ops.filter(c=>c.estado===e);
+  const ab = ops.filter(c=>c.estado==="Pendiente"||c.estado==="En seguimiento");
+  $("oAb").textContent = Q0(suma(ab));                 $("oAbN").textContent = ab.length + " cotizaciones";
+  $("oSeg").textContent = Q0(suma(de("En seguimiento"))); $("oSegN").textContent = de("En seguimiento").length + " cotizaciones";
+  $("oRec").textContent = Q0(suma(de("Recuperada")));  $("oRecN").textContent = de("Recuperada").length + " cotizaciones";
+  $("oPer").textContent = Q0(suma(de("Perdida")));     $("oPerN").textContent = de("Perdida").length + " cotizaciones";
+
+  // hoteles en el filtro
+  const sel = $("fHotelOp"), actual = sel.value;
+  const hs = [...new Set(ops.map(c=>String(c.hotel||"Sin hotel")))].sort();
+  sel.innerHTML = `<option value="">Todos los hoteles</option>` + hs.map(h=>`<option>${esc(h)}</option>`).join("");
+  sel.value = hs.includes(actual) ? actual : "";
+
+  const fE = $("fEstado").value, fH = sel.value, fB = $("fBusca").value.trim().toLowerCase();
+  const rows = ops.filter(c=>{
+    if(fE==="abiertas" && !(c.estado==="Pendiente"||c.estado==="En seguimiento")) return false;
+    if(fE && fE!=="abiertas" && c.estado!==fE) return false;
+    if(fH && String(c.hotel||"Sin hotel")!==fH) return false;
+    if(fB && !String(c.cliente||"").toLowerCase().includes(fB)) return false;
+    return true;
+  }).sort((a,b)=>num(b.monto)-num(a.monto));
+
+  const tb = $("tbOp"); tb.innerHTML = "";
+  rows.forEach(c=>{
+    const tr = document.createElement("tr");
+    const col = COL_EST[c.estado] || "#6b7390";
+    tr.innerHTML = `<td>${esc(c.cliente)}</td><td>${esc(c.hotel||"Sin hotel")}</td><td class="amt">${Q(c.monto)}</td>
+      <td><select class="est" style="color:${col};border-color:${col}55">${ESTADOS_OP.map(e=>`<option${e===c.estado?" selected":""}>${e}</option>`).join("")}</select></td>
+      <td class="notas" title="Clic para editar">${c.notas ? esc(c.notas) : "＋ agregar nota"}</td>`;
+    tr.querySelector("select").onchange = e => cambiarCot(c.id, {estado: e.target.value});
+    tr.querySelector(".notas").onclick = () => editarNota(c.id);
+    tb.appendChild(tr);
+  });
+  $("emptyOp").style.display = rows.length ? "none" : "block";
 }
-document.getElementById("frm").addEventListener("submit", async e=>{
+
+/* ---------------- Formularios y eventos ---------------- */
+function opciones(id, lista, placeholder){
+  $(id).innerHTML = (placeholder ? `<option value="">${placeholder}</option>` : "") + lista.map(x=>`<option>${esc(x)}</option>`).join("");
+}
+opciones("vCanal", CANALES); opciones("vServ", SERVICIOS.slice(0,4)); opciones("vHotel", HOTELES);
+opciones("cHotel", HOTELES); opciones("cEstado", ["Pendiente","En seguimiento","Convertida","Recuperada","Perdida"]);
+opciones("filCanal", CANALES, "Todos los canales"); opciones("filServ", SERVICIOS, "Todos los servicios"); opciones("filHotel", HOTELES, "Todos los hoteles");
+$("vCanal").value = "Directo";
+$("vFecha").value = fechaDefault(); $("cFecha").value = fechaDefault();
+
+$("frmV").addEventListener("submit", async e=>{
   e.preventDefault();
-  const btn=document.getElementById("btnSave"); btn.disabled=true;
-  const v={
-    id: "v-"+Date.now(),
-    fecha: document.getElementById("fFecha").value,
-    tipo: document.getElementById("fTipo").value,
-    descripcion: document.getElementById("fDesc").value.trim(),
-    recibo: document.getElementById("fRecibo").value.trim(),
-    monto: parseFloat(document.getElementById("fMonto").value)||0
-  };
-  if(!v.fecha||v.monto<=0){ alert("Completa fecha y un monto válido."); btn.disabled=false; return; }
-  const fileEl=document.getElementById("fComp");
-  if(fileEl.files && fileEl.files[0]){
+  const btn = $("vBtn"); btn.disabled = true;
+  const canal = $("vCanal").value;
+  const v = { id:"v-"+Date.now(), fecha:$("vFecha").value, tipo:TIPO_DE_CANAL[canal]||"web",
+    descripcion:$("vDesc").value.trim(), recibo:$("vRecibo").value.trim(), monto:parseFloat($("vMonto").value)||0,
+    hotel:$("vHotel").value, servicio:$("vServ").value, canal };
+  if(!v.fecha || v.monto<=0){ alert("Completa la fecha y un monto válido."); btn.disabled=false; return; }
+  const f = $("vComp");
+  if(f.files && f.files[0]){
     try{ setStatus("Subiendo comprobante…","busy");
-      v.comprobante_b64=await fileToB64(fileEl.files[0]);
-      v.comprobante_name=fileEl.files[0].name;
-      v.comprobante_mime=fileEl.files[0].type||"image/jpeg";
+      v.comprobante_b64 = await fileToB64(f.files[0]); v.comprobante_name = f.files[0].name; v.comprobante_mime = f.files[0].type||"image/jpeg";
     }catch(err){ console.error(err); }
   }
-  await addVenta(v);
-  e.target.reset();
-  document.getElementById("fFecha").value = new Date().toISOString().slice(0,10);
-  btn.disabled=false;
+  try{
+    setStatus("Guardando…","busy");
+    const res = await post("add", v);
+    if(falla(res)) avisoFalla(res,"guardar la venta");
+    else {
+      if(v.fecha.slice(0,7) !== MES_FIJO) alert("Guardada ✅ — ojo: la fecha es de otro mes, así que no aparece en este tablero de septiembre.");
+      e.target.reset(); $("vCanal").value = canal; $("vFecha").value = fechaDefault();
+    }
+    await pull(false);
+  }catch(err){ alert("No se pudo guardar (conexión)."); }
+  btn.disabled = false;
 });
-document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{
-  const k=th.dataset.s; if(sortKey===k) sortDir*=-1; else{sortKey=k;sortDir=1;} render();
-});
-document.getElementById("filTipo").onchange=render;
-document.getElementById("fFecha").value = new Date().toISOString().slice(0,10);
 
-initData();
+$("frmC").addEventListener("submit", async e=>{
+  e.preventDefault();
+  if(!cotOK){ alert("Primero publica el Code.gs nuevo (Nueva versión) para poder guardar cotizaciones."); return; }
+  const btn = $("cBtn"); btn.disabled = true;
+  const c = { id:"c-"+Date.now(), fecha:$("cFecha").value, cliente:$("cCliente").value.trim(),
+    hotel:$("cHotel").value, monto:parseFloat($("cMonto").value)||0, estado:$("cEstado").value, notas:$("cNotas").value.trim() };
+  if(!c.fecha || !c.cliente || c.monto<=0){ alert("Completa fecha, cliente y monto."); btn.disabled=false; return; }
+  try{
+    setStatus("Guardando…","busy");
+    const res = await post("add", c, "Cotizaciones");
+    if(falla(res)) avisoFalla(res,"guardar la cotización");
+    else { e.target.reset(); $("cFecha").value = fechaDefault(); $("cEstado").value = "Pendiente"; }
+    await pull(false);
+  }catch(err){ alert("No se pudo guardar (conexión)."); }
+  btn.disabled = false;
+});
+
+document.querySelectorAll("th[data-s]").forEach(th=>th.onclick=()=>{
+  const k = th.dataset.s; if(sortKey===k) sortDir*=-1; else { sortKey=k; sortDir = k==="monto" ? -1 : 1; } renderVentas();
+});
+["filCanal","filServ","filHotel"].forEach(id=>$(id).onchange = renderVentas);
+["fEstado","fHotelOp"].forEach(id=>$(id).onchange = renderOportunidades);
+$("fBusca").oninput = renderOportunidades;
+
+pull(true);
+setInterval(()=>{
+  // no refrescar mientras se está eligiendo un estado en la lista
+  const a = document.activeElement;
+  if(a && a.closest && a.closest("#tbOp")) return;
+  pull(false);
+}, POLL_MS);
 </script>
 </body>
 </html>

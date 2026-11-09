@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Viaje del Huésped — Noviembre 2026 (V21 · Corte 9 nov)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a1d31; --navy-2:#0f2740; --navy-3:#15324f; --ink:#071425;
+    --gold:#c89b4c; --gold-soft:#d9b465; --gold-dim:#8a6f3c;
+    --cream:#f6f1e6; --paper:#fbf8f1; --teal:#3f8e93; --violet:#8e6bb0;
+    --line:rgba(200,155,76,.28); --txt:#1d2a38; --txt-soft:#5b6b7a; --white:#fff;
+    --red:#b23a3a; --amber:#d39022; --green:#3f8e62;
+    --shadow:0 18px 45px -22px rgba(7,20,37,.45);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--txt);
+    background:radial-gradient(1200px 500px at 80% -10%, rgba(63,142,147,.12), transparent 60%),
+      linear-gradient(180deg,#0a1d31 0%,#0c2238 100%) fixed;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 22px 90px;}
+  header.top{position:relative;padding:46px 0 26px;color:var(--cream);}
+  .brand{display:flex;align-items:center;gap:13px;font-family:'Oswald',sans-serif;letter-spacing:.34em;
+    font-size:13px;font-weight:500;text-transform:uppercase;color:var(--gold-soft);}
+  .brand .mark{width:30px;height:30px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;font-size:14px;color:var(--gold);}
+  h1{font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(30px,5vw,52px);line-height:1.04;margin:18px 0 6px;color:#fff;letter-spacing:.01em;}
+  h1 .accent{color:var(--gold-soft);}
+  .sub-lead{color:#c3d2e2;max-width:700px;font-size:15.5px;line-height:1.6;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px;}
+  .chip{font-family:'Oswald',sans-serif;font-weight:400;letter-spacing:.08em;font-size:12.5px;text-transform:uppercase;
+    color:var(--cream);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:rgba(255,255,255,.03);}
+  .chip b{color:var(--gold-soft);font-weight:600;}
+  .tabs{display:flex;gap:6px;margin:26px 0 4px;}
+  .tab{font-family:'Oswald',sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:13px;color:#bcd;
+    background:rgba(255,255,255,.04);border:1px solid var(--line);border-bottom:none;padding:12px 20px;border-radius:12px 12px 0 0;cursor:pointer;transition:.2s;}
+  .tab.active{background:var(--paper);color:var(--navy);font-weight:600;}
+  .tabpanel{display:none;} .tabpanel.active{display:block;}
+  .road-wrap{background:linear-gradient(180deg,#0c2339,#0e2a44);border:1px solid var(--line);border-radius:18px;padding:14px 10px 6px;box-shadow:var(--shadow);overflow:hidden;}
+  .road-wrap svg{width:100%;height:auto;display:block;}
+  .stop-node{cursor:pointer;} .stop-node:hover circle.dot{fill:var(--gold-soft);}
+  .sheet{background:var(--paper);border-radius:0 18px 18px 18px;box-shadow:var(--shadow);padding:34px clamp(20px,4vw,46px);margin-top:0;}
+  .block{padding:30px 0;border-top:1px solid rgba(10,29,49,.1);} .block:first-of-type{border-top:none;}
+  .sec-head{display:flex;align-items:center;gap:14px;}
+  .sec-num{width:40px;height:40px;border-radius:50%;background:var(--navy);color:var(--gold-soft);font-family:'Oswald',sans-serif;font-weight:600;font-size:20px;display:grid;place-items:center;flex:0 0 auto;}
+  .sec-head h2{font-family:'Oswald',sans-serif;font-weight:600;font-size:25px;color:var(--navy);margin:0;letter-spacing:.01em;}
+  .sec-head .win{margin-left:auto;font-family:'Oswald';font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-soft);border:1px solid rgba(10,29,49,.15);border-radius:999px;padding:5px 11px;}
+  .sec-sub{color:var(--txt-soft);font-size:14.5px;margin:8px 0 18px;max-width:780px;}
+  .card{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:14px;padding:20px 22px;margin:14px 0;box-shadow:0 8px 22px -18px rgba(7,20,37,.35);}
+  .card h3{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.02em;font-size:15px;text-transform:uppercase;color:var(--gold-dim);margin:0 0 14px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;}
+  th,td{padding:9px 8px;text-align:right;border-bottom:1px solid rgba(10,29,49,.08);}
+  th{font-family:'Oswald',sans-serif;font-weight:500;letter-spacing:.04em;text-transform:uppercase;font-size:11.5px;color:var(--txt-soft);}
+  th.l,td.l{text-align:left;}
+  tr.eco td{font-weight:700;color:var(--navy);border-top:2px solid var(--gold);background:rgba(200,155,76,.06);}
+  tr.grp td{font-weight:600;color:var(--navy);background:rgba(13,27,42,.035);border-top:1px solid rgba(13,27,42,.10);}
+  td.pos{color:var(--green);font-weight:600;} td.neg{color:var(--red);font-weight:600;}
+  .pill{display:inline-block;font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;padding:3px 10px;border-radius:999px;color:#fff;}
+  .pill.g{background:var(--green);} .pill.a{background:var(--amber);} .pill.r{background:var(--red);} .pill.pend{background:#9aa6b2;}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0;}
+  .kpi{background:linear-gradient(180deg,#0c2339,#11304e);border-radius:12px;padding:16px 16px;color:var(--cream);}
+  .kpi .n{font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:#fff;line-height:1;}
+  .kpi .n small{font-size:15px;color:var(--gold-soft);}
+  .kpi .lab{font-size:12px;color:#a9bccd;margin-top:7px;letter-spacing:.02em;}
+  .kpi .delta{font-size:12px;margin-top:4px;font-weight:600;}
+  .kpi .delta.up{color:#7fcf9c;} .kpi .delta.down{color:#e89a9a;} .kpi .delta.flat{color:#e6c98a;}
+  .insight{background:rgba(63,142,147,.08);border-left:3px solid var(--teal);border-radius:0 8px 8px 0;padding:12px 16px;font-size:14px;color:#22404a;margin-top:14px;line-height:1.55;}
+  .flag{background:rgba(200,155,76,.1);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:11px 16px;font-size:13px;color:#5c4a23;margin-top:12px;line-height:1.5;}
+  .feebox{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;}
+  .feebox .f{display:flex;justify-content:space-between;align-items:center;background:#f3eee2;border-radius:8px;padding:9px 13px;font-size:13.5px;color:var(--navy);}
+  .feebox .f b{font-family:'Oswald',sans-serif;} .feebox .f.big{grid-column:1/-1;background:var(--navy);color:#fff;} .feebox .f.big b{color:var(--gold-soft);}
+  .fut-chart{display:flex;align-items:flex-end;gap:10px;height:200px;padding:24px 4px 0;border-bottom:2px solid rgba(10,29,49,.15);}
+  .fut-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:6px;}
+  .fut-bar{width:100%;max-width:54px;border-radius:7px 7px 0 0;background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim));position:relative;transition:height .8s cubic-bezier(.2,.8,.2,1);}
+  .fut-bar.peak{background:linear-gradient(180deg,#4fae6e,var(--green));} .fut-bar.valley{background:linear-gradient(180deg,#cf6b6b,var(--red));}
+  .fut-bar .v{position:absolute;top:-20px;left:0;right:0;text-align:center;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;color:var(--navy);}
+  .fut-lab{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-soft);}
+  .heat td{text-align:center;font-family:'Oswald',sans-serif;font-weight:500;color:#fff;border:2px solid #fff;border-radius:4px;font-size:13px;}
+  .heat td.l{text-align:left;color:var(--navy);background:#fff!important;font-family:'Inter';font-weight:600;} .heat th{text-align:center;}
+  .chart-cap{font-size:12.5px;color:var(--txt-soft);margin:0 0 14px;}
+  .hbars{display:flex;flex-direction:column;gap:11px;margin:4px 0 2px;}
+  .hbar-row{display:grid;grid-template-columns:minmax(96px,170px) 1fr;align-items:center;gap:12px;}
+  .hbar-row .hlab{font-size:13px;color:var(--navy);font-weight:500;}
+  .hbar-track{position:relative;background:#efe9db;border-radius:7px;height:26px;}
+    .hbar-track>.hbar-fill{border-radius:7px;}
+  .hbar-fill{height:100%;border-radius:7px 0 0 7px;background:linear-gradient(90deg,var(--gold-dim),var(--gold-soft));display:flex;align-items:center;justify-content:flex-end;padding-right:9px;color:#3a2c0c;font-family:'Oswald';font-weight:600;font-size:13px;white-space:nowrap;transition:width .9s cubic-bezier(.2,.8,.2,1);}
+  .hbar-fill.hi{background:linear-gradient(90deg,#2f6f4c,var(--green));color:#eafff1;}
+  .hbar-fill.lo{background:linear-gradient(90deg,#9a3030,var(--red));color:#ffecec;}
+  .hbar-fill.tealf{background:linear-gradient(90deg,#2a6468,var(--teal));color:#eafff1;}
+  .hbar-fill.violf{background:linear-gradient(90deg,#5c4483,var(--violet));color:#f2ecff;}
+  .hbar-fill.mut{background:repeating-linear-gradient(45deg,#cdd4dc,#cdd4dc 7px,#e2e7ec 7px,#e2e7ec 14px);color:#5b6b7a;}
+  .meta-line{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--navy);opacity:.55;}
+  .meta-line::after{content:"meta";position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-family:'Oswald';font-size:9px;letter-spacing:.05em;color:var(--navy);opacity:.7;}
+  .stack-wrap{margin:12px 0 4px;}
+  .stack-lab{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--txt-soft);font-family:'Oswald';margin-bottom:5px;}
+  .stack{display:flex;height:30px;border-radius:7px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(10,29,49,.05);}
+  .stack span{display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;font-family:'Oswald';font-weight:500;min-width:0;overflow:hidden;}
+  .stack-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:9px;font-size:12px;color:var(--txt-soft);}
+  .stack-legend i{width:11px;height:11px;border-radius:3px;display:inline-block;margin-right:6px;vertical-align:-1px;}
+  .gchart{display:flex;align-items:flex-end;gap:18px;height:210px;padding:24px 4px 0;border-bottom:2px solid rgba(10,29,49,.15);}
+  .ggroup{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;}
+  .gpair{display:flex;align-items:flex-end;gap:7px;height:100%;width:100%;justify-content:center;}
+  .gbar{width:38px;border-radius:7px 7px 0 0;position:relative;transition:height .9s cubic-bezier(.2,.8,.2,1);}
+  .gbar.real{background:linear-gradient(180deg,var(--gold-soft),var(--gold-dim));} .gbar.real.over{background:linear-gradient(180deg,#4fae6e,var(--green));}
+  .gbar.meta{background:#dfe5ec;border:1.5px dashed #9aa6b2;}
+  .gbar .gv{position:absolute;top:-19px;left:0;right:0;text-align:center;font-family:'Oswald';font-size:12px;font-weight:600;color:var(--navy);}
+  .gglab{font-family:'Oswald';font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--txt-soft);margin-top:8px;text-align:center;}
+  .donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap;}
+  .donut-legend{display:flex;flex-direction:column;gap:8px;font-size:13px;}
+  .donut-legend .dl{display:flex;align-items:center;gap:9px;color:var(--navy);} .donut-legend i{width:13px;height:13px;border-radius:4px;flex:0 0 auto;} .donut-legend b{font-family:'Oswald';}
+  details{margin-top:14px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden;}
+  summary{cursor:pointer;list-style:none;padding:13px 18px;font-family:'Oswald',sans-serif;letter-spacing:.05em;text-transform:uppercase;font-size:13px;color:var(--navy);background:rgba(200,155,76,.07);display:flex;align-items:center;gap:10px;}
+  summary::-webkit-details-marker{display:none;} summary::before{content:"▸";color:var(--gold-dim);transition:.2s;} details[open] summary::before{transform:rotate(90deg);}
+  .deep{padding:16px 20px;font-size:14px;line-height:1.65;color:#2a3946;} .deep p{margin:0 0 11px;} .deep b{color:var(--navy);}
+  .sgt-head{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;}
+  .conn{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;}
+  .dot-st{width:11px;height:11px;border-radius:50%;background:#9aa6b2;flex:0 0 auto;}
+  .dot-st.ok{background:var(--green);box-shadow:0 0 0 4px rgba(63,142,98,.18);} .dot-st.off{background:#9aa6b2;} .dot-st.err{background:var(--red);}
+  .conn input{font-size:12.5px;padding:7px 10px;border:1px solid rgba(10,29,49,.2);border-radius:8px;min-width:230px;}
+  .btn{font-family:'Oswald',sans-serif;letter-spacing:.05em;text-transform:uppercase;font-size:12.5px;border:none;border-radius:9px;padding:9px 15px;cursor:pointer;transition:.15s;background:#e7e0d0;color:var(--navy);}
+  .btn:hover{transform:translateY(-1px);} .btn.p{background:var(--navy);color:#fff;} .btn.g{background:var(--gold);color:#3a2c0c;} .btn.d{background:#f0d9d9;color:var(--red);}
+  .counters{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+  .cnt{background:#fff;border:1px solid rgba(10,29,49,.1);border-radius:10px;padding:11px 16px;min-width:108px;}
+  .cnt .n{font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:var(--navy);} .cnt .l{font-size:11.5px;color:var(--txt-soft);text-transform:uppercase;letter-spacing:.04em;}
+  .cnt.pend .n{color:var(--amber);} .cnt.proc .n{color:var(--teal);} .cnt.done .n{color:var(--green);}
+  #segTable{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px;min-width:1040px;}
+  #segTable th{background:var(--navy);color:var(--cream);position:sticky;top:0;}
+  #segTable td{border-bottom:1px solid rgba(10,29,49,.08);padding:6px;vertical-align:top;}
+  #segTable input,#segTable select,#segTable textarea{width:100%;border:1px solid transparent;background:transparent;font-family:inherit;font-size:13px;padding:5px 6px;border-radius:6px;resize:none;overflow:hidden;}
+  #segTable input:focus,#segTable select:focus,#segTable textarea:focus{border-color:var(--gold);background:#fff;outline:none;}
+  .st-sel{font-family:'Oswald',sans-serif;} .row-del{color:var(--red);cursor:pointer;border:none;background:none;font-size:16px;}
+  .save-note{font-size:12px;color:var(--txt-soft);margin-top:10px;}
+  footer{color:#8fa6bb;text-align:center;font-size:12.5px;padding:30px 0 0;letter-spacing:.03em;}
+  @media print{body{background:#fff;} .road-wrap,.tabs,.scroll-bus,.conn .btn,.sgt-toolbar{display:none!important;} .sheet{box-shadow:none;border-radius:0;} details{border:none;} details summary{display:none;} .deep{display:block!important;} .tabpanel{display:block!important;}}
+  .scroll-bus{position:fixed;right:14px;top:120px;z-index:40;transition:top .25s ease-out;pointer-events:none;}
+  @media (max-width:760px){.scroll-bus{display:none;} .conn input{min-width:150px;}}
+
+  /* ---- V16 ---- */
+  .h3r{float:right;font-family:Inter;text-transform:none;letter-spacing:0;font-size:12px;color:var(--txt-soft);font-weight:400;}
+  .h3r a{color:var(--teal);text-decoration:none;font-weight:600;}
+  .mut{color:var(--txt-soft);font-size:11.5px;font-weight:400;}
+  .cdot{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:0;}
+  span.pos,b.pos{color:var(--green);font-weight:600;} span.neg,b.neg{color:var(--red);font-weight:600;}
+  td.b{font-weight:700;color:var(--navy);} td.sub{padding-left:24px;color:var(--txt-soft);}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;} .tscroll table{min-width:560px;}
+  .grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:16px;align-items:start;} .grid2>.card{margin:0;} .grid2{margin:14px 0;}
+  .hout{position:absolute;top:50%;transform:translateY(-50%);font-size:12px;font-weight:600;color:var(--navy);white-space:nowrap;font-family:'Oswald';}
+  .hbars.wide .hbar-row{grid-template-columns:minmax(110px,150px) 1fr;} .hbars.wide .hbar-track{margin-right:210px;}
+  .hbars.wide2 .hbar-row{grid-template-columns:minmax(150px,250px) 1fr;}
+  .lect{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(10,29,49,.08);} .lect:last-child{border-bottom:none;padding-bottom:2px;}
+  .lect .ln{flex:0 0 30px;height:30px;border-radius:50%;background:var(--gold);color:#3a2c0c;font-family:'Oswald';font-weight:600;display:grid;place-items:center;font-size:15px;}
+  .lect b{color:var(--navy);font-size:15px;} .lect p{margin:4px 0 0;font-size:13.8px;line-height:1.55;color:#34424f;}
+  .octcard{border:1px solid var(--gold);border-left:5px solid var(--gold);background:linear-gradient(180deg,#fffdf7,#fff);}
+  .ul{margin:0 0 4px 18px;padding:0;font-size:14px;line-height:1.6;} .ul li{margin-bottom:6px;}
+  .f2{display:flex;justify-content:space-between;gap:10px;padding:7px 2px;border-bottom:1px solid rgba(10,29,49,.07);font-size:13px;color:var(--navy);} .f2 b{font-family:'Oswald';}
+  .spark{display:inline-flex;align-items:flex-end;gap:3px;height:24px;vertical-align:middle;} .spark i{display:block;width:9px;border-radius:2px;}
+  svg.chart{width:100%;height:auto;display:block;} svg.chart text{font-family:'Inter',system-ui,sans-serif;}
+  svg.chart .ax{font-size:10.5px;fill:#5b6b7a;} svg.chart .axb{font-size:11.5px;font-weight:600;fill:#15324f;} svg.chart .axm{font-size:10.5px;font-weight:600;fill:#8a6f3c;}
+  svg.chart .pt{font-family:'Oswald';font-size:14px;font-weight:600;fill:#15324f;} svg.chart .pts{font-family:'Oswald';font-size:11px;font-weight:600;fill:#15324f;}
+  svg.chart .end{font-size:11px;fill:#34424f;} svg.chart .endm{font-size:12px;font-weight:700;fill:#15324f;}
+  .dumb{position:relative;height:26px;margin-right:120px;background:linear-gradient(#efe9db,#efe9db) center/100% 2px no-repeat;}
+  .dline{position:absolute;top:11px;height:4px;border-radius:2px;opacity:.45;}
+  .ddot{position:absolute;top:5px;width:16px;height:16px;border-radius:50%;margin-left:-8px;box-shadow:0 0 0 2px #fff;} .ddot.hollow{background:#fff;border:3px solid;}
+  .dlab{position:absolute;top:4px;font-size:12px;color:var(--navy);white-space:nowrap;}
+  .fpair{display:flex;align-items:flex-end;justify-content:center;gap:5px;height:100%;width:100%;} .fpair .fut-bar{width:40%;max-width:44px;}
+  .fut-bar.grey{background:#b9c3cf;} .fut-bar .v.mutv{color:#6b7885;font-weight:500;font-size:11.5px;}
+  .fut-lab .pos{color:var(--green);} .fut-lab .neg{color:var(--red);} .fut-lab{text-align:center;line-height:1.35;}
+  .heat.big td{padding:14px 8px;font-size:15px;} .heat.big td.l{font-size:13.5px;padding-left:4px;} .heat.big th{font-size:12px;} 
+  .stack span{border-right:2px solid #fff;} .stack span:last-child{border-right:none;}
+  details .deep table{margin-top:4px;}
+  .cscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  @media (max-width:700px){svg.chart{min-width:600px;} .hout{left:auto!important;right:6px;} .hbars.wide2 .hbar-row{grid-template-columns:minmax(90px,130px) 1fr;} .donut-wrap{gap:12px;} .kpis{grid-template-columns:repeat(auto-fit,minmax(135px,1fr));}.hbars.wide .hbar-track{margin-right:0;} .hbars.wide .hout{display:none;} .h3r{float:none;display:block;margin-top:4px;} .dumb{margin-right:96px;}
+    .hbar-row{grid-template-columns:minmax(80px,112px) 1fr;} .kpi .n{font-size:25px;} .sec-head{flex-wrap:wrap;} .sec-head .win{margin-left:54px;}}
+  .pill.a{background:rgba(200,155,76,.18);color:#8a6418;}
+</style>
+</head>
+<body>
+<div class="scroll-bus" id="scroll-bus" aria-hidden="true">
+  <svg width="34" height="26" viewBox="0 0 34 26"><g>
+    <rect x="1" y="4" width="30" height="15" rx="3" fill="#c89b4c"/>
+    <rect x="4" y="7" width="6" height="5" rx="1" fill="#0a1d31"/><rect x="12" y="7" width="6" height="5" rx="1" fill="#0a1d31"/><rect x="20" y="7" width="6" height="5" rx="1" fill="#0a1d31"/>
+    <circle cx="8" cy="20" r="3.4" fill="#15324f"/><circle cx="24" cy="20" r="3.4" fill="#15324f"/>
+  </g></svg>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><span class="mark">✦</span> Hoteles de Petén · La nueva manera de reportar</div>
+    <h1>El Viaje del <span class="accent">Huésped</span></h1>
+    <p class="sub-lead">El ecosistema como un solo sistema — siete hoteles, cinco restaurantes, tours, eventos, boletos de avión y compras de verdura. <b style="color:var(--gold-soft)">Noviembre 2026 · primer corte semanal</b>: cómo arranca cada línea contra las metas nuevas de noviembre.</p>
+    <div class="meta-row">
+      <span class="chip">Noviembre <b>2026</b></span>
+      <span class="chip"><b>8 paradas</b> · corte semanal</span>
+      <span class="chip">7 hoteles · 5 restaurantes</span>
+      <span class="chip">Emisión <b>V21 · Corte 9 nov</b></span>
+    </div>
+    <div class="tabs">
+      <div class="tab active" data-tab="reporte">Reporte</div>
+      <div class="tab" data-tab="seguimientos">Seguimientos</div>
+    </div>
+  </header>
+
+  <div class="road-wrap">
+    <svg viewBox="0 0 1200 150" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="rd" x1="0" x2="1"><stop offset="0" stop-color="#15324f"/><stop offset="1" stop-color="#1c4060"/></linearGradient></defs>
+      <path id="roadpath" d="M40,105 C 160,105 205,55 330,58 C 470,62 500,108 640,105 C 760,102 800,55 920,58 C 1030,61 1085,95 1160,88"
+            fill="none" stroke="url(#rd)" stroke-width="16" stroke-linecap="round"/>
+      <use href="#roadpath" stroke="#c89b4c" stroke-width="2" stroke-dasharray="2 14" stroke-linecap="round" opacity=".7"/>
+      <g id="stops"></g>
+      <g id="bus">
+        <rect x="-22" y="-13" width="44" height="22" rx="4" fill="#f6f1e6"/>
+        <rect x="-17" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/><rect x="-5" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/><rect x="7" y="-9" width="9" height="7" rx="1.4" fill="#15324f"/>
+        <circle cx="-12" cy="10" r="4.5" fill="#0a1d31"/><circle cx="12" cy="10" r="4.5" fill="#0a1d31"/>
+        <animateMotion dur="16s" repeatCount="indefinite" rotate="auto"
+          path="M40,105 C 160,105 205,55 330,58 C 470,62 500,108 640,105 C 760,102 800,55 920,58 C 1030,61 1085,95 1160,88"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="tabpanel active" id="reporte"><div class="sheet" id="sheet"></div></div>
+
+  <div class="tabpanel" id="seguimientos">
+  <div class="sheet">
+    <section class="block">
+      <div class="sec-head"><span class="sec-num">✓</span><h2>Bitácora de seguimientos</h2></div>
+      <p class="sec-sub">Cada acción amarrada a su punto del reporte. Se guarda en este dispositivo y, si conectás la hoja de Google, se sincroniza en vivo para todo el equipo.</p>
+      <div class="sgt-head sgt-toolbar">
+        <div class="conn">
+          <span class="dot-st off" id="stDot"></span><span id="stText">Conectando…</span>
+          <input id="urlInput" placeholder="URL del Web App de Google (/exec)">
+          <button class="btn" id="connectBtn">Conectar</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn g" id="seedBtn">Cargar focos de octubre</button>
+          <button class="btn p" id="addBtn">+ Agregar</button>
+          <button class="btn" id="expBtn">Exportar .json</button>
+          <button class="btn" id="impBtn">Importar</button>
+          <button class="btn" id="printBtn">Imprimir / PDF</button>
+          <button class="btn d" id="clearBtn">Limpiar</button>
+          <input type="file" id="impFile" accept="application/json" style="display:none">
+        </div>
+      </div>
+      <div class="counters">
+        <div class="cnt pend"><div class="n" id="cPend">0</div><div class="l">Pendientes</div></div>
+        <div class="cnt proc"><div class="n" id="cProc">0</div><div class="l">En proceso</div></div>
+        <div class="cnt done"><div class="n" id="cDone">0</div><div class="l">Listos</div></div>
+        <div class="cnt"><div class="n" id="cTot">0</div><div class="l">Total</div></div>
+      </div>
+      <div style="overflow-x:auto">
+        <table id="segTable">
+          <thead><tr>
+            <th style="width:34px">#</th><th style="width:160px">Fase</th><th>Acción</th>
+            <th style="width:130px">Responsable</th><th style="width:120px">Fecha</th>
+            <th style="width:120px">Estado</th><th>Notas</th><th style="width:34px"></th>
+          </tr></thead><tbody id="rows"></tbody>
+        </table>
+      </div>
+      <p class="save-note" id="saveNote">Guardado local activo. Al conectar la hoja de Google, el indicador pasa a verde y la bitácora queda colaborativa.</p>
+    </section>
+  </div>
+  </div>
+</div>
+
+<script id="vhdata" type="application/json">
+{"occ": {"hot": [{"h": "Casona del Lago", "eco": true, "tot": 1440.0, "otb": 1220.0, "occPct": 84.7, "metaDia": 45, "meta": 1350, "pct": 90.4, "gap": -130.0, "prev": 1171.0, "wk": 49.0, "prevPct": 86.7, "adr": 659, "revpar": 558, "pax": 2070.0, "sf": 2528.72, "oct": 1155.0, "octMeta": 1240, "octPct": 93.1, "octAdr": 639, "metaDiaOct": 40, "cap": 93.8, "needDay": 5.9, "wkDay": 7.0}, {"h": "Casona de la Isla", "eco": true, "tot": 1020.0, "otb": 840.0, "occPct": 82.4, "metaDia": 30, "meta": 900, "pct": 93.3, "gap": -60.0, "prev": 827.0, "wk": 13.0, "prevPct": 91.9, "adr": 567, "revpar": 467, "pax": 1468.0, "sf": 691.26, "oct": 597.0, "octMeta": 682, "octPct": 87.5, "octAdr": 538, "metaDiaOct": 22, "cap": 88.2, "needDay": 2.7, "wkDay": 1.9}, {"h": "Hotel Petén", "eco": true, "tot": 660.0, "otb": 546.0, "occPct": 82.7, "metaDia": 20, "meta": 600, "pct": 91.0, "gap": -54.0, "prev": 501.0, "wk": 45.0, "prevPct": 83.5, "adr": 395, "revpar": 327, "pax": 907.0, "sf": 8522.59, "oct": 382.0, "octMeta": 465, "octPct": 82.2, "octAdr": 482, "metaDiaOct": 15, "cap": 90.9, "needDay": 2.5, "wkDay": 6.4}, {"h": "Villa del Lago", "eco": true, "tot": 780.0, "otb": 638.0, "occPct": 81.8, "metaDia": 22, "meta": 660, "pct": 96.7, "gap": -22.0, "prev": 587.0, "wk": 51.0, "prevPct": 88.9, "adr": 523, "revpar": 428, "pax": 1128.0, "sf": 2475.83, "oct": 445.0, "octMeta": 527, "octPct": 84.4, "octAdr": 507, "metaDiaOct": 17, "cap": 84.6, "needDay": 1.0, "wkDay": 7.3}, {"h": "Casa Turquesa", "eco": true, "tot": 480.0, "otb": 354.0, "occPct": 73.8, "metaDia": 14, "meta": 420, "pct": 84.3, "gap": -66.0, "prev": 328.0, "wk": 26.0, "prevPct": 78.1, "adr": 497, "revpar": 366, "pax": 598.0, "sf": 1001.6, "oct": 306.0, "octMeta": 310, "octPct": 98.7, "octAdr": 502, "metaDiaOct": 10, "cap": 87.5, "needDay": 3.0, "wkDay": 3.7}, {"h": "Casazul", "eco": true, "tot": 300.0, "otb": 260.0, "occPct": 86.7, "metaDia": 9, "meta": 270, "pct": 96.3, "gap": -10.0, "prev": 246.0, "wk": 14.0, "prevPct": 91.1, "adr": 582, "revpar": 505, "pax": 454.0, "sf": 317.43, "oct": 154.0, "octMeta": 186, "octPct": 82.8, "octAdr": 510, "metaDiaOct": 6, "cap": 90.0, "needDay": 0.5, "wkDay": 2.0}, {"h": "Petén Express", "eco": false, "tot": 660.0, "otb": 350.0, "occPct": 53.0, "metaDia": 18, "meta": 540, "pct": 64.8, "gap": -190.0, "prev": 188.0, "wk": 162.0, "prevPct": 34.8, "adr": 177, "revpar": 94, "pax": 350.0, "sf": 0, "oct": 238.0, "octMeta": 372, "octPct": 64.0, "octAdr": 125, "metaDiaOct": 12, "cap": 81.8, "needDay": 8.6, "wkDay": 23.1}], "eco": {"otb": 3858.0, "meta": 4200, "tot": 4680.0, "prev": 3660.0, "pax": 6625.0, "sf": 15537.43, "metaDia": 140, "oct": 3039.0, "octMeta": 3410, "pct": 91.9, "gap": -342.0, "occPct": 82.4, "wk": 198.0, "prevPct": 87.1, "adr": 559, "octPct": 89.1, "octAdr": 560, "octSf": 46855.78, "maxPct": 111.4, "needDay": 15.5, "wkDay": 28.3, "proy": 4481, "proyPct": 106.7}, "nd": 30, "cut": 8}, "fut": {"hot": [{"h": "Casona del Lago", "m": [{"now": 933.0, "tot": 1488.0, "pNow": 63, "d": 74.0}, {"now": 984.0, "tot": 1488.0, "pNow": 66, "d": 58.0}, {"now": 1035.0, "tot": 1344.0, "pNow": 77, "d": -5.0}, {"now": 1102.0, "tot": 1488.0, "pNow": 74, "d": 3.0}, {"now": 609.0, "tot": 1440.0, "pNow": 42, "d": 3.0}, {"now": 282.0, "tot": 1488.0, "pNow": 19, "d": null}]}, {"h": "Casona de la Isla", "m": [{"now": 620.0, "tot": 1054.0, "pNow": 59, "d": 11.0}, {"now": 587.0, "tot": 1054.0, "pNow": 56, "d": -14.0}, {"now": 644.0, "tot": 952.0, "pNow": 68, "d": 16.0}, {"now": 671.0, "tot": 1054.0, "pNow": 64, "d": 8.0}, {"now": 394.0, "tot": 1020.0, "pNow": 39, "d": 5.0}, {"now": 269.0, "tot": 1054.0, "pNow": 26, "d": null}]}, {"h": "Hotel Petén", "m": [{"now": 415.0, "tot": 682.0, "pNow": 61, "d": -16.0}, {"now": 432.0, "tot": 682.0, "pNow": 63, "d": 14.0}, {"now": 424.0, "tot": 616.0, "pNow": 69, "d": -26.0}, {"now": 484.0, "tot": 682.0, "pNow": 71, "d": 3.0}, {"now": 358.0, "tot": 660.0, "pNow": 54, "d": -44.0}, {"now": 321.0, "tot": 682.0, "pNow": 47, "d": null}]}, {"h": "Villa del Lago", "m": [{"now": 490.0, "tot": 806.0, "pNow": 61, "d": 31.0}, {"now": 481.0, "tot": 806.0, "pNow": 60, "d": 41.0}, {"now": 402.0, "tot": 728.0, "pNow": 55, "d": 3.0}, {"now": 458.0, "tot": 806.0, "pNow": 57, "d": 0.0}, {"now": 403.0, "tot": 780.0, "pNow": 52, "d": 0.0}, {"now": 67.0, "tot": 806.0, "pNow": 8, "d": null}]}, {"h": "Casa Turquesa", "m": [{"now": 288.0, "tot": 496.0, "pNow": 58, "d": 11.0}, {"now": 199.0, "tot": 496.0, "pNow": 40, "d": 2.0}, {"now": 186.0, "tot": 448.0, "pNow": 42, "d": 5.0}, {"now": 286.0, "tot": 496.0, "pNow": 58, "d": 18.0}, {"now": 158.0, "tot": 480.0, "pNow": 33, "d": 0.0}, {"now": 82.0, "tot": 496.0, "pNow": 17, "d": null}]}, {"h": "Casazul", "m": [{"now": 200.0, "tot": 310.0, "pNow": 65, "d": 8.0}, {"now": 130.0, "tot": 310.0, "pNow": 42, "d": 12.0}, {"now": 151.0, "tot": 280.0, "pNow": 54, "d": 6.0}, {"now": 110.0, "tot": 310.0, "pNow": 35, "d": 6.0}, {"now": 37.0, "tot": 300.0, "pNow": 12, "d": 1.0}, {"now": 0, "tot": 310.0, "pNow": 0, "d": null}]}, {"h": "Petén Express", "m": [{"now": 199.0, "tot": 682.0, "pNow": 29, "d": 30.0}, {"now": 270.0, "tot": 682.0, "pNow": 40, "d": 6.0}, {"now": 223.0, "tot": 616.0, "pNow": 36, "d": 1.0}, {"now": 200.0, "tot": 682.0, "pNow": 29, "d": 0.0}, {"now": 198.0, "tot": 660.0, "pNow": 30, "d": 0.0}, {"now": 176.0, "tot": 682.0, "pNow": 26, "d": null}]}], "months": [{"m": "Dic", "now": 3145.0, "tot": 5518.0, "pNow": 57.0, "d": 149.0}, {"m": "Ene 27", "now": 3083.0, "tot": 5518.0, "pNow": 55.9, "d": 119.0}, {"m": "Feb 27", "now": 3065.0, "tot": 4984.0, "pNow": 61.5, "d": 0.0}, {"m": "Mar 27", "now": 3311.0, "tot": 5518.0, "pNow": 60.0, "d": 38.0}, {"m": "Abr 27", "now": 2157.0, "tot": 5340.0, "pNow": 40.4, "d": -35.0}, {"m": "May 27", "now": 1197.0, "tot": 5518.0, "pNow": 21.7, "d": null}], "lab": ["Dic", "Ene 27", "Feb 27", "Mar 27", "Abr 27", "May 27"]}, "seg": {"T": 3859, "prev": 3662, "dT": 197, "crec": 5.4, "ch": [{"c": "OTAs", "rn": 1146, "prev": 1036, "d": 110, "crec": 10.6, "mix": 29.7, "mixPrev": 28.3, "adr": 764, "oct": 971, "octMix": 32.3, "octAdr": 590, "oct5": 604}, {"c": "Corporativo", "rn": 342, "prev": 302, "d": 40, "crec": 13.2, "mix": 8.9, "mixPrev": 8.2, "adr": 531, "oct": 654, "octMix": 21.8, "octAdr": 545, "oct5": 472}, {"c": "Agencias", "rn": 2059, "prev": 2079, "d": -20, "crec": -1.0, "mix": 53.4, "mixPrev": 56.8, "adr": 490, "oct": 1004, "octMix": 33.4, "octAdr": 511, "oct5": 1047}, {"c": "Directos", "rn": 312, "prev": 245, "d": 67, "crec": 27.3, "mix": 8.1, "mixPrev": 6.7, "adr": 604, "oct": 373, "octMix": 12.4, "octAdr": 639, "oct5": 236}], "segs": [{"name": "Agencia General", "canal": "Agencias", "rn": 1165, "prev": 1135, "d": 30, "mix": 30.2, "oct": 555}, {"name": "Booking.com", "canal": "OTAs", "rn": 818, "prev": 729, "d": 89, "mix": 21.2, "oct": 679}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 328, "prev": 307, "d": 21, "mix": 8.5, "oct": 292}, {"name": "Gap Adventures Inc", "canal": "Agencias", "rn": 323, "prev": 325, "d": -2, "mix": 8.4, "oct": 79}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 299, "prev": 257, "d": 42, "mix": 7.7, "oct": 472}, {"name": "Sostavisa", "canal": "Agencias", "rn": 224, "prev": 275, "d": -51, "mix": 5.8, "oct": 179}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 184, "prev": 132, "d": 52, "mix": 4.8, "oct": 262}, {"name": "Redes Sociales", "canal": "Directos", "rn": 110, "prev": 98, "d": 12, "mix": 2.9, "oct": 97}, {"name": "Guatemala Verdadera", "canal": "Agencias", "rn": 93, "prev": 93, "d": 0, "mix": 2.4, "oct": 76}, {"name": "Solana Tours", "canal": "Agencias", "rn": 75, "prev": 75, "d": 0, "mix": 1.9, "oct": 15}, {"name": "Kaminos Tours", "canal": "Agencias", "rn": 57, "prev": 57, "d": 0, "mix": 1.5, "oct": 21}, {"name": "Corporativo CxC", "canal": "Corporativo", "rn": 43, "prev": 45, "d": -2, "mix": 1.1, "oct": 182}, {"name": "Kiiper", "canal": "Agencias", "rn": 37, "prev": 37, "d": 0, "mix": 1.0, "oct": 34}, {"name": "Expedicion Panamundo", "canal": "Agencias", "rn": 37, "prev": 37, "d": 0, "mix": 1.0, "oct": 15}, {"name": "Neys", "canal": "Agencias", "rn": 24, "prev": 24, "d": 0, "mix": 0.6, "oct": 2}, {"name": "Web (página propia)", "canal": "Directos", "rn": 18, "prev": 13, "d": 5, "mix": 0.5, "oct": 14}, {"name": "Guayacán", "canal": "Agencias", "rn": 10, "prev": 10, "d": 0, "mix": 0.3, "oct": 0}, {"name": "Mundo Maya", "canal": "Agencias", "rn": 10, "prev": 7, "d": 3, "mix": 0.3, "oct": 9}, {"name": "Tropical Tours", "canal": "Agencias", "rn": 4, "prev": 4, "d": 0, "mix": 0.1, "oct": 5}, {"name": "Complementario", "canal": "Directos", "rn": 0, "prev": 2, "d": -2, "mix": 0.0, "oct": 0}], "hot": {"Casona del Lago": {"rn": 1215, "prev": 1172, "d": 43, "ch": {"OTAs": {"rn": 160, "prev": 140, "d": 20, "mix": 13.2, "octMix": 15.7}, "Agencias": {"rn": 731, "prev": 734, "d": -3, "mix": 60.2, "octMix": 40.1}, "Corporativo": {"rn": 203, "prev": 196, "d": 7, "mix": 16.7, "octMix": 35.0}, "Directos": {"rn": 121, "prev": 102, "d": 19, "mix": 10.0, "octMix": 9.2}}, "segs": [{"name": "Agencia General", "canal": "Agencias", "rn": 487, "prev": 471, "d": 16, "mix": 40.1, "adr": 645}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 181, "prev": 172, "d": 9, "mix": 14.9, "adr": 608}, {"name": "Sostavisa", "canal": "Agencias", "rn": 148, "prev": 170, "d": -22, "mix": 12.2, "adr": 541}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 81, "prev": 69, "d": 12, "mix": 6.7, "adr": 772}, {"name": "Booking.com", "canal": "OTAs", "rn": 79, "prev": 71, "d": 8, "mix": 6.5, "adr": 917}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 69, "prev": 54, "d": 15, "mix": 5.7, "adr": 787}, {"name": "Guatemala Verdadera", "canal": "Agencias", "rn": 58, "prev": 58, "d": 0, "mix": 4.8, "adr": 572}, {"name": "Redes Sociales", "canal": "Directos", "rn": 43, "prev": 39, "d": 4, "mix": 3.5, "adr": 738}, {"name": "Neys", "canal": "Agencias", "rn": 24, "prev": 24, "d": 0, "mix": 2.0, "adr": 618}, {"name": "Corporativo CxC", "canal": "Corporativo", "rn": 22, "prev": 24, "d": -2, "mix": 1.8, "adr": 596}, {"name": "Mundo Maya", "canal": "Agencias", "rn": 10, "prev": 7, "d": 3, "mix": 0.8, "adr": 736}, {"name": "Web (página propia)", "canal": "Directos", "rn": 9, "prev": 7, "d": 2, "mix": 0.7, "adr": 897}, {"name": "Tropical Tours", "canal": "Agencias", "rn": 4, "prev": 4, "d": 0, "mix": 0.3, "adr": 783}], "usd": false, "adr": 662}, "Casona de la Isla": {"rn": 840, "prev": 827, "d": 13, "ch": {"OTAs": {"rn": 277, "prev": 245, "d": 32, "mix": 33.0, "octMix": 23.0}, "Agencias": {"rn": 475, "prev": 509, "d": -34, "mix": 56.5, "octMix": 46.2}, "Corporativo": {"rn": 45, "prev": 38, "d": 7, "mix": 5.4, "octMix": 18.4}, "Directos": {"rn": 43, "prev": 35, "d": 8, "mix": 5.1, "octMix": 12.4}}, "segs": [{"name": "Agencia General", "canal": "Agencias", "rn": 324, "prev": 329, "d": -5, "mix": 38.6, "adr": null}, {"name": "Booking.com", "canal": "OTAs", "rn": 204, "prev": 168, "d": 36, "mix": 24.3, "adr": null}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 73, "prev": 77, "d": -4, "mix": 8.7, "adr": null}, {"name": "Sostavisa", "canal": "Agencias", "rn": 53, "prev": 82, "d": -29, "mix": 6.3, "adr": null}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 41, "prev": 33, "d": 8, "mix": 4.9, "adr": null}, {"name": "Kiiper", "canal": "Agencias", "rn": 37, "prev": 37, "d": 0, "mix": 4.4, "adr": null}, {"name": "Solana Tours", "canal": "Agencias", "rn": 34, "prev": 34, "d": 0, "mix": 4.0, "adr": null}, {"name": "Kaminos Tours", "canal": "Agencias", "rn": 26, "prev": 26, "d": 0, "mix": 3.1, "adr": null}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 25, "prev": 22, "d": 3, "mix": 3.0, "adr": null}, {"name": "Redes Sociales", "canal": "Directos", "rn": 15, "prev": 13, "d": 2, "mix": 1.8, "adr": null}, {"name": "Corporativo CxC", "canal": "Corporativo", "rn": 4, "prev": 5, "d": -1, "mix": 0.5, "adr": null}, {"name": "Web (página propia)", "canal": "Directos", "rn": 3, "prev": 0, "d": 3, "mix": 0.4, "adr": null}, {"name": "Guatemala Verdadera", "canal": "Agencias", "rn": 1, "prev": 1, "d": 0, "mix": 0.1, "adr": null}], "usd": true, "adr": null}, "Hotel Petén": {"rn": 545, "prev": 502, "d": 43, "ch": {"OTAs": {"rn": 117, "prev": 102, "d": 15, "mix": 21.5, "octMix": 29.6}, "Agencias": {"rn": 335, "prev": 329, "d": 6, "mix": 61.5, "octMix": 40.6}, "Corporativo": {"rn": 21, "prev": 19, "d": 2, "mix": 3.9, "octMix": 8.4}, "Directos": {"rn": 72, "prev": 52, "d": 20, "mix": 13.2, "octMix": 21.5}}, "segs": [{"name": "Gap Adventures Inc", "canal": "Agencias", "rn": 176, "prev": 178, "d": -2, "mix": 32.3, "adr": 38}, {"name": "Agencia General", "canal": "Agencias", "rn": 128, "prev": 120, "d": 8, "mix": 23.5, "adr": 493}, {"name": "Booking.com", "canal": "OTAs", "rn": 77, "prev": 69, "d": 8, "mix": 14.1, "adr": 770}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 49, "prev": 30, "d": 19, "mix": 9.0, "adr": 442}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 40, "prev": 33, "d": 7, "mix": 7.3, "adr": 645}, {"name": "Redes Sociales", "canal": "Directos", "rn": 23, "prev": 22, "d": 1, "mix": 4.2, "adr": 260}, {"name": "Solana Tours", "canal": "Agencias", "rn": 19, "prev": 19, "d": 0, "mix": 3.5, "adr": 47}, {"name": "Corporativo CxC", "canal": "Corporativo", "rn": 11, "prev": 10, "d": 1, "mix": 2.0, "adr": 403}, {"name": "Guayacán", "canal": "Agencias", "rn": 10, "prev": 10, "d": 0, "mix": 1.8, "adr": 510}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 10, "prev": 9, "d": 1, "mix": 1.8, "adr": 126}, {"name": "Kaminos Tours", "canal": "Agencias", "rn": 2, "prev": 2, "d": 0, "mix": 0.4, "adr": 381}, {"name": "Complementario", "canal": "Directos", "rn": 0, "prev": 0, "d": 0, "mix": 0.0, "adr": 0}], "usd": false, "adr": 358}, "Villa del Lago": {"rn": 640, "prev": 587, "d": 53, "ch": {"OTAs": {"rn": 295, "prev": 261, "d": 34, "mix": 46.1, "octMix": 67.4}, "Agencias": {"rn": 292, "prev": 289, "d": 3, "mix": 45.6, "octMix": 15.5}, "Corporativo": {"rn": 32, "prev": 23, "d": 9, "mix": 5.0, "octMix": 7.0}, "Directos": {"rn": 21, "prev": 14, "d": 7, "mix": 3.3, "octMix": 10.1}}, "segs": [{"name": "Booking.com", "canal": "OTAs", "rn": 248, "prev": 216, "d": 32, "mix": 38.8, "adr": null}, {"name": "Agencia General", "canal": "Agencias", "rn": 129, "prev": 126, "d": 3, "mix": 20.2, "adr": null}, {"name": "Gap Adventures Inc", "canal": "Agencias", "rn": 79, "prev": 79, "d": 0, "mix": 12.3, "adr": null}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 47, "prev": 45, "d": 2, "mix": 7.3, "adr": null}, {"name": "Expedicion Panamundo", "canal": "Agencias", "rn": 37, "prev": 37, "d": 0, "mix": 5.8, "adr": null}, {"name": "Kaminos Tours", "canal": "Agencias", "rn": 26, "prev": 26, "d": 0, "mix": 4.1, "adr": null}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 26, "prev": 17, "d": 9, "mix": 4.1, "adr": null}, {"name": "Sostavisa", "canal": "Agencias", "rn": 21, "prev": 21, "d": 0, "mix": 3.3, "adr": null}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 13, "prev": 8, "d": 5, "mix": 2.0, "adr": null}, {"name": "Corporativo CxC", "canal": "Corporativo", "rn": 6, "prev": 6, "d": 0, "mix": 0.9, "adr": null}, {"name": "Web (página propia)", "canal": "Directos", "rn": 5, "prev": 5, "d": 0, "mix": 0.8, "adr": null}, {"name": "Redes Sociales", "canal": "Directos", "rn": 3, "prev": 1, "d": 2, "mix": 0.5, "adr": null}], "usd": true, "adr": null}, "Casa Turquesa": {"rn": 360, "prev": 328, "d": 32, "ch": {"OTAs": {"rn": 120, "prev": 114, "d": 6, "mix": 33.3, "octMix": 54.6}, "Agencias": {"rn": 181, "prev": 174, "d": 7, "mix": 50.3, "octMix": 13.7}, "Corporativo": {"rn": 16, "prev": 8, "d": 8, "mix": 4.4, "octMix": 12.1}, "Directos": {"rn": 43, "prev": 32, "d": 11, "mix": 11.9, "octMix": 19.6}}, "segs": [{"name": "Booking.com", "canal": "OTAs", "rn": 101, "prev": 98, "d": 3, "mix": 28.1, "adr": null}, {"name": "Agencia General", "canal": "Agencias", "rn": 71, "prev": 64, "d": 7, "mix": 19.7, "adr": null}, {"name": "Gap Adventures Inc", "canal": "Agencias", "rn": 68, "prev": 68, "d": 0, "mix": 18.9, "adr": null}, {"name": "Guatemala Verdadera", "canal": "Agencias", "rn": 34, "prev": 34, "d": 0, "mix": 9.4, "adr": null}, {"name": "Redes Sociales", "canal": "Directos", "rn": 26, "prev": 23, "d": 3, "mix": 7.2, "adr": null}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 19, "prev": 16, "d": 3, "mix": 5.3, "adr": null}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 17, "prev": 9, "d": 8, "mix": 4.7, "adr": null}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 16, "prev": 8, "d": 8, "mix": 4.4, "adr": null}, {"name": "Solana Tours", "canal": "Agencias", "rn": 8, "prev": 8, "d": 0, "mix": 2.2, "adr": null}, {"name": "Complementario", "canal": "Directos", "rn": 0, "prev": 0, "d": 0, "mix": 0.0, "adr": null}], "usd": true, "adr": null}, "Casazul": {"rn": 259, "prev": 246, "d": 13, "ch": {"OTAs": {"rn": 177, "prev": 174, "d": 3, "mix": 68.3, "octMix": 57.1}, "Agencias": {"rn": 45, "prev": 44, "d": 1, "mix": 17.4, "octMix": 6.5}, "Corporativo": {"rn": 25, "prev": 18, "d": 7, "mix": 9.7, "octMix": 29.9}, "Directos": {"rn": 12, "prev": 10, "d": 2, "mix": 4.6, "octMix": 6.5}}, "segs": [{"name": "Booking.com", "canal": "OTAs", "rn": 109, "prev": 107, "d": 2, "mix": 42.1, "adr": 781}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 68, "prev": 67, "d": 1, "mix": 26.3, "adr": 611}, {"name": "Agencia General", "canal": "Agencias", "rn": 26, "prev": 25, "d": 1, "mix": 10.0, "adr": 478}, {"name": "Corporativo Directo", "canal": "Corporativo", "rn": 25, "prev": 18, "d": 7, "mix": 9.7, "adr": 137}, {"name": "Solana Tours", "canal": "Agencias", "rn": 14, "prev": 14, "d": 0, "mix": 5.4, "adr": 115}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 11, "prev": 9, "d": 2, "mix": 4.2, "adr": 191}, {"name": "Kaminos Tours", "canal": "Agencias", "rn": 3, "prev": 3, "d": 0, "mix": 1.2, "adr": 0}, {"name": "Sostavisa", "canal": "Agencias", "rn": 2, "prev": 2, "d": 0, "mix": 0.8, "adr": 444}, {"name": "Web (página propia)", "canal": "Directos", "rn": 1, "prev": 1, "d": 0, "mix": 0.4, "adr": 104}], "usd": false, "adr": 569}, "Petén Express": {"rn": 345, "prev": 229, "d": 116, "ch": {"OTAs": {"rn": 249, "prev": 139, "d": 110, "mix": 72.2, "octMix": 58.2}, "Agencias": {"rn": 90, "prev": 90, "d": 0, "mix": 26.1, "octMix": 36.7}, "Directos": {"rn": 6, "prev": 0, "d": 6, "mix": 1.7, "octMix": 5.1}}, "segs": [{"name": "Hostel World", "canal": "OTAs", "rn": 138, "prev": 70, "d": 68, "mix": 40.0, "adr": null}, {"name": "Booking.com", "canal": "OTAs", "rn": 95, "prev": 53, "d": 42, "mix": 27.5, "adr": null}, {"name": "Gap Adventures Inc", "canal": "Agencias", "rn": 88, "prev": 88, "d": 0, "mix": 25.5, "adr": null}, {"name": "Expedia Collect", "canal": "OTAs", "rn": 16, "prev": 16, "d": 0, "mix": 4.6, "adr": null}, {"name": "Clientes Directos / Walk-In", "canal": "Directos", "rn": 6, "prev": 0, "d": 6, "mix": 1.7, "adr": null}, {"name": "Agencia General", "canal": "Agencias", "rn": 2, "prev": 2, "d": 0, "mix": 0.6, "adr": null}], "usd": true, "adr": null}}, "usd": ["Petén Express", "Villa del Lago", "Casa Turquesa", "Casona de la Isla"], "octT": 3002, "oct5": 2359}, "rest": {"rest": [{"name": "Lindo Amanecer", "hotel": "Villa del Lago", "mtd": 29019, "metaDay": 3100, "meta": 24800, "metaMes": 93000, "prom": 3627, "pace": 117.0, "gap": 4219, "share": 7.0, "ser": [2568, 2282, 2536, 2134, 7218, 3346, 6570, 2365], "diasMeta": 3, "octDay": 2064, "vsOct": 75.7, "octMeta": 2300, "octPace": 89.8, "metaUp": 34.8, "con": {"Desayunos incluidos": 19162.0, "Cenas incluidas": 0.0, "Cenas de agencias": 6489.85, "Alimentación de eventos": 0.0, "Venta extra": 3367.5, "Promociones": 0.0, "Cortesías": 260.0, "Propinas": 0.0}, "need": 2908, "octPctNewMeta": 66.6, "best": {"d": 5, "v": 7218}, "worst": {"d": 4, "v": 2134}, "conTot": 29019.35}, {"name": "Las Ninfas", "hotel": "Casona del Lago", "mtd": 261840, "metaDay": 31000, "meta": 248000, "metaMes": 930000, "prom": 32730, "pace": 105.6, "gap": 13840, "share": 63.4, "ser": [10819, 11765, 34032, 55028, 49691, 39634, 49779, 11092], "diasMeta": 5, "octDay": 26451, "vsOct": 23.7, "octMeta": 27000, "octPace": 98.0, "metaUp": 14.8, "con": null, "need": 30371, "octPctNewMeta": 85.3, "best": {"d": 4, "v": 55028}, "worst": {"d": 1, "v": 10819}}, {"name": "La Chaya", "hotel": "Hotel Petén", "mtd": 68438, "metaDay": 8800, "meta": 70400, "metaMes": 264000, "prom": 8555, "pace": 97.2, "gap": -1962, "share": 16.6, "ser": [7940, 12081, 6576, 6691, 6860, 8564, 9696, 10030], "diasMeta": 3, "octDay": 5411, "vsOct": 58.1, "octMeta": 6700, "octPace": 80.8, "metaUp": 31.3, "con": {"Desayunos incluidos": 27040.69, "Cenas incluidas": 0.0, "Cenas de agencias": 11863.99, "Alimentación de eventos": 2448.97, "Venta extra": 25548.0, "Promociones": 1535.84, "Cortesías": 496.32, "Propinas": 5729.26}, "need": 8889, "octPctNewMeta": 61.5, "best": {"d": 2, "v": 12081}, "worst": {"d": 3, "v": 6576}, "conTot": 68437.49}, {"name": "Isla Bonita", "hotel": "Casona de la Isla", "mtd": 53584, "metaDay": 7300, "meta": 58400, "metaMes": 219000, "prom": 6698, "pace": 91.8, "gap": -4816, "share": 13.0, "ser": [4409, 4140, 2451, 8097, 6236, 11100, 8476, 8674], "diasMeta": 4, "octDay": 5309, "vsOct": 26.2, "octMeta": 6500, "octPace": 81.7, "metaUp": 12.3, "con": {"Desayunos incluidos": 22665.51, "Cenas incluidas": 214.5, "Cenas de agencias": 6979.65, "Alimentación de eventos": 0.0, "Venta extra": 23141.4, "Promociones": 582.95, "Cortesías": 0.0, "Propinas": 4827.22}, "need": 7519, "octPctNewMeta": 72.7, "best": {"d": 6, "v": 11100}, "worst": {"d": 3, "v": 2451}, "conTot": 53584.01}], "total": 412881, "metaDay": 50200, "meta": 401600, "metaMes": 1506000, "pace": 102.8, "gap": 11281, "prom": 51610, "ecoSer": [25737, 30270, 45594, 71950, 70005, 62643, 74521, 32161], "diasMeta": 4, "octDay": 39235, "vsOct": 31.5, "octMetaDay": 42500, "octPace": 92.3, "need": 49687, "salon": {"v": 17268.0, "ser": [0, 0, 3805, 5700, 3050, 1200, 3513, 0], "prop": 24364.82}, "octPctNewMeta": 78.2}, "meson": {"metaDay": 173, "sinArchivo": true, "octPax": 1807, "octProm": 58.3, "octPace": 97.2, "octBeb": 54583, "octBebProm": 1761, "octGuias": 286, "octVsNew": 33.7}, "tours": {"ventas": 46, "pax": 84, "bruto": 34789, "costo": 23901, "fee": 953.26, "gan": 9934.74, "margen": 28.6, "canc": 5, "cancB": 2830, "ticket": 756, "ticketPax": 414, "byHotel": [{"h": "Villa del Lago", "ventas": 14, "pax": 27, "bruto": 17276, "gan": 3510, "margen": 20.3, "part": 49.7, "hotPax": 1128.0, "att": 2.4, "dia": 1920, "octDia": 718, "octB": 22256, "octAtt": 8.4}, {"h": "Hotel Petén", "ventas": 15, "pax": 23, "bruto": 8283, "gan": 2501, "margen": 30.2, "part": 23.8, "hotPax": 907.0, "att": 2.5, "dia": 920, "octDia": 140, "octB": 4330, "octAtt": 2.5}, {"h": "Casona de la Isla", "ventas": 9, "pax": 20, "bruto": 5580, "gan": 2134, "margen": 38.2, "part": 16.0, "hotPax": 1468.0, "att": 1.4, "dia": 620, "octDia": 763, "octB": 23662, "octAtt": 6.7}, {"h": "Casona del Lago", "ventas": 6, "pax": 10, "bruto": 2750, "gan": 1140, "margen": 41.4, "part": 7.9, "hotPax": 2070.0, "att": 0.5, "dia": 306, "octDia": 317, "octB": 9820, "octAtt": 1.4}, {"h": "Casa Turquesa", "ventas": 1, "pax": 2, "bruto": 500, "gan": 250, "margen": 50.0, "part": 1.4, "hotPax": 598.0, "att": 0.3, "dia": 56, "octDia": 447, "octB": 13850, "octAtt": 9.4}, {"h": "Casazul", "ventas": 1, "pax": 2, "bruto": 400, "gan": 400, "margen": 100.0, "part": 1.1, "hotPax": 454.0, "att": 0.4, "dia": 44, "octDia": 271, "octB": 8410, "octAtt": 9.7}], "tours": [{"t": "El Mirador en Helicóptero (MAYA JETS)", "ventas": 1, "pax": 2, "bruto": 9876, "gan": 890, "margen": 9, "ticket": 4938, "sinCosto": 0}, {"t": "Transporte + Guía (Tikal Amanecer)", "ventas": 8, "pax": 19, "bruto": 5700, "gan": 1716, "margen": 30, "ticket": 300, "sinCosto": 0}, {"t": "Atardecer a Yaxhá", "ventas": 10, "pax": 18, "bruto": 4500, "gan": 2131, "margen": 47, "ticket": 250, "sinCosto": 0}, {"t": "Cráter Azul - Transporte + Almuerzos", "ventas": 5, "pax": 9, "bruto": 4050, "gan": 1244, "margen": 31, "ticket": 450, "sinCosto": 0}, {"t": "Tikal - Transporte + Guía", "ventas": 8, "pax": 14, "bruto": 3220, "gan": 1418, "margen": 44, "ticket": 230, "sinCosto": 0}, {"t": "Transporte + Guia + Almuerzo (Tikal)", "ventas": 5, "pax": 7, "bruto": 2450, "gan": 646, "margen": 26, "ticket": 350, "sinCosto": 0}, {"t": "Transporte + Guia + Entradas + Almuerzo con EXPLORE (Tikal Extranjero)", "ventas": 1, "pax": 2, "bruto": 1738, "gan": 521, "margen": 30, "ticket": 869, "sinCosto": 0}, {"t": "Transporte + Guía (Tikal Atardecer)", "ventas": 2, "pax": 4, "bruto": 1200, "gan": 368, "margen": 31, "ticket": 300, "sinCosto": 0}, {"t": "Tour al Lago", "ventas": 1, "pax": 2, "bruto": 400, "gan": 400, "margen": 100, "ticket": 200, "sinCosto": 1}, {"t": "Traslado Flores - Cayo Caulker", "ventas": 1, "pax": 1, "bruto": 370, "gan": -66, "margen": -18, "ticket": 370, "sinCosto": 0}, {"t": "Solo Transporte Tikal", "ventas": 1, "pax": 2, "bruto": 360, "gan": 149, "margen": 41, "ticket": 180, "sinCosto": 0}, {"t": "Tour Privado a las Cuevas Actún Kan", "ventas": 1, "pax": 2, "bruto": 350, "gan": 340, "margen": 97, "ticket": 175, "sinCosto": 1}, {"t": "Cráter Azul - Solo transporte", "ventas": 1, "pax": 1, "bruto": 350, "gan": 90, "margen": 26, "ticket": 350, "sinCosto": 0}, {"t": "Traslado Flores - Belize City", "ventas": 1, "pax": 1, "bruto": 225, "gan": 88, "margen": 39, "ticket": 225, "sinCosto": 0}], "rec": [{"n": "Sandy Recinos", "h": "Hotel Petén", "ventas": 7, "bruto": 3938, "gan": 1384}, {"n": "Antonio Portillo", "h": "Casona de la Isla", "ventas": 6, "bruto": 4650, "gan": 1604}, {"n": "Ronald Segura", "h": "Villa del Lago", "ventas": 6, "bruto": 2560, "gan": 869}, {"n": "Arnulfo Bonilla", "h": "Villa del Lago", "ventas": 5, "bruto": 3490, "gan": 1317}, {"n": "Gilma Zamora", "h": "Casona de la Isla", "ventas": 5, "bruto": 2800, "gan": 1151}, {"n": "Melanie Bernales", "h": "Hotel Petén", "ventas": 5, "bruto": 2520, "gan": 560}, {"n": "Grendy Tobar", "h": "Villa del Lago", "ventas": 3, "bruto": 11226, "gan": 1324}, {"n": "Ervin Vásquez", "h": "Casona del Lago", "ventas": 3, "bruto": 1350, "gan": 532}, {"n": "Fabian Che", "h": "Casona del Lago", "ventas": 1, "bruto": 700, "gan": 179}, {"n": "Rudy Guzman", "h": "Casazul", "ventas": 1, "bruto": 400, "gan": 400}, {"n": "Darissa Burgos", "h": "Casona del Lago", "ventas": 1, "bruto": 350, "gan": 340}, {"n": "Raúl Gimenez", "h": "Casona del Lago", "ventas": 1, "bruto": 350, "gan": 90}, {"n": "Wilfred Orellana", "h": "Casona de la Isla", "ventas": 1, "bruto": 230, "gan": 97}, {"n": "Alexis Duarte", "h": "Hotel Petén", "ventas": 1, "bruto": 225, "gan": 88}], "ag": [{"a": "Maya Jet", "ventas": 1, "bruto": 9876, "gan": 890, "margen": 9}, {"a": "Retpsa", "ventas": 17, "bruto": 9280, "gan": 3283, "margen": 35}, {"a": "MayaLand´s", "ventas": 16, "bruto": 8900, "gan": 3465, "margen": 39}, {"a": "Garrido Expedition", "ventas": 5, "bruto": 2450, "gan": 646, "margen": 26}, {"a": "Explore", "ventas": 1, "bruto": 1738, "gan": 521, "margen": 30}, {"a": "Tikal Express", "ventas": 2, "bruto": 1200, "gan": 368, "margen": 31}, {"a": "Total Petén", "ventas": 2, "bruto": 750, "gan": 740, "margen": 99}, {"a": "Mayan World", "ventas": 2, "bruto": 595, "gan": 22, "margen": 4}], "pm": [{"m": "Tarjeta", "n": 23, "monto": 20251, "pct": 58.2}, {"m": "Link de pago", "n": 14, "monto": 9878, "pct": 28.4}, {"m": "Efectivo", "n": 9, "monto": 4660, "pct": 13.4}], "ser": [2780, 7298, 4390, 11096, 2390, 1800, 1725, 350, 2960], "oct": {"bruto": 82328, "ventas": 126, "gan": 33111.24, "margen": 40.2, "dia": 2656, "pax": 261}, "sep": {"bruto": 81302, "ventas": 119, "gan": 30689.11, "margen": 37.7, "attach": 6.3, "b12": 73232.0, "dia": 2710}, "sinCosto": 2, "sinCostoB": 750, "sinCostoT": ["Tour Privado a las Cuevas Actún Kan", "Tour al Lago"], "pend": 46, "attPax": 84, "attHot": 6625, "dia": 3865, "vsOct": 45.6, "ganDia": 1104, "ganVsOct": 3.3, "wk": []}, "ev": {"total": 266605.7, "ev": 34, "pax": 1550, "canc": 1500, "cancN": 3, "cancList": [{"d": 3, "ev": "GIZ REUNION", "emp": "GIZ", "tot": 1500}, {"d": 7, "ev": "Seminario", "emp": "", "tot": 0}, {"d": 7, "ev": "Seminario", "emp": "", "tot": 0}], "borr": [{"ev": "Seminario", "tot": 0}, {"ev": "Seminario", "tot": 0}, {"ev": "Reunión", "tot": 0}, {"ev": "Reunión", "tot": 0}, {"ev": "XV años", "tot": 0}, {"ev": "Reunion de DIDEDUC PETEN", "tot": 0}], "seg": [{"name": "Corporativo", "ev": 9, "pax": 338, "ing": 42428, "share": 15.9}, {"name": "ONG / cooperación", "ev": 12, "pax": 552, "ing": 134482, "share": 50.4}, {"name": "Gobierno", "ev": 5, "pax": 185, "ing": 28170, "share": 10.6}, {"name": "Educación", "ev": 2, "pax": 200, "ing": 24050, "share": 9.0}, {"name": "Particulares", "ev": 6, "pax": 275, "ing": 37475, "share": 14.1}], "top": [{"c": "GIZ", "ev": 6, "ing": 71692, "pax": 314, "pct": 26.9}, {"c": "ACOFOP", "ev": 3, "ing": 40060, "pax": 160, "pct": 15.0}, {"c": "TNC", "ev": 2, "ing": 21970, "pax": 70, "pct": 8.2}, {"c": "BODA", "ev": 1, "ing": 15438, "pax": 80, "pct": 5.8}, {"c": "UMG", "ev": 1, "ing": 14850, "pax": 100, "pct": 5.6}, {"c": "TRIBUNAL SUPREMO ELECTORAL", "ev": 1, "ing": 12375, "pax": 50, "pct": 4.6}, {"c": "IGSS", "ev": 3, "ing": 11045, "pax": 85, "pct": 4.1}, {"c": "SHELL", "ev": 2, "ing": 10070, "pax": 110, "pct": 3.8}, {"c": "MULTIVERSE", "ev": 1, "ing": 9565, "pax": 95, "pct": 3.6}, {"c": "CUDEP", "ev": 1, "ing": 9200, "pax": 100, "pct": 3.5}], "nCli": 23, "wk": [152446, 95284, 18876, 0], "wkN": [17, 13, 4, 0], "cobrado": 4221, "cobradoNeto": 0, "pend": 262384.7, "cobert": 1.6, "cort": 11290, "ticket": 7841, "q0": [], "sal": [{"k": "Salón Petén Itzá", "v": 84735, "cob": 0, "pend": 84735, "n": 4}, {"k": "Salón Petén", "v": 70326, "cob": 0, "pend": 70326, "n": 8}, {"k": "Salón Efraín Recinos", "v": 68235.5, "cob": 0, "pend": 68235.5, "n": 7}, {"k": "Salón Del Lago", "v": 25382.7, "cob": 4221, "pend": 21161.7, "n": 6}, {"k": "Salón Itzá", "v": 6795, "cob": 0, "pend": 6795, "n": 1}, {"k": "Salón Efraín Recinos · Sector B", "v": 3733, "cob": 0, "pend": 3733, "n": 1}, {"k": "Salón Efraín Recinos · Sector A", "v": 3588.5, "cob": 0, "pend": 3588.5, "n": 3}, {"k": "Salón Las Olas", "v": 1850, "cob": 0, "pend": 1850, "n": 2}, {"k": "Salón Nicté", "v": 1200, "cob": 0, "pend": 1200, "n": 1}, {"k": "Salón Canek", "v": 760, "cob": 0, "pend": 760, "n": 1}], "typ": [{"k": "Reunión", "v": 207186.7, "cob": 4221, "pend": 202965.7, "n": 28}, {"k": "Seminario", "v": 30406, "cob": 0, "pend": 30406, "n": 3}, {"k": "Boda", "v": 15438, "cob": 0, "pend": 15438, "n": 1}, {"k": "Capacitación", "v": 12375, "cob": 0, "pend": 12375, "n": 1}, {"k": "Evento privado", "v": 1200, "cob": 0, "pend": 1200, "n": 1}], "prev": {"total": 410906.01, "ev": 69, "cobrado": 63872.4, "pend": 347033.61}, "oct": {"total": 410906.01, "ev": 69, "pax": 2813, "cobert": 15.5, "pend": 347033.61}, "sep": {"total": 452394, "meta": 525000, "ev": 73, "pace": 86.2}, "lastDay": 30, "vsOct": -35.1, "done": [152445.5, 17]}, "verd": {"total": 1757, "docs": 4, "days": [1], "byh": [{"h": "El Mesón", "g": 1218.0}, {"h": "Casona del Lago", "g": 394.0}, {"h": "Casona de la Isla", "g": 145.0}], "cat": [{"c": "Verdura", "v": 1471.0}, {"c": "Condimento", "v": 138.0}, {"c": "Fruta", "v": 133.0}, {"c": "Otros", "v": 15.0}], "oct": {"total": 49990.9, "ratio": 3.66, "porDia": 1613}}, "web": {"HP": {"vis": 2000, "dVis": -4, "views": 3591, "dViews": 1, "bounce": 77, "dBounce": -5, "pages": [{"k": "/arma-tu-viaje", "v": 921}, {"k": "/packages", "v": 410}, {"k": "/", "v": 346}, {"k": "/hotels", "v": 188}, {"k": "/hotels/casona-del-lago", "v": 159}, {"k": "/hotels/peten", "v": 118}], "src": [{"k": "m.facebook.com", "v": 832}, {"k": "tiktok.com", "v": 290}, {"k": "google.com", "v": 278}, {"k": "facebook.com", "v": 77}, {"k": "l.instagram.com", "v": 45}, {"k": "bing.com", "v": 27}]}, "X": {"vis": 260, "dVis": 57, "views": 881, "dViews": 53, "bounce": 48, "dBounce": -2, "pages": [{"k": "/", "v": 120}, {"k": "/agenda", "v": 90}, {"k": "/experiencia/caminata-isla-flores", "v": 78}, {"k": "/admin/login", "v": 39}, {"k": "/admin/operacion", "v": 36}, {"k": "/mis-reservaciones", "v": 28}], "src": [{"k": "m.facebook.com", "v": 9}, {"k": "facebook.com", "v": 3}, {"k": "google.com", "v": 3}, {"k": "app.recurrente.com", "v": 2}, {"k": "com.google.android.gm", "v": 2}, {"k": "lm.facebook.com", "v": 2}]}, "prev": {"HP": {"vis": 1789, "dVis": 91, "views": 3078, "dViews": 51, "bounce": 81, "dBounce": 14, "pages": [{"k": "/arma-tu-viaje", "v": 843}, {"k": "/packages", "v": 413}, {"k": "/", "v": 286}, {"k": "/hotels", "v": 141}], "src": [{"k": "m.facebook.com", "v": 1100}, {"k": "google.com", "v": 209}, {"k": "facebook.com", "v": 79}, {"k": "l.instagram.com", "v": 32}]}, "X": {"vis": 153, "dVis": -34, "views": 518, "dViews": -36, "bounce": 51, "dBounce": 2, "pages": [{"k": "/", "v": 82}, {"k": "/experiencia/caminata-isla-flores", "v": 54}, {"k": "/agenda", "v": 39}, {"k": "/reservar/caminata-isla-flores", "v": 22}, {"k": "/admin/login", "v": 20}], "src": [{"k": "facebook.com", "v": 6}, {"k": "m.facebook.com", "v": 6}, {"k": "ntp.msn.com", "v": 5}, {"k": "panel.hotelesdepeten.com", "v": 5}, {"k": "lm.facebook.com", "v": 4}]}}}, "meta": {"version": "V21", "titulo": "Noviembre 2026 · semana 1", "corte": "9 de noviembre 2026", "win": {"ocupacion": "noviembre en libros al 9 nov", "segmentos": "noviembre · 2 → 9 nov", "boletos": "sin archivo esta semana", "verduras": "1–9 nov", "restaurantes": "1–8 nov", "tours": "1–9 nov · por fecha de venta", "eventos": "noviembre completo · en agenda al 9 nov", "web": "2–9 nov"}}, "combos": {"rest": [{"rest": "Las Ninfas", "cant": 3, "bruta": 165.0, "neta": 147.33, "costo": 37.95, "items": [{"name": "Combo Capuccino+pastel del dia", "cant": 3, "bruta": 165.0, "neta": 147.33, "costo": 37.95}], "oct": 13}, {"rest": "La Chaya", "cant": 12, "bruta": 1074.95, "neta": 959.75, "costo": 196.63, "items": [{"name": "Combo Piña Colada", "cant": 4, "bruta": 280.0, "neta": 250.0, "costo": 12.2}, {"name": "Combo Nachos Fiesta+2 gallos", "cant": 3, "bruta": 330.0, "neta": 294.63, "costo": 87.71}, {"name": "Combo Ceviche+gallo", "cant": 2, "bruta": 240.0, "neta": 214.28, "costo": 56.12}, {"name": "Combo Hamburguesa+gaseosa", "cant": 2, "bruta": 150.0, "neta": 133.92, "costo": 32.21}, {"name": "Combo Club sandwich+gaseosa", "cant": 1, "bruta": 74.95, "neta": 66.92, "costo": 8.39}], "oct": 15}, {"rest": "Isla Bonita", "cant": 3, "bruta": 219.9, "neta": 196.34, "costo": 35.84, "items": [{"name": "Combo Club Sandwich + Gaseosa", "cant": 2, "bruta": 149.9, "neta": 133.84, "costo": 30.23}, {"name": "Combo Piña Colada", "cant": 1, "bruta": 70.0, "neta": 62.5, "costo": 5.61}], "oct": 34}], "cant": 18, "bruta": 1459.85, "neta": 1303.42, "costo": 270.42, "days": 8, "oct": {"cant": 62, "bruta": 4904.65, "last6": 27}, "fc": 20.7}}
+</script>
+
+<script>(function(){
+"use strict";
+var D=JSON.parse(document.getElementById("vhdata").textContent);
+/* ===================== HELPERS ===================== */
+var N=function(v,d){d=d||0;return Number(v).toLocaleString("es-GT",{minimumFractionDigits:d,maximumFractionDigits:d});};
+var Q=function(v,d){return (v<0?"−Q":"Q")+N(Math.abs(v),d);};
+var QK=function(v){if(!v)return 'Q0';return Math.abs(v)>=1e6?"Q"+N(v/1e6,2)+"M":"Q"+N(v/1000,(v%1000===0||v>=100000)?0:1)+"K";};
+var SG=function(v,u){return (v>0?"+":"")+N(v,(Math.abs(v)%1)?1:0)+(u||"");};
+var CC={OTAs:"#2a78c2",Agencias:"#c0823a",Corporativo:"#7a4fb3",Directos:"#2f9a5f"};
+var CHO=["OTAs","Agencias","Corporativo","Directos"];
+var INK="#15324f",MUT="#5b6b7a",GRID="#e6dfd0";
+var pill=function(p,g,a){g=g||100;a=a||85;return '<span class="pill '+(p>=g?'g':p>=a?'a':'r')+'">'+N(p,1)+'%</span>';};
+var cls=function(v){return v>0?'pos':v<0?'neg':'';};
+var kpi=function(n,u,lab,delta,dc){return '<div class="kpi"><div class="n">'+n+(u?'<small>'+u+'</small>':'')+'</div><div class="lab">'+lab+'</div>'+(delta?'<div class="delta '+(dc||'flat')+'">'+delta+'</div>':'')+'</div>';};
+var card=function(t,right,body,st){return '<div class="card"'+(st?' style="'+st+'"':'')+'><h3>'+t+(right?'<span class="h3r">'+right+'</span>':'')+'</h3>'+body+'</div>';};
+var ins=function(t,gold){return '<div class="insight"'+(gold?' style="border-left-color:var(--gold);background:rgba(200,155,76,.09);color:#4a3b1c"':'')+'>'+t+'</div>';};
+var flag=function(t){return '<div class="flag">'+t+'</div>';};
+var cap=function(t){return '<p class="chart-cap">'+t+'</p>';};
+var legend=function(items){return '<div class="stack-legend">'+items.map(function(i){return '<span><i style="background:'+i[1]+(i[2]?';'+i[2]:'')+'"></i>'+i[0]+'</span>';}).join("")+'</div>';};
+var chDot=function(c){return '<i class="cdot" style="background:'+CC[c]+'"></i>';};
+var hbar=function(lab,w,txt,klass,metaAt,color){
+  return '<div class="hbar-row"><span class="hlab">'+lab+'</span><div class="hbar-track">'+(metaAt!=null?'<div class="meta-line" style="left:'+metaAt+'%"></div>':'')+
+   '<div class="hbar-fill '+(klass||'')+'" style="width:'+Math.max(3,Math.min(100,w))+'%'+(color?';background:'+color+';color:#fff':'')+'">'+(w>=22?txt:'')+'</div>'+(w<22?'<span class="hout" style="left:calc('+Math.max(3,w)+'% + 8px)">'+txt+'</span>':'')+'</div></div>';};
+var stack=function(parts,h){return '<div class="stack" style="height:'+(h||30)+'px">'+parts.filter(function(p){return p.pct>0;}).map(function(p){return '<span title="'+p.name+': '+p.pct+'%" style="width:'+p.pct+'%;background:'+p.color+'">'+(p.pct>=((h||30)<20?101:9)?(p.short||p.name.slice(0,4))+' '+Math.round(p.pct)+'%':'')+'</span>';}).join("")+'</div>';};
+var chStack=function(obj,key,h){return stack(CHO.map(function(c){var x=obj[c];return {name:c,pct:x?x[key||'mix']:0,color:CC[c]};}),h);};
+var chLegend=function(){return legend(CHO.map(function(c){return [c,CC[c]];}));};
+/* SVG line chart: un solo eje, etiquetas directas al final de cada serie */
+function lineChart(o){
+  var W=o.w||720,H=o.h||260,L=o.l||46,R=o.r||118,T=o.t||26,B=o.b||46,n=o.labels.length;
+  var all=[];o.series.forEach(function(s){s.vals.forEach(function(v){if(v!=null)all.push(v);});});if(o.meta)all.push(o.meta.v);
+  var mx=o.ymax!=null?o.ymax:Math.max.apply(null,all)*1.08, mn=o.ymin!=null?o.ymin:0;
+  var X=function(i){return L+i*(W-L-R)/(n-1);}, Y=function(v){return T+(mx-v)*(H-T-B)/(mx-mn);};
+  var f=o.fmt||function(v){return N(v);};
+  var g='';var ticks=o.ticks||4;
+  for(var k=0;k<=ticks;k++){var tv=mn+(mx-mn)*k/ticks;g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(tv)+'" y2="'+Y(tv)+'" stroke="'+GRID+'" stroke-width="1"/><text x="'+(L-8)+'" y="'+(Y(tv)+4)+'" text-anchor="end" class="ax">'+f(tv)+'</text>';}
+  o.labels.forEach(function(lb,i){g+='<text x="'+X(i)+'" y="'+(H-B+18)+'" text-anchor="middle" class="axb">'+lb+'</text>'+(o.sub&&o.sub[i]?'<text x="'+X(i)+'" y="'+(H-B+32)+'" text-anchor="middle" class="ax">'+o.sub[i]+'</text>':'');});
+  if(o.meta){g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(o.meta.v)+'" y2="'+Y(o.meta.v)+'" stroke="#a8841c" stroke-width="1.6" stroke-dasharray="6 5"/><text x="'+(W-R)+'" y="'+(Y(o.meta.v)-6)+'" text-anchor="end" class="axm">'+o.meta.label+'</text>';}
+  var ends=[];
+  o.series.forEach(function(s){
+    var pts=[],segs=[];s.vals.forEach(function(v,i){if(v==null){if(pts.length)segs.push(pts);pts=[];}else pts.push([X(i),Y(v),v,i]);});if(pts.length)segs.push(pts);
+    segs.forEach(function(p){
+      if(s.area&&p.length>1)g+='<polygon fill="'+s.color+'" opacity=".10" points="'+p[0][0]+','+Y(mn)+' '+p.map(function(q){return q[0]+','+q[1];}).join(" ")+' '+p[p.length-1][0]+','+Y(mn)+'"/>';
+      g+='<polyline fill="none" stroke="'+s.color+'" stroke-width="'+(s.sw||2)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.dash?' stroke-dasharray="'+s.dash+'"':'')+' points="'+p.map(function(q){return q[0]+','+q[1];}).join(" ")+'"/>';
+      p.forEach(function(q){g+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(s.main?5:3.5)+'" fill="'+(s.main?INK:s.color)+'" stroke="'+(s.main?s.color:'#fff')+'" stroke-width="'+(s.main?2.5:1.5)+'"><title>'+s.name+' · '+o.labels[q[3]]+': '+f(q[2])+'</title></circle>';
+        if(s.main)g+='<text x="'+q[0]+'" y="'+(q[1]-12)+'" text-anchor="middle" class="pt">'+f(q[2])+'</text>';});
+    });
+    var last=null;for(var i=s.vals.length-1;i>=0;i--){if(s.vals[i]!=null){last=[X(i),Y(s.vals[i]),s.vals[i]];break;}}
+    if(last&&!s.nolabel)ends.push({y:last[1],x:last[0],t:s.name+(s.main?'':' '+f(last[2])),c:s.color,main:s.main});
+  });
+  ends.sort(function(a,b){return a.y-b.y;});for(var i=1;i<ends.length;i++){if(ends[i].y-ends[i-1].y<13)ends[i].y=ends[i-1].y+13;}
+  ends.forEach(function(e){g+='<circle cx="'+(e.x+12)+'" cy="'+(e.y)+'" r="4" fill="'+e.c+'"/><text x="'+(e.x+20)+'" y="'+(e.y+4)+'" class="'+(e.main?'endm':'end')+'">'+e.t+'</text>';});
+  return '<div class="cscroll"><svg viewBox="0 0 '+W+' '+H+'" class="chart" role="img" aria-label="'+(o.aria||'gráfica de líneas')+'">'+g+'</svg></div>';
+}
+/* columnas diarias con línea de meta */
+function colChart(o){
+  var W=o.w||720,H=o.h||190,L=48,R=o.r||(o.meta?74:12),T=22,B=26,n=o.vals.length;
+  var raw=Math.max(Math.max.apply(null,o.vals),o.meta||0)||1,pw=Math.pow(10,Math.floor(Math.log10(raw/2))),st=[1,2,2.5,5,10].map(function(k){return k*pw;}).filter(function(s){return s*2>=raw*0.62;})[0]||pw*10,mx=Math.max(raw*1.1,st*2);
+  var bw=(W-L-R)/n, Y=function(v){return T+(mx-v)*(H-T-B)/mx;}, f=o.fmt||function(v){return N(v);};
+  var g='';[0,1,2,3].filter(function(k){return k*st<=mx;}).forEach(function(k){var tv=k*st;g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(tv)+'" y2="'+Y(tv)+'" stroke="'+GRID+'"/><text x="'+(L-6)+'" y="'+(Y(tv)+4)+'" text-anchor="end" class="ax">'+(o.axfmt||f)(tv)+'</text>';});
+  var imax=o.vals.indexOf(Math.max.apply(null,o.vals));
+  o.vals.forEach(function(v,i){var x=L+i*bw+bw*0.14,w=bw*0.72,y=Y(v),hh=Math.max(0,H-B-y);
+    var over=o.meta&&v>=o.meta;
+    g+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="'+Math.min(3,w/2)+'" fill="'+(over?'#3f8e62':(o.color||'#c89b4c'))+'"'+(v===0?' opacity=".35"':'')+'><title>'+(o.lab?o.lab(i):('Día '+(i+1)))+': '+f(v)+(o.meta?(over?' · sobre meta':' · bajo meta'):'')+'</title></rect>';
+    if(i===imax)g+='<text x="'+(i<2?x:x+w/2)+'" y="'+(y-5)+'" text-anchor="'+(i<2?'start':'middle')+'" class="pts">'+f(v)+'</text>';
+    if((i+1)%5===0||i===0)g+='<text x="'+(x+w/2)+'" y="'+(H-B+15)+'" text-anchor="middle" class="ax">'+(o.xl?o.xl(i):(i+1))+'</text>';});
+  if(o.meta)g+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(o.meta)+'" y2="'+Y(o.meta)+'" stroke="'+INK+'" stroke-width="1.4" stroke-dasharray="5 4"/><text x="'+(W-R+6)+'" y="'+(Y(o.meta)-2)+'" class="axm" style="fill:'+INK+'">meta</text><text x="'+(W-R+6)+'" y="'+(Y(o.meta)+11)+'" class="ax" style="fill:'+INK+'">'+f(o.meta)+'</text>';
+  return '<div class="cscroll"><svg viewBox="0 0 '+W+' '+H+'" class="chart" role="img" aria-label="'+(o.aria||'columnas por día')+'">'+g+'</svg></div>';
+}
+function donut(parts,center,sub){var C=2*Math.PI*52,off=0,s='',leg='';
+  parts.forEach(function(p){var len=p.pct/100*C;s+='<circle cx="64" cy="64" r="52" stroke="'+p.color+'" stroke-dasharray="'+Math.max(0,len-1.5).toFixed(1)+' '+(C-len+1.5).toFixed(1)+'" stroke-dashoffset="'+(-off).toFixed(1)+'"><title>'+p.name+': '+p.pct+'%</title></circle>';off+=len;
+    leg+='<div class="dl"><i style="background:'+p.color+'"></i>'+p.name+' <b>'+p.pct+'%</b>'+(p.txt?' · '+p.txt:'')+'</div>';});
+  return '<div class="donut-wrap"><svg width="150" height="150" viewBox="0 0 128 128"><circle cx="64" cy="64" r="52" fill="none" stroke="#efe9db" stroke-width="20"/><g transform="rotate(-90 64 64)" fill="none" stroke-width="20">'+s+'</g>'+
+   '<text x="64" y="61" text-anchor="middle" font-family="Oswald" font-size="21" font-weight="600" fill="'+INK+'">'+center+'</text><text x="64" y="78" text-anchor="middle" font-family="Inter" font-size="8.5" fill="'+MUT+'">'+sub+'</text></svg><div class="donut-legend">'+leg+'</div></div>';}
+var heatColor=function(p){return p>=70?"#2f7d57":p>=55?"#5d9a63":p>=42?"#b98f3d":p>=28?"#c9783f":"#b23a3a";};
+var spark=function(vals,mx,hl){mx=mx||Math.max.apply(null,vals);return '<span class="spark">'+vals.map(function(v,i){return '<i style="height:'+Math.max(2,v/mx*24)+'px;background:'+(i===vals.length-1?(hl||'#c89b4c'):'#b9c3cf')+'"></i>';}).join("")+'</span>';};
+var secHead=function(id,num,title,win,sub){return '<section class="block" id="'+id+'"><div class="sec-head"><span class="sec-num">'+num+'</span><h2>'+title+'</h2><span class="win">'+win+'</span></div><p class="sec-sub">'+sub+'</p>';};
+var tbl=function(head,rows,foot,st){return '<div class="tscroll"><table'+(st?' style="'+st+'"':'')+'><thead><tr>'+head.map(function(h,i){return '<th'+(i===0?' class="l"':'')+'>'+h+'</th>';}).join("")+'</tr></thead><tbody>'+rows+(foot||'')+'</tbody></table></div>';};
+
+var O=D.occ,OE=O.eco,M=D.meta,G=D.seg,R=D.rest,Z=D.meson,T=D.tours,E=D.ev;
+var hotOf=function(arr,h){return arr.filter(function(x){return x.h===h;})[0];};
+var restOf=function(n){return R.rest.filter(function(r){return r.name===n;})[0];};
+var chOf=function(c){return G.ch.filter(function(x){return x.c===c;})[0];};
+var segOf=function(n){return G.segs.filter(function(s){return s.name===n;})[0];};
+var DAYW=['dom','lun','mar','mié','jue','vie','sáb'];
+var dlab=function(d){return DAYW[new Date(2026,10,d).getDay()]+' '+d;};
+
+
+/* ===================== RESUMEN EJECUTIVO ===================== */
+function resumen(){
+  var ota=chOf("OTAs"),cor=chOf("Corporativo"),dir=chOf("Directos"),age=chOf("Agencias");
+  var ln=restOf("Las Ninfas"),chy=restOf("La Chaya"),ib=restOf("Isla Bonita"),la=restOf("Lindo Amanecer");
+  var hs=O.hot.filter(function(x){return x.eco;}).sort(function(a,b){return b.pct-a.pct;}),lo=hs[hs.length-1];
+  var k=kpi(N(OE.pct,1),'%','Habitaciones · meta de noviembre',N(OE.otb)+' de '+N(OE.meta)+' ya en libros','up')+
+    kpi(SG(OE.wk),'','Habitaciones que entraron en la semana','del 2 al 9 nov · '+OE.wkDay+' por día','up')+
+    kpi(N(R.pace,1),'%','Restaurantes · 1–8 nov','contra la meta nueva de '+QK(R.metaDay)+' por día','flat')+
+    kpi(SG(R.vsOct,'%'),'','Venta por día vs octubre',Q(R.prom)+' contra '+Q(R.octDay),'up')+
+    kpi(QK(T.bruto),'','Tours · 1–9 nov',T.ventas+' ventas · '+SG(T.vsOct,'%')+' por día vs oct','up')+
+    kpi(QK(E.total),'','Eventos de noviembre en agenda',E.ev+' eventos · '+E.cobert+'% cobrado','down');
+  var sc=[["Habitaciones (en libros)",OE.pct,N(OE.otb)+" / "+N(OE.meta)],["Restaurantes (4)",R.pace,QK(R.total)+" / "+QK(R.meta)],["Lindo Amanecer",la.pace,QK(la.mtd)+" / "+QK(la.meta)],["Las Ninfas",ln.pace,QK(ln.mtd)+" / "+QK(ln.meta)],["La Chaya",chy.pace,QK(chy.mtd)+" / "+QK(chy.meta)],["Isla Bonita",ib.pace,QK(ib.mtd)+" / "+QK(ib.meta)]];
+  var marc=sc.map(function(x){var w=Math.min(125,x[1])/1.25;return '<div class="hbar-row"><span class="hlab">'+x[0]+'</span><div class="hbar-track"><div class="meta-line" style="left:'+(100/1.25)+'%"></div><div class="hbar-fill '+(x[1]>=100?'hi':x[1]>=85?'':'lo')+'" style="width:'+w+'%">'+N(x[1],1)+'%</div>'+
+     '<span class="hout" style="left:calc('+Math.max(w,100/1.25)+'% + 10px)">'+x[2]+'</span></div></div>';}).join("");
+  var lect=[
+   ['Habitaciones: noviembre ya tiene '+N(OE.pct,1)+'% de su meta en libros','Hay <b>'+N(OE.otb)+' habitaciones</b> vendidas para noviembre contra una meta de '+N(OE.meta)+' (140 por día en los 6 hoteles, 27% más que la de octubre). En la semana entraron '+SG(OE.wk)+'. Faltan '+N(-OE.gap)+': <b>'+OE.needDay+' por día</b> en lo que queda del mes. Al ritmo de esta semana ('+OE.wkDay+' por día) se pasa la meta. <b>Villa del Lago</b> ('+hotOf(O.hot,"Villa del Lago").pct+'%) y <b>Casazul</b> ('+hotOf(O.hot,"Casazul").pct+'%) ya casi llegan; <b>'+lo.h+'</b> es el más atrasado ('+lo.pct+'%).'],
+   ['Segmentos: la semana la ganaron OTAs y Directos','Noviembre pasó de '+N(G.prev)+' a '+N(G.T)+' noches ('+SG(G.dT)+'). <b>OTAs '+SG(ota.d)+'</b> (Booking.com '+SG(segOf("Booking.com").d)+'), <b>Directos '+SG(dir.d)+'</b> (walk-in '+SG(segOf("Clientes Directos / Walk-In").d)+') y Corporativo '+SG(cor.d)+'. Agencias perdió '+Math.abs(age.d)+' noches, pero sigue siendo más de la mitad del mes ('+age.mix+'%).'],
+   ['Restaurantes: '+N(R.pace,1)+'% de la meta nueva en la primera semana','Del 1 al 8 nov los cuatro vendieron <b>'+Q(R.total)+'</b> ('+Q(R.prom)+' por día), '+SG(R.vsOct,'%')+' por día contra octubre. Las metas subieron entre 12% y 35%, y aun así <b>Lindo Amanecer</b> ('+la.pace+'%) y <b>Las Ninfas</b> ('+ln.pace+'%, con salón/tarima) ya están arriba. La Chaya está a un paso ('+chy.pace+'%); Isla Bonita va en '+ib.pace+'%. Combos: '+D.combos.cant+' en 8 días.'],
+   ['El Mesón: meta de temporada alta, 173 pax por día','No llegó el archivo de El Mesón esta semana. La meta de noviembre sube a 173 pax por día por la temporada alta: es casi el triple de lo que atendió en octubre ('+Z.octProm+' pax por día). El primer archivo de noviembre va a decir si la temporada está llegando.'],
+   ['Tours: arranque fuerte en ventas, margen más bajo','En 9 días: '+T.ventas+' ventas y <b>'+Q(T.bruto)+'</b> ('+Q(T.dia)+' por día, '+SG(T.vsOct,'%')+' contra octubre). La ganancia por día casi no se movió ('+SG(T.ganVsOct,'%')+') porque el margen bajó a '+T.margen+'%: pesa un vuelo en helicóptero a El Mirador de '+Q(9876)+' con 9% de margen. <b>Hotel Petén</b> despertó: ya vende '+Q(T.byHotel.filter(function(x){return x.h==="Hotel Petén";})[0].dia)+' por día (en octubre, '+Q(140)+').'],
+   ['Eventos: noviembre tiene '+QK(E.total)+' en agenda y casi nada cobrado','Hay '+E.ev+' eventos confirmados en el mes; '+E.done[1]+' ya se hicieron (del 1 al 8 nov, '+Q(E.done[0])+'). Es '+N(Math.abs(E.vsOct),0)+'% menos que todo octubre, pero el mes todavía se llena. La cooperación (GIZ, ACOFOP, TNC) es la mitad del ingreso. Solo hay '+Q(E.cobrado)+' cobrado ('+E.cobert+'%).'],
+   ['Faltan archivos: agencia de viajes y El Mesón','Esta semana no hay boletos ni El Mesón. La compra de verduras solo trae el 1 de noviembre ('+Q(D.verd.total)+').']
+  ].map(function(x,i){return '<div class="lect"><span class="ln">'+(i+1)+'</span><div><b>'+x[0]+'</b><p>'+x[1]+'</p></div></div>';}).join("");
+  var oc=O.hot.map(function(x){return '<tr><td class="l">'+x.h+(x.eco?'':' <span class="mut">(aparte)</span>')+'</td><td>'+x.metaDia+'</td><td>'+N(x.otb)+'</td><td>'+N(x.meta)+'</td><td>'+pill(x.pct,100,85)+'</td><td class="'+cls(x.wk)+'">'+SG(x.wk)+'</td><td>'+(x.needDay?x.needDay:'<span class="pos">✓</span>')+'</td><td>'+x.occPct+'%</td></tr>';}).join("");
+  return '<section class="block" id="resumen"><div class="sec-head"><span class="sec-num">✦</span><h2>Resumen ejecutivo</h2><span class="win">'+M.titulo+'</span></div>'+
+   '<p class="sec-sub"><b>Primer corte semanal de noviembre</b> (9 nov). Todo se mide contra las <b>metas nuevas de noviembre</b>. Habitaciones: lo que ya está vendido para el mes. Restaurantes: lo vendido del 1 al 8 nov.</p>'+
+   '<div class="kpis">'+k+'</div>'+
+   card('Marcador de la semana · contra las metas de noviembre','la línea marca el 100%','<div class="hbars wide">'+marc+'</div>'+
+     ins('<b>Cómo leerlo:</b> habitaciones = noches de noviembre ya vendidas contra la meta del mes (meta diaria × 30). Restaurantes = venta del 1 al 8 nov contra la meta diaria × 8 días. El Mesón no envió archivo.'))+
+   card('Las 7 lecturas de la semana','',lect)+
+   '<div class="card octcard"><h3>Noviembre por hotel<span class="h3r"><a href="#p2">ver ocupación ↓</a></span></h3>'+
+   tbl(['Hotel','Meta/día','En libros','Meta mes','% meta','Semana','Faltan por día','Ocupación'],oc,'<tr class="eco"><td class="l">Ecosistema (sin Express)</td><td>'+OE.metaDia+'</td><td>'+N(OE.otb)+'</td><td>'+N(OE.meta)+'</td><td>'+pill(OE.pct,100,85)+'</td><td class="pos">'+SG(OE.wk)+'</td><td>'+OE.needDay+'</td><td>'+OE.occPct+'%</td></tr>')+
+   flag('Petén Express tiene meta en camas (18 por día); el sistema reporta habitaciones-cama del hostal, así que se compara directo.')+'</div></section>';
+}
+
+/* ===================== 1 · SEGMENTOS ===================== */
+function p1(){
+  var ch=G.ch,chm={};ch.forEach(function(c){chm[c.c]=c;});
+  var mx=Math.max.apply(null,ch.map(function(c){return Math.abs(c.d);}));
+  var bars=ch.slice().sort(function(a,b){return b.d-a.d;}).map(function(c){var w=Math.max(3,Math.abs(c.d)/mx*82);return '<div class="hbar-row"><span class="hlab">'+chDot(c.c)+c.c+'</span><div class="hbar-track"><div class="hbar-fill" style="width:'+w+'%;background:'+(c.d<0?'#b23a3a':CC[c.c])+';color:#fff">'+(w>=22?SG(c.d)+' noches':'')+'</div>'+(w<22?'<span class="hout" style="left:calc('+w+'% + 8px)">'+SG(c.d)+' noches · '+SG(c.crec,'%')+'</span>':'')+'</div></div>';}).join("");
+  var order=["Agencias","OTAs","Corporativo","Directos"],body='';
+  order.forEach(function(c){var x=chm[c];
+    body+='<tr class="grp"><td class="l" style="border-left:4px solid '+CC[c]+'"><b>'+c+'</b></td><td>'+N(x.prev)+'</td><td class="b">'+N(x.rn)+'</td><td class="'+cls(x.d)+'"><b>'+SG(x.d)+'</b></td><td>'+SG(x.crec,'%')+'</td><td>'+x.mixPrev+'% → <b>'+x.mix+'%</b></td><td><span class="mut">'+x.octMix+'%</span></td></tr>';
+    G.segs.filter(function(s){return s.canal===c&&s.name!=="Redes Sociales"&&(s.rn>=15||s.d!==0);}).slice(0,7).forEach(function(s){body+='<tr><td class="l sub">'+s.name+'</td><td>'+N(s.prev)+'</td><td>'+N(s.rn)+'</td><td class="'+cls(s.d)+'">'+SG(s.d)+'</td><td>'+(s.prev?SG(Math.round((s.rn/s.prev-1)*100),'%'):'<span class="mut">nuevo</span>')+'</td><td>'+s.mix+'%</td><td></td></tr>';});});
+  var HS=G.hot,hn=Object.keys(HS).filter(function(h){return h!=="Petén Express";}).sort(function(a,b){return HS[b].rn-HS[a].rn;});
+  var hrows=hn.map(function(h){var x=HS[h],cell=function(c){var q=x.ch[c];if(!q)return '<td><span class="mut">—</span></td>';return '<td>'+N(q.rn)+' <span class="'+(q.d>0?'pos':q.d<0?'neg':'mut')+'" style="font-size:11.5px">'+(q.d>0?'+'+q.d:q.d<0?q.d:'±0')+'</span></td>';};
+    return '<tr><td class="l">'+h+'</td><td>'+N(x.prev)+'</td><td><b>'+N(x.rn)+'</b></td><td class="'+cls(x.d)+'">'+SG(x.d)+'</td>'+order.map(cell).join("")+'</tr>';}).join("");
+  var mixes=hn.map(function(h){var x=HS[h];return '<div class="stack-wrap"><div class="stack-lab">'+h+' · '+N(x.rn)+' noches</div>'+stack(CHO.map(function(c){var q=x.ch[c];return {name:c,pct:q?q.mix:0,color:CC[c]};}),22)+'</div>';}).join("")+chLegend();
+  var ex=HS["Petén Express"],bk=segOf("Booking.com"),wi=segOf("Clientes Directos / Walk-In"),cd=segOf("Corporativo Directo"),so=segOf("Sostavisa"),agg=segOf("Agencia General");
+  return secHead('p1',1,'Explotación de segmentos · noviembre',M.win.segmentos,'Las noches de noviembre de cada canal: lo que había el 2 nov (arranque) y lo que hay al 9 nov. 6 hoteles del ecosistema; Petén Express aparte.')+
+   '<div class="kpis">'+kpi(N(G.T),'','Noches de noviembre','6 hoteles · al 2 nov: '+N(G.prev))+kpi(SG(G.dT),'','Noches que entraron',SG(G.crec,'%')+' en la semana','up')+kpi(SG(chm.OTAs.d),'','OTAs','el que más sumó','up')+kpi(SG(chm.Directos.d),'','Directos',SG(chm.Directos.crec,'%')+' en la semana','up')+kpi(chm.Agencias.mix,'%','Peso de agencias','al 2 nov: '+chm.Agencias.mixPrev+'%','flat')+'</div>'+
+   card('★ ¿Qué canal creció en la semana?','noches de noviembre · 2 → 9 nov','<div class="hbars">'+bars+'</div>'+
+     '<div class="stack-wrap" style="margin-top:16px"><div class="stack-lab">Mix al 9 nov</div>'+stack(CHO.map(function(c){return {name:c,pct:chm[c].mix,color:CC[c]};}))+'</div><div class="stack-wrap"><div class="stack-lab">Mix al 2 nov</div>'+stack(CHO.map(function(c){return {name:c,pct:chm[c].mixPrev,color:CC[c]};}))+'</div><div class="stack-wrap"><div class="stack-lab">Octubre · cierre</div>'+stack(CHO.map(function(c){return {name:c,pct:chm[c].octMix,color:CC[c]};}))+'</div>'+chLegend()+
+     ins('<b>Lectura:</b> noviembre sumó '+SG(G.dT)+' noches en la semana. Lo empujaron <b>OTAs</b> ('+SG(chm.OTAs.d)+', casi todo Booking.com: '+SG(bk.d)+'), <b>Directos</b> ('+SG(chm.Directos.d)+', walk-in '+SG(wi.d)+') y <b>Corporativo</b> ('+SG(chm.Corporativo.d)+', Corporativo Directo '+SG(cd.d)+'), justo los dos canales que la semana pasada venían flojos. <b>Agencias</b> perdió '+Math.abs(chm.Agencias.d)+' noches: Sostavisa bajó '+Math.abs(so.d)+' y Agencia General subió '+SG(agg.d)+'. La mezcla se va equilibrando: agencias bajó de '+chm.Agencias.mixPrev+'% a '+chm.Agencias.mix+'%, aunque sigue arriba del '+chm.Agencias.octMix+'% de octubre.',true)+
+     '<div style="height:12px"></div>'+tbl(['Canal / segmento','Al 2 nov','Al 9 nov','Semana','Creció','Mix','Mix oct'],body,
+       '<tr class="eco"><td class="l">Ecosistema (6 hoteles)</td><td>'+N(G.prev)+'</td><td>'+N(G.T)+'</td><td class="pos">'+SG(G.dT)+'</td><td class="pos">'+SG(G.crec,'%')+'</td><td>100%</td><td></td></tr>')+
+     flag('Noches = habitaciones-noche de noviembre en cada export. Esta semana varios hoteles exportaron el reporte en dólares, así que no se compara la tarifa por canal.'))+
+   card('Por hotel','noches de noviembre · el número chico es lo que entró en la semana',tbl(['Hotel','Al 2 nov','Al 9 nov','Semana'].concat(order),hrows)+'<div style="margin-top:14px">'+mixes+'</div>'+
+     ins('<b>Lectura:</b> la semana se repartió: Villa del Lago ('+SG(HS["Villa del Lago"].d)+'), Casona del Lago ('+SG(HS["Casona del Lago"].d)+') y Hotel Petén ('+SG(HS["Hotel Petén"].d)+') fueron los que más sumaron. Casona del Lago sigue con más de la mitad de sus noches de noviembre en agencias ('+HS["Casona del Lago"].ch.Agencias.mix+'%) y Casazul es el único que vive de OTAs ('+HS["Casazul"].ch.OTAs.mix+'%).'))+
+   card('Petén Express · aparte','hostal',tbl(['Canal','Al 2 nov','Al 9 nov','Semana','Mix'],Object.keys(ex.ch).map(function(c){var q=ex.ch[c];return '<tr><td class="l">'+chDot(c)+c+'</td><td>'+q.prev+'</td><td>'+q.rn+'</td><td class="'+cls(q.d)+'">'+SG(q.d)+'</td><td>'+q.mix+'%</td></tr>';}).join(""),'<tr class="eco"><td class="l">Total</td><td>'+ex.prev+'</td><td>'+ex.rn+'</td><td class="pos">'+SG(ex.d)+'</td><td>100%</td></tr>')+
+     flag('Petén Express sumó '+SG(ex.d)+' noches en la semana, casi todo Hostel World (+68) y Booking.com (+42). Parte del salto es porque el archivo del 2 nov venía desactualizado.'),'border-left:4px solid #9aa6b2')+'</section>';
+}
+
+/* ===================== 2 · BOLETOS ===================== */
+function pbol(){
+  return secHead('pbol',2,'Agencia de viajes · Boletos',M.win.boletos,'La venta de boletos de Total Petén.')+
+   card('Sin archivo esta semana','','<p style="margin:0;font-size:14px">No llegó el reporte de la agencia de viajes. En el próximo corte se muestra noviembre completo hasta la fecha, otra vez sin los saldos migrados.</p>'+
+     flag('Referencia de octubre: venta real de Q1,207,336 en 414 operaciones, con 30% de margen, y Q1.01M por cobrar al cierre.'),'border-left:4px solid var(--gold)')+'</section>';
+}
+
+/* ===================== 3 · OCUPACIÓN ===================== */
+function p2(){
+  var hs=O.hot.slice().sort(function(a,b){return b.pct-a.pct;}),eco=O.hot.filter(function(x){return x.eco;});
+  var rows=hs.map(function(x){return '<tr><td class="l">'+x.h+(x.eco?'':' <span class="mut">(aparte)</span>')+'</td><td>'+x.metaDia+' <span class="mut">(oct '+x.metaDiaOct+')</span></td><td>'+N(x.meta)+'</td><td>'+N(x.prev)+'</td><td><b>'+N(x.otb)+'</b></td><td class="'+cls(x.wk)+'">'+SG(x.wk)+'</td><td>'+pill(x.pct,100,85)+'</td><td>'+(x.gap<0?N(-x.gap):'<span class="pos">✓</span>')+'</td><td>'+(x.needDay?x.needDay:'—')+'</td><td>'+x.occPct+'%</td><td>'+Q(x.adr)+'</td></tr>';}).join("");
+  var bars=hs.map(function(x){var w=Math.min(115,x.pct)/1.15;return '<div class="hbar-row"><span class="hlab">'+x.h+'</span><div class="hbar-track"><div class="meta-line" style="left:'+(100/1.15)+'%"></div><div class="hbar-fill" style="width:'+(x.prevPct/1.15)+'%;background:#d9cbb0;position:absolute;left:0;top:0;bottom:0"></div><div class="hbar-fill '+(x.pct>=100?'hi':x.pct>=85?'':'lo')+'" style="width:'+w+'%;opacity:.9">'+x.pct+'%</div><span class="hout" style="left:calc('+Math.max(w,100/1.15)+'% + 10px)">'+N(x.otb)+' de '+N(x.meta)+' · '+SG(x.wk)+'</span></div></div>';}).join("");
+  var fs=O.hot.filter(function(x){return x.sf>0;}).sort(function(a,b){return b.sf-a.sf;}),fmx=fs[0].sf;
+  var hp=hotOf(O.hot,"Hotel Petén"),ct=hotOf(O.hot,"Casa Turquesa"),cdl=hotOf(O.hot,"Casona del Lago"),vdl=hotOf(O.hot,"Villa del Lago"),cz=hotOf(O.hot,"Casazul"),pe=hotOf(O.hot,"Petén Express");
+  var adrR=eco.map(function(x){return '<tr><td class="l">'+x.h+'</td><td>'+Q(x.octAdr)+'</td><td><b>'+Q(x.adr)+'</b></td><td class="'+cls(x.adr-x.octAdr)+'">'+SG(x.adr-x.octAdr)+'</td><td>'+Q(x.revpar)+'</td></tr>';}).join("");
+  return secHead('p2',3,'Ocupación · noviembre',M.win.ocupacion,'Habitaciones de noviembre ya vendidas (incluye complementarias) contra la <b>meta nueva de noviembre</b>: meta diaria × 30. Ecosistema sin Petén Express.')+
+   '<div class="kpis">'+kpi(N(OE.pct,1),'%','De la meta del mes en libros',N(OE.otb)+' de '+N(OE.meta)+' · al 2 nov: '+OE.prevPct+'%','up')+kpi(SG(OE.wk),'','Entraron en la semana',OE.wkDay+' por día','up')+kpi(OE.needDay,'','Faltan por día','para llegar a la meta en los 22 días que quedan','flat')+kpi(N(OE.occPct,1),'%','Ocupación de noviembre','en libros','up')+kpi(Q(OE.adr),'','ADR en libros','octubre: '+Q(OE.octAdr),'flat')+'</div>'+
+   card('Meta de noviembre por hotel','en libros al 9 nov',tbl(['Hotel','Meta/día','Meta mes','Al 2 nov','Al 9 nov','Semana','% meta','Faltan','Faltan por día','Ocupación','ADR'],rows,
+     '<tr class="eco"><td class="l">Ecosistema (sin Express)</td><td>'+OE.metaDia+' <span style="font-size:11px">(oct 110)</span></td><td>'+N(OE.meta)+'</td><td>'+N(OE.prev)+'</td><td>'+N(OE.otb)+'</td><td class="pos">'+SG(OE.wk)+'</td><td>'+pill(OE.pct,100,85)+'</td><td>'+N(-OE.gap)+'</td><td>'+OE.needDay+'</td><td>'+OE.occPct+'%</td><td>'+Q(OE.adr)+'</td></tr>')+
+     '<div class="stack-lab" style="margin:18px 0 10px">% de la meta en libros · la línea es el 100%</div><div class="hbars">'+bars+'</div>'+
+     ins('<b>Lectura:</b> noviembre ya tiene <b>'+OE.pct+'% de la meta</b> en libros ('+N(OE.otb)+' de '+N(OE.meta)+'), y la meta es 27% más alta que la de octubre. En la semana entraron '+SG(OE.wk)+' habitaciones ('+OE.wkDay+' por día); para llegar al 100% hacen falta '+N(-OE.gap)+' más, apenas <b>'+OE.needDay+' por día</b>. Si se sostiene el ritmo de la semana, el mes cerraría cerca de '+N(OE.proy)+' ('+OE.proyPct+'%). <b>Villa del Lago</b> ('+vdl.pct+'%) y <b>Casazul</b> ('+cz.pct+'%) ya casi llegan. <b>Casa Turquesa</b> es el más atrasado ('+ct.pct+'%, le faltan '+N(-ct.gap)+'). <b>Casona del Lago</b> tiene la meta más grande (45 por día) y le faltan '+N(-cdl.gap)+'.',true)+
+     flag('Las habitaciones en libros todavía pueden bajar por cancelaciones y no-shows. Petén Express: el dato del 2 nov venía desactualizado, por eso su semana sale en +'+hotOf(O.hot,"Petén Express").wk+'. La ocupación máxima posible de los 6 hoteles es '+N(OE.tot)+' habitaciones ('+OE.maxPct+'% de la meta).'))+
+   card('Tarifa de noviembre','ADR en libros contra el cierre de octubre',tbl(['Hotel','ADR oct','ADR nov','Cambio','RevPAR nov'],adrR)+
+     ins('<b>Lectura:</b> el ADR del ecosistema se mantiene ('+Q(OE.adr)+' contra '+Q(OE.octAdr)+'). El que preocupa es <b>Hotel Petén</b>: su tarifa en libros bajó a '+Q(hp.adr)+' (en octubre cerró en '+Q(hp.octAdr)+'). Casona del Lago, Casona de la Isla, Villa del Lago y Casazul vienen con tarifa más alta que en octubre; Casa Turquesa, casi igual.'))+
+   card('Destination Fee','noviembre en libros','<div class="hbars">'+fs.map(function(x){return hbar(x.h,x.sf/fmx*100,Q(x.sf,2),'');}).join("")+'</div>'+
+     ins('Van <b>'+Q(OE.sf,2)+'</b> en la bolsa de noviembre (octubre cerró en '+Q(OE.octSf,2)+'). El fee se registra conforme el huésped se hospeda, así que este número crece durante el mes.'))+futCard()+'</section>';
+}
+
+/* ===================== OCUPACIÓN FUTURA · cuadritos ===================== */
+function futCard(){var F=D.fut,ms=F.months,mx=Math.max.apply(null,ms.map(function(m){return m.pNow;})),mn=Math.min.apply(null,ms.map(function(m){return m.pNow;}));
+  var cols=ms.map(function(m){return '<div class="fut-col"><div class="fut-bar'+(m.pNow===mx?' peak':m.pNow===mn?' valley':'')+'" style="height:'+Math.max(6,m.pNow/mx*86)+'%"><span class="v">'+N(m.pNow,0)+'%</span></div><span class="fut-lab">'+m.m+'</span></div>';}).join("");
+  var heat=F.hot.map(function(r){return '<tr><td class="l">'+r.h+'</td>'+r.m.map(function(c){return '<td style="background:'+heatColor(c.pNow)+'" title="'+N(c.now)+' de '+N(c.tot)+' habitaciones">'+c.pNow+'%<span style="display:block;font-size:10px;opacity:.85">'+(c.d==null?'nuevo':c.d?SG(c.d):'±0')+'</span></td>';}).join("")+'</tr>';}).join("");
+  var g=function(h){return F.hot.filter(function(r){return r.h===h;})[0];},cdl=g("Casona del Lago"),cz=g("Casazul");
+  return '<div class="card" id="futuro" style="border-left:4px solid var(--gold)"><h3>★ Ocupación futura · Dic 2026 – May 2027<span class="h3r">reservas en libros al 9 nov · los 7 hoteles</span></h3>'+
+   cap('No es pronóstico: son las noches ya vendidas hoy contra el inventario de cada mes. El número chico es lo que cambió desde el 2 nov. Mayo entra por primera vez.')+
+   '<div class="tscroll"><table class="heat big"><thead><tr><th class="l">Hotel</th>'+F.lab.map(function(l){return '<th>'+l+'</th>';}).join("")+'</tr></thead><tbody>'+heat+'</tbody></table></div>'+
+   legend([['70% o más','#2f7d57'],['55–69%','#5d9a63'],['42–54%','#b98f3d'],['28–41%','#c9783f'],['menos de 28%','#b23a3a']])+
+   '<div class="stack-lab" style="margin:20px 0 0">Ocupación en libros del ecosistema completo · por mes</div><div class="fut-chart">'+cols+'</div>'+
+   ins('<b>Lectura:</b> <b>diciembre</b> subió a '+N(ms[0].pNow,0)+'% ('+SG(ms[0].d)+' habitaciones en la semana) y <b>enero</b> a '+N(ms[1].pNow,0)+'% ('+SG(ms[1].d)+'). <b>Febrero</b> ('+N(ms[2].pNow,0)+'%) y <b>marzo</b> ('+N(ms[3].pNow,0)+'%) siguen siendo los meses mejor vendidos del semestre. <b>Abril</b> bajó ('+N(ms[4].pNow,0)+'%, '+SG(ms[4].d)+') y <b>mayo</b> arranca con '+N(ms[5].pNow,0)+'%: son los dos meses a trabajar. Casona del Lago tiene febrero en '+cdl.m[2].pNow+'%, pero mayo en '+cdl.m[5].pNow+'%.')+'</div>';
+}
+
+/* ===================== 4 · VERDURAS ===================== */
+function pverd(){var v=D.verd;
+  return secHead('pverd',4,'Compra de verduras · Food cost',M.win.verduras,'Gasto en verdura, fruta e insumos frescos de noviembre.')+
+   card('Solo hay compras del 1 de noviembre','',
+     '<div class="kpis" style="margin:0 0 10px">'+kpi(Q(v.total),'','Compras cargadas',v.docs+' documentos · todas del 1 nov')+kpi(Q(v.oct.porDia),'','Promedio por día en octubre','referencia')+kpi(v.oct.ratio,'%','Food cost de octubre','referencia','flat')+'</div>'+
+     '<div class="hbars">'+v.byh.map(function(x){return hbar(x.h,x.g/v.byh[0].g*100,Q(x.g),'');}).join("")+'</div>'+
+     flag('El reporte llega hasta el 9 nov pero solo trae compras del 1 de noviembre, todas extraordinarias. Sin las compras del 2 al 8 no se puede calcular el food cost de la semana: hay que confirmar que se estén cargando.'),'border-left:4px solid var(--gold)')+'</section>';
+}
+
+/* ===================== 5 · RESTAURANTES ===================== */
+function p3(){var col=["#15324f","#6b7f99","#c89b4c","#3f8e93"];
+  var ln=restOf("Las Ninfas"),chy=restOf("La Chaya"),la=restOf("Lindo Amanecer"),ib=restOf("Isla Bonita"),S=R.salon;
+  var rows=R.rest.map(function(r){return '<tr><td class="l">'+r.name+' <span class="mut">('+r.hotel+')</span></td><td>'+Q(r.metaDay)+' <span class="mut">('+SG(r.metaUp,'%')+')</span></td><td>'+Q(r.meta)+'</td><td><b>'+Q(r.mtd)+'</b></td><td>'+pill(r.pace,100,85)+'</td><td class="'+cls(r.gap)+'">'+SG(r.gap)+'</td><td>'+Q(r.prom)+'</td><td>'+Q(r.octDay)+'</td><td class="pos">'+SG(r.vsOct,'%')+'</td><td>'+r.diasMeta+' de 8</td><td>'+Q(r.need)+'</td></tr>';}).join("");
+  var CON=['Desayunos incluidos','Cenas incluidas','Cenas de agencias','Alimentación de eventos'];
+  var stacks=R.rest.filter(function(r){return r.con;}).map(function(r){var c=r.con,t=r.conTot,comp=c["Desayunos incluidos"]+c["Cenas incluidas"]+c["Cenas de agencias"],ev=c["Alimentación de eventos"],ad=c["Venta extra"]+c["Promociones"];
+    return '<div class="stack-wrap"><div class="stack-lab">'+r.name+' · '+Q(r.mtd)+'</div>'+stack([{name:'Incluido y agencias',short:'Incluido',pct:Math.round(comp/t*1000)/10,color:'#15324f'},{name:'Eventos',short:'Eventos',pct:Math.round(ev/t*1000)/10,color:'#7a4fb3'},{name:'Venta adicional',short:'Adicional',pct:Math.round(ad/t*1000)/10,color:'#c89b4c'}],24)+'</div>';}).join("")+legend([['Desayunos y cenas incluidas + cenas de agencias','#15324f'],['Alimentación de eventos','#7a4fb3'],['Venta extra + promociones','#c89b4c']]);
+  var daily=R.rest.map(function(r,i){return '<div><div class="stack-lab" style="margin-bottom:4px">'+r.name+' · meta '+Q(r.metaDay)+' por día</div>'+colChart({vals:r.ser,meta:r.metaDay,fmt:function(v){return Q(v);},axfmt:function(v){return QK(v);},h:140,lab:function(j){return dlab(j+1)+' nov';},xl:function(j){return j+1;},aria:'venta diaria de '+r.name})+'</div>';}).join("");
+  var la2=la.con,chc=chy.con;
+  return secHead('p3',5,'Restaurantes · noviembre',M.win.restaurantes,'Venta sin propinas de los primeros 8 días de noviembre contra la <b>meta diaria nueva</b>. La Chaya es el restaurante de Hotel Petén. Las Ninfas: venta neta + salón/tarima de su cuadro de propinas.')+
+   '<div class="kpis">'+kpi(N(R.pace,1),'%','Del bloque vs la meta',Q(R.total)+' de '+Q(R.meta),'flat')+kpi(Q(R.prom),'','Venta por día','meta: '+Q(R.metaDay),'flat')+kpi(SG(R.vsOct,'%'),'','Por día contra octubre','octubre: '+Q(R.octDay)+' por día','up')+kpi(Q(R.need),'','Hace falta por día','para cerrar noviembre en meta','flat')+kpi(R.diasMeta,'','Días en meta','de 8 · el bloque completo','flat')+'</div>'+
+   card('Contra la meta de noviembre','1–8 nov',tbl(['Restaurante','Meta/día (vs oct)','Meta 8 días','Venta 1–8 nov','% meta','Contra la meta','Por día','Por día oct','vs oct','Días en meta','Falta por día'],rows,
+     '<tr class="eco"><td class="l">Bloque (4 restaurantes)</td><td>'+Q(R.metaDay)+'</td><td>'+Q(R.meta)+'</td><td>'+Q(R.total)+'</td><td>'+pill(R.pace,100,85)+'</td><td class="'+cls(R.gap)+'">'+SG(R.gap)+'</td><td>'+Q(R.prom)+'</td><td>'+Q(R.octDay)+'</td><td class="pos">'+SG(R.vsOct,'%')+'</td><td>'+R.diasMeta+' de 8</td><td>'+Q(R.need)+'</td></tr>')+
+     ins('<b>Lectura:</b> las metas de noviembre son más altas ('+Q(R.metaDay)+' por día contra '+Q(R.octMetaDay)+' de octubre) y con el ritmo de octubre el bloque llegaría solo al '+R.octPctNewMeta+'%. Aun así, la primera semana arrancó en <b>'+R.pace+'%</b>: se vendió '+N(R.vsOct,1)+'% más por día que en octubre. <b>Lindo Amanecer</b> ya pasó su meta ('+la.pace+'%, por dos cenas de agencias del 5 y 7 nov) y <b>Las Ninfas</b> también ('+ln.pace+'%, por los eventos del 3 al 7 nov). <b>La Chaya</b> quedó muy cerca ('+chy.pace+'%). <b>Isla Bonita</b> va en '+ib.pace+'%: le pesaron el 1 al 3 nov, abajo de Q4,500 por día.',true)+
+     flag('<b>Las Ninfas:</b> la venta incluye '+Q(S.v)+' de salón/tarima de la semana (eventos del 3 al 7 nov). Sin el salón iría en '+N((ln.mtd-S.v)/ln.meta*100,1)+'%. Las propinas ('+Q(S.prop)+') no cuentan.'))+
+   card('Día a día','venta diaria · la línea es la meta diaria de noviembre','<div class="grid2">'+daily+'</div>'+
+     ins('<b>Lectura:</b> Las Ninfas depende de los eventos: del 3 al 7 nov, con eventos en salón, vendió entre Q34K y Q55K por día y pasó la meta los cinco días; los otros tres días quedó en Q11K–Q12K. Su mejor día fue el <b>'+dlab(ln.best.d)+' nov</b> ('+Q(ln.best.v)+'). La Chaya pasó su meta '+chy.diasMeta+' días, siempre con cenas de agencias.'))+
+   card('De qué está hecha la venta','1–8 nov · por concepto (Las Ninfas no trae el desglose)',stacks+
+     ins('<b>Lectura:</b> en <b>Lindo Amanecer</b> las cenas de agencias ya son el '+N(la2["Cenas de agencias"]/la.conTot*100,0)+'% de la semana; en octubre casi no tenía. <b>La Chaya</b> vive del desayuno incluido ('+N(chc["Desayunos incluidos"]/chy.conTot*100,0)+'%) y de la venta a la carta ('+N(chc["Venta extra"]/chy.conTot*100,0)+'%). <b>Isla Bonita</b> tiene la venta adicional más alta ('+N((ib.con["Venta extra"]+ib.con["Promociones"])/ib.conTot*100,0)+'%).'))+
+   combCard()+card('El Mesón','meta de temporada alta: 173 pax por día','<p style="margin:0;font-size:14px"><b>No llegó el archivo de El Mesón esta semana.</b></p>'+
+     ins('La meta sube a 173 pax por día por la <b>temporada alta</b>. Como referencia, en octubre El Mesón atendió <b>'+Z.octProm+' pax por día</b> ('+N(Z.octPax)+' en el mes, más '+Z.octGuias+' guías), el '+Z.octVsNew+'% de la meta nueva: noviembre tiene que casi triplicar ese ritmo.')+
+     flag('Referencia de octubre: bebidas '+Q(Z.octBeb)+' ('+Q(Z.octBebProm)+' por día). Esta semana no se dio meta de bebidas.'),'border-left:4px solid var(--gold)')+'</section>';
+}
+
+/* ===================== COMBOS (dentro de restaurantes) ===================== */
+function combCard(){var Cb=D.combos,od=Cb.oct.cant/31,nd=Cb.cant/Cb.days,lc=Cb.rest.filter(function(r){return r.rest==="La Chaya";})[0],ib=Cb.rest.filter(function(r){return r.rest==="Isla Bonita";})[0],ln=Cb.rest.filter(function(r){return r.rest==="Las Ninfas";})[0];
+  var rr=Cb.rest.slice().sort(function(a,b){return b.cant-a.cant;}).map(function(r){return '<tr><td class="l">'+r.rest+'</td><td><b>'+r.cant+'</b></td><td>'+r.oct+' <span class="mut">('+N(r.oct/31*8,1)+' en 8 días)</span></td><td>'+Q(r.bruta)+'</td><td>'+r.items.map(function(i){return i.name.replace(/^Combo /,'')+' ('+i.cant+')';}).join(', ')+'</td></tr>';}).join("");
+  return card('Combos · 1–8 nov','combos vendidos en el punto de venta',
+    '<div class="kpis" style="margin:0 0 10px">'+kpi(Cb.cant,'','Combos vendidos',N(nd,2)+' por día · octubre: '+N(od,1),'up')+kpi(Q(Cb.bruta),'','Venta bruta de combos','')+kpi(Cb.fc,'%','Costo real','costo / venta neta')+'</div>'+
+    tbl(['Restaurante','Combos 1–8 nov','Octubre completo','Venta bruta','Qué se vendió'],rr,'<tr class="eco"><td class="l">Total</td><td>'+Cb.cant+'</td><td>'+Cb.oct.cant+'</td><td>'+Q(Cb.bruta)+'</td><td></td></tr>','font-size:13px')+
+    ins('<b>Lectura:</b> se vendieron <b>'+Cb.cant+' combos en 8 días</b> ('+N(nd,2)+' por día), un poco arriba del promedio de octubre ('+N(od,1)+' por día) pero lejos de la última semana de octubre ('+Cb.oct.last6+' en 6 días). Cambió quién vende: <b>La Chaya</b> hizo '+lc.cant+' (la piña colada y los nachos con 2 Gallo al frente), mientras <b>Isla Bonita</b>, que en octubre vendió más de la mitad, bajó a '+ib.cant+'. Las Ninfas sigue con el capuccino con pastel ('+ln.cant+').')+
+    flag('Los nachos (3 en La Chaya) estaban marcados para quitar en el veredicto de octubre: si se siguen vendiendo, conviene revisar la decisión con un mes más de datos.'));}
+
+/* ===================== 6 · TOURS ===================== */
+function p4(){
+  var hr=T.byHotel.map(function(x){return '<tr><td class="l">'+x.h+'</td><td>'+x.ventas+'</td><td>'+x.pax+'</td><td>'+Q(x.bruto)+'</td><td>'+Q(x.gan)+'</td><td>'+x.margen+'%</td><td><b>'+Q(x.dia)+'</b></td><td>'+(x.octDia!=null?Q(x.octDia):'—')+'</td><td class="'+(x.octDia?cls(x.dia-x.octDia):'')+'">'+(x.octDia?SG(Math.round((x.dia/x.octDia-1)*100),'%'):'—')+'</td></tr>';}).join("");
+  var tr=T.tours.map(function(x){return '<tr><td class="l">'+x.t+'</td><td>'+x.ventas+'</td><td>'+x.pax+'</td><td>'+Q(x.bruto)+'</td><td>'+Q(x.gan)+'</td><td class="'+(x.margen>=40?'pos':x.margen<25?'neg':'')+'">'+x.margen+'%'+(x.sinCosto?' <span class="mut">*</span>':'')+'</td></tr>';}).join("");
+  var rc=T.rec.slice(0,8).map(function(r,i){return '<tr><td class="l">'+(i+1)+'. '+r.n+' <span class="mut">('+r.h+')</span></td><td>'+r.ventas+'</td><td>'+Q(r.bruto)+'</td></tr>';}).join("");
+  var bh=function(h){return T.byHotel.filter(function(x){return x.h===h;})[0];},vdl=bh("Villa del Lago"),hp=bh("Hotel Petén"),cdi=bh("Casona de la Isla"),ct=bh("Casa Turquesa"),cz=bh("Casazul"),cdl=bh("Casona del Lago");
+  var heli=T.tours.filter(function(t){return /Helic/.test(t.t);})[0],sinH=(T.gan-heli.gan)/(T.bruto-heli.bruto)*100,neg=T.tours.filter(function(t){return t.gan<0;});
+  return secHead('p4',6,'Tours · noviembre',M.win.tours,'Tours vendidos desde las recepciones del 1 al 9 de noviembre, con costo, fees y ganancia real, contra el ritmo diario de octubre.')+
+   '<div class="kpis">'+kpi(T.ventas,'','Ventas activas',T.pax+' pax · '+T.canc+' canceladas')+kpi(Q(T.bruto),'','Ingreso bruto',Q(T.dia)+' por día · '+SG(T.vsOct,'%')+' vs oct','up')+kpi(Q(T.gan),'','Ganancia real',Q(T.ganDia)+' por día · '+SG(T.ganVsOct,'%')+' vs oct','flat')+kpi(T.margen,'%','Margen real','octubre: '+T.oct.margen+'%','down')+kpi(N(sinH,1),'%','Margen sin el helicóptero','la venta normal','flat')+'</div>'+
+   card('De la venta a la ganancia','1–9 nov','<div class="hbars">'+hbar('Ingreso bruto',100,Q(T.bruto),'hi')+hbar('Costo de tours',T.costo/T.bruto*100,Q(T.costo)+' · '+N(T.costo/T.bruto*100,0)+'%','lo')+hbar('Fees bancarios',T.fee/T.bruto*100,Q(T.fee)+' · '+N(T.fee/T.bruto*100,1)+'%','lo')+hbar('<b>Ganancia real</b>',T.gan/T.bruto*100,Q(T.gan)+' · '+T.margen+'%','tealf')+'</div>'+
+     '<div class="stack-lab" style="margin:18px 0 4px">Venta de tours por día</div>'+colChart({vals:T.ser,fmt:function(v){return Q(v);},axfmt:function(v){return QK(v);},h:160,color:'#3f8e93',lab:function(i){return dlab(i+1)+' nov';},xl:function(i){return i+1;},aria:'venta diaria de tours'})+
+     ins('<b>Lectura:</b> noviembre arrancó vendiendo <b>'+Q(T.dia)+' por día</b>, '+N(T.vsOct,1)+'% más que el ritmo de octubre ('+Q(T.oct.dia)+'). Pero la ganancia por día casi no subió ('+SG(T.ganVsOct,'%')+'): el margen bajó a '+T.margen+'%. La razón principal es un <b>vuelo en helicóptero a El Mirador</b> ('+Q(heli.bruto)+', vendido en Villa del Lago) que dejó solo '+heli.margen+'%. Sin esa venta, el margen sería '+N(sinH,1)+'%, todavía abajo del '+T.oct.margen+'% de octubre.',true)+
+     flag(T.sinCosto+' ventas sin costo cargado ('+Q(T.sinCostoB)+'): '+T.sinCostoT.join(', ')+'. '+(neg.length?neg.map(function(t){return t.t+' salió con pérdida ('+Q(t.gan)+')';}).join('; ')+'.':'')))+
+   card('Por hotel','venta por día contra octubre',tbl(['Hotel','Ventas','Pax','Bruto','Ganancia','Margen','Por día nov','Por día oct','vs oct'],hr)+
+     ins('<b>Lectura:</b> <b>Villa del Lago</b> ('+Q(vdl.bruto)+') y <b>Hotel Petén</b> ('+Q(hp.bruto)+') hacen casi tres cuartos de la venta. Hotel Petén es la buena noticia: pasó de '+Q(hp.octDia)+' por día en octubre a '+Q(hp.dia)+'. Villa del Lago sigue arriba aun sin el helicóptero. Los que se cayeron: <b>Casa Turquesa</b> y <b>Casazul</b> (una venta cada uno, cuando en octubre eran de los que más vendían por huésped) y <b>Casona de la Isla</b> ('+Q(cdi.dia)+' por día contra '+Q(cdi.octDia)+').'))+
+   '<div class="grid2">'+card('Por tour','',tbl(['Tour','Ventas','Pax','Bruto','Ganancia','Margen'],tr,'','font-size:12.5px')+flag('* sin costo cargado.'))+
+   card('Quién vende','',tbl(['Recepcionista','Ventas','Bruto'],rc,'','font-size:13px')+
+     '<div class="stack-lab" style="margin:14px 0 6px">Cómo pagan</div>'+T.pm.map(function(p){return '<div class="f2"><span>'+p.m+' · '+p.n+' ventas</span><b>'+p.pct+'%</b></div>';}).join("")+
+     '<div class="stack-lab" style="margin:14px 0 6px">Agencia operadora</div>'+T.ag.slice(0,6).map(function(a){return '<div class="f2"><span>'+a.a+' · '+a.ventas+'</span><b>'+Q(a.bruto)+' · '+a.margen+'%</b></div>';}).join(""))+'</div></section>';
+}
+
+/* ===================== 7 · EVENTOS ===================== */
+function p5(){var sg=E.seg.filter(function(s){return s.ev>0;}).sort(function(a,b){return b.ing-a.ing;}),SC={'Corporativo':'#7a4fb3','ONG / cooperación':'#3f8e62','Gobierno':'#2a78c2','Educación':'#c0823a','Particulares':'#8a8f98'};
+  var rows=sg.map(function(s){return '<tr><td class="l"><i class="cdot" style="background:'+SC[s.name]+'"></i><b>'+s.name+'</b></td><td>'+s.ev+'</td><td>'+N(s.pax)+'</td><td><b>'+Q(s.ing)+'</b></td><td>'+s.share+'%</td></tr>';}).join("");
+  var top=E.top.map(function(t,i){return hbar((i+1)+'. '+t.c,t.ing/E.top[0].ing*100,Q(t.ing)+' · '+t.ev+' ev.',i===0?'violf':'');}).join("");
+  var wl=["1–7 nov","8–14 nov","15–21 nov","22–30 nov"],wmx=Math.max.apply(null,E.wk);
+  var sal=E.sal.slice(0,6),smx=sal[0].v;
+  return secHead('p5',7,'Eventos · noviembre',M.win.eventos,'Los eventos de noviembre confirmados en el sistema al 9 nov (los que entran en indicadores). Todos en Casona del Lago.')+
+   '<div class="kpis">'+kpi(QK(E.total),'','Noviembre en agenda',E.ev+' eventos · '+N(E.pax)+' pax','flat')+kpi(QK(E.done[0]),'','Ya realizados (1–8 nov)',E.done[1]+' eventos','flat')+kpi(Q(E.ticket),'','Ticket por evento','octubre: '+Q(E.oct.total/E.oct.ev))+kpi(E.cobert,'%','Cobrado',Q(E.cobrado),'down')+kpi(QK(E.pend),'','Pendiente de cobro','','down')+'</div>'+
+   card('Cómo se reparte el mes','ingreso de los eventos confirmados por semana','<div class="hbars">'+E.wk.map(function(v,i){return hbar(wl[i],v/wmx*100,Q(v)+' · '+E.wkN[i]+' eventos',v===wmx?'hi':v===0?'lo':'');}).join("")+'</div>'+
+     ins('<b>Lectura:</b> noviembre tiene <b>'+Q(E.total)+' en '+E.ev+' eventos</b> confirmados. Ya se realizaron '+E.done[1]+' ('+Q(E.done[0])+'), concentrados en la semana del 1 al 7 nov. Lo que sigue está flojo: '+E.wkN[2]+' eventos del 15 al 21 nov y <b>ninguno confirmado del 22 al 30</b>. Contra todo octubre ('+Q(E.oct.total)+', '+E.oct.ev+' eventos) va '+N(Math.abs(E.vsOct),0)+'% abajo: hay que llenar la segunda mitad del mes.',true)+
+     flag('Hay '+E.borr.length+' eventos en borrador sin cliente (seminarios, reuniones, XV años y DIDEDUC Petén) y '+E.cancN+' cancelados ('+Q(E.canc)+').'))+
+   '<div class="grid2">'+card('Por segmento','',tbl(['Segmento','Eventos','Pax','Total','Peso'],rows,'<tr class="eco"><td class="l">Total</td><td>'+E.ev+'</td><td>'+N(E.pax)+'</td><td>'+Q(E.total)+'</td><td>100%</td></tr>','font-size:13px')+
+     ins('La <b>cooperación</b> es la mitad del mes ('+sg[0].share+'%): GIZ, ACOFOP y TNC. Gobierno aparece con fuerza (IGSS, Tribunal Supremo Electoral, Muni San Benito).')+flag('Clasificación propia por nombre de la empresa.'))+
+   card('Los clientes más grandes','de '+E.nCli+' clientes','<div class="hbars wide2">'+top+'</div>'+
+     ins('<b>'+E.top[0].c+'</b> es el cliente del mes ('+Q(E.top[0].ing)+', '+E.top[0].pct+'%), con '+E.top[0].ev+' reuniones; la más grande fue la del 4 nov ('+Q(42000)+').'))+'</div>'+
+   '<div class="grid2">'+card('Por salón','','<div class="hbars">'+sal.map(function(s){return hbar(s.k.replace('Salón ',''),s.v/smx*100,QK(s.v)+' · '+s.n+' ev.','');}).join("")+'</div>')+
+   card('Cobranza','',
+     '<div class="hbars">'+hbar('Vendido',100,Q(E.total),'hi')+hbar('Cobrado',Math.max(1,E.cobrado/E.total*100),Q(E.cobrado),'')+hbar('Pendiente',E.pend/E.total*100,Q(E.pend),'lo')+'</div>'+
+     ins('<b>Solo se ha cobrado '+Q(E.cobrado)+'</b> ('+E.cobert+'%), y es de un solo evento: la "Reunión Javier Guerra" del 15 nov, que parece una prueba. Los '+E.done[1]+' eventos que ya se hicieron ('+Q(E.done[0])+') siguen sin cobrar.')+
+     flag('Cortesías comerciales en el mes: '+Q(E.cort)+'.'))+'</div></section>';
+}
+
+/* ===================== 8 · WEB ===================== */
+function p6(){var W=D.web,H=W.HP,X=W.X,PH=W.prev.HP,PX=W.prev.X;
+  var bars=function(arr,klass,skip){arr=arr.filter(function(a){return !skip||!/^\/admin/.test(a.k);});var mx=arr[0].v;return '<div class="hbars">'+arr.map(function(a){return hbar(a.k==='/'?'/ (inicio)':a.k,a.v/mx*100,N(a.v),klass);}).join("")+'</div>';};
+  var sum=function(arr,re){return arr.filter(function(s){return re.test(s.k);}).reduce(function(s,a){return s+a.v;},0);};
+  var fb=sum(H.src,/facebook/),tt=sum(H.src,/tiktok/),go=sum(H.src,/google/);
+  var pg=function(S,k){return S.pages.filter(function(p){return p.k===k;})[0]||{v:0};};
+  return secHead('p6',8,'Página web',M.win.web,'Los dos sitios en los <b>últimos 7 días</b> (2 al 9 nov), contra la semana anterior.')+
+   '<div class="grid2">'+
+   card('hotelesdepeten · sitio principal','','<div class="kpis" style="margin-top:0">'+kpi(N(H.vis),'','Visitantes',SG(H.dVis,'%')+' según Vercel','flat')+kpi(N(H.views),'','Páginas vistas',SG(H.dViews,'%')+' · '+N(H.views/H.vis,1)+' por visita','flat')+kpi(H.bounce,'%','Rebote',SG(H.dBounce,' pts'),'up')+'</div>'+
+     '<div class="stack-lab" style="margin:8px 0 8px">Páginas más visitadas</div>'+bars(H.pages,'')+'<div class="stack-lab" style="margin:16px 0 8px">De dónde llegan</div>'+bars(H.src,'tealf'))+
+   card('experiences · tours y actividades','','<div class="kpis" style="margin-top:0">'+kpi(N(X.vis),'','Visitantes',SG(X.dVis,'%')+' según Vercel','up')+kpi(N(X.views),'','Páginas vistas',SG(X.dViews,'%')+' · '+N(X.views/X.vis,1)+' por visita','up')+kpi(X.bounce,'%','Rebote',SG(X.dBounce,' pts'),'flat')+'</div>'+
+     '<div class="stack-lab" style="margin:8px 0 8px">Páginas más visitadas (sin /admin)</div>'+bars(X.pages,'hi',true)+'<div class="stack-lab" style="margin:16px 0 8px">De dónde llegan</div>'+bars(X.src,'violf'),'border-left:4px solid var(--teal)')+'</div>'+
+   card('Lectura de los dos sitios','',
+     ins('<b>El sitio principal se sostuvo en '+N(H.vis)+' visitantes</b> ('+SG(H.dVis,'%')+') y el rebote bajó a '+H.bounce+'% ('+SG(H.dBounce,' pts')+'). Facebook sigue siendo la fuente principal (~'+N(fb)+' visitas) y <b>aparece TikTok</b> por primera vez con '+N(tt)+' visitas, más que Google ('+N(go)+'). <b>/arma-tu-viaje</b> sigue siendo la página más vista ('+N(pg(H,'/arma-tu-viaje').v)+').',true)+
+     ins('<b>experiences</b> subió a '+N(X.vis)+' visitantes ('+SG(X.dVis,'%')+') y cada visitante ve '+N(X.views/X.vis,1)+' páginas. La página de <b>agenda</b> ('+N(pg(X,'/agenda').v)+') y la caminata por la isla de Flores ('+N(pg(X,'/experiencia/caminata-isla-flores').v)+') son las más vistas después del inicio.')+
+     flag('Cifras tomadas de capturas de Vercel (filas visibles). Las variaciones son las que calcula Vercel contra el periodo anterior. /admin es tráfico interno del equipo y se excluye.'))+
+   '<footer>Hoteles de Petén · El Viaje del Huésped · Emisión '+M.version+' · '+M.titulo+' · corte '+M.corte+'. Habitaciones: noviembre en libros. Restaurantes: 1–8 nov. Tours: 1–9 nov. Eventos: agenda de noviembre. Sin archivo: agencia de viajes y El Mesón. Petén Express se reporta aparte del ecosistema.</footer></section>';
+}
+
+/* build report */
+document.getElementById("sheet").innerHTML = resumen()+p1()+pbol()+p2()+pverd()+p3()+p4()+p5()+p6();
+/* road stops */
+(function(){var path=document.getElementById("roadpath");var L=path.getTotalLength();var g=document.getElementById("stops");
+  var labels=["SEGMENTOS","BOLETOS","OCUPACIÓN","VERDURAS","RESTAURANTES","TOURS","EVENTOS","WEB"];var ids=["p1","pbol","p2","pverd","p3","p4","p5","p6"];
+  var n=labels.length;
+  labels.forEach(function(lab,i){var f=0.02+i*(0.955/(n-1));var pt=path.getPointAtLength(L*f);var above=(i%2===0);var ly=above?pt.y-22:pt.y+30;var last=i===n-1;
+    var node=document.createElementNS("http://www.w3.org/2000/svg","g");node.setAttribute("class","stop-node");node.setAttribute("data-target",ids[i]);
+    node.innerHTML='<circle class="dot" cx="'+pt.x+'" cy="'+pt.y+'" r="13" fill="#c89b4c"/><text x="'+pt.x+'" y="'+(pt.y+5)+'" text-anchor="middle" font-family="Oswald" font-size="14" fill="#0a1d31" font-weight="600">'+(i+1)+'</text><text x="'+pt.x+'" y="'+ly+'" text-anchor="'+(last?'end':i===0?'start':'middle')+'" font-family="Oswald" font-size="11" fill="#cdd9e6" letter-spacing="1">'+lab+'</text>';
+    g.appendChild(node);});})();
+/* =============== SEGUIMIENTOS =============== */
+var DEFAULT_URL="https://script.google.com/macros/s/AKfycbw1jTZOC7H115i8Tppt7j9p0qrmwCSe4f4WNf5ZqjUdhcOnt7klwfRPaXf0cNIiuxiMnA/exec";
+var LS_KEY="vh_seg_v4",LS_URL="vh_url_v4";
+var FASES=["Noviembre · Ocupación","Noviembre · Segmentos","Punto 1 · Segmentos","Punto 2 · Boletos","Punto 3 · Ocupación","Punto 3 · Futuro 6m","Punto 4 · Verduras/Food cost","Punto 5 · Restaurantes","Punto 5 · Combos","Punto 6 · Tours","Punto 7 · Eventos","Punto 8 · Página Web"];
+var ESTADOS=["Pendiente","En proceso","Listo"];
+var state={rows:[]},URL="",connected=false,rowTimers={};
+function hora(){var d=new Date();return d.getHours()+":"+("0"+d.getMinutes()).slice(-2);}
+function uid(){return "r"+Date.now()+Math.floor(Math.random()*1000);}
+function norm(r){r=r||{};return{id:r.id||uid(),fase:r.fase||FASES[0],accion:r.accion||"",responsable:r.responsable||"",fecha:r.fecha||"",estado:r.estado||ESTADOS[0],notas:r.notas||""};}
+function setStatus(kind,msg){var d=document.getElementById("stDot"),t=document.getElementById("stText");d.className="dot-st "+kind;t.textContent=msg;}
+function saveLocal(){try{localStorage.setItem(LS_KEY,JSON.stringify(state.rows));}catch(e){}}
+function loadLocal(){try{var v=localStorage.getItem(LS_KEY);state.rows=v?JSON.parse(v).map(norm):[];}catch(e){state.rows=[];}}
+function cloudGet(){return fetch(URL+"?action=list",{method:"GET"}).then(function(r){return r.json();});}
+function cloudPost(p){return fetch(URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(p)}).then(function(r){return r.json();});}
+function upsertCloud(row){if(!connected)return;cloudPost({action:"upsert",row:row}).catch(function(){});}
+function deleteCloud(id){if(!connected)return;cloudPost({action:"delete",id:id}).catch(function(){});}
+function connect(){var u=document.getElementById("urlInput").value.trim();
+  if(!u){setStatus("off","Sin conexión — guardado solo en este dispositivo");connected=false;return;}
+  URL=u;setStatus("off","Conectando…");
+  cloudGet().then(function(d){if(d&&d.ok){connected=true;try{localStorage.setItem(LS_URL,u);}catch(e){}
+    setStatus("ok","Sincronizado con la hoja de Google · "+hora());
+    var fresh=(d.rows||[]).map(norm);
+    if(fresh.length){state.rows=fresh;saveLocal();render();}else if(state.rows.length){state.rows.forEach(upsertCloud);}
+  }else{connected=false;setStatus("err","La hoja respondió pero sin datos válidos");}
+  }).catch(function(){connected=false;setStatus("err","No se pudo conectar — revisá la URL /exec");});}
+function counters(){var p=0,pr=0,d=0;state.rows.forEach(function(r){if(r.estado==="Pendiente")p++;else if(r.estado==="En proceso")pr++;else if(r.estado==="Listo")d++;});
+  document.getElementById("cPend").textContent=p;document.getElementById("cProc").textContent=pr;document.getElementById("cDone").textContent=d;document.getElementById("cTot").textContent=state.rows.length;}
+function opt(list,val){return list.map(function(o){return '<option'+(o===val?' selected':'')+'>'+o+'</option>';}).join("");}
+function grow(t){t.style.height="auto";t.style.height=t.scrollHeight+"px";}
+function render(){var tb=document.getElementById("rows");tb.innerHTML="";
+  state.rows.forEach(function(r,i){var tr=document.createElement("tr");tr.dataset.id=r.id;
+    tr.innerHTML='<td style="text-align:center;color:#90a">'+(i+1)+'</td>'+
+      '<td><select class="st-sel" data-k="fase">'+opt(FASES,r.fase)+'</select></td>'+
+      '<td><textarea data-k="accion" rows="1" placeholder="¿Qué hay que hacer?">'+(r.accion||"")+'</textarea></td>'+
+      '<td><input data-k="responsable" value="'+(r.responsable||"").replace(/"/g,"&quot;")+'" placeholder="¿Quién?"></td>'+
+      '<td><input data-k="fecha" type="date" value="'+(r.fecha||"")+'"></td>'+
+      '<td><select class="st-sel" data-k="estado">'+opt(ESTADOS,r.estado)+'</select></td>'+
+      '<td><textarea data-k="notas" rows="1" placeholder="Notas">'+(r.notas||"")+'</textarea></td>'+
+      '<td><button class="row-del" title="Eliminar">×</button></td>';
+    tb.appendChild(tr);});
+  tb.querySelectorAll("textarea").forEach(function(t){grow(t);});counters();}
+function findRow(id){for(var i=0;i<state.rows.length;i++)if(state.rows[i].id===id)return state.rows[i];return null;}
+document.getElementById("rows").addEventListener("input",function(e){var k=e.target.dataset.k;if(!k)return;
+  var tr=e.target.closest("tr");var row=findRow(tr.dataset.id);if(!row)return;row[k]=e.target.value;
+  if(e.target.tagName==="TEXTAREA")grow(e.target);saveLocal();counters();
+  if(connected){clearTimeout(rowTimers[row.id]);rowTimers[row.id]=setTimeout(function(){upsertCloud(row);},700);}});
+document.getElementById("rows").addEventListener("click",function(e){if(!e.target.classList.contains("row-del"))return;
+  var tr=e.target.closest("tr");var id=tr.dataset.id;state.rows=state.rows.filter(function(r){return r.id!==id;});saveLocal();render();if(connected)deleteCloud(id);});
+function addRow(data){var r=norm(data);state.rows.push(r);saveLocal();render();if(connected)upsertCloud(r);}
+document.getElementById("addBtn").addEventListener("click",function(){addRow({});});
+document.getElementById("seedBtn").addEventListener("click",function(){
+  var seeds=[
+    {fase:"Noviembre · Ocupación",accion:"Faltan 342 habitaciones para la meta de noviembre (15.5 por día). Casa Turquesa es el más atrasado (84.3%)",estado:"Pendiente"},
+    {fase:"Noviembre · Ocupación",accion:"Hotel Petén: el ADR en libros bajó a Q395 (octubre Q482). Revisar tarifas y contratos",estado:"Pendiente"},
+    {fase:"Noviembre · Segmentos",accion:"Agencias sigue siendo más de la mitad de noviembre: sostener el empuje de OTAs, directos y corporativo",estado:"Pendiente"},
+    {fase:"Punto 3 · Futuro 6m",accion:"Abril (40%) y mayo (22%) son los meses más vacíos: plan de grupos y campañas",estado:"Pendiente"},
+    {fase:"Punto 5 · Restaurantes",accion:"Isla Bonita arrancó en 91.8% de su meta nueva: plan de venta a la carta los días sin agencias",estado:"Pendiente"},
+    {fase:"Punto 5 · Combos",accion:"La Chaya vende más combos que Isla Bonita en noviembre: revisar por qué Isla Bonita bajó (en octubre fue la que más vendió)",estado:"Pendiente"},
+    {fase:"Punto 5 · Restaurantes",accion:"El Mesón: enviar el archivo de noviembre; la meta de temporada alta (173 pax por día) casi triplica lo de octubre (58.3)",estado:"Pendiente"},
+    {fase:"Punto 2 · Boletos",accion:"Enviar el reporte de la agencia de viajes de noviembre",estado:"Pendiente"},
+    {fase:"Punto 4 · Verduras/Food cost",accion:"Solo hay compras cargadas del 1 de noviembre: confirmar la carga del 2 al 8 nov",estado:"Pendiente"},
+    {fase:"Punto 6 · Tours",accion:"Casa Turquesa, Casazul y Casona de la Isla bajaron fuerte su venta de tours: reforzar la oferta en recepción",estado:"Pendiente"},
+    {fase:"Punto 6 · Tours",accion:"Revisar el precio/costo del helicóptero a El Mirador (margen 9%) y del traslado a Cayo Caulker (pérdida)",estado:"Pendiente"},
+    {fase:"Punto 7 · Eventos",accion:"No hay eventos confirmados del 22 al 30 nov: salir a vender la segunda mitad del mes",estado:"Pendiente"},
+    {fase:"Punto 7 · Eventos",accion:"Cobrar los 17 eventos ya realizados (Q152,446) y borrar del sistema la reunión de prueba del 15 nov",estado:"Pendiente"},
+    {fase:"Punto 8 · Página Web",accion:"TikTok ya trae más visitas que Google: medir qué contenido las genera",estado:"Pendiente"}
+    ];
+  if(state.rows.length && !confirm("¿Agregar los focos de la semana 1 de noviembre a la bitácora actual?"))return;
+  seeds.forEach(function(s){addRow(s);});});
+document.getElementById("expBtn").addEventListener("click",function(){
+  var blob=new Blob([JSON.stringify(state.rows,null,2)],{type:"application/json"});
+  var a=document.createElement("a");a.href=window.URL.createObjectURL(blob);a.download="seguimientos-noviembre-2026.json";a.click();});
+document.getElementById("impBtn").addEventListener("click",function(){document.getElementById("impFile").click();});
+document.getElementById("impFile").addEventListener("change",function(e){var f=e.target.files[0];if(!f)return;var fr=new FileReader();
+  fr.onload=function(){try{var arr=JSON.parse(fr.result);if(Array.isArray(arr)){state.rows=arr.map(norm);saveLocal();render();if(connected)state.rows.forEach(upsertCloud);}}catch(err){alert("Archivo no válido");}};fr.readAsText(f);});
+document.getElementById("printBtn").addEventListener("click",function(){window.print();});
+document.getElementById("clearBtn").addEventListener("click",function(){if(confirm("¿Limpiar toda la bitácora? Esto borra todas las filas.")){
+  var ids=state.rows.map(function(r){return r.id;});state.rows=[];saveLocal();render();if(connected)ids.forEach(deleteCloud);}});
+document.getElementById("connectBtn").addEventListener("click",function(){connect();});
+setInterval(function(){if(!connected)return;var ae=document.activeElement;if(ae&&ae.closest&&ae.closest("#rows"))return;
+  cloudGet().then(function(d){if(d&&d.ok){var cur=JSON.stringify(state.rows.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+    var fresh=(d.rows||[]).map(norm);var nx=JSON.stringify(fresh.map(function(r){return [r.id,r.fase,r.accion,r.responsable,r.fecha,r.estado,r.notas];}));
+    if(cur!==nx){state.rows=fresh;saveLocal();render();setStatus("ok","Actualizado desde la nube · "+hora());}}}).catch(function(){});},18000);
+
+/* tabs + road nav + bus */
+function showTab(name){document.querySelectorAll(".tab").forEach(function(t){t.classList.toggle("active",t.dataset.tab===name);});
+  document.querySelectorAll(".tabpanel").forEach(function(p){p.classList.toggle("active",p.id===name);});moveBus();}
+document.querySelectorAll(".tab").forEach(function(t){t.addEventListener("click",function(){showTab(t.dataset.tab);});});
+document.getElementById("stops").addEventListener("click",function(e){var g=e.target.closest(".stop-node");if(!g)return;
+  showTab("reporte");var el=document.getElementById(g.getAttribute("data-target"));if(el)el.scrollIntoView({behavior:"smooth"});});
+var sbus=document.getElementById("scroll-bus");
+function moveBus(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;var frac=max>0?Math.min(1,Math.max(0,(window.scrollY||h.scrollTop)/max)):0;
+  sbus.style.top=(110+frac*(window.innerHeight-150))+"px";}
+window.addEventListener("scroll",function(){requestAnimationFrame(moveBus);},{passive:true});window.addEventListener("resize",moveBus);
+
+/* init */
+loadLocal();render();moveBus();
+try{var u=localStorage.getItem(LS_URL)||DEFAULT_URL;if(u){document.getElementById("urlInput").value=u;connect();}else setStatus("off","Sin conexión — guardado local");}catch(e){setStatus("off","Sin conexión — guardado local");}
+})();
+</script>
+</body>
+</html>
